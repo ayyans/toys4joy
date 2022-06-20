@@ -79,6 +79,23 @@ class AdminController extends Controller
         }
     }
 
+    public function shorten_url($text)
+    {
+        $words = explode('-', $text);
+        $five_words = array_slice($words,0,12);
+        $String_of_five_words = implode('-',$five_words)."\n";
+
+        $String_of_five_words = preg_replace('~[^\pL\d]+~u', '-', $String_of_five_words);
+        $String_of_five_words = iconv('utf-8', 'us-ascii//TRANSLIT', $String_of_five_words);
+        $String_of_five_words = preg_replace('~[^-\w]+~', '', $String_of_five_words);
+        $String_of_five_words = trim($String_of_five_words, '-');
+        $String_of_five_words = preg_replace('~-+~', '-', $String_of_five_words);
+        $String_of_five_words = strtolower($String_of_five_words);
+        if (empty($String_of_five_words)) {
+          return 'n-a';
+        }
+        return $String_of_five_words;
+    }
 
     public function categories(){
         $categories = Category::orderBy('id','desc')->get();
@@ -103,6 +120,7 @@ class AdminController extends Controller
 
              $category = new Category;
              $category->category_name=$request->catname;
+             $category->url = $this->shorten_url($request->catname);
              $category->category_type=$request->catType;
              $category->cat_banner=$catBanner;
              $category->cat_icon=$catIcon;
@@ -189,14 +207,10 @@ class AdminController extends Controller
         if($exist_ct>0){
             return back()->with('Sub-category already exist');
         }else{            
-
-             $catIcon = time().'.'.$request->file('catIcon')->getClientOriginalName();
-             $request->catIcon->move(public_path('uploads'), $catIcon);
-
              $category = new SubCategory;
              $category->subcat_name=$request->catname;
-             $category->parent_cat=$request->parent_cat;            
-             $category->icon=$catIcon;
+             $category->parent_cat=$request->parent_cat;
+             $category->url = $this->shorten_url($request->catname);       
              $category->save();
              if($category==true){
                  return back()->with('success','Sub-category added successfull');
@@ -205,8 +219,6 @@ class AdminController extends Controller
                 return back()->with('error','something went wrong');
                 exit();
              }
-
-
         }
     }
 

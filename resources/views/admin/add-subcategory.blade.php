@@ -33,16 +33,6 @@
                             </select>
                             </div>
                         </div>
-                        
-                        <div class="row form-group">
-                            <div class="col-lg-3">
-                                <label>Icon</label>
-                            </div>
-                            <div class="col-lg-9">
-                                <input type="file" class="form-control categoriesfrm" name="catIcon"/>
-                            </div>
-                        </div>
-
                        <button type="btn" class="btn btn-success categorieSubmit">Submit</button>
                     </form>
                 </div>

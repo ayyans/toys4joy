@@ -53,13 +53,21 @@ class WebsiteController extends Controller
 
     // category wise product
 
-    public function listproducts(Request $request){
+    public function listproducts($url){
         $categories = $this->listCategory();
-        $catid = decrypt($request->catid);
-        $products = Product::where('category_id','=',$catid)->where('status','=','2')->orderBy('id','desc')->get();
+        $catid = Category::where('url' , $url)->get()->first();
+        $products = Product::where('category_id','=',$catid->id)->where('status','=','2')->orderBy('id','desc')->get();
         return view('website.product-list',compact('categories','products','catid'));
     }
 
+    public function listproductssubcategpry($main , $sub)
+    {
+        $categories = $this->listCategory();
+        $catid = Category::where('url' , $main)->get()->first();
+        $subcatid = SubCategory::where('url' , $sub)->get()->first();
+        $products = Product::where('category_id','=',$catid->id)->where('sub_cat','=',$subcatid->id)->where('status','=','2')->orderBy('id','desc')->get();
+        return view('website.product-list',compact('categories','products','catid'));
+    }
 
     // product details
 

@@ -37,14 +37,6 @@
                            
                         </div>
                         
-                        <div class="row form-group">
-                           
-                                <label>Icon</label>
-                            
-                                <input type="file" class="form-control categoriesfrm" name="catIcon"/>
-                           
-                        </div>
-
                        <button type="btn" class="btn btn-success categorieSubmit">Submit</button>
                     </form>
                 </div>
