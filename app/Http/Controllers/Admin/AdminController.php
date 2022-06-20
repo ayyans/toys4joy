@@ -567,7 +567,7 @@ public function deleteAttrVal(Request $request){
             $addproduct->brand_id=$request->brand_id;
             $addproduct->unit=$request->unit;
             $addproduct->min_qty=$request->min_qty;
-            $addproduct->tags=$request->tags;
+            // $addproduct->tags=$request->tags;
             $addproduct->barcode=$request->barcode;
             $addproduct->featured_img=$thumbnail_img;
             $addproduct->video_provider=$request->video_provider;
@@ -575,7 +575,7 @@ public function deleteAttrVal(Request $request){
             $addproduct->unit_price=$request->unit_price;
             $addproduct->discount=$request->discount;
             $addproduct->price_discount_unit=$request->discount_type;
-            $addproduct->points=$request->earn_point;
+            // $addproduct->points=$request->earn_point;
             $addproduct->qty=$request->current_qty;
             $addproduct->sku=$request->sku;
             $addproduct->short_desc=$request->shortdescription;
@@ -603,17 +603,17 @@ public function deleteAttrVal(Request $request){
                 $addProductImage->save();
             }
 
-            $attribute = $request->attribute;
-            $attrVal = $request->attrval;
-            $total_attr = count($attribute);
+            // $attribute = $request->attribute;
+            // $attrVal = $request->attrval;
+            // $total_attr = count($attribute);
 
-            for($i=0;$i<$total_attr;$i++){
-                $addattr = new ProdAttr;
-                $addattr->prod_id=$lastid;
-                $addattr->attr_id=$attribute[$i];
-                $addattr->attrval_id=$attrVal[$i];
-                $addattr->save();
-            }
+            // for($i=0;$i<$total_attr;$i++){
+            //     $addattr = new ProdAttr;
+            //     $addattr->prod_id=$lastid;
+            //     $addattr->attr_id=$attribute[$i];
+            //     $addattr->attrval_id=$attrVal[$i];
+            //     $addattr->save();
+            // }
 
             if($addproduct==true){
                 return back()->with('success','product added successfull');

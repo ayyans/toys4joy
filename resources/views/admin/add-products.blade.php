@@ -54,13 +54,13 @@
                                 <input type="number" lang="en" class="form-control addprodfrm" name="min_qty" value="1" min="1" required="" />
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label class="col-md-3 col-from-label">Tags <span class="text-danger">*</span></label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control aiz-tag-input" name="tags" placeholder="Type and hit enter to add a tag" />
                                 <small class="text-muted">This is used for search. Input those words by which cutomer can find this product.</small>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">Barcode</label>
@@ -138,7 +138,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mb-4">
+                <!-- <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0 h6">Product Variation</h5>
                     </div>
@@ -168,7 +168,7 @@
 
                         
                     </div>
-                </div>
+                </div> -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0 h6">Product price + stock</h5>
@@ -200,14 +200,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label class="col-md-3 col-from-label">
                                 Set Point
                             </label>
                             <div class="col-md-6">
                                 <input type="number" lang="en" min="0" value="0" step="1" placeholder="1" name="earn_point" class="form-control addprodfrm" />
                             </div>
-                        </div>
+                        </div> -->
 
                         <div id="show-hide-div">
                             <div class="form-group row">

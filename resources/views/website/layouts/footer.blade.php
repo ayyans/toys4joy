@@ -1,7 +1,7 @@
 <footer class="for-desktop">
 <div class="container-fluid">
-	<div class="footer">
-    	<div class="elements">
+    <div class="footer">
+        <div class="elements">
             <div class="d-flex why-us">
                 <a href="#">
                     <img src="{{asset('website/img/why-us.png')}}" class="why-text">
@@ -20,17 +20,18 @@
                 <a href="#"><img src="{{asset('website/img/ios.png')}}" class="app-store"></a>
                 <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
             </div>
-        	<ul class="d-flex social-media">
-            	<li><a href="#"><img src="{{asset('website/img/fb.png')}}"></a></li>
+            <ul class="d-flex social-media">
+                <li><a href="#"><img src="{{asset('website/img/fb.png')}}"></a></li>
                 <li><a href="#"><img src="{{asset('website/img/twitter.png')}}"></a></li>
                 <li><a href="#"><img src="{{asset('website/img/instagram.png')}}"></a></li>
                 <li><a href="#"><img src="{{asset('website/img/linkedin.png')}}"></a></li>
+                <li><a href="#"><img src="{{asset('website/img/tiktok.png')}}"></a></li>
             </ul>
             
         </div>
         <div class="elements">
             <div class="toll-free">
-                <a href="#"><img src="{{asset('website/img/picture9-removebg-preview.png')}}"><span>44414215</span></a>
+                <a href="#"><img src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
             </div>
         </div>
         <div class="elements">
@@ -41,6 +42,10 @@
     </div>
 </div> 
 </footer>
+
+
+
+
     
 <footer class="for-mobile">
 <div class="container-fluid">

@@ -396,18 +396,18 @@ $(document).ready(function() {
   Spectrum.prototype.convert = function(value) {
     return this.getStep(this.toStepping(value));
   };
-  /*	Every input option is tested and parsed. This'll prevent
-	endless validation in internal methods. These tests are
-	structured with an item for every option available. An
-	option can be marked as required by setting the 'r' flag.
-	The testing function is provided with three arguments:
-		- The provided value for the option;
-		- A reference to the options object;
-		- The name for the option;
+  /*  Every input option is tested and parsed. This'll prevent
+  endless validation in internal methods. These tests are
+  structured with an item for every option available. An
+  option can be marked as required by setting the 'r' flag.
+  The testing function is provided with three arguments:
+    - The provided value for the option;
+    - A reference to the options object;
+    - The name for the option;
 
-	The testing function returns false when an error is detected,
-	or true when everything is OK. It can also modify the option
-	object, to make sure all values can be correctly looped elsewhere. */
+  The testing function returns false when an error is detected,
+  or true when everything is OK. It can also modify the option
+  object, to make sure all values can be correctly looped elsewhere. */
   var defaultFormatter = {
     'to': function(value) {
       return value !== undefined && value.toFixed(2);
@@ -1973,6 +1973,38 @@ $(document).ready(function() {
         return passAll(options, formatFrom, input);
       };
     }
+    
+$(document).ready(function() {
+    
+  var audio  = new Audio('/toy4joy/audio/mixkit-ballon-blows-up-3071.wav');
+
+  $(".book-now a").mousedown(function() {
+    audio2.load();
+    audio2.play();
+  });
+  
+  $(".book-now a").mouseup(function() {
+    audio.load();
+    audio.play();
+  });
+});  
+    
+$(document).ready(function() {
+    
+  var audio  = new Audio('/toy4joy/audio/mixkit-vintage-telephone-ringtone-1356.wav');
+
+  $(".toll-free span").mousedown(function() {
+    audio2.load();
+    audio2.play();
+  });
+  
+  $(".toll-free span").mouseup(function() {
+    audio.load();
+    audio.play();
+  });
+});    
+    
+    
     /** @export */
   window.wNumb = wNumb;
 }());

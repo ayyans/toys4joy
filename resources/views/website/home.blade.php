@@ -8,7 +8,7 @@
                 <div class="for-mobile mbl-banner">
                     <ul class="nav nav-pills nav-fill">
                       <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Best Offers</a>
+                        <a class="nav-link" aria-current="page" href="#">Best Offers</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="#">Wish List</a>
@@ -61,34 +61,43 @@
         </div>
         <div class="col-3 right-col">
             <div class="right-sidebar">
-        	<ul class="product-list">
-            	<li><a href="#" class="active">Top <img src="{{asset('website/img/like.png')}}"></a></li>
+            <ul class="product-list">
+                <li>
+                    <a href="#" class="active">Top
+                    <div class="content-box">
+                        <div class="button1b">
+                          <img src="{{asset('website/img/like.png')}}">
+                          <div class="button1b-content">Like</div>
+                        </div>
+                    </div>
+                    </a>
+                </li>
                 <li><a href="#">Brands</a></li>
                 <li><a href="#">Best Sellers</a></li>
-                <li><a href="#">New Arrivals</a></li>
+                <li><a href="#">Best Offers</a></li>
             </ul>
                 <h1 class="for-mobile age-range-title">Select Age Range</h1>
-        	<div class="age-range">
-            	<h1 class="for-desktop">Age Range</h1>
+            <div class="age-range">
+                <h1 class="for-desktop">Age Range</h1>
                 <ul>
-                	<li>
-                    	<input type="checkbox" id="24months">
+                    <li>
+                        <input type="checkbox" id="24months">
                         <label for="24months">Birth to 24 Months</label>
                     </li>
                     <li>
-                    	<input type="checkbox" id="2-4years">
+                        <input type="checkbox" id="2-4years">
                         <label for="2-4years">02 to 04 Years</label>
                     </li>
                     <li>
-                    	<input type="checkbox" id="5-7years">
+                        <input type="checkbox" id="5-7years">
                         <label for="5-7years">05 to 07 Years</label>
                     </li>
                     <li>
-                    	<input type="checkbox" id="8-13years">
+                        <input type="checkbox" id="8-13years">
                         <label for="8-13years">08 to 13 Years</label>
                     </li>
                     <li>
-                    	<input type="checkbox" id="14years">
+                        <input type="checkbox" id="14years">
                         <label for="14years">14 Years & Up</label>
                     </li>
                 </ul>
@@ -102,7 +111,7 @@
                     <div class="caption">
                       <span id="slider-range-value2"></span>
                     </div>
-                    <div class="caption-btn"><button class="go">Go</button></div>
+                    <div class="caption-btn"><button class="go">G0</button></div>
                   </div>
                  
                       <form>
@@ -114,7 +123,7 @@
                     
             </div>
             <div class="upload-img">
-            	<div class="tooltip">
+                <div class="tooltip">
                     <a href="#">
                         <img src="{{asset('website/img/upload-image.png')}}" class="img-fluid">
                         <span class="tooltiptext">Upload image of the product you are looking for.</span>
