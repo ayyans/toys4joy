@@ -46,6 +46,7 @@ class RegisterController extends Controller
                $savecustomers->name=$request->name;
                $savecustomers->email=$request->email;
                $savecustomers->mobile=$mobile_with_code;
+               $savecustomers->status=2;
                $savecustomers->password=Hash::make($request->password);
               $savecustomers->save();
               if($savecustomers==true){

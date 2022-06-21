@@ -64,6 +64,10 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     Route::post('/corporate-coupon','WebsiteController@corporate_coupon')->name('corporate_coupon');
     Route::post('/add-card-info-process','WebsiteController@Usercardinfo')->name('Usercardinfo');
     Route::post('/place-order-process','WebsiteController@placeorder')->name('placeorder');
+
+
+    Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
+
     Route::get('/order-history','WebsiteController@orderhistory')->name('orderhistory');
     Route::get('/my-points','WebsiteController@yourpoints')->name('yourpoints');
     Route::get('/gift-cards','WebsiteController@giftcard')->name('giftcard');

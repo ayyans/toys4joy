@@ -504,6 +504,11 @@ class WebsiteController extends Controller
     }
 
 
+    public function ordeconferm()
+    {
+        echo "string";
+    }
+
 
     // customer order history 
 
