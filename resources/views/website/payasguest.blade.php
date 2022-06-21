@@ -9,7 +9,7 @@
                 <div class="cart-image"><img src="{{asset('products/'.$products->featured_img)}}"/></div>
                 <div class="product-detail">
                     <h2 class="title">{{$products->title}}</h2>
-                    <h4 class="price">AED {{$products->unit_price}}</h4>
+                    <h4 class="price">QAR {{$products->unit_price}}</h4>
                     <div class="qty">Quantity : {{$fnlqty}}</div>
                     <input type="hidden" value="{{$products->unit_price}}" id="initprice" />
                     <input type="hidden" value="{{$fnlqty}}" id="fnlqty" />
@@ -145,7 +145,7 @@
         var fnlQty= $("#fnlqty").val();
         var total_amount = parseInt(price)*parseInt(fnlQty);
         $("#payment_amount").val(total_amount);
-        $("#total_amount").text('AED' +total_amount);
+        $("#total_amount").text('QAR' +total_amount);
     })
 </script>
 

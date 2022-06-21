@@ -17,7 +17,7 @@
                 <div class="cart-image"><img src="{{asset('products/'.$product->featured_img)}}"/></div>
                 <div class="product-detail">
                     <h2 class="title">{{$product->title}}</h2>
-                    <h4 class="price">AED {{$product->unit_price}}</h4>
+                    <h4 class="price">QAR {{$product->unit_price}}</h4>
                     <div class="qty">Quantity : {{$product->cartQty}}</div>
                     <div class="d-flex rmv-or-edit">
                         <div class="remove icon"><a href="javascript:void(0)" onclick="removecart({{$product->crtid}})"><img src="{{asset('website/img/delete.png')}}"/></a></div>
@@ -92,24 +92,29 @@ function encrypt_e($input, $ky) {
  $sadad_checksum_array = array(); 
  $sadad__checksum_data = array(); 
  $txnDate = date('Y-m-d H:i:s'); 
- $email ='ahsinjavaid890@gmail.com'; 
+ $email =auth::user()->email; 
  $secretKey = 'ewHgg8NgyY5zo59M'; 
  $merchantID = '7288803'; 
- $sadad_checksum_array['merchant_id'] = $merchantID;  $sadad_checksum_array['ORDER_ID'] = '4641'; 
- $sadad_checksum_array['WEBSITE'] = 'http://phplaravel-788354-2698725.cloudwaysapps.com/';  $sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
- $sadad_checksum_array['CUST_ID'] = $email; 
+ $sadad_checksum_array['merchant_id'] = $merchantID;  
+ $sadad_checksum_array['ORDER_ID'] = '4641'; 
+ $sadad_checksum_array['WEBSITE'] = 'http://phplaravel-788354-2698725.cloudwaysapps.com/';  
+ $sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
+ $sadad_checksum_array['CUST_ID'] = auth::user()->id; 
  $sadad_checksum_array['EMAIL'] = $email; 
- $sadad_checksum_array['MOBILE_NO'] = '999999999';  $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  $sadad_checksum_array['CALLBACK_URL'] = 
- 'http://phplaravel-788354-2698725.cloudwaysapps.com/ordeconferm'; 
+ $sadad_checksum_array['MOBILE_NO'] = '999999999';  
+ $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
+ $sadad_checksum_array['CALLBACK_URL'] = 'http://phplaravel-788354-2698725.cloudwaysapps.com/'; 
  $sadad_checksum_array['txnDate'] = $txnDate; 
- $sadad_checksum_array['productdetail'] = 
- array( 
- array( 
- 'order_id'=> '4641', 
- 'amount'=>'50', 
- 'quantity'=>'1',
-) 
-); 
+
+foreach ($products as $product) {
+    $json_decoded = json_decode($product);
+    $productsasdsadsadsadsadsadsad[] = array('order_id' => 1234, 'itemname' => $product->title, 'amount' =>$product->unit_price, 'quantity' => $product->cartQty);
+}
+
+
+ $sadad_checksum_array['productdetail'] = $productsasdsadsadsadsadsadsad;
+
+
   
         $sadad__checksum_data['postData'] = $sadad_checksum_array;  
 $sadad__checksum_data['secretKey'] = $secretKey; 
@@ -170,7 +175,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
             <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
         </div>
         <!-- <div class="col-6 member-col right text-center">
-            <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> AED</div>
+            <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
             <input type="hidden" id="total_amt" value="{{$total_price}}" />
             <input type="hidden" id="prev_amt" value="{{$total_price}}"/>
             <div class="input-security">

@@ -157,9 +157,9 @@
                                 var cartsize = js_data.msg.length;
                               $.each(js_data.msg,function(a,v){
                                 total_price += parseInt(v.cartQty)*parseInt(v.unit_price);
-                                    $("#cartdetailsheader").append('<div class="d-flex added-products"> <div class="pro-image"><img src="{{asset("products")}}/'+v.featured_img+'"/></div><div class="product-detail"> <h2 class="title">'+v.title+'</h2> <h4 class="price">AED '+v.unit_price+'</h4> <div class="d-flex rmv-or-edit"> <div class="qty"><input type="number" value="'+v.cartQty+'" id="quantity" name="quantity" min="1" max="'+v.qty+'" onchange="updateQty('+v.crtid+',this.value)"></div><div class="remove icon"><a href="javascript:void(0)" onclick="removecart('+v.crtid+')"><img src="{{asset("website/img/delete.png")}}"/></a></div></div></div></div>')    
+                                    $("#cartdetailsheader").append('<div class="d-flex added-products"> <div class="pro-image"><img src="{{asset("products")}}/'+v.featured_img+'"/></div><div class="product-detail"> <h2 class="title">'+v.title+'</h2> <h4 class="price">QAR '+v.unit_price+'</h4> <div class="d-flex rmv-or-edit"> <div class="qty"><input type="number" value="'+v.cartQty+'" id="quantity" name="quantity" min="1" max="'+v.qty+'" onchange="updateQty('+v.crtid+',this.value)"></div><div class="remove icon"><a href="javascript:void(0)" onclick="removecart('+v.crtid+')"><img src="{{asset("website/img/delete.png")}}"/></a></div></div></div></div>')    
                               })
-                              $("#subtotal_price").text(total_price+' AED'); 
+                              $("#subtotal_price").text(total_price+' QAR'); 
                              var cnt = $("#cartdetailsheader").size;
                               $("#cartno").text(cartsize);   
                         }else{

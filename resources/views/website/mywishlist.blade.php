@@ -33,7 +33,7 @@
                       </div>
                     </td>
                     <td><div class="img-box"><a href="{{route('website.productDetails',[encrypt($wishlist->category_id),encrypt($wishlist->id)])}}"><img src="{{asset('products/'.$wishlist->featured_img)}}"/></a></div></td>
-                    <td class="price"><span>{{$wishlist->unit_price}} AED</span></td>
+                    <td class="price"><span>{{$wishlist->unit_price}} QAR</span></td>
                     <td class="delete"><div class="rmv-icon"><a href="{{route('website.removeWishlist',[encrypt($wishlist->wish_id)])}}"><img src="{{asset('website/img/delete-product.png')}}"/></a></div></td>
                     <td><button class="btn btn-success addtocartBtn{{$wishlist->id}}" onclick="addtocart({{$wishlist->id}},this.getAttribute('data'),{{$wishlist->unit_price}})" >Add to cart</button></td>
                 </tr>
@@ -45,7 +45,7 @@
                 <tr>
                     <td colspan="2">Total Price</td>
                    
-                    <td colspan="4">{{$total_price}} AED</td>
+                    <td colspan="4">{{$total_price}} QAR</td>
   
                 </tr>
               </tfoot>    

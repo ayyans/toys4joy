@@ -81,7 +81,7 @@
                     <th>product</th>
                     <th>image</th>
                     <th>Qty</th> 
-                    <th>Total Amount (in AED)</th>                                                                                  
+                    <th>Total Amount (in QAR)</th>                                                                                  
                                       
                 </tr>
             </thead>

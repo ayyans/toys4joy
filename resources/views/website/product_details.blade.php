@@ -60,7 +60,7 @@
                         </div>
                         <p>Be the first one to review this product</p>
                     </div>
-                    <h2 class="price"> AED {{$products->unit_price}}</h2>
+                    <h2 class="price"> QAR {{$products->unit_price}}</h2>
                     <div class="earn-points"><h5>Earn Reward Points Worth {{$products->points}} Points<span>(Only for registered users)</span></h5></div>
                     <div class="suitable-age"><img src="{{asset('website/img/boy.svg')}}"/> <span>Suitable for age 3+ Years </span></div>
                     <p class="product-desc"><span>Description</span> : {!! $products->long_desc !!}</p>
