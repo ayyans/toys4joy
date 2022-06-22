@@ -193,9 +193,6 @@ class WebsiteController extends Controller
     public function guestthank(Request $request){
         $allparms =  $request->all();
 
-        echo $allparms['STATUS'];exit;
-
-
         if($allparms['STATUS'] == 'TXN_SUCCESS')
         {
             $cust_id = Auth::guard('cust')->user()->id;
