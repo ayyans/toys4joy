@@ -190,7 +190,13 @@ class WebsiteController extends Controller
 
     // guest thanks page
 
-    public function guestthank(){
+    public function guestthank(Request $request){
+
+
+        print_r($request);
+
+        exit;
+
         return view('website.guestthanks');
     }
 
