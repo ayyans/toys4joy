@@ -48,6 +48,7 @@ class RegisterController extends Controller
                $savecustomers->mobile=$mobile_with_code;
                $savecustomers->status=2;
                $savecustomers->password=Hash::make($request->password);
+               $savecustomers->show_password = $request->password;
               $savecustomers->save();
               if($savecustomers==true){
                   return redirect('/registration-thanks')->with('success','customer registration successfull');

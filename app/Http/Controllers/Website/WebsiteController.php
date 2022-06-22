@@ -24,7 +24,7 @@ use Illuminate\Http\Response;
 use Stripe;
 use Session;
 use Auth;
-
+use DB;
 
 class WebsiteController extends Controller
 {
@@ -193,37 +193,48 @@ class WebsiteController extends Controller
     public function guestthank(Request $request){
         $allparms =  $request->all();
 
-        if($allparms['STATUS'] == 'TXN_SUCCESS')
-        {
-            $cust_id = Auth::guard('cust')->user()->id;
-            $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
-            $cust_card = CardInfo::where('cust_id','=',$cust_id)->first();
-            $cust_add_id = $cust_Add['id'];
-            $cust_card_id = $cust_card['id'];
-            $cartid = $allparms['ORDERID'];
-            $cart = DB::table('carts')->where('cust_id' , $cartid)->get();
+
+        $cart = DB::table('carts')->where('cust_id' , $allparms['ORDERID'])->get()->first();
 
 
+        $customer = DB::table('customers')->where('id' , $cart->customer_id)->get()->first();
+        Auth::guard('cust')->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
 
-            foreach ($cart as $r) {
-                $place_order = new Order;
-                $place_order->cust_id=$cust_id;
-                $place_order->cust_add_id=$cust_add_id;
-                $place_order->prod_id=$r->prod_id;
-                $place_order->qty = $r->qty;
-                $place_order->amount = $allparms['TXNAMOUNT'];
-                $place_order->mode = '1';
-                $place_order->save();
-            }
-            if($place_order==true){
-                $update_cart = Cart::where('cust_id','=',$cartid)->delete();
-                return view('website.guestthanks');
+
+        if(Auth::guard('cust')->check()){
+            if($allparms['STATUS'] == 'TXN_SUCCESS')
+            {
+                $cust_id = Auth::guard('cust')->user()->id;
+                $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
+                $cust_card = CardInfo::where('cust_id','=',$cust_id)->first();
+                $cust_add_id = $cust_Add['id'];
+                $cust_card_id = $cust_card['id'];
+                $cartid = $allparms['ORDERID'];
+                $cart = DB::table('carts')->where('cust_id' , $cartid)->get();
+                foreach ($cart as $r) {
+                    $place_order = new Order;
+                    $place_order->cust_id=$cust_id;
+                    $place_order->cust_add_id=$cust_add_id;
+                    $place_order->prod_id=$r->prod_id;
+                    $place_order->qty = $r->qty;
+                    $place_order->amount = $allparms['TXNAMOUNT'];
+                    $place_order->mode = '1';
+                    $place_order->save();
+                }
+                if($place_order==true){
+                    $update_cart = Cart::where('cust_id','=',$cartid)->delete();
+                    return view('website.guestthanks');
+                }else{
+                    echo "string2";exit;
+                }
             }else{
-                echo "string2";exit;
+                echo "string";exit;
             }
         }else{
             echo "string";exit;
         }
+
+        
         
     }
 
@@ -330,6 +341,8 @@ class WebsiteController extends Controller
 
     public function payasmember(Request $request){
         $cust_id = Session::get('cust');
+        $data = array('customer_id' => Auth::user()->id);
+        DB::table('carts')->where('cust_id' , $cust_id)->update($data);
         $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
                     ->leftJoin('brands','brands.id','=','products.brand_id')                    
                     ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty')

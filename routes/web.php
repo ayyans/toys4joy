@@ -49,9 +49,10 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::post('/update-cart','WebsiteController@updateQTY')->name('updateQTY');
     Route::post('/discount-coupon','WebsiteController@discount_coupon')->name('discount_coupon');
     Route::post('/giftcard-coupon','WebsiteController@giftcard_coupon')->name('giftcard_coupon');
-    Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
+    
 });
 Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth:cust'])->group(function(){
+    Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
     Route::get('/checkout','WebsiteController@payasmember')->name('payasmember');
     Route::get('/my-account','WebsiteController@myaccount')->name('myaccount');
     Route::get('/add-card','WebsiteController@addCardInfo')->name('addCardInfo');

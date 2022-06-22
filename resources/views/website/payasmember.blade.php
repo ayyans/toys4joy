@@ -97,19 +97,19 @@ if(Auth::guard('cust')->check())
 {
     $email = Auth::user()->email;
 }else{
-    $email = 'info@example.com';
+    $email = 'ahsinjavaid890@gmail.com';
 }
  $secretKey = 'ewHgg8NgyY5zo59M'; 
  $merchantID = '7288803'; 
  $sadad_checksum_array['merchant_id'] = $merchantID;  
- $sadad_checksum_array['ORDER_ID'] = '4641'; 
- $sadad_checksum_array['WEBSITE'] = 'http://phplaravel-788354-2698725.cloudwaysapps.com/';  
+ $sadad_checksum_array['ORDER_ID'] = Session::get('cust'); 
+ $sadad_checksum_array['WEBSITE'] = url('');  
  $sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
  $sadad_checksum_array['CUST_ID'] = $email; 
  $sadad_checksum_array['EMAIL'] = $email; 
  $sadad_checksum_array['MOBILE_NO'] = '999999999';  
  $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
- $sadad_checksum_array['CALLBACK_URL'] = 'http://phplaravel-788354-2698725.cloudwaysapps.com/orderconferm'; 
+ $sadad_checksum_array['CALLBACK_URL'] = url('orderconferm'); 
  $sadad_checksum_array['txnDate'] = $txnDate; 
 
 foreach ($products as $product) {
