@@ -1294,7 +1294,7 @@ transition: all 0.2s ease-in-out;
     margin-top: 10px;
 }
 .input-security + button, .rate-us-box button {
-    background: url('img/member.png');
+    background: url('../img/member.png');
     border: 0;
     background-size: cover;
     padding: 22px 40px;
@@ -1469,7 +1469,7 @@ transition: all 0.2s ease-in-out;
 }
 .upload-doc button,
 .account .form-group button {
-    background: url(img/blue-bg.png);
+    background: url(../img/blue-bg.png);
     border: 0;
     background-size: cover;
     padding: 22px 76px;
@@ -1600,7 +1600,7 @@ transition: all 0.2s ease-in-out;
 #my-account .ac-btn.row {align-items: center;}
 #my-account .content-block .my-profile a,
 #my-account .content-block .siblings a {
-    background: url(img/blue-btn-bg.png);
+    background: url(../img/blue-btn-bg.png);
     border: 0;
     background-position: center;
     background-repeat: no-repeat;
@@ -1617,13 +1617,13 @@ transition: all 0.2s ease-in-out;
 .add-more a,
 .selected-products .button-area .btn.submit a,
 .pinkbg-img a{
-    background: url(img/pink-btn-bg.png);
+    background: url(../img/pink-btn-bg.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
 }
 .guest a{
-    background: url(img/blue-bg.png);
+    background: url(../img/blue-bg.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -1633,13 +1633,13 @@ transition: all 0.2s ease-in-out;
     background-image: none;
 }
 .member a, .cash-on-delivery a{
-    background: url(img/green-btn-bg.png);
+    background: url(../img/green-btn-bg.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
 }
 .yellowbg-img a{
-    background: url(img/yellow-bg-btn.png);
+    background: url(../img/yellow-bg-btn.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -2977,7 +2977,7 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     color: #23a24d;
 }
 .attach-area button {
-    background: url(img/pink-btn-bg.png);
+    background: url(../img/pink-btn-bg.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
