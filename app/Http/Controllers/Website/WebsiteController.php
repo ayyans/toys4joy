@@ -208,7 +208,6 @@ class WebsiteController extends Controller
                 $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
                 $cust_card = CardInfo::where('cust_id','=',$cust_id)->first();
                 $cust_add_id = $cust_Add['id'];
-                $cust_card_id = $cust_card['id'];
                 $cartid = $allparms['ORDERID'];
                 $cart = DB::table('carts')->where('cust_id' , $cartid)->get();
                 foreach ($cart as $r) {
@@ -241,7 +240,10 @@ class WebsiteController extends Controller
 
     // add to cart
 
-
+    public function verificationotp()
+    {
+        return view('website.verifyotp');
+    }
     
     public function addTocart(Request $request){
         $cust = Session::get('cust');

@@ -1,7 +1,7 @@
 @extends('website.layouts.master')
 @section('content')
 
-<main id="pay-as-member">
+<main id="pay-as-member-page">
 <div class="container-fluid">
     <div class="row">
        

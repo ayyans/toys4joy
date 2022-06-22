@@ -53,6 +53,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
 });
 Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth:cust'])->group(function(){
     Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
+    Route::get('/verification','WebsiteController@verificationotp')->name('otp');
     Route::get('/checkout','WebsiteController@payasmember')->name('payasmember');
     Route::get('/my-account','WebsiteController@myaccount')->name('myaccount');
     Route::get('/add-card','WebsiteController@addCardInfo')->name('addCardInfo');

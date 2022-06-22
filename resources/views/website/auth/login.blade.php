@@ -33,7 +33,7 @@
         </div>
     	<div class="col-9 form-col">
             <div class="for-desktop">
-            @include('website.layouts.user_menu') 
+                @include('website.layouts.user_menu') 
             </div>
             
             <div class="form-group">

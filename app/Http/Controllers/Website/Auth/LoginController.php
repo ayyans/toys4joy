@@ -37,10 +37,13 @@ class LoginController extends Controller
         $this->validator($request);
     
         if(Auth::guard('cust')->attempt(['email'=>$data['email'],'password'=>$data['password']],$request->filled('remember'))){
-            //Authentication passed...
-            return redirect()
-                ->intended('/')
-                ->with('success','You are Logged in as customer!');
+
+            if(Auth::guard('cust')->user()->status == 1)
+            {
+                return redirect()->route('website.otp')->with('warning','Please Enter Code!');
+            }
+
+            return redirect()->intended('/')->with('success','You are Logged in as customer!');
         }
     
         //Authentication failed...
@@ -54,13 +57,8 @@ class LoginController extends Controller
      */
     public function logout()
     {
-      //logout the admin...
-
       Auth::guard('cust')->logout();
-      return redirect()
-          ->route('website.login')
-          ->with('success','customer has been logged out!');
-
+      return redirect()->route('website.login')->with('success','customer has been logged out!');
     }
 
     /**
