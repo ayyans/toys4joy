@@ -196,14 +196,14 @@ class WebsiteController extends Controller
         echo $allparms['STATUS'];exit;
 
 
-        if($allparms->STATUS == 'TXN_SUCCESS')
+        if($allparms['STATUS'] == 'TXN_SUCCESS')
         {
             $cust_id = Auth::guard('cust')->user()->id;
             $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
             $cust_card = CardInfo::where('cust_id','=',$cust_id)->first();
             $cust_add_id = $cust_Add['id'];
             $cust_card_id = $cust_card['id'];
-            $cartid = $allparms->ORDERID;
+            $cartid = $allparms['ORDERID'];
             $cart = DB::table('carts')->where('cust_id' , $cartid)->get();
 
 
@@ -214,7 +214,7 @@ class WebsiteController extends Controller
                 $place_order->cust_add_id=$cust_add_id;
                 $place_order->prod_id=$r->prod_id;
                 $place_order->qty = $r->qty;
-                $place_order->amount = $allparms->TXNAMOUNT;
+                $place_order->amount = $allparms['TXNAMOUNT'];
                 $place_order->mode = '1';
                 $place_order->save();
             }
