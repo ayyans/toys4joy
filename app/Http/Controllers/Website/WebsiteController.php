@@ -79,15 +79,14 @@ class WebsiteController extends Controller
 
     // product details
 
-    public function productDetails(Request $request){
+    public function productDetails($url){
         $categories = $this->listCategory();
-        $catid = decrypt($request->catid);
-        $prodid = decrypt($request->prodid);
         $products = Product::leftJoin('brands','brands.id','=','products.brand_id')                    
                     ->select('products.*','brand_name','logo')
-                    ->where('products.id','=',$prodid)
+                    ->where('products.url','=',$url)
                     ->first();
-          $gallery = ProductImage::where('prod_id','=',$prodid)->orderBy('id','desc')->get();          
+        $catid = $products->category_id;
+        $gallery = ProductImage::where('prod_id','=',$products->id)->orderBy('id','desc')->get();          
         return view('website.product_details',compact('categories','catid','products','gallery'));
     }
 

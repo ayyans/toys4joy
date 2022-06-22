@@ -57,7 +57,7 @@
                 <div class="vertical-shake continue-shopping"><a href="javascript:void(0)">Continue Shopping</a></div>
                 <div class="d-flex pay-as">
                     <div class="member"><a href="{{route('website.payasmember')}}">Proceed to checkout</a></div>
-                    <div class="guest"><a href="javascript:void(0)">Pay as Guest</a></div>
+                    <div class="guest"><a href="{{route('website.payasguest')}}">Pay as Guest</a></div>
                 </div>
             </div>
 
