@@ -109,7 +109,7 @@ if(Auth::guard('cust')->check())
  $sadad_checksum_array['EMAIL'] = $email; 
  $sadad_checksum_array['MOBILE_NO'] = '999999999';  
  $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
- $sadad_checksum_array['CALLBACK_URL'] = 'http://phplaravel-788354-2698725.cloudwaysapps.com/guest-thanks'; 
+ $sadad_checksum_array['CALLBACK_URL'] = 'http://phplaravel-788354-2698725.cloudwaysapps.com/orderconferm'; 
  $sadad_checksum_array['txnDate'] = $txnDate; 
 
 foreach ($products as $product) {

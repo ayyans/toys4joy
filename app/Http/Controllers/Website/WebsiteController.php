@@ -191,15 +191,39 @@ class WebsiteController extends Controller
     // guest thanks page
 
     public function guestthank(Request $request){
+        $allparms =  $request->all();
+        if($allparms->STATUS == 'TXN_SUCCESS')
+        {
+            $cust_id = Auth::guard('cust')->user()->id;
+            $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
+            $cust_card = CardInfo::where('cust_id','=',$cust_id)->first();
+            $cust_add_id = $cust_Add['id'];
+            $cust_card_id = $cust_card['id'];
+            $cartid = $allparms->ORDERID;
+            $cart = DB::table('carts')->where('cust_id' , $cartid)->get();
 
 
-        $test =  $request->all();
 
-        print_r($test);
-
-        exit;
-
-        return view('website.guestthanks');
+            foreach ($cart as $r) {
+                $place_order = new Order;
+                $place_order->cust_id=$cust_id;
+                $place_order->cust_add_id=$cust_add_id;
+                $place_order->prod_id=$r->prod_id;
+                $place_order->qty = $r->qty;
+                $place_order->amount = $allparms->TXNAMOUNT;
+                $place_order->mode = '1';
+                $place_order->save();
+            }
+            if($place_order==true){
+                $update_cart = Cart::where('cust_id','=',$cartid)->delete();
+                return view('website.guestthanks');
+            }else{
+                echo "string2";exit;
+            }
+        }else{
+            echo "string";exit;
+        }
+        
     }
 
 

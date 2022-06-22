@@ -35,7 +35,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/pay-as-guest','WebsiteController@payasguest')->name('payasguest');
     Route::post('/stripe','WebsiteController@StripePayment')->name('StripePayment');
     Route::post('/guest-details','WebsiteController@saveCustDetails')->name('saveCustDetails');
-    Route::post('/guest-thanks','WebsiteController@guestthank')->name('guestthank');
+    Route::post('/orderconferm','WebsiteController@guestthank')->name('guestthank');
     Route::get('/registration-thanks','WebsiteController@registrationThank')->name('registrationThank');
     Route::get('/share-wishlist/{cust_id}','WebsiteController@sharewishlist')->name('sharewishlist');
 });
