@@ -193,7 +193,9 @@ class WebsiteController extends Controller
     public function guestthank(Request $request){
 
 
-        print_r($request);
+        $test =  $request->all();
+
+        print_r($test);
 
         exit;
 
