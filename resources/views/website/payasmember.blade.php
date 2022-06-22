@@ -103,13 +103,13 @@ if(Auth::guard('cust')->check())
  $merchantID = '7288803'; 
  $sadad_checksum_array['merchant_id'] = $merchantID;  
  $sadad_checksum_array['ORDER_ID'] = '4641'; 
- $sadad_checksum_array['WEBSITE'] = 'https://toys4joy.com/';  
+ $sadad_checksum_array['WEBSITE'] = 'http://phplaravel-788354-2698725.cloudwaysapps.com/';  
  $sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
  $sadad_checksum_array['CUST_ID'] = $email; 
  $sadad_checksum_array['EMAIL'] = $email; 
  $sadad_checksum_array['MOBILE_NO'] = '999999999';  
  $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
- $sadad_checksum_array['CALLBACK_URL'] = 'https://toys4joy.com/'; 
+ $sadad_checksum_array['CALLBACK_URL'] = 'http://phplaravel-788354-2698725.cloudwaysapps.com/guest-thanks'; 
  $sadad_checksum_array['txnDate'] = $txnDate; 
 
 foreach ($products as $product) {
