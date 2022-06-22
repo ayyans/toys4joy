@@ -88,20 +88,12 @@
     </div>
 </div> 
 </footer>
-@if(Auth::guard('cust')->check())
-<input type="hidden" name="cust_id" value="{{Auth::guard('cust')->user()->id}}" id="cust_id" />
-@else
-<input type="hidden" name="cust_id" value="0" id="cust_id" />
-@endif
+<input type="hidden" name="cust_id" value="{{ Session::get('cust') }}" id="cust_id" />
 
 @include('website.layouts.loader')
 @push('otherscript')
 <script>
    function addtocart(prod_id,qty,amt){
-       var cust_id = $("#cust_id").val();
-       if(cust_id==0){
-           window.location.href="{{route('website.login')}}";
-       }else{
         var form =new FormData();
         form.append('prod_id',prod_id);
         form.append('quantity',qty);
@@ -130,7 +122,6 @@
                 }
             }
         })
-    }
    }
 </script>
 

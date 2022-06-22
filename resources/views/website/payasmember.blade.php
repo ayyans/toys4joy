@@ -92,18 +92,24 @@ function encrypt_e($input, $ky) {
  $sadad_checksum_array = array(); 
  $sadad__checksum_data = array(); 
  $txnDate = date('Y-m-d H:i:s'); 
- $email =auth::user()->email; 
+
+if(Auth::guard('cust')->check())
+{
+    $email = Auth::user()->email;
+}else{
+    $email = 'info@example.com';
+}
  $secretKey = 'ewHgg8NgyY5zo59M'; 
  $merchantID = '7288803'; 
  $sadad_checksum_array['merchant_id'] = $merchantID;  
  $sadad_checksum_array['ORDER_ID'] = '4641'; 
- $sadad_checksum_array['WEBSITE'] = 'http://phplaravel-788354-2698725.cloudwaysapps.com/';  
+ $sadad_checksum_array['WEBSITE'] = 'https://toys4joy.com/';  
  $sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
- $sadad_checksum_array['CUST_ID'] = auth::user()->id; 
+ $sadad_checksum_array['CUST_ID'] = $email; 
  $sadad_checksum_array['EMAIL'] = $email; 
  $sadad_checksum_array['MOBILE_NO'] = '999999999';  
  $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
- $sadad_checksum_array['CALLBACK_URL'] = 'http://phplaravel-788354-2698725.cloudwaysapps.com/'; 
+ $sadad_checksum_array['CALLBACK_URL'] = 'https://toys4joy.com/'; 
  $sadad_checksum_array['txnDate'] = $txnDate; 
 
 foreach ($products as $product) {
@@ -154,15 +160,6 @@ $action_url = 'https://sadadqa.com/webpurchase';
         . implode('', $sAry1) . '
         </form>';
 ?>
-
-
-
-
-
-
-
-
-    <button onclick="submitpayementform()">Pay as Member</button>
 <script type="text/javascript">
     function submitpayementform()
     {
@@ -173,24 +170,16 @@ $action_url = 'https://sadadqa.com/webpurchase';
 
 
             <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
+            <div class="yellowbg-img cash-on-delivery">
+                <img src="{{asset('website/img/cash-on-delievery.png')}}"/>
+                <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD">Cash or Credit<br>on Delivery</a>
+            </div>
         </div>
-        <!-- <div class="col-6 member-col right text-center">
+   <!--      <div class="col-6 member-col right text-center">
             <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
             <input type="hidden" id="total_amt" value="{{$total_price}}" />
             <input type="hidden" id="prev_amt" value="{{$total_price}}"/>
-            <div class="input-security">
-            	<h2>Security Code</h2>
-				<div class="d-flex">               
-                	<input type="text">
-                	<img src="{{asset('website/img/cvv.png')}}"/>
-                </div>
-                <label>Enter the security code</label>
-            </div>
-            <button>Pay as Member</button>
-            <div class="yellowbg-img cash-on-delivery">
-            	<img src="{{asset('website/img/cash-on-delievery.png')}}"/>
-                <a href="javascript:void(0)" id="cashOnD">Cash or Credit<br>on Delivery</a>
-            </div>
+           
         </div> -->
     </div>
 </div>

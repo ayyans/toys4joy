@@ -19,11 +19,7 @@
             </div>
             <img src="{{asset('website/img/location.png')}}" class="map-pin">
             <div class="cart-icon">
-                @if(Auth::guard('cust')->check())
                 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span id="cartno">0</span><img src="{{asset('website/img/cart.png')}}" class="cart"></button>
-                @else
-                <button class="btn btn-primary" type="button" ><span id="">0</span><img src="{{asset('website/img/cart.png')}}" class="cart"></button>
-                @endif
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close">Close</button>

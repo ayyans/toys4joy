@@ -45,28 +45,42 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
    
 });
 
-Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth:cust'])->group(function(){
-    Route::get('/my-account','WebsiteController@myaccount')->name('myaccount');
+
+Route::name('website.')->namespace('App\Http\Controllers\Website')->group(function(){
     Route::post('/addtocart','WebsiteController@addTocart')->name('addTocart');
     Route::post('/header-cart','WebsiteController@headerCart')->name('headerCart');
     Route::get('/cart','WebsiteController@cartpage')->name('cartpage');
     Route::post('/remove-cart','WebsiteController@removedcartProd')->name('removedcartProd');
     Route::post('/update-cart','WebsiteController@updateQTY')->name('updateQTY');
     Route::get('/checkout','WebsiteController@payasmember')->name('payasmember');
+    Route::post('/discount-coupon','WebsiteController@discount_coupon')->name('discount_coupon');
+    Route::post('/giftcard-coupon','WebsiteController@giftcard_coupon')->name('giftcard_coupon');
+    Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
+});
+
+
+
+
+
+
+Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth:cust'])->group(function(){
+    Route::get('/my-account','WebsiteController@myaccount')->name('myaccount');
+    
+    
+    
     Route::get('/add-card','WebsiteController@addCardInfo')->name('addCardInfo');
     Route::get('/add-address-info','WebsiteController@addAddressInfo')->name('addAddressInfo');
     Route::post('/add-wishlist','WebsiteController@addWishlist')->name('addWishlist');  
     Route::get('/my-wishlist/{cust_id}','WebsiteController@mywishlist')->name('mywishlist');    
     Route::get('/remove-wishlist/{id}','WebsiteController@removeWishlist')->name('removeWishlist');
     Route::post('/customer-address-process','WebsiteController@addAddressProcess')->name('addAddressProcess');
-    Route::post('/discount-coupon','WebsiteController@discount_coupon')->name('discount_coupon');
-    Route::post('/giftcard-coupon','WebsiteController@giftcard_coupon')->name('giftcard_coupon');
+    
     Route::post('/corporate-coupon','WebsiteController@corporate_coupon')->name('corporate_coupon');
     Route::post('/add-card-info-process','WebsiteController@Usercardinfo')->name('Usercardinfo');
     Route::post('/place-order-process','WebsiteController@placeorder')->name('placeorder');
 
 
-    Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
+    
 
     Route::get('/order-history','WebsiteController@orderhistory')->name('orderhistory');
     Route::get('/my-points','WebsiteController@yourpoints')->name('yourpoints');

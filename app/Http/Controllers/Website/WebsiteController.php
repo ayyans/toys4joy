@@ -39,6 +39,14 @@ class WebsiteController extends Controller
 
 
     public function index(){
+
+        if(Session::get('cust'))
+        {
+
+        }else{
+            $rand = rand('123456789' , '987654321');
+            Session::put('cust',$rand);
+        }
         $categories = $this->listCategory();
         return view('website.home',compact('categories'));
     }
@@ -193,8 +201,7 @@ class WebsiteController extends Controller
 
     
     public function addTocart(Request $request){
-           
-        $cust = Auth::guard('cust')->user()->id;
+        $cust = Session::get('cust');
         $prod_id = $request->prod_id;
         $qty = $request->quantity;
         $existcart = Cart::where('cust_id','=',$cust)->where('prod_id','=',$prod_id)->count();        
@@ -251,7 +258,7 @@ class WebsiteController extends Controller
     // cart page
 
     public function cartpage(){
-        $cust_id = Auth::guard('cust')->user()->id;
+        $cust_id = Session::get('cust');
         $carts = Cart::leftJoin('products','products.id','=','carts.prod_id')                
         ->select('carts.id as crtid','carts.qty as cartQty','products.*')
         ->where('carts.cust_id','=',$cust_id)       
@@ -290,7 +297,7 @@ class WebsiteController extends Controller
     // pay as member
 
     public function payasmember(Request $request){
-        $cust_id = Auth::guard('cust')->user()->id;
+        $cust_id = Session::get('cust');
         $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
                     ->leftJoin('brands','brands.id','=','products.brand_id')                    
                     ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty')
