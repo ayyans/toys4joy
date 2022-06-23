@@ -34,7 +34,13 @@ class WebsiteController extends Controller
 
         $categoriestest = $this->listCategory();
         View::share('categoriestest', $categoriestest);
-        
+        if(Session::get('cart_random_id'))
+        {
+
+        }else{
+            $rand = rand('123456789' , '987654321');
+            Session::put('cart_random_id',$rand);
+        }
     }
 
 

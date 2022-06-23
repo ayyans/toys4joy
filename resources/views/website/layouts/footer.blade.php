@@ -88,21 +88,7 @@
     </div>
 </div> 
 </footer>
-
-<?php
-
-if(Session::get('cart_random_id'))
-{
-
-}else{
-    $rand = rand('123456789' , '987654321');
-    Session::put('cart_random_id',$rand);
-}
-
-?>
-
 <input type="hidden" name="cust_id" value="{{ Session::get('cart_random_id') }}" id="cust_id" />
-
 @include('website.layouts.loader')
 @push('otherscript')
 <script>
