@@ -89,20 +89,19 @@
 </div> 
 </footer>
 
-@php
+<?php
 
-if(Session::get('cust'))
+if(Session::get('cart_random_id'))
 {
 
 }else{
     $rand = rand('123456789' , '987654321');
-    Session::put('cust',$rand);
+    Session::put('cart_random_id',$rand);
 }
 
-@enphp
+?>
 
-
-<input type="hidden" name="cust_id" value="{{ Session::get('cust') }}" id="cust_id" />
+<input type="hidden" name="cust_id" value="{{ Session::get('cart_random_id') }}" id="cust_id" />
 
 @include('website.layouts.loader')
 @push('otherscript')

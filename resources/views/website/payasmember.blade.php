@@ -88,7 +88,7 @@ function encrypt_e($input, $ky) {
  $sadad__checksum_data = array(); 
  $txnDate = date('Y-m-d H:i:s'); 
 
-if(Auth::guard('cust')->check())
+if(Auth::check())
 {
     $email = Auth::user()->email;
 }else{

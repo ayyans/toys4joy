@@ -22,7 +22,7 @@
                               <a href="javascript:void(0)" class="order-id">Order# {{$order->orderid}}</a>
                               <p>{{$order->title}}</p>
                               <div class="price-qty"><span class="qty">{{$order->OrderQty}}</span><span>{{$order->orderAmt}} QAR</span></div>
-                              <div class="shiping"><span>Ship to: {{Auth::guard('cust')->user()->name}}</span></div>
+                              <div class="shiping"><span>Ship to: {{Auth::user()->name}}</span></div>
                               
                               <a href="javascript:void(0)" class="order-again green-text">Order Again</a>
                           </div>
