@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\View;
-
+use Twilio\Rest\Client;
 class RegisterController extends Controller
 {
     //
@@ -26,43 +27,48 @@ class RegisterController extends Controller
         return view('website.auth.register');
     }
 
-    public function registerProcess(Request $request){
-        $request->validate([
-            'name' => 'required',            
-            'email' => 'required|email|unique:customers',
-            'password' => 'required|min:6',                      
-        ]);
-
-        $mobile_with_code = $request->countrycode.$request->mobile;
-        $exist_customer = Customer::where('email','=',$request->email)
-                          ->orwhere('mobile','=',$request->mobile_with_code)
-                          ->count(); 
-                          
-           if($exist_customer>0){
-               return back()->with('error','customer already exist');
-               exit();
-           }else{
-               $savecustomers = new Customer;
-               $savecustomers->name=$request->name;
-               $savecustomers->email=$request->email;
-               $savecustomers->mobile=$mobile_with_code;
-               $savecustomers->status=2;
-               $savecustomers->password=Hash::make($request->password);
-               $savecustomers->show_password = $request->password;
-              $savecustomers->save();
-              if($savecustomers==true){
-                  return redirect('/registration-thanks')->with('success','customer registration successfull');
-                  exit();
-              }else{
-                return back()->with('error','something went wrong');
-                  exit();
-              }
-           }               
-
-
+    private function sendMessage($message, $recipients)
+    {
+        $account_sid = getenv("TWILIO_SID");
+        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_number = getenv("TWILIO_NUMBER");
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create($recipients, ['from' => $twilio_number, 'body' => $message]);
     }
+    public function registerProcess(Request $request){
+        // $request->validate([
+        //     'name' => 'required',            
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required|min:6',                      
+        // ]);
+        $otp = rand('132456' , '654321');
+
+
+        $this->sendMessage('this is the test message', $request->mobilenumber);
+
+        exit;
+        // $mobile_with_code = $request->countrycode.$request->phone;                    
+        // $savecustomers = new User;
+        // $savecustomers->name=$request->name;
+        // $savecustomers->email=$request->email;
+        // $savecustomers->mobile=$request->mobilenumber;
+        // $savecustomers->status=1;
+        // $savecustomers->type='customer';
+        // $savecustomers->otp=$otp;
+        // $savecustomers->password=Hash::make($request->password);
+        // $savecustomers->show_password = $request->password;
+        // $savecustomers->save();
 
 
 
 
+
+        // if($savecustomers==true){
+        //     return redirect('/registration-thanks')->with('success','customer registration successfull');
+        //     exit();
+        //   }else{
+        //     return back()->with('error','something went wrong');
+        //     exit();
+        //   }
+        }
 }

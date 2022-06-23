@@ -28,14 +28,17 @@ Route::name('website.')->namespace('App\Http\Controllers\Website\Auth')->group(f
 
 Route::name('website.')->namespace('App\Http\Controllers\Website')->group(function(){
     Route::get('/','WebsiteController@index')->name('home');
+    Route::get('/removefromwishlists/{id}','WebsiteController@removefromwishlists');
+    Route::get('/confermordercod','WebsiteController@confermordercod')->name('confermordercod');
     Route::get('category/{id}','WebsiteController@listproducts')->name('cat_products');
     Route::get('category/{main}/{id}','WebsiteController@listproductssubcategpry');
     Route::get('product/{id}','WebsiteController@productDetails')->name('productDetails');
     Route::post('category-list-with','WebsiteController@listcategorylist')->name('listcategorylist');
-    Route::get('/pay-as-guest','WebsiteController@payasguest')->name('payasguest');
+    Route::post('/pay-as-guest','WebsiteController@payasguest')->name('payasguest');
     Route::post('/stripe','WebsiteController@StripePayment')->name('StripePayment');
     Route::post('/guest-details','WebsiteController@saveCustDetails')->name('saveCustDetails');
     Route::post('/orderconferm','WebsiteController@guestthank')->name('guestthank');
+    Route::get('/guestthankorder','WebsiteController@guestthankorder')->name('guestthankorder');
     Route::get('/registration-thanks','WebsiteController@registrationThank')->name('registrationThank');
     Route::get('/share-wishlist/{cust_id}','WebsiteController@sharewishlist')->name('sharewishlist');
 });
@@ -49,9 +52,10 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::post('/update-cart','WebsiteController@updateQTY')->name('updateQTY');
     Route::post('/discount-coupon','WebsiteController@discount_coupon')->name('discount_coupon');
     Route::post('/giftcard-coupon','WebsiteController@giftcard_coupon')->name('giftcard_coupon');
-    
+    Route::get('/placeorderwishlist/{id}/{orderid}','WishlistController@placeorderwishlist');
+    Route::post('/wishlistorderconferm','WishlistController@wishlistorderconferm');
 });
-Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth:cust'])->group(function(){
+Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth'])->group(function(){
     Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
     Route::get('/verification','WebsiteController@verificationotp')->name('otp');
     Route::get('/checkout','WebsiteController@payasmember')->name('payasmember');

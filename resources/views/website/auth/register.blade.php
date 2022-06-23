@@ -1,5 +1,11 @@
 @extends('website.layouts.master')
 @section('content')
+<style type="text/css">
+    .iti{
+        width: 100%;
+    }
+</style>
+<link rel="stylesheet" href="{{ url('website/phone/css/intlTelInput.css') }}">
 <main id="register-form" class="account main-bg">
 <div class="container-fluid">
     <div class="row">
@@ -35,7 +41,7 @@
             <div class="for-desktop">
             @include('website.layouts.user_menu') 
             </div>
-            <form action="{{route('website.registerProcess')}}" method="POST" id="registerFrm">
+            <form action="{{route('website.registerProcess')}}" method="post" id="registerFrm">
               @csrf
             <div class="form-group">
              <div class="form-inner">    
@@ -50,18 +56,11 @@
                         <input type="email" name="email" placeholder="Write email here" class="customerReg">
                     </div>
                     <div class="col-12">
-                        <label>Phone<span>*</span></label>
-                        <div class="d-flex phone-dropdown">
-                            <div class="col-2">
-                                <select class="customerReg" name="countrycode">
-                                    <option>+123</option>
-                                    <option>+456</option>
-                                    <option>+789</option>
-                                    <option>+112</option>
-                                </select>
-                            </div>
-                            <div class="col-10"><input type="tel" name="mobile" placeholder="Write phone number here" class="customerReg"></div>
-                        </div>    
+                        <label style="margin-bottom: 5px;">Phone<span>*</span></label>
+                        <input id="phone" class="customerReg" name="phone" type="tel">
+
+
+                        <input type="hidden" name="mobilenumber" id="mobilenumber">
                     </div>
                     <div class="col-12">
                         <label>Password<span>*</span></label>
@@ -84,6 +83,33 @@
 </div>
 
 </main>
+<script src="{{ url('website/phone/js/intlTelInput.js') }}"></script>
+<script>
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+      // allowDropdown: false,
+       autoHideDialCode: false,
+      // autoPlaceholder: "off",
+      // dropdownContainer: document.body,
+      // excludeCountries: ["us"],
+      formatOnDisplay: true,
+      // geoIpLookup: function(callback) {
+      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+      //     var countryCode = (resp && resp.country) ? resp.country : "";
+      //     callback(countryCode);
+      //   });
+      // },
+      hiddenInput: "full_phone",
+      // initialCountry: "auto",
+      // localizedCountries: { 'de': 'Deutschland' },
+      // nationalMode: false,
+      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+      placeholderNumberType: "MOBILE",
+      preferredCountries: ['qa'],
+      separateDialCode: true,
+      utilsScript: "{{ url('website/phone/js/utils.js') }}?1638200991544",
+    });
+  </script>
 @stop
 
 
@@ -91,6 +117,11 @@
 <script>
   $(function(){
     $("button.registerbtn").click(function(e){
+        var txt = $('.iti__selected-dial-code').text();
+        var phone = $('#phone').val();
+
+
+        $('#mobilenumber').val(txt+phone);
             e.preventDefault();
             var isValid = true;
         $('input.customerReg').each(function() {
@@ -137,7 +168,7 @@
             e.preventDefault();
         }
         else {
-            $('form#registerFrm').submit();
+             $('form#registerFrm').submit();
         }
     });
   })

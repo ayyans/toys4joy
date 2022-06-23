@@ -8,7 +8,7 @@
     	<div class="col-10 content-block">
             <div class="d-flex welcome-block">
                 <img src="{{asset('website/img/user-pic.png')}}"/>
-                <h2>Welcome Back Dear {{Auth::guard('cust')->user()->name;}}</h2>
+                <h2>Welcome Back Dear {{Auth::user()->name;}}</h2>
             </div>
             <div class="main-content-box">
             <div class="row birthday">

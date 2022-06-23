@@ -72,11 +72,10 @@
         </div>
         <div class="col-2 account-buttons">
             <div class="navbar-nav for-desktop">
-                @if(Auth::guard('cust')->check())
-                
+                @if(Auth::check())
                 <div class="my-account"><a href="{{route('website.myaccount')}}" class="btn">My Account</a></div>
                 @else
-                    <div class="login"><a href="{{route('website.login')}}" class="btn">Login | Signup</a></div>
+                <div class="login"><a href="{{route('website.login')}}" class="btn">Login | Signup</a></div>
               @endif
             </div>
             

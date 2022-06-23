@@ -18,19 +18,19 @@
                         <label>Delivery Status</label>
                         @if($orders->status==4 || $orders->status==5 )
                         <select class="form-control" readonly>
-                            <option value="1">Pending</option>
-                            <option value="2">Confirm</option>
-                            <option value="3">Shipped</option>
-                            <option value="4">Cancel</option>
-                            <option value="5">Delivered</option>
+                            <option @if($orders->status == 1) selected @endif value="1">Pending</option>
+                            <option @if($orders->status == 2) selected @endif value="2">Confirm</option>
+                            <option @if($orders->status == 3) selected @endif value="3">Shipped</option>
+                            <option @if($orders->status == 4) selected @endif value="4">Cancel</option>
+                            <option @if($orders->status == 5) selected @endif value="5">Delivered</option>
                         </select>
                         @else
                         <select class="form-control" id="orderStatus">
-                            <option value="1">Pending</option>
-                            <option value="2">Confirm</option>
-                            <option value="3">Shipped</option>
-                            <option value="4">Cancel</option>
-                            <option value="5">Delivered</option>
+                            <option @if($orders->status == 1) selected @endif value="1">Pending</option>
+                            <option @if($orders->status == 2) selected @endif value="2">Confirm</option>
+                            <option @if($orders->status == 3) selected @endif value="3">Shipped</option>
+                            <option @if($orders->status == 4) selected @endif value="4">Cancel</option>
+                            <option @if($orders->status == 5) selected @endif value="5">Delivered</option>
                         </select>
                         @endif
                     </td>
@@ -52,7 +52,7 @@
                     <strong>Order status:</strong> @if($orders->status==1)
                     Pending
                     @elseif($orders->status==2)
-                    confirm
+                    Confirm
                     @elseif($orders->status==3)
                     shipped
                     @elseif($orders->status==4)
@@ -62,10 +62,9 @@
                     @endif
                     <br/>
                     <strong>Order date:</strong>{{$orders->created_at}}<br/>
-                    <strong>Payment Mode</strong>: @if($orders->mode==2)
-                    Online
+                    <strong>Payment Mode</strong>: @if($orders->mode==2)Online
                     @else
-                    Offline
+                    COD
                     @endif
                     <br/>
             </td>

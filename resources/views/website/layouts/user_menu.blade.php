@@ -3,7 +3,7 @@
     <a class="nav-link active" aria-current="page" href="#">Best Offers</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="@if(Auth::check())  {{route('website.mywishlist',[encrypt(Auth::guard('cust')->user()->id)])}} @else {{ url('login') }} @endif">Wish List</a>
+    <a class="nav-link" href="@if(Auth::check())  {{route('website.mywishlist',[encrypt(Auth::user()->id)])}} @else {{ url('login') }} @endif">Wish List</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="{{route('website.giftcard')}}">E-Gift Cards</a>

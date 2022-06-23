@@ -1,12 +1,12 @@
 @extends('website.layouts.master')
 @section('content')
 
-<main id="pay-as-member-page">
+<main id="pay-as-member" class="pay-as-member-page">
 <div class="container-fluid">
     <div class="row">
        
     	<div class="col-6 member-col left">
-        <form action="#" id="checkoutFrm">
+        <form action="{{ url('place-order-process') }}" method="POST" id="checkoutFrm">
             <?php $total_price = 0; ?>
             @foreach($products as $product)
             <?php $total_price+=$product->unit_price*$product->cartQty; ?>
@@ -54,12 +54,7 @@
         </div>
 
         <div class="col-6 member-col right text-center">
-
-
-
-
-
-                    <?php 
+<?php 
 function getChecksumFromString($str, $key) { 
 
  $salt = generateSalt_e(4); 
@@ -114,11 +109,9 @@ if(Auth::guard('cust')->check())
 
 foreach ($products as $product) {
     $json_decoded = json_decode($product);
-    $productsasdsadsadsadsadsadsad[] = array('order_id' => 1234, 'itemname' => $product->title, 'amount' =>$product->unit_price, 'quantity' => $product->cartQty);
+    $allproducts[] = array('order_id' => 1234, 'itemname' => $product->title, 'amount' =>$product->unit_price, 'quantity' => $product->cartQty);
 }
-
-
- $sadad_checksum_array['productdetail'] = $productsasdsadsadsadsadsadsad;
+$sadad_checksum_array['productdetail'] = $allproducts;
 
 
   
@@ -168,17 +161,19 @@ $action_url = 'https://sadadqa.com/webpurchase';
 </script>
 
 
-
+    <input type="hidden" id="total_amt" value="{{$total_price}}" />
+    <input type="hidden" id="prev_amt" value="{{$total_price}}"/>
             <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
             <div class="yellowbg-img cash-on-delivery">
                 <img src="{{asset('website/img/cash-on-delievery.png')}}"/>
-                <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD">Cash or Credit<br>on Delivery</a>
+                <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD">Pay</a>
+                <a id="cashondelivery" href="javascript:void(0)">Cash or Credit<br>on Delivery</a>
             </div>
         </div>
    <!--      <div class="col-6 member-col right text-center">
             <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
-            <input type="hidden" id="total_amt" value="{{$total_price}}" />
-            <input type="hidden" id="prev_amt" value="{{$total_price}}"/>
+            
+            
            
         </div> -->
     </div>
@@ -329,7 +324,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
 </script>
 
 <script>
-    $("#cashOnD").click(function(e){
+    $("#cashondelivery").click(function(e){
         e.preventDefault();
         var total_amt = $("#total_amt").val();
         var form = $("form#checkoutFrm")[0];
@@ -348,7 +343,14 @@ $action_url = 'https://sadadqa.com/webpurchase';
                 $("#cover-spin").hide();
                 var js_data = JSON.parse(JSON.stringify(res));
                 if(js_data.status==200){
-                    window.location.href="{{route('website.guestthank')}}"
+                    window.location.href="{{route('website.confermordercod')}}"
+                }else if(js_data.status==300){
+                    toastr.options.timeOut = 10000;
+                    toastr.error('Please add Address');
+
+
+                    window.location.href="{{route('website.addAddressInfo')}}"
+
                 }else{
                     return false;
                 }

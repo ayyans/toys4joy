@@ -158,13 +158,12 @@ class WebsiteController extends Controller
     // save customer address as guest
 
     public function saveCustDetails(Request $request){
-        $updatemobile = $request->cntrycode.$request->mobile;
         $custDetails = new GuestOrder;
         $custDetails->prod_id=$request->prod_id;
         $custDetails->qty=$request->prod_qty;
         $custDetails->cust_name=$request->custname;
         $custDetails->cust_email=$request->email;
-        $custDetails->cust_mobile=$updatemobile;
+        $custDetails->cust_mobile=$request->mobilenumber;;
         $custDetails->city=$request->city;
         $custDetails->state=$request->state;
         $custDetails->apartment=$request->aprtment;
@@ -186,25 +185,23 @@ class WebsiteController extends Controller
         }       
 
     }
+    public function guestthankorder()
+    {
+        return view('website.guestthanks');
+    }
 
 
     // guest thanks page
 
     public function guestthank(Request $request){
         $allparms =  $request->all();
-
-
         $cart = DB::table('carts')->where('cust_id' , $allparms['ORDERID'])->get()->first();
-
-
         $customer = DB::table('customers')->where('id' , $cart->customer_id)->get()->first();
         Auth::guard('cust')->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
-
-
-        if(Auth::guard('cust')->check()){
+        if(Auth::check()){
             if($allparms['STATUS'] == 'TXN_SUCCESS')
             {
-                $cust_id = Auth::guard('cust')->user()->id;
+                $cust_id = Auth::user()->id;
                 $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
                 $cust_card = CardInfo::where('cust_id','=',$cust_id)->first();
                 $cust_add_id = $cust_Add['id'];
@@ -350,7 +347,14 @@ class WebsiteController extends Controller
                     ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty')
                     ->where('carts.cust_id','=',$cust_id)
                     ->get();
-        return view('website.payasmember',compact('products'));
+
+        if($products->count()>0)
+        {
+            return view('website.payasmember',compact('products'));
+        }else{
+            return redirect()->route('website.home')->with('error','Cart Is Empty!');
+        }
+        
     }
 
 
@@ -372,7 +376,7 @@ class WebsiteController extends Controller
     // add address process
 
     public function addAddressProcess(Request $request){
-        $cust_id = Auth::guard('cust')->user()->id;
+        $cust_id = Auth::user()->id;
         $cust_address = new CustomerAddress;
         $cust_address->cust_id=$cust_id;
         $cust_address->unit_no=$request->unit_no;
@@ -393,7 +397,7 @@ class WebsiteController extends Controller
     // add product in wishlist
 
     public function addWishlist(Request $request){
-        $cust_id = Auth::guard('cust')->user()->id;
+        $cust_id = Auth::user()->id;
         $prod_id = $request->prod_id;
         $getwishlist = Wishlist::where('cust_id','=',$cust_id)->where('prod_id','=',$prod_id)->count();
         if($getwishlist > 0){
@@ -403,6 +407,7 @@ class WebsiteController extends Controller
             $addwishlist = new Wishlist;
             $addwishlist->cust_id=$cust_id;
             $addwishlist->prod_id=$prod_id;
+            $addwishlist->share_status=0;
             $addwishlist->save();
             if($addwishlist==true){
                 return response()->json(["status"=>"200","msg"=>"1"]);
@@ -413,6 +418,20 @@ class WebsiteController extends Controller
             }
         }
 
+    }
+
+    public function removefromwishlists($id)
+    {
+        $addwishlist = Wishlist::find($id);
+        if($addwishlist->share_status == 0)
+        {
+            $addwishlist->share_status=1;
+        }else{
+            $addwishlist->share_status=0;
+        }
+        
+        $addwishlist->save();
+        return back()->with('success','product removed from wishlist');
     }
 
 
@@ -442,17 +461,17 @@ class WebsiteController extends Controller
         }
     }
 
-
     // share wishlist to any one
 
     public function sharewishlist(Request $request){
         $cust_id = decrypt($request->cust_id);
         $wshlists = Wishlist::leftJoin('products','products.id','=','wishlists.prod_id')
-                    ->select('products.*','wishlists.id as wish_id')
+                    ->leftJoin('users','users.id','=','wishlists.cust_id')
+                    ->select('products.*','users.name','users.email','users.mobile','wishlists.id as wish_id','wishlists.share_status')
                     ->where('wishlists.cust_id','=',$cust_id)
                     ->orderBy('wishlists.id','desc')
                     ->get();
-        return view('website.share_wishlist',compact('wshlists'));
+        return view('website.share_wishlist',compact('wshlists','cust_id'));
     }
 
     // coupons at checkout
@@ -497,7 +516,7 @@ class WebsiteController extends Controller
     // card info save
 
     public function Usercardinfo(Request $request){
-        $cust_id = Auth::guard('cust')->user()->id;
+        $cust_id = Auth::user()->id;
         $saveCards = new CardInfo;
         $saveCards->cust_id = $cust_id;
         $saveCards->card_type = $request->inlineRadioOptions;
@@ -516,43 +535,54 @@ class WebsiteController extends Controller
         }
         
     }
+    public function confermordercod()
+    {
+        return view('website.guestthanks');
+    }
 
 
     // logged in user orders
 
     public function placeorder(Request $request){
 
-        $cust_id = Auth::guard('cust')->user()->id;
+        $cust_id = Auth::user()->id;
         $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
-        $cust_card = CardInfo::where('cust_id','=',$cust_id)->first();
-        $cust_add_id = $cust_Add['id'];
-        $cust_card_id = $cust_card['id'];
 
-        $prod_id = $request->prodid;
-        $qty = $request->cartQty;
-        $total_amount = $request->amount;
-        $total_prod_id = count($prod_id);
-        if($request->mode==1){
-            for($i=0;$i<$total_prod_id;$i++){
-                $place_order = new Order;
-                $place_order->cust_id=$cust_id;
-                $place_order->cust_add_id=$cust_add_id;
-                $place_order->prod_id=$prod_id[$i];
-                $place_order->qty = $qty[$i];
-                $place_order->amount = $total_amount;
-                $place_order->mode = '1';
-                $place_order->save();
+        if($cust_Add)
+        {
+            $cust_add_id = $cust_Add['id'];
+            $prod_id = $request->prodid;
+            $qty = $request->cartQty;
+            $total_amount = $request->amount;
+            $total_prod_id = count($prod_id);
+            if($request->mode==1){
+                for($i=0;$i<$total_prod_id;$i++){
+                    $place_order = new Order;
+                    $place_order->cust_id=$cust_id;
+                    $place_order->cust_add_id=$cust_add_id;
+                    $place_order->prod_id=$prod_id[$i];
+                    $place_order->qty = $qty[$i];
+                    $place_order->amount = $total_amount;
+                    $place_order->mode = '1';
+                    $place_order->save();
 
+                }
+                if($place_order==true){
+                    $cartid = Session::get('cust');
+                    $update_cart = Cart::where('cust_id','=',$cartid)->delete();
+                    return response()->json(["status"=>"200","msg"=>"1"]);
+                    exit();
+                }else{
+                    return response()->json(["status"=>"400","msg"=>"2"]);
+                    exit();
+                }
             }
-            if($place_order==true){
-                $update_cart = Cart::where('cust_id','=',$cust_id)->delete();
-                return response()->json(["status"=>"200","msg"=>"1"]);
-                exit();
-            }else{
-                return response()->json(["status"=>"400","msg"=>"2"]);
-                exit();
-            }
+        }else{
+            return response()->json(["status"=>"300","msg"=>"3"]);
+            exit();
         }
+
+        
         
 
     }

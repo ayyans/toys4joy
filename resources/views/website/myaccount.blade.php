@@ -8,7 +8,7 @@
     	<div class="col-8 content-block">
             <div class="d-flex welcome-block">
                 <img src="{{asset('website/img/user-pic.png')}}"/>
-                <h2>Welcome Back Dear {{Auth::guard('cust')->user()->name}}</h2>
+                <h2>Welcome Back Dear {{Auth::user()->name}}</h2>
             </div>
 
                 <div class="ac-btn row">
@@ -26,7 +26,7 @@
                     <div class="col-4">
                         <div class="ac-button"><a href="{{route('website.orderhistory')}}">My Order's History</a></div>
                         <div class="ac-button"><a href="#">My Points</a></div>
-                        <div class="ac-button"><a href="{{route('website.mywishlist',[encrypt(Auth::guard('cust')->user()->id)])}}">My Wish List</a></div>
+                        <div class="ac-button"><a href="{{route('website.mywishlist',[encrypt(Auth::user()->id)])}}">My Wish List</a></div>
                         <div class="ac-button"><a href="#">Request Return Items</a></div>
                         <div class="ac-button"><a  href="{{ route('website.logout') }}"  onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"role="button">Log out</a>
