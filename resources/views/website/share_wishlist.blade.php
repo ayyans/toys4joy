@@ -50,7 +50,7 @@ foreach ($wshlists as $product) {
   if($product->share_status == 0)
   {
     $json_decoded = json_decode($product);
-    $allproducts[] = array('order_id' => $orderid, 'itemname' => $product->title, 'amount' =>$product->unit_price, 'quantity' => $product->cartQty);
+    $allproducts[] = array('order_id' => $orderid, 'itemname' => $product->title, 'amount' =>$product->unit_price, 'quantity' =>1);
   }
     
 }

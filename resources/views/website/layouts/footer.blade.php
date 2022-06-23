@@ -88,6 +88,20 @@
     </div>
 </div> 
 </footer>
+
+@php
+
+if(Session::get('cust'))
+{
+
+}else{
+    $rand = rand('123456789' , '987654321');
+    Session::put('cust',$rand);
+}
+
+@enphp
+
+
 <input type="hidden" name="cust_id" value="{{ Session::get('cust') }}" id="cust_id" />
 
 @include('website.layouts.loader')

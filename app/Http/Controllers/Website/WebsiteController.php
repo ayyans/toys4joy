@@ -39,14 +39,6 @@ class WebsiteController extends Controller
 
 
     public function index(){
-
-        if(Session::get('cust'))
-        {
-
-        }else{
-            $rand = rand('123456789' , '987654321');
-            Session::put('cust',$rand);
-        }
         $categories = $this->listCategory();
         return view('website.home',compact('categories'));
     }
