@@ -45,7 +45,7 @@ function encrypt_e($input, $ky) {
  $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
  $sadad_checksum_array['CALLBACK_URL'] = url('wishlistorderconferm'); 
  $sadad_checksum_array['txnDate'] = $txnDate; 
-
+$allproducts[] = array();
 foreach ($wshlists as $product) {
   if($product->share_status == 0)
   {
@@ -56,9 +56,7 @@ foreach ($wshlists as $product) {
 }
 $sadad_checksum_array['productdetail'] = $allproducts;
 
-
-  
-        $sadad__checksum_data['postData'] = $sadad_checksum_array;  
+$sadad__checksum_data['postData'] = $sadad_checksum_array;  
 $sadad__checksum_data['secretKey'] = $secretKey; 
 
 $sAry1 = array(); 
@@ -184,16 +182,16 @@ $action_url = 'https://sadadqa.com/webpurchase';
              $("#cover-spin").hide();
               var js_data = JSON.parse(JSON.stringify(res));
               if(js_data.status==200){
-
-                alert('ok');
-
-                  
+                $('#paymentform').submit();                  
+              }else if(js_data.status==300){
+                  toastr.options.timeOut = 10000;
+                  toastr.error('Please Select Atleast one Product');
               }else if(js_data.status==400){
                   toastr.options.timeOut = 10000;
                   toastr.error('{{ $wshlists->first()->name }} does not added any address for shipping');
               }else{
                   return false;
-              }
+            }
         }
     })
   }

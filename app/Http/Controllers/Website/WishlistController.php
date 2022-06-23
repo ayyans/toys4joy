@@ -41,23 +41,33 @@ class WishlistController extends Controller
         $cust_Add = CustomerAddress::where('cust_id','=',$id)->first();
         if($cust_Add)
         {
+        	$place_order = "";
         	$cust_add_id = $cust_Add['id'];
 			foreach ($data as $r) 
 			{
-				$total_price+=$r->unit_price;
-				$place_order = new Order;
-				$place_order->orderid=$orderid;
-				$place_order->orderstatus='payementpending';
-	            $place_order->cust_id=$id;
-	            $place_order->cust_add_id=$cust_add_id;
-	            $place_order->prod_id=$r->prod_id;
-	            $place_order->qty = 1;
-	            $place_order->amount = $total_price;
-	            $place_order->mode = '1';
-	            $place_order->save();
+				if($r->share_status == 0)
+				{
+					$total_price+=$r->unit_price;
+					$place_order = new Order;
+					$place_order->orderid=$orderid;
+					$place_order->orderstatus='payementpending';
+		            $place_order->cust_id=$id;
+		            $place_order->cust_add_id=$cust_add_id;
+		            $place_order->prod_id=$r->prod_id;
+		            $place_order->qty = 1;
+		            $place_order->amount = $total_price;
+		            $place_order->mode = '1';
+		            $place_order->save();
+				}				
 			}
-			return response()->json(["status"=>"200","msg"=>"1"]);
-            exit();
+			if($place_order){
+                return response()->json(["status"=>"200","msg"=>"1"]);
+            	exit();
+            }else{
+                return response()->json(["status"=>"300","msg"=>"2"]);
+            	exit();
+            }
+			
         }else{
         	return response()->json(["status"=>"400","msg"=>"2"]);
             exit();
