@@ -1,6 +1,6 @@
 @extends('website.layouts.master')
 @section('content')
-<main>
+<main class="product-detail-page">
 <div class="container-fluid">
     <div class="row">
     	<div class="col-3 categories-col">

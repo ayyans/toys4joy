@@ -184,7 +184,8 @@ class WebsiteController extends Controller
 
     public function guestthank(Request $request){
         $allparms =  $request->all();
-        $cart = DB::table('carts')->where('cust_id' , $allparms['ORDERID'])->get()->first();
+        $ipaddres = Cmf::ipaddress();
+        $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get()->first();
         $customer = DB::table('customers')->where('id' , $cart->customer_id)->get()->first();
         Auth::guard('cust')->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
         if(Auth::check()){

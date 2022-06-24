@@ -6,7 +6,7 @@
     }
 </style>
 <link rel="stylesheet" href="{{ url('website/phone/css/intlTelInput.css') }}">
-<main id="pay-as-guest">
+<main class="pay-as-guest-page" id="pay-as-guest">
 <div class="container-fluid">
     <div class="row">
     	<div class="col-6">

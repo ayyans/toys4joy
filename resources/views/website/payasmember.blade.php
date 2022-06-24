@@ -97,7 +97,8 @@ if(Auth::check())
  $secretKey = 'ewHgg8NgyY5zo59M'; 
  $merchantID = '7288803'; 
  $sadad_checksum_array['merchant_id'] = $merchantID;  
- $sadad_checksum_array['ORDER_ID'] = Session::get('cust'); 
+ $orderid = rand('123456798' , '987654321');
+ $sadad_checksum_array['ORDER_ID'] = $orderid; 
  $sadad_checksum_array['WEBSITE'] = url('');  
  $sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
  $sadad_checksum_array['CUST_ID'] = $email; 
@@ -109,7 +110,7 @@ if(Auth::check())
 
 foreach ($products as $product) {
     $json_decoded = json_decode($product);
-    $allproducts[] = array('order_id' => 1234, 'itemname' => $product->title, 'amount' =>$product->unit_price, 'quantity' => $product->cartQty);
+    $allproducts[] = array('order_id' => $orderid, 'itemname' => $product->title, 'amount' =>$product->unit_price, 'quantity' => $product->cartQty);
 }
 $sadad_checksum_array['productdetail'] = $allproducts;
 
