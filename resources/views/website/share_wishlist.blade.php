@@ -64,13 +64,15 @@
 </main>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 <?php 
-function getChecksumFromString($str, $key) {
+function getChecksumFromString($str, $key) { 
+
  $salt = generateSalt_e(4); 
  $finalString = $str . "|" . $salt; 
  $hash = hash("sha256", $finalString); 
  $hashString = $hash . $salt; 
  $checksum = encrypt_e($hashString, $key); 
  return $checksum; 
+
 } 
 
 function generateSalt_e($length) { 
@@ -94,11 +96,17 @@ function encrypt_e($input, $ky) {
  $sadad_checksum_array = array(); 
  $sadad__checksum_data = array(); 
  $txnDate = date('Y-m-d H:i:s'); 
- $email = $wshlists->first()->email;
+
+if(Auth::check())
+{
+    $email = Auth::user()->email;
+}else{
+    $email = 'ahsinjavaid890@gmail.com';
+}
  $secretKey = 'ewHgg8NgyY5zo59M'; 
- $merchantID = '7288803';
- $orderid = rand('123456798' , '987654321');
+ $merchantID = '7288803'; 
  $sadad_checksum_array['merchant_id'] = $merchantID;  
+ $orderid = rand('123456798' , '987654321');
  $sadad_checksum_array['ORDER_ID'] = $orderid; 
  $sadad_checksum_array['WEBSITE'] = url('');  
  $sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
@@ -119,7 +127,9 @@ foreach ($wshlists as $product) {
 }
 $sadad_checksum_array['productdetail'] = $allproducts;
 
-$sadad__checksum_data['postData'] = $sadad_checksum_array;  
+
+  
+        $sadad__checksum_data['postData'] = $sadad_checksum_array;  
 $sadad__checksum_data['secretKey'] = $secretKey; 
 
 $sAry1 = array(); 
