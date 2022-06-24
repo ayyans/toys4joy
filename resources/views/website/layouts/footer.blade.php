@@ -102,7 +102,6 @@
             url:"{{route('website.addTocart')}}",
             type:"POST",
             data:form,
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             cache:false,
             contentType:false,
             processData:false,

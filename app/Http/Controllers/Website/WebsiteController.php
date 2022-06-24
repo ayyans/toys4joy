@@ -45,7 +45,6 @@ class WebsiteController extends Controller
 
 
     public function index(){
-        echo "string";exit;
         $categories = $this->listCategory();
         return view('website.home',compact('categories'));
     }
