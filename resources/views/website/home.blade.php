@@ -37,7 +37,7 @@
             @include('website.layouts.user_menu')  
                 <img src="{{asset('website/img/t1.png')}}" class="img-fluid">
             </div>    
-            <div class="book-your-event">
+            <!-- <div class="book-your-event">
             	<h1 class="text-center">BOOK YOUR EVENT NOW</h1>
                 <div class="d-flex">
                 	<div class="booking-cal d-flex justify-content-between">
@@ -57,6 +57,17 @@
                         <a href="#">Book Now</a>
                     </div>
                 </div>
+            </div> -->
+            <div class="d-flex home-prod products-list">
+                @foreach($products as $product)
+                <div class="single">
+                    <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
+                    <div class="text-center content-block">
+                        <h3>{{$product->title}}</h3>
+                        <div class="d-flex price-cart"><span class="price">QAR {{$product->unit_price}}</span><i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i></div>
+                    </div>
+                </div>
+                @endforeach
             </div>
         </div>
         <div class="col-3 right-col">

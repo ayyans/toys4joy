@@ -37,7 +37,8 @@ class WebsiteController extends Controller
     }
     public function index(){
         $categories = $this->listCategory();
-        return view('website.home',compact('categories'));
+        $products = Product::where('status','=','2')->orderBy('id','desc')->limit(3)->get();
+        return view('website.home',compact('categories','products'));
     }
 
     // listing category
