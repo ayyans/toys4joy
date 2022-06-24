@@ -19,8 +19,8 @@
                         <div class="ac-button"><a href="#">Change Mobile Number</a></div>
                     </div>
                     <div class="col-4">
-                        <div class="ac-button my-profile"><a href="{{route('website.myprofile')}}">My Profile</a></div>
-                        <div class="ac-button siblings"><a href="#">My Siblings</a></div>
+                        <div class="mid-btn my-profile"><a href="{{route('website.myprofile')}}">My Profile</a></div>
+                        <div class="mid-btn siblings"><a href="#">My Siblings</a></div>
                     </div>
 
                     <div class="col-4">

@@ -39,10 +39,10 @@
             
             <div class="form-group">
               <p class="text-center prompt">Please verify the OTP code you received by SMS<span>*</span></p>
-                <form method="get" class="d-flex digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-                    <input type="text" id="digit-1" name="digit-1" data-next="digit-2" />
+                <form method="POST" action="{{ url('confermotp') }}" id="confermotpform" class="d-flex digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
+                    <input type="text" autofocus id="digit-1" name="otp" data-next="digit-2" />
                 </form>
-                <button class="vertical-shake">Submit</button>
+                <button onclick="submitform()" class="vertical-shake">Submit</button>
             </div>
         
     </div>
@@ -50,5 +50,11 @@
 </div>    
 
 </main>
+<script type="text/javascript">
+    function submitform()
+    {
+        $('#confermotpform').submit();
+    }
+</script>
 
 @endsection

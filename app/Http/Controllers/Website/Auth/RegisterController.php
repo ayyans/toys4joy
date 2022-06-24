@@ -36,39 +36,31 @@ class RegisterController extends Controller
         $client->messages->create($recipients, ['from' => $twilio_number, 'body' => $message]);
     }
     public function registerProcess(Request $request){
-        // $request->validate([
-        //     'name' => 'required',            
-        //     'email' => 'required|email|unique:users',
-        //     'password' => 'required|min:6',                      
-        // ]);
-        $otp = rand('132456' , '654321');
+        $request->validate([
+            'name' => 'required',            
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',                      
+        ]);
+        $otp=rand('132456' , '654321');
+        $mobile_with_code = $request->countrycode.$request->phone;                    
+        $savecustomers = new User;
+        $savecustomers->name=$request->name;
+        $savecustomers->email=$request->email;
+        $savecustomers->mobile=$request->mobilenumber;
+        $savecustomers->status=1;
+        $savecustomers->type='customer';
+        $savecustomers->otp=$otp;
+        $savecustomers->password=Hash::make($request->password);
+        $savecustomers->show_password = $request->password;
+        $savecustomers->save();
+        $this->sendMessage('Your One Time Pin Is '.$otp.'. Use this Pin for Verification On TOYS 4 JOY.', $request->mobilenumber);
 
 
-        $this->sendMessage('this is the test message', $request->mobilenumber);
+        Auth::login($savecustomers);
 
-        exit;
-        // $mobile_with_code = $request->countrycode.$request->phone;                    
-        // $savecustomers = new User;
-        // $savecustomers->name=$request->name;
-        // $savecustomers->email=$request->email;
-        // $savecustomers->mobile=$request->mobilenumber;
-        // $savecustomers->status=1;
-        // $savecustomers->type='customer';
-        // $savecustomers->otp=$otp;
-        // $savecustomers->password=Hash::make($request->password);
-        // $savecustomers->show_password = $request->password;
-        // $savecustomers->save();
-
-
-
-
-
-        // if($savecustomers==true){
-        //     return redirect('/registration-thanks')->with('success','customer registration successfull');
-        //     exit();
-        //   }else{
-        //     return back()->with('error','something went wrong');
-        //     exit();
-        //   }
+        if(Auth::user()->status == 1)
+        {
+            return redirect()->route('website.otp')->with('warning','Please Enter Code!');
+        }
         }
 }

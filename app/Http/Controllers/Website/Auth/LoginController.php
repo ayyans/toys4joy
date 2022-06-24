@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website\Auth;
 use Auth;
 use App\Models\Customer;
 use App\Models\Category;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -37,6 +38,23 @@ class LoginController extends Controller
         return $this->loginFailed();
     }
 
+    public function confermotp(Request $request)
+    {
+        $userotp = Auth::user()->otp;
+        $otp = $request->otp;
+
+        if($otp == $userotp)
+        {
+            $user = User::find(Auth::user()->id);
+            $user->status = 2;
+            $user->save();
+            return redirect()->intended('/')->with('success','Your Account is Approved');
+        }else{
+            return back()->with('error','Invalid OTP');
+        }
+
+
+    }
     /**
      * Logout the admin.
      * 
@@ -82,10 +100,6 @@ class LoginController extends Controller
     private function loginFailed()
     {
       //Login failed...
-
-      return redirect()
-      ->back()
-      ->withInput()
-      ->with('error','Login failed, please try again!');
+      return redirect()->back()->withInput()->with('error','Login failed, please try again!');
     }
 }

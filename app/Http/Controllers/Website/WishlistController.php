@@ -74,7 +74,7 @@ class WishlistController extends Controller
         }
         
 	}
-	public function wishlistorderconferm()
+	public function wishlistorderconferm(Request $request)
 	{
 		$allparms =  $request->all();
 		if($allparms['STATUS'] == 'TXN_SUCCESS')

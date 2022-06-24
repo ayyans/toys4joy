@@ -24,6 +24,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website\Auth')->group(f
     Route::get('/register','RegisterController@register')->name('register');
     Route::post('/register-process','RegisterController@registerProcess')->name('registerProcess');
     Route::post('/logout','LoginController@logout')->name('logout');
+    Route::post('/confermotp','LoginController@confermotp')->name('confermotp');
 });
 
 Route::name('website.')->namespace('App\Http\Controllers\Website')->group(function(){
@@ -58,6 +59,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
 Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth'])->group(function(){
     Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
     Route::get('/verification','WebsiteController@verificationotp')->name('otp');
+
     Route::get('/checkout','WebsiteController@payasmember')->name('payasmember');
     Route::get('/my-account','WebsiteController@myaccount')->name('myaccount');
     Route::get('/add-card','WebsiteController@addCardInfo')->name('addCardInfo');

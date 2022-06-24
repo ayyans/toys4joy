@@ -161,10 +161,6 @@
 <script>
     $("#payasmember").click(function(e){
         e.preventDefault();
-        var cust_id = $("#cust_id").val();
-       if(cust_id==0){
-           window.location.href="{{route('website.login')}}";
-       }else{
         var form = $("form#productFRM")[0];
         var form2 = new FormData(form);       
         $("#cover-spin").show();
@@ -190,45 +186,37 @@
                 }
             }
         })
-       }
     })
 </script>
 
 <script>
     $("#addwishlist").click(function(){
-        var cust_id = $("#cust_id").val();
-    
-            if(cust_id==0){
-                window.location.href="{{route('website.login')}}";
-            }else{
-                var form =$("form#productFRM")[0]; 
-                var form2 =new FormData(form);
-                
-                $("#cover-spin").show();
-                $.ajax({
-                    url:"{{route('website.addWishlist')}}",
-                    type:"POST",
-                    data:form2,
-                    cache:false,
-                    contentType:false,
-                    processData:false,
-                    success:function(res){
-                        $("#cover-spin").hide();
-                        var js_data = JSON.parse(JSON.stringify(res));
-                        if(js_data.status==200){
-                            toastr.success('Product added to wishlist');
-                            location.reload();
-                        }else if(js_data.msg=='3'){
-                            toastr.error('product already added in wishlist');
-                            return false; 
-                        }
-                        else{
-                            toastr.error('something went wrong');
-                            return false; 
-                        }
-                    }
-                })
+    var form =$("form#productFRM")[0]; 
+    var form2 =new FormData(form);
+    $("#cover-spin").show();
+    $.ajax({
+        url:"{{route('website.addWishlist')}}",
+        type:"POST",
+        data:form2,
+        cache:false,
+        contentType:false,
+        processData:false,
+        success:function(res){
+            $("#cover-spin").hide();
+            var js_data = JSON.parse(JSON.stringify(res));
+            if(js_data.status==200){
+                toastr.success('Product added to wishlist');
+                location.reload();
+            }else if(js_data.msg=='3'){
+                toastr.error('product already added in wishlist');
+                return false; 
             }
-    })
+            else{
+                toastr.error('something went wrong');
+                return false; 
+            }
+        }
+    })    
+})
 </script>
 @endpush
