@@ -11,13 +11,9 @@ use Illuminate\Support\Facades\View;
 
 class LoginController extends Controller
 {
-    //
-     //
      public function __construct(){ 
-
         $categoriestest = Category::where('status','=','2')->orderBy('id','desc')->get();
         View::share('categoriestest', $categoriestest);
-        
     }
 
      public function login(){
