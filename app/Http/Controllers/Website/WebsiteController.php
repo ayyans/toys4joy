@@ -186,8 +186,8 @@ class WebsiteController extends Controller
         $allparms =  $request->all();
         $ipaddres = Cmf::ipaddress();
         $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get()->first();
-        $customer = DB::table('customers')->where('id' , $cart->customer_id)->get()->first();
-        Auth::guard('cust')->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
+        $customer = DB::table('users')->where('id' , $cart->customer_id)->get()->first();
+        auth()->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
         if(Auth::check()){
             if($allparms['STATUS'] == 'TXN_SUCCESS')
             {
@@ -196,7 +196,7 @@ class WebsiteController extends Controller
                 $cust_card = CardInfo::where('cust_id','=',$cust_id)->first();
                 $cust_add_id = $cust_Add['id'];
                 $cartid = $allparms['ORDERID'];
-                $cart = DB::table('carts')->where('cust_id' , $cartid)->get();
+                $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
                 foreach ($cart as $r) {
                     $place_order = new Order;
                     $place_order->cust_id=$cust_id;
@@ -208,7 +208,7 @@ class WebsiteController extends Controller
                     $place_order->save();
                 }
                 if($place_order==true){
-                    $update_cart = Cart::where('cust_id','=',$cartid)->delete();
+                    $update_cart = Cart::where('cust_id','=',$ipaddres)->delete();
                     return view('website.guestthanks');
                 }else{
                     echo "string2";exit;
@@ -240,16 +240,14 @@ class WebsiteController extends Controller
         if($existcart>0){
             $existqty = Cart::where('cust_id','=',$cust)->where('prod_id','=',$prod_id)->first();
             $updateqty = $existqty['qty']+$qty;
-            $qtyupdate = Cart::where('cust_id','=',$cust)->where('prod_id','=',$prod_id)
-                        ->update([
-                            'qty'=>$updateqty
-                        ]);
-                        if($qtyupdate==true){
-                            return response()->json(["status"=>"200","msg"=>"1"]);
-                        }else{
-                            return response()->json(["status"=>"400","msg"=>"2"]); 
-                        }
-        }else{
+            $qtyupdate = Cart::where('cust_id','=',$cust)->where('prod_id','=',$prod_id)->update(['qty'=>$updateqty]);
+            if($qtyupdate==true){
+                return response()->json(["status"=>"200","msg"=>"1"]);
+            }else{
+                return response()->json(["status"=>"400","msg"=>"2"]); 
+            }
+        }else
+        {
             $getproduct = Product::where('id','=',$prod_id)->first();
             if($qty<$getproduct['qty']){
                 $addTo = new Cart;
@@ -263,7 +261,7 @@ class WebsiteController extends Controller
                 }else{
                     return response()->json(["status"=>"400","msg"=>"2"]); 
                 }
-            }
+        }
         else{
             return response()->json(["status"=>"400","msg"=>"3"]);
         }
