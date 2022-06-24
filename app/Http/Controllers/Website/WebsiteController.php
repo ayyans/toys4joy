@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Website;
-
+use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -34,17 +34,11 @@ class WebsiteController extends Controller
 
         $categoriestest = $this->listCategory();
         View::share('categoriestest', $categoriestest);
-        if(Session::get('cart_random_id'))
-        {
-
-        }else{
-            $rand = rand('123456789' , '987654321');
-            Session::put('cart_random_id',$rand);
-        }
     }
-
-
     public function index(){
+
+        echo Cmf::ipaddress();exit;
+
         $categories = $this->listCategory();
         return view('website.home',compact('categories'));
     }
