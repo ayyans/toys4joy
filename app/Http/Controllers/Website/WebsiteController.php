@@ -36,9 +36,6 @@ class WebsiteController extends Controller
         View::share('categoriestest', $categoriestest);
     }
     public function index(){
-
-        echo Cmf::ipaddress();exit;
-
         $categories = $this->listCategory();
         return view('website.home',compact('categories'));
     }
@@ -235,7 +232,7 @@ class WebsiteController extends Controller
     }
     
     public function addTocart(Request $request){
-        $cust = Session::get('cart_random_id');
+        $cust = Cmf::ipaddress();
         $prod_id = $request->prod_id;
         $qty = $request->quantity;
         $existcart = Cart::where('cust_id','=',$cust)->where('prod_id','=',$prod_id)->count();        
@@ -292,7 +289,7 @@ class WebsiteController extends Controller
     // cart page
 
     public function cartpage(){
-        $cust_id = Session::get('cart_random_id');
+        $cust_id = Cmf::ipaddress();
         $carts = Cart::leftJoin('products','products.id','=','carts.prod_id')                
         ->select('carts.id as crtid','carts.qty as cartQty','products.*')
         ->where('carts.cust_id','=',$cust_id)       
@@ -331,7 +328,7 @@ class WebsiteController extends Controller
     // pay as member
 
     public function payasmember(Request $request){
-        $cust_id = Session::get('cart_random_id');
+        $cust_id = Cmf::ipaddress();
         $data = array('customer_id' => Auth::user()->id);
         DB::table('carts')->where('cust_id' , $cust_id)->update($data);
         $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
@@ -560,7 +557,7 @@ class WebsiteController extends Controller
 
                 }
                 if($place_order==true){
-                    $cartid = Session::get('cart_random_id');
+                    $cartid = Cmf::ipaddress();
                     $update_cart = Cart::where('cust_id','=',$cartid)->delete();
                     return response()->json(["status"=>"200","msg"=>"1"]);
                     exit();

@@ -88,7 +88,7 @@
     </div>
 </div> 
 </footer>
-<input type="hidden" name="cust_id" value="{{ Session::get('cart_random_id') }}" id="cust_id" />
+<input type="hidden" name="cust_id" value="{{ Cmf::ipaddress() }}" id="cust_id" />
 @include('website.layouts.loader')
 @push('otherscript')
 <script>
