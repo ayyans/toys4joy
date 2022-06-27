@@ -598,6 +598,7 @@ public function deleteAttrVal(Request $request){
             $addproduct->unit_price=$request->unit_price;
             $addproduct->discount=$request->discount;
             $addproduct->price_discount_unit=$request->discount_type;
+            $addproduct->url = $this->shorten_url($request->prodname);
             // $addproduct->points=$request->earn_point;
             $addproduct->qty=$request->current_qty;
             $addproduct->sku=$request->sku;
@@ -1088,6 +1089,7 @@ public function editProcess(Request $request){
         'title'=>$request->prodname,
         'category_id'=>$request->category_id,
         'brand_id'=>$request->brand_id,
+        'url'=>$this->shorten_url($request->prodname),
         'unit'=>$request->unit,
         'min_qty'=>$request->min_qty,
         'sub_cat'=>$request->sub_cat,
@@ -1129,7 +1131,7 @@ public function editProcess(Request $request){
         'unit_price'=>$request->unit_price,
         'discount'=>$request->discount,
         'price_discount_unit'=>$request->discount_type,
-        // 'points'=>$request->earn_point,
+        'url'=>$this->shorten_url($request->prodname),
         'qty'=>$request->current_qty,
         'sku'=>$request->sku,
         'short_desc'=>$request->shortdescription,

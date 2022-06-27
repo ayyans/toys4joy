@@ -36,6 +36,23 @@ class WebsiteController extends Controller
         View::share('categoriestest', $categoriestest);
     }
     public function index(){
+
+
+        $data = Product::all();
+
+        foreach ($data as $r) {
+            if($r->url)
+            {
+
+            }else{
+                $ipdate = Product::find($r->id);
+                $ipdate->url = $this->shorten_url($r->title);
+                $ipdate->save();
+            }
+        }
+        exit;
+
+
         $categories = $this->listCategory();
         $products = Product::where('status','=','2')->orderBy('id','desc')->limit(3)->get();
         return view('website.home',compact('categories','products'));
