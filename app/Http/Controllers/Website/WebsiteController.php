@@ -185,8 +185,6 @@ class WebsiteController extends Controller
 
     public function guestthank(Request $request){
         $allparms =  $request->all();
-
-        print_r($allparms);exit;
         $ipaddres = Cmf::ipaddress();
         $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get()->first();
         $customer = DB::table('users')->where('id' , $cart->customer_id)->get()->first();
@@ -338,7 +336,14 @@ class WebsiteController extends Controller
 
         if($products->count()>0)
         {
-            return view('website.payasmember',compact('products'));
+            $checkaddres = CustomerAddress::where('cust_id' , Auth::user()->id)->count();
+            if($checkaddres > 0)
+            {
+                return view('website.payasmember',compact('products'));
+            }else{
+                
+                return redirect()->route('website.addAddressInfo')->with('error','Add Address First');
+            }
         }else{
             return redirect()->route('website.home')->with('error','Cart Is Empty!');
         }

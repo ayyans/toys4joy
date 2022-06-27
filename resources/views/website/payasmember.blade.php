@@ -167,8 +167,8 @@ $action_url = 'https://sadadqa.com/webpurchase';
             <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
             <div class="yellowbg-img cash-on-delivery">
                 <img src="{{asset('website/img/cash-on-delievery.png')}}"/>
-                <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD">Pay</a>
-                <a id="cashondelivery" href="javascript:void(0)">Cash or Credit<br>on Delivery</a>
+                    <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD">Pay</a>
+                    <a id="cashondelivery" href="javascript:void(0)">Cash or Credit<br>on Delivery</a>
             </div>
         </div>
    <!--      <div class="col-6 member-col right text-center">
