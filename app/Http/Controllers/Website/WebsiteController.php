@@ -36,23 +36,6 @@ class WebsiteController extends Controller
         View::share('categoriestest', $categoriestest);
     }
     public function index(){
-
-
-        $data = Product::all();
-
-        foreach ($data as $r) {
-            if($r->url)
-            {
-
-            }else{
-                $ipdate = Product::find($r->id);
-                $ipdate->url = $this->shorten_url($r->title);
-                $ipdate->save();
-            }
-        }
-        exit;
-
-
         $categories = $this->listCategory();
         $products = Product::where('status','=','2')->orderBy('id','desc')->limit(3)->get();
         return view('website.home',compact('categories','products'));
@@ -202,6 +185,8 @@ class WebsiteController extends Controller
 
     public function guestthank(Request $request){
         $allparms =  $request->all();
+
+        print_r($allparms);exit;
         $ipaddres = Cmf::ipaddress();
         $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get()->first();
         $customer = DB::table('users')->where('id' , $cart->customer_id)->get()->first();
@@ -245,10 +230,7 @@ class WebsiteController extends Controller
 
     // add to cart
 
-    public function verificationotp()
-    {
-        return view('website.verifyotp');
-    }
+    
     
     public function addTocart(Request $request){
         $cust = Cmf::ipaddress();

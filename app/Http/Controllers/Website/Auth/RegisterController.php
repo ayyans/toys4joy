@@ -54,13 +54,7 @@ class RegisterController extends Controller
         $savecustomers->show_password = $request->password;
         $savecustomers->save();
         $this->sendMessage('Your One Time Pin Is '.$otp.'. Use this Pin for Verification On TOYS 4 JOY.', $request->mobilenumber);
-
-
-        Auth::login($savecustomers);
-
-        if(Auth::user()->status == 1)
-        {
-            return redirect()->route('website.otp')->with('warning','Please Enter Code!');
-        }
-        }
+        // Auth::login($savecustomers);
+        return redirect()->route('website.otp')->with('warning','Please Enter Code!');
+    }
 }

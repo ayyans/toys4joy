@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Website\Auth;
 use Auth;
-use App\Models\Customer;
 use App\Models\Category;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\View;
-
+use DB;
 class LoginController extends Controller
 {
      public function __construct(){ 
@@ -17,7 +16,7 @@ class LoginController extends Controller
         View::share('categoriestest', $categoriestest);
     }
 
-     public function login(){
+    public function login(){
         return view('website.auth.login');
     }
 
@@ -33,22 +32,22 @@ class LoginController extends Controller
         }
         return redirect()->intended('/')->with('success','You are Logged in as customer!');
         }
-    
-        //Authentication failed...
         return $this->loginFailed();
     }
-
+    public function verificationotp()
+    {
+        return view('website.verifyotp');
+    }
     public function confermotp(Request $request)
     {
-        $userotp = Auth::user()->otp;
-        $otp = $request->otp;
-
-        if($otp == $userotp)
+        $check = DB::table('users')->where('otp' , $request->otp)->get();
+        if($check->count() == 1)
         {
-            $user = User::find(Auth::user()->id);
+            $user = User::find($check->first()->id);
             $user->status = 2;
             $user->save();
-            return redirect()->intended('/')->with('success','Your Account is Approved');
+            Auth::login($user);
+            return redirect()->route('home')->with('success','Your Account is Approved');
         }else{
             return back()->with('error','Invalid OTP');
         }
@@ -78,7 +77,7 @@ class LoginController extends Controller
 
               //validation rules.
     $rules = [
-        'email'    => 'required|email|exists:customers|min:5|max:191',
+        'email'    => 'required|email|exists:users|min:5|max:191',
         'password' => 'required|string|min:4|max:255',
     ];
 

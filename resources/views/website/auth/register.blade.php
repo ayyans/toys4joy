@@ -50,16 +50,25 @@
                     <div class="col-12">
                         <label>Name<span>*</span></label>
                         <input type="text" name="name" placeholder="Write name here" class="customerReg">
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
+
                     <div class="col-12">
                         <label>Email<span>*</span></label>
                         <input type="email" name="email" placeholder="Write email here" class="customerReg">
+                        @if($errors->has('email'))
+                        <span style="display: block;text-align: left;" class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                        @endif
                     </div>
                     <div class="col-12">
                         <label style="margin-bottom: 5px;">Phone<span>*</span></label>
                         <input id="phone" class="customerReg" name="phone" type="tel">
-
-
                         <input type="hidden" name="mobilenumber" id="mobilenumber">
                     </div>
                     <div class="col-12">

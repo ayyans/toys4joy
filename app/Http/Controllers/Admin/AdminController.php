@@ -16,7 +16,7 @@ use App\Models\GuestOrder;
 use App\Models\Customer;
 use App\Models\Coupon;
 use App\Models\Order;
-
+use DB;
 class AdminController extends Controller
 {
     //
@@ -28,7 +28,7 @@ class AdminController extends Controller
     // customer details 
 
     public function customer(){
-        $customers = Customer::orderBy('id','desc')->get();
+        $customers = DB::table('users')->where('type' , 'customer')->orderBy('id','desc')->get();
         return view('admin.customer',compact('customers'));
     }
 
@@ -37,7 +37,7 @@ class AdminController extends Controller
 
     public function activateCustomer(Request $request){
         $catid = decrypt($request->id);
-        $activate = Customer::where('id','=',$catid)->update([
+        $activate = DB::table('users')->where('id','=',$catid)->update([
             'status'=>'2'
         ]);
         if($activate==true){
@@ -53,7 +53,7 @@ class AdminController extends Controller
 
     public function deactivateCustomer(Request $request){
         $catid = decrypt($request->id);
-        $deactivate = Customer::where('id','=',$catid)->update([
+        $deactivate = DB::table('users')->where('id','=',$catid)->update([
             'status'=>'3'
         ]);
         if($deactivate==true){

@@ -90,7 +90,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                       <!--  <div class="form-group row">
                             <label class="col-md-3 col-from-label">Refundable</label>
                             <div class="col-md-8">
                                 <label class="aiz-switch aiz-switch-success mb-0">
@@ -98,7 +98,7 @@
                                     <span></span>
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="card mb-4">

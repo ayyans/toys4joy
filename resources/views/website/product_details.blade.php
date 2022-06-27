@@ -61,7 +61,11 @@
                     </div>
                     <h2 class="price"> QAR {{$products->unit_price}}</h2>
                     <div class="earn-points"><h5>Earn Reward Points Worth {{$products->points}} Points<span>(Only for registered users)</span></h5></div>
-                    <div class="suitable-age"><img src="{{asset('website/img/boy.svg')}}"/> <span>Suitable for age 3+ Years </span></div>
+                    @if(!empty($products->unit))
+                    <div class="suitable-age">
+                        <img src="{{asset('website/img/boy.svg')}}"/> <span>{{ $products->unit }} </span>
+                    </div>
+                    @endif
                     <p class="product-desc"><span>Description</span> : {!! $products->long_desc !!}</p>
                     @if($products->qty!=0)
                     <div class="d-flex icons-area">
@@ -90,7 +94,9 @@
                         </div>
                     </div>
                     <div class="d-flex btn-area">
+                        @if(!Auth::check())
                         <div class="guest"><a href="javascript:void(0)" id="payasguest"><span>Pay as</span>Guest</a></div>
+                        @endif
                         <div class="member"><a href="javascript:void(0)" id="payasmember"><span>Pay as</span>Member</a></div>
                     </div>
                     @else
