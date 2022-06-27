@@ -21,7 +21,7 @@
                         <div class="form-group row" id="category">
                             <label class="col-md-3 col-from-label">Category <span class="text-danger">*</span></label>
                             <div class="col-md-8">
-                                <select class="form-control addprodfrm" name="category_id" id="category_id">
+                                <select onchange="subcategories(this.value)" class="form-control addprodfrm" name="category_id" id="category_id">
                                     <option value="0">select category</option>
                                     @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->category_name}}</option>
@@ -29,6 +29,27 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group row" id="category">
+                            <label class="col-md-3 col-from-label">Sub Category </label>
+                            <div class="col-md-8">
+                                <select class="form-control addprodfrm" name="sub_cat" id="subcat_id">
+                                    <option >Select Subcategory</option>
+                                </select>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            function subcategories(id)
+                            {
+                                var url = '{{ url("admin/getsubcategories") }}'
+                                $.ajax({
+                                    type: "GET",
+                                    url: url+'/'+id,
+                                    success: function(resp) {
+                                        $('#subcat_id').html(resp)
+                                    }
+                                });
+                            }
+                        </script>
                             <div class="form-group row" id="brand">
                                 <label class="col-md-3 col-from-label">Brand</label>
                                 <div class="col-md-8">

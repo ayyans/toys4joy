@@ -41,6 +41,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
     Route::post('/add-subcategories-process','AdminController@SubcateProcess')->name('SubcateProcess');
 
+    Route::get('/getsubcategories/{id}','AdminController@getsubcategories')->name('getsubcategories');
 
     // activate sub category
 

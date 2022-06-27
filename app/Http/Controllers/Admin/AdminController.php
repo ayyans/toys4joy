@@ -199,6 +199,17 @@ class AdminController extends Controller
         return view('admin.add-subcategory',compact('categories'));
     }
 
+    public function getsubcategories($id)
+    {
+        $data = SubCategory::where('parent_cat' , $id)->where('status' , 2)->get();
+
+        echo '<option value="">Select Sub Category</option>';
+        foreach ($data as $r) {
+            echo '<option value="'.$r->id.'"> '.$r->subcat_name.'</option>';
+        }
+        
+    }
+
 
     // add sub category
 
@@ -579,7 +590,7 @@ public function deleteAttrVal(Request $request){
             $addproduct->brand_id=$request->brand_id;
             $addproduct->unit=$request->unit;
             $addproduct->min_qty=$request->min_qty;
-            // $addproduct->tags=$request->tags;
+            $addproduct->sub_cat=$request->sub_cat;
             $addproduct->barcode=$request->barcode;
             $addproduct->featured_img=$thumbnail_img;
             $addproduct->video_provider=$request->video_provider;
@@ -1079,7 +1090,7 @@ public function editProcess(Request $request){
         'brand_id'=>$request->brand_id,
         'unit'=>$request->unit,
         'min_qty'=>$request->min_qty,
-        // 'tags'=>$request->tags,
+        'sub_cat'=>$request->sub_cat,
         'barcode'=>$request->barcode,
         'featured_img'=>$thumbnail_img,
         'video_provider'=>$request->video_provider,
@@ -1111,7 +1122,7 @@ public function editProcess(Request $request){
         'brand_id'=>$request->brand_id,
         'unit'=>$request->unit,
         'min_qty'=>$request->min_qty,
-        // 'tags'=>$request->tags,
+        'sub_cat'=>$request->sub_cat,
         'barcode'=>$request->barcode,
         'video_provider'=>$request->video_provider,
         'videolink'=>$request->video_link,

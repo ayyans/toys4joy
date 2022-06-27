@@ -27,7 +27,7 @@
                         <div class="form-group row" id="category">
                             <label class="col-md-3 col-from-label">Category <span class="text-danger">*</span></label>
                             <div class="col-md-8">
-                                <select class="form-control addprodfrm selectcat" name="category_id" id="category_id">
+                                <select onchange="subcategories(this.value)" class="form-control addprodfrm selectcat" name="category_id" id="category_id">
                                     <option value="0">select category</option>
                                     @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->category_name}}</option>
@@ -35,6 +35,30 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group row" id="category">
+                            <label class="col-md-3 col-from-label">Sub Category </label>
+                            <div class="col-md-8">
+                                <select class="form-control addprodfrm" name="sub_cat" id="subcat_id">
+                                    <option value="">Select Sub Category</option>
+                                    @foreach(DB::table('sub_categories')->where('parent_cat' , $products->category_id)->get() as $r)
+                                    <option @if($products->sub_cat == $r->id) selected @endif value="{{ $r->id }}">{{ $r->subcat_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            function subcategories(id)
+                            {
+                                var url = '{{ url("admin/getsubcategories") }}'
+                                $.ajax({
+                                    type: "GET",
+                                    url: url+'/'+id,
+                                    success: function(resp) {
+                                        $('#subcat_id').html(resp)
+                                    }
+                                });
+                            }
+                        </script>
                             <div class="form-group row" id="brand">
                                 <label class="col-md-3 col-from-label">Brand</label>
                                 <div class="col-md-8">

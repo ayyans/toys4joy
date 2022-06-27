@@ -14,7 +14,7 @@ class Product extends Model
         'brand_id',
         'unit',
         'min_qty',
-        'tags',
+        'sub_cat',
         'barcode',
         'featured_img',
         'video_provider',
