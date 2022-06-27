@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\View;
 use DB;
+use Illuminate\Auth\Events\Registered;
+
 class LoginController extends Controller
 {
      public function __construct(){ 
@@ -46,6 +48,7 @@ class LoginController extends Controller
             $user = User::find($check->first()->id);
             $user->status = 2;
             $user->save();
+            event(new Registered($user)); // Registered event fired
             Auth::login($user);
             return redirect()->route('website.home')->with('success','Your Account is Approved');
         }else{
