@@ -47,7 +47,7 @@ class LoginController extends Controller
             $user->status = 2;
             $user->save();
             Auth::login($user);
-            return redirect()->route('home')->with('success','Your Account is Approved');
+            return redirect()->route('website.home')->with('success','Your Account is Approved');
         }else{
             return back()->with('error','Invalid OTP');
         }

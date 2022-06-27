@@ -2003,8 +2003,13 @@ $(document).ready(function() {
     audio.play();
   });
 });    
-    
-    
+ 
+$('.categories li ul li a').each(function() {
+      var $this = $(this);
+      $this.text( $this.text().slice(0,15) );
+});    
+
+      
     /** @export */
   window.wNumb = wNumb;
 }());
