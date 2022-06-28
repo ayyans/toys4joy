@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Website;
+
+use App\Events\OrderPlaced;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -538,9 +540,25 @@ class WebsiteController extends Controller
     // logged in user orders
 
     public function placeorder(Request $request){
-
         $cust_id = Auth::user()->id;
         $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
+
+        $address = "Unit No: $cust_Add->unit_no, Building No: $cust_Add->building_no, Zone: $cust_Add->zone, Street: $cust_Add->street";
+
+        $products = array_map(function($n) {
+            return Product::find($n)->title;
+        }, $request->prodid);
+
+
+        $order_number = mt_rand(100000000, 999999999);
+        $order_details = [
+            'order_number' => $order_number,
+            'total' => $request->amount,
+            'quantity' => $request->cartQty,
+            'amount' => $request->cart_amount,
+            'address' => $address,
+            'products' => $products,
+        ];
 
         if($cust_Add)
         {
@@ -552,6 +570,7 @@ class WebsiteController extends Controller
             if($request->mode==1){
                 for($i=0;$i<$total_prod_id;$i++){
                     $place_order = new Order;
+                    $place_order->orderid=$order_number;
                     $place_order->cust_id=$cust_id;
                     $place_order->cust_add_id=$cust_add_id;
                     $place_order->prod_id=$prod_id[$i];
@@ -564,6 +583,7 @@ class WebsiteController extends Controller
                 if($place_order==true){
                     $cartid = Cmf::ipaddress();
                     $update_cart = Cart::where('cust_id','=',$cartid)->delete();
+                    event(new OrderPlaced($order_details));
                     return response()->json(["status"=>"200","msg"=>"1"]);
                     exit();
                 }else{

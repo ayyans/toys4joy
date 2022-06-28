@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\OrderPlaced;
+use App\Listeners\SendOrderConfirmationMail;
 use App\Listeners\SendWelcomeMail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -20,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
             SendWelcomeMail::class
         ],
+        OrderPlaced::class => [
+            SendOrderConfirmationMail::class
+        ]
     ];
 
     /**
