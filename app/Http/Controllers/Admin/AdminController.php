@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -298,24 +298,33 @@ public function BrandProcess(Request $request){
     if($exist_ct>0){
         return back()->with('brand already exist');
     }else{            
-
-         $brandIcon = time().'.'.$request->file('brandIcon')->getClientOriginalName();
-         $request->brandIcon->move(public_path('uploads'), $brandIcon);
-
          $category = new Brand;
-         $category->brand_name=$request->brandname;                    
-         $category->logo=$brandIcon;
+         $category->brand_name=$request->brandname;
+         if($request->brandIcon)
+         {
+            $category->logo=Cmf::sendimagetodirectory($request->brandIcon);
+         }
+         $category->status=2;
          $category->save();
          if($category==true){
-             return back()->with('success','brands added successfull');
+             return back()->with('success','Brand Added Successfully');
              exit();
          }else{
             return back()->with('error','something went wrong');
             exit();
          }
-
-
     }
+}
+public function updatebrand(Request $request)
+{
+    $category = Brand::find($request->id);
+    $category->brand_name=$request->brandname;
+    if($request->brandIcon)
+    {
+        $category->logo=Cmf::sendimagetodirectory($request->brandIcon);
+    }
+    $category->save();
+    return back()->with('success','Brand Updated Successfully');
 }
 
   // activate brands
