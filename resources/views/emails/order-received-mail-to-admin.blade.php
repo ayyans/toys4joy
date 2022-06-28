@@ -87,25 +87,24 @@
                   <td align="center"
                     style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;">
                     <br>
-                    <h2 style="font-size: 30px; font-weight: 800; line-height: 36px; color: #333333; margin: 0;"> Thank
-                      You For Your Order! </h2>
+                    <h2 style="font-size: 30px; font-weight: 800; line-height: 36px; color: #333333; margin: 0;"> New
+                      Order Received!</h2>
                   </td>
                 </tr>
                 <tr>
                   <td align="left"
                     style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 10px;">
-                    <p style="font-size: 16px; font-weight: 400; line-height: 24px; color: #777777;"> Your order has
-                      been received and is now being processed. Your order details are shown below for your reference:
-                    </p>
+                    <p style="font-size: 16px; font-weight: 400; line-height: 24px; color: #777777;"> You have received
+                      an order. Your order details are shown below for your reference:</p>
                   </td>
                 </tr>
                 <tr>
                   <td align="left" style="padding-top: 20px;">
-                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:20px">
                       <tr>
                         <td width="75%" align="left" bgcolor="#eeeeee"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
-                          Order Confirmation # </td>
+                          Order ID # </td>
                         <td width="25%" align="left" bgcolor="#eeeeee"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
                           {{ $data['order_number'] }} </td>
@@ -114,12 +113,28 @@
                       <tr>
                         <td width="75%" align="left"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                          {{ $name }} ({{ $data['quantity'][$index] }}) </td>
+                          {{ $name }} (x{{ $data['quantity'][$index] }}) </td>
                         <td width="25%" align="left"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                          {{ 'QAR ' . $data['amount'][$index] }} </td>
+                          {{ 'QAR ' . number_format($data['amount'][$index], 2) }} </td>
                       </tr>
                       @endforeach
+                      <tr>
+                        <td width="75%" align="left"
+                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
+                          Date Added</td>
+                        <td width="25%" align="left"
+                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
+                          {{ now()->format('d/m/Y') }} </td>
+                      </tr>
+                      <tr>
+                        <td width="75%" align="left"
+                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
+                          Order Status </td>
+                        <td width="25%" align="left"
+                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
+                          Pending </td>
+                      </tr>
                     </table>
                   </td>
                 </tr>
@@ -170,30 +185,6 @@
                         </tr>
                       </table>
                     </div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td align="center" style=" padding: 10px; background-color: #2972bc;" bgcolor="#2972bc">
-              <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
-                <tr>
-                  <td align="center"
-                    style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;">
-                    <h2 style="font-size: 24px; font-weight: 800; line-height: 30px; color: #ffffff; margin: 0;"> Get
-                      30% off your next order. </h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td align="center" style="padding: 25px 0 15px 0;">
-                    <table border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td align="center" style="border-radius: 5px;" bgcolor="#2972bc"> <a href="{{ route('website.home') }}" target="_blank"
-                            style="font-size: 18px; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 5px; background-color: #26a557; padding: 15px 30px; border: 1px solid #26a557; display: block;">Shop
-                            Again</a> </td>
-                      </tr>
-                    </table>
                   </td>
                 </tr>
               </table>

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
+use App\Events\OrderStatusChanged;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,6 +18,7 @@ use App\Models\GuestOrder;
 use App\Models\Customer;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\User;
 use DB;
 class AdminController extends Controller
 {
@@ -727,6 +730,16 @@ public function confirmGuestOrders(Request $request){
     $update_orders = GuestOrder::where('id','=',$orderid)->update([
         'status'=>'2'
     ]);
+    $order = GuestOrder::where('id','=',$orderid)->first();
+    $data = [
+        'title' => 'Order Confirmed!',
+        'description' => 'Your order has confirmed.',
+        'order_number' => $orderid,
+        'to' => $order->cust_name,
+        'date' => $order->created_at->format('d/m/Y'),
+        'status' => 'Confirmed'
+    ];
+    event(new OrderStatusChanged($data));
     if($update_orders==true){
         return back()->with('success','orders is confirmed');
         exit();
@@ -744,6 +757,16 @@ public function shippedGuestOrders(Request $request){
     $update_orders = GuestOrder::where('id','=',$orderid)->update([
         'status'=>'3'
     ]);
+    $order = GuestOrder::where('id','=',$orderid)->first();
+    $data = [
+        'title' => 'Order Shipped!',
+        'description' => 'Your order is shipped.',
+        'order_number' => $orderid,
+        'to' => $order->cust_name,
+        'date' => $order->created_at->format('d/m/Y'),
+        'status' => 'Shipped'
+    ];
+    event(new OrderStatusChanged($data));
     if($update_orders==true){
         return back()->with('success','orders is shipped');
         exit();
@@ -760,6 +783,16 @@ public function cancelledGuestOrders(Request $request){
     $update_orders = GuestOrder::where('id','=',$orderid)->update([
         'status'=>'4'
     ]);
+    $order = GuestOrder::where('id','=',$orderid)->first();
+    $data = [
+        'title' => 'Order Cancelled!',
+        'description' => 'Your order is cancelled.',
+        'order_number' => $orderid,
+        'to' => $order->cust_name,
+        'date' => $order->created_at->format('d/m/Y'),
+        'status' => 'Cancelled'
+    ];
+    event(new OrderStatusChanged($data));
     if($update_orders==true){
         return back()->with('success','orders is cancelled');
         exit();
@@ -777,6 +810,16 @@ public function deliveredGuestOrders(Request $request){
     $update_orders = GuestOrder::where('id','=',$orderid)->update([
         'status'=>'5'
     ]);
+    $order = GuestOrder::where('id','=',$orderid)->first();
+    $data = [
+        'title' => 'Order Delivered!',
+        'description' => 'Your order is delivered.',
+        'order_number' => $orderid,
+        'to' => $order->cust_name,
+        'date' => $order->created_at->format('d/m/Y'),
+        'status' => 'Delivered'
+    ];
+    event(new OrderStatusChanged($data));
     if($update_orders==true){
         return back()->with('success','orders is delivered');
         exit();
@@ -974,6 +1017,16 @@ public function confirmCustOrders(Request $request){
     $update_orders = Order::where('id','=',$orderid)->update([
         'status'=>'2'
     ]);
+    $order = Order::where('id','=',$orderid)->first();
+    $data = [
+        'title' => 'Order Confirmed!',
+        'description' => 'Your order has confirmed.',
+        'order_number' => $order->orderid,
+        'to' => User::find($order->cust_id)->name,
+        'date' => $order->created_at->format('d/m/Y'),
+        'status' => 'Confirmed'
+    ];
+    event(new OrderStatusChanged($data));
     if($update_orders==true){
         return back()->with('success','orders is confirmed');
         exit();
@@ -991,6 +1044,16 @@ public function shippedCustOrders(Request $request){
     $update_orders = Order::where('id','=',$orderid)->update([
         'status'=>'3'
     ]);
+    $order = Order::where('id','=',$orderid)->first();
+    $data = [
+        'title' => 'Order Shipped!',
+        'description' => 'Your order is shipped.',
+        'order_number' => $order->orderid,
+        'to' => User::find($order->cust_id)->name,
+        'date' => $order->created_at->format('d/m/Y'),
+        'status' => 'Shipped'
+    ];
+    event(new OrderStatusChanged($data));
     if($update_orders==true){
         return back()->with('success','orders is shipped');
         exit();
@@ -1007,6 +1070,16 @@ public function cancelledCustOrders(Request $request){
     $update_orders = Order::where('id','=',$orderid)->update([
         'status'=>'4'
     ]);
+    $order = Order::where('id','=',$orderid)->first();
+    $data = [
+        'title' => 'Order Cancelled!',
+        'description' => 'Your order is cancelled.',
+        'order_number' => $order->orderid,
+        'to' => User::find($order->cust_id)->name,
+        'date' => $order->created_at->format('d/m/Y'),
+        'status' => 'Cancelled'
+    ];
+    event(new OrderStatusChanged($data));
     if($update_orders==true){
         return back()->with('success','orders is cancelled');
         exit();
@@ -1024,6 +1097,16 @@ public function deliveredCustOrders(Request $request){
     $update_orders = Order::where('id','=',$orderid)->update([
         'status'=>'5'
     ]);
+    $order = Order::where('id','=',$orderid)->first();
+    $data = [
+        'title' => 'Order Delivered!',
+        'description' => 'Your order is delivered.',
+        'order_number' => $order->orderid,
+        'to' => User::find($order->cust_id)->name,
+        'date' => $order->created_at->format('d/m/Y'),
+        'status' => 'Delivered'
+    ];
+    event(new OrderStatusChanged($data));
     if($update_orders==true){
         return back()->with('success','orders is delivered');
         exit();

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\OrderPlaced;
+use App\Events\OrderStatusChanged;
 use App\Listeners\SendOrderConfirmationMail;
+use App\Listeners\SendOrderStatusChangeMail;
 use App\Listeners\SendWelcomeMail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -24,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderPlaced::class => [
             SendOrderConfirmationMail::class
+        ],
+        OrderStatusChanged::class => [
+            SendOrderStatusChangeMail::class
         ]
     ];
 
