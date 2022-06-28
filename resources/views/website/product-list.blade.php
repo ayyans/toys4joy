@@ -25,6 +25,9 @@
             <div class="d-flex products-list">
               @foreach($products as $product)
                 <div class="single">
+                    @if($product->qty == 0)
+                    <div class="availbility"><span>Out of Stock</span></div>
+                    @endif
                     <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
                     <div class="text-center content-block">
                         <h3>{{$product->title}}</h3>
@@ -32,55 +35,6 @@
                     </div>
                 </div>
                 @endforeach
-                <!-- <div class="single">
-                    <div class="img-block"><a href="#"><img src="{{asset('website/img/product-listing/product-2.png')}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>Pokémon Bandolier...</h3>
-                        <span class="price">QAR 169</span>
-                    </div>
-                </div>
-                <div class="single">
-                    <div class="img-block"><a href="#"><img src="{{asset('website/img/product-listing/product-3.png')}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>Pokémon Bandolier...</h3>
-                        <span class="price">QAR 169</span>
-                    </div>
-                </div>
-                <div class="single">
-                    <div class="img-block"><a href="#"><img src="{{asset('website/img/product-listing/product-3.png')}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>Pokémon Bandolier...</h3>
-                        <span class="price">QAR 169</span>
-                    </div>
-                </div>
-                <div class="single">
-                    <div class="img-block"><a href="#"><img src="{{asset('website/img/product-listing/product-4.png')}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>Pokémon Bandolier...</h3>
-                        <span class="price">QAR 169</span>
-                    </div>
-                </div>
-                <div class="single">
-                    <div class="img-block"><a href="#"><img src="{{asset('website/img/product-listing/product-1.png')}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>Pokémon Bandolier...</h3>
-                        <span class="price">QAR 169</span>
-                    </div>
-                </div>
-                <div class="single">
-                    <div class="img-block"><a href="#"><img src="{{asset('website/img/product-listing/product-2.png')}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>Pokémon Bandolier...</h3>
-                        <span class="price">QAR 169</span>
-                    </div>
-                </div>
-                <div class="single">
-                    <div class="img-block"><a href="#"><img src="{{asset('website/img/product-listing/product-2.png')}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>Pokémon Bandolier...</h3>
-                        <span class="price">QAR 169</span>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
