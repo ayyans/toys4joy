@@ -627,6 +627,8 @@ public function deleteAttrVal(Request $request){
             $addproduct->tax_unit=$request->tax_type;
             $addproduct->vat=$request->vat;
             $addproduct->vat_unit=$request->vat_type;
+            $addproduct->best_seller=$request->best_seller;
+            $addproduct->new_arrival=$request->new_arrival;
             $addproduct->save();
             $lastid = $addproduct->id;
                 $galler_size = count($request->photos);
@@ -1173,6 +1175,8 @@ public function editProcess(Request $request){
         $todaysdeal=$request->todays_deal;
     }
 
+    
+
  if($request->hasFile('thumbnail_img')){
     $thumbnail_img = time().'.'.$request->file('thumbnail_img')->getClientOriginalName();
     $request->thumbnail_img->move(public_path('products'), $thumbnail_img);
@@ -1207,7 +1211,9 @@ public function editProcess(Request $request){
         'tax'=>$request->tax,
         'tax_unit'=>$request->tax_type,
         'vat'=>$request->vat,
-        'vat_unit'=>$request->vat_type
+        'vat_unit'=>$request->vat_type,
+        'best_seller'=>$request->best_seller ?? 0,
+        'new_arrival'=>$request->new_arrival ?? 0
     ]);
 }else{
     $update_product = Product::where('id','=',$prod_id)->update([
@@ -1238,7 +1244,9 @@ public function editProcess(Request $request){
         'tax'=>$request->tax,
         'tax_unit'=>$request->tax_type,
         'vat'=>$request->vat,
-        'vat_unit'=>$request->vat_type
+        'vat_unit'=>$request->vat_type,
+        'best_seller'=>$request->best_seller ?? 0,
+        'new_arrival'=>$request->new_arrival ?? 0
     ]);
 
 }
