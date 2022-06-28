@@ -88,7 +88,8 @@
                     </a>
                 </li>
                 <li><a href="#">Brands</a></li>
-                <li><a href="#">Best Sellers</a></li>
+                <li><a href="{{ route('website.products', 'best-seller') }}">Best Sellers</a></li>
+                <li><a href="{{ route('website.products', 'new-arrival') }}">New Arrival</a></li>
                 <li><a href="#">Best Offers</a></li>
             </ul>
                 <h1 class="for-mobile age-range-title">Select Age Range</h1>
