@@ -1,5 +1,108 @@
 @extends('website.layouts.master')
 @section('content')
+<?php 
+function getChecksumFromString($str, $key) { 
+
+ $salt = generateSalt_e(4); 
+ $finalString = $str . "|" . $salt; 
+ $hash = hash("sha256", $finalString); 
+ $hashString = $hash . $salt; 
+ $checksum = encrypt_e($hashString, $key); 
+ return $checksum; 
+
+} 
+
+function generateSalt_e($length) { 
+
+ $random = ""; 
+ srand((double) microtime() * 1000000); 
+ $data = "AbcDE123IJKLMN67QRSTUVWXYZ"; 
+ $data .= "aBCdefghijklmn123opq45rs67tuv89wxyz"; 
+ $data .= "0FGH45OP89"; 
+ for ($i = 0; $i < $length; $i++) { 
+ $random .= substr($data, (rand() % (strlen($data))), 1);  } 
+ return $random; 
+} 
+
+function encrypt_e($input, $ky) { 
+ $ky = html_entity_decode($ky); 
+ $iv = "@@@@&&&&####$$$$"; 
+ $data = openssl_encrypt($input, "AES-128-CBC", $ky, 0, $iv);  return $data; 
+} 
+
+ $sadad_checksum_array = array(); 
+ $sadad__checksum_data = array(); 
+ $txnDate = date('Y-m-d H:i:s'); 
+
+if(Auth::check())
+{
+    $email = Auth::user()->email;
+}else{
+    $email = 'ahsinjavaid890@gmail.com';
+}
+ $secretKey = 'ewHgg8NgyY5zo59M'; 
+ $merchantID = '7288803'; 
+ $sadad_checksum_array['merchant_id'] = $merchantID;  
+ $orderid = rand('123456798' , '987654321');
+ $sadad_checksum_array['ORDER_ID'] = $orderid; 
+ $sadad_checksum_array['WEBSITE'] = url('');  
+ $sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
+ $sadad_checksum_array['CUST_ID'] = $email; 
+ $sadad_checksum_array['EMAIL'] = $email; 
+ $sadad_checksum_array['MOBILE_NO'] = '999999999';  
+ $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
+ $sadad_checksum_array['CALLBACK_URL'] = url('orderconfermasguest'); 
+ $sadad_checksum_array['txnDate'] = $txnDate; 
+$sadad_checksum_array['productdetail'] = 
+ array( 
+ array( 
+ 'order_id'=> $orderid,
+ 'itemname'=>  $products->title,
+ 'amount'=>$products->unit_price, 
+ 'quantity'=>$fnlqty,
+) 
+); 
+
+
+  
+        $sadad__checksum_data['postData'] = $sadad_checksum_array;  
+$sadad__checksum_data['secretKey'] = $secretKey; 
+
+$sAry1 = array(); 
+
+                $sadad_checksum_array1 = array(); 
+                foreach($sadad_checksum_array as $pK => $pV){ 
+                    if($pK=='checksumhash') continue; 
+                    if(is_array($pV)){ 
+                        $prodSize = sizeof($pV); 
+                        for($i=0;$i<$prodSize;$i++){ 
+                            foreach($pV[$i] as $innK => 
+$innV){ 
+        $sAry1[] = "<input type='hidden' name='productdetail[$i][". $innK ."]' value='" . trim($innV) 
+. "'/>"; 
+    $sadad_checksum_array1['productdetail'][$i][$innK] = 
+trim($innV); 
+        } 
+    } 
+                    } else { 
+                        $sAry1[] = "<input type='hidden' name='". $pK ."' id='". $pK ."' value='" . trim($pV) . "'/>"; 
+$sadad_checksum_array1[$pK] = 
+trim($pV); 
+        } 
+    } 
+$sadad__checksum_data['postData'] = $sadad_checksum_array1;  
+$sadad__checksum_data['secretKey'] = $secretKey;  $checksum 
+= 
+getChecksumFromString(json_encode($sadad__checksum_data), $secretKey . 
+$merchantID); 
+ $sAry1[] = "<input type='hidden'  name='checksumhash' 
+value='" . $checksum . "'/>"; 
+
+$action_url = 'https://sadadqa.com/webpurchase';   
+        echo '<form action="' . $action_url . '" method="post" id="paymentform" name="paymentform" data-link="' . $action_url .'">' 
+        . implode('', $sAry1) . '
+        </form>';
+?>
 <style type="text/css">
     .iti{
         width: 100%;
@@ -48,7 +151,7 @@
             </form>
         </div>
         <div class="col-6 text-center">
-        
+         
            
             <div class="pay-as-guest row">
                 <div class="text-center col-6">
@@ -134,7 +237,32 @@ if(isValid!=true){
     e.preventDefault();
     return false;
 }else{
-    alert('ok');
+
+    var txt = $('.iti__selected-dial-code').text();
+    var phone = $('#phone').val();
+    $('#mobilenumber').val(txt+phone);
+    e.preventDefault();
+    var form = $("form#guestcheckoutFrm")[0];
+    var form2 = new FormData(form);
+    form2.append('mode','2');
+    form2.append('order_id','{{ $orderid }}');
+    $("#cover-spin").show();
+    $.ajax({
+        url:"{{route('website.payasguest')}}",
+        type:"POST",
+        data:form2,
+        cache:false,
+        contentType:false,
+        processData:false,
+        success:function(res){
+            var js_data = JSON.parse(JSON.stringify(res));
+            $("#cover-spin").hide();
+            if(js_data.status==200){
+                $('#paymentform').submit();
+            }
+        }
+    })
+
 }
 })  
 });

@@ -53,6 +53,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
     Route::get('/brands','AdminController@brands')->name('brands');
     Route::post('/add-brands','AdminController@BrandProcess')->name('BrandProcess');
+    Route::post('/updatebrand','AdminController@updatebrand')->name('updatebrand');
 
     // activate brands
 

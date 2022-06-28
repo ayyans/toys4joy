@@ -17,22 +17,13 @@
                     <form action="{{route('admin.BrandProcess')}}" method="POST" enctype="multipart/form-data" id="categoryFRM">
                         @csrf
                         <div class="row form-group">
-                           
-                                <label>Brand Name</label>
-                            
-                                <input type="text" class="form-control categoriesfrm" placeholder="write here brand name" name="brandname"/>
-                           
+                            <label>Brand Name</label>
+                            <input type="text" class="form-control categoriesfrm" placeholder="write here brand name" name="brandname"/>
                         </div>
-                       
-                        
                         <div class="row form-group">
-                           
-                                <label>Icon</label>
-                            
-                                <input type="file" class="form-control categoriesfrm" name="brandIcon"/>
-                           
+                            <label>Icon</label>
+                            <input type="file" class="form-control" name="brandIcon"/>
                         </div>
-
                        <button type="btn" class="btn btn-success categorieSubmit">Submit</button>
                     </form>
                 </div>
@@ -64,39 +55,75 @@
                     @foreach($brands as $brand)
                     <tr>
                         <td>{{$brand->brand_name}}</td>
-                     
-                        
-                        <td><img src="{{asset('uploads/'.$brand->logo)}}" style="width:50px"/></td>
-                        <td>
+                        <td style="text-align: center;">
+                            @if($brand->logo)
+                            <img src="{{asset('uploads/'.$brand->logo)}}" style="width:50px"/>
+                            @endif
+                        </td>
+                        <td style="text-align: center;">
                             @if($brand->status==1)
-                            <div class="badge badge-danger">not active</div>
+                            <div class="badge badge-danger">Not Active</div>
                             @elseif($brand->status==2)
                             <div class="badge badge-success">Active</div>
                             @endif
                         </td>
-                        <td>
+                        <td style="text-align: center;">
                            
 
                             <div class="btn-group">
-  <button type="button" class="btn btn-dark">Info</button>
-  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-  @if($brand->status==1)
-    <li><a href="{{route('admin.activateBrand',[encrypt($brand->id)])}}" class="dropdown-item">Activate</a></li>
-    @elseif($brand->status==2)
-    <li><a href="{{route('admin.deactivateBrand',[encrypt($brand->id)])}}" class="dropdown-item">Deactivate</a></li>
-    @endif
-    <li><a href="javascript:void(0)" class="dropdown-item">Edit</a></li>
-    
-    <li><a href="{{route('admin.deleteBrands',[encrypt($brand->id)])}}" class="dropdown-item">Delete</a></li>
-  </ul>
-</div>
+                              <button type="button" class="btn btn-dark">Action</button>
+                              <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu">
+                               @if($brand->status==1)
+                                <li><a href="{{route('admin.activateBrand',[encrypt($brand->id)])}}" class="dropdown-item">Activate</a></li>
+                                @elseif($brand->status==2)
+                                <li><a href="{{route('admin.deactivateBrand',[encrypt($brand->id)])}}" class="dropdown-item">Deactivate</a></li>
+                                @endif
+                                <li><a data-toggle="modal" data-target="#myModal{{ $brand->id }}" href="javascript:void(0)" class="dropdown-item">Edit</a></li>
+                                
+                                <li><a href="{{route('admin.deleteBrands',[encrypt($brand->id)])}}" class="dropdown-item">Delete</a></li>
+                              </ul>
+                            </div>
            
                         </td>
                     </tr>
+
+                    <div id="myModal{{ $brand->id }}" class="modal fade" role="dialog">
+                      <div class="modal-dialog modal-dialog-centered">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Edit Brand: {{ $brand->brand_name }}</h4>
+                          </div>
+                          <form action="{{ url('admin/updatebrand') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                          <div class="modal-body">
+                                <input type="hidden" name="id" value="{{ $brand->id }}">
+                                <div class="row form-group">
+                                    <label>Brand Name</label>
+                                    <input value="{{ $brand->brand_name }}" type="text" class="form-control" placeholder="write here brand name" name="brandname"/>
+                                </div>
+                                <div class="row form-group">
+                                    <label>Icon</label>
+                                    <input style="height: 45px;" type="file" class="form-control" name="brandIcon"/>
+                                </div>
+                               
+                            
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success">Update</button>
+                            
+                          </div>
+                          </form>
+                        </div>
+
+                      </div>
+                    </div>
                     @endforeach
                     
                 </tbody>

@@ -43,6 +43,12 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/guestthankorder','WebsiteController@guestthankorder')->name('guestthankorder');
     Route::get('/registration-thanks','WebsiteController@registrationThank')->name('registrationThank');
     Route::get('/share-wishlist/{cust_id}','WebsiteController@sharewishlist')->name('sharewishlist');
+
+
+    Route::post('/payasguest','OrderController@payasguest')->name('payasguest');
+    Route::post('/orderconfermasguest','OrderController@orderconfermasguest')->name('orderconfermasguest');
+
+    
 });
 
 

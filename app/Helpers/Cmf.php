@@ -26,5 +26,12 @@ class Cmf
                 }
             }
         }
+    }
+    public static function sendimagetodirectory($imagename)
+    {
+        $file = $imagename;
+        $filename = rand() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('uploads'), $filename);
+        return $filename;
     } 
 }

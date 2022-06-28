@@ -34,7 +34,7 @@
                     <td>{{$order->unit_no}},{{$order->building_no}},{{$order->zone}},{{$order->street}}</td>
                     <td>
                         @if($order->mode==2)
-                        online
+                        Online
                         @else
                         COD
                         @endif

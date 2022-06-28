@@ -204,21 +204,22 @@ class WebsiteController extends Controller
                     $place_order->cust_add_id=$cust_add_id;
                     $place_order->prod_id=$r->prod_id;
                     $place_order->qty = $r->qty;
+                    $place_order->payment_id = $allparms['transaction_number'];
                     $place_order->amount = $allparms['TXNAMOUNT'];
-                    $place_order->mode = '1';
+                    $place_order->mode = '2';
                     $place_order->save();
                 }
                 if($place_order==true){
                     $update_cart = Cart::where('cust_id','=',$ipaddres)->delete();
                     return view('website.guestthanks');
                 }else{
-                    echo "string2";exit;
+                   return redirect()->route('website.payasmember')->with('error','Order Not Placed!');
                 }
             }else{
-                echo "string";exit;
+                return redirect()->route('website.payasmember')->with('error','Payement Failed!');
             }
         }else{
-            echo "string";exit;
+            return redirect()->route('website.login')->with('error','Please Login!');
         }
 
         
