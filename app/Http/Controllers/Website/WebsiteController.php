@@ -104,14 +104,6 @@ class WebsiteController extends Controller
         return view('website.product-list',compact('categories','products','catid'));
     }
 
-    public function products($type){
-        $type = str_replace('-', '_', $type);
-        $categories = $this->listCategory();
-        // $catid = Category::where('url' , $url)->get()->first();
-        $products = Product::where($type, 1)->where('status','=','2')->orderBy('id','desc')->get();
-        return view('website.product-list',compact('categories','products'));
-    }
-
     // product details
 
     public function productDetails($url){

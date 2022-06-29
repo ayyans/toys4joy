@@ -66,10 +66,6 @@
                     </div>
                     </a>
                 </li>
-                <li><a href="#">Brands</a></li>
-                <li><a href="{{ route('website.products', 'best-seller') }}">Best Sellers</a></li>
-                <li><a href="{{ route('website.products', 'new-arrival') }}">New Arrival</a></li>
-                <li><a href="#">Best Offers</a></li>
                 <li><a href="{{ route('website.brands') }}">Brands</a></li>
                 <li><a href="{{ route('website.bestoffers') }}">Best Sellers</a></li>
                 <li><a href="{{ route('website.bestsellers') }}">Best Offers</a></li>

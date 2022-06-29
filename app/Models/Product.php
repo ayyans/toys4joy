@@ -37,8 +37,6 @@ class Product extends Model
         'tax',
         'tax_unit',
         'vat',
-        'vat_unit',
-        'best_seller',
-        'new_arrival'
+        'vat_unit'
     ];
 }

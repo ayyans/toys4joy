@@ -453,42 +453,6 @@
                     </div>
                 </div>
 
-                {{-- Best Seller --}}
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">Best Seller</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Status</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="checkbox" name="best_seller" value="1" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- New Arrival --}}
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">New Arrival</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Status</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="checkbox" name="new_arrival" value="1" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0 h6">Flash Deal</h5>

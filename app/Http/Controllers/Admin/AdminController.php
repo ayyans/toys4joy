@@ -629,8 +629,6 @@ public function deleteAttrVal(Request $request){
             $addproduct->tax_unit=$request->tax_type;
             $addproduct->vat=$request->vat;
             $addproduct->vat_unit=$request->vat_type;
-            $addproduct->best_seller=$request->best_seller;
-            $addproduct->new_arrival=$request->new_arrival;
             $addproduct->save();
             $lastid = $addproduct->id;
                 $galler_size = count($request->photos);
@@ -1216,9 +1214,7 @@ public function editProcess(Request $request){
         'tax'=>$request->tax,
         'tax_unit'=>$request->tax_type,
         'vat'=>$request->vat,
-        'vat_unit'=>$request->vat_type,
-        'best_seller'=>$request->best_seller ?? 0,
-        'new_arrival'=>$request->new_arrival ?? 0
+        'vat_unit'=>$request->vat_type
     ]);
 }else{
     $update_product = Product::where('id','=',$prod_id)->update([
