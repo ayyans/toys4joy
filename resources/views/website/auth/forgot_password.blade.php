@@ -38,30 +38,22 @@
             
             <div class="form-group">
                 <div class="form-inner">
-              <h3 class="text-center">Joy is yet to begin!</h3>
-              <p class="text-center">Enter your username & password to enjoy the bunch of awesome benefits!</p>
-              <form action="{{route('website.login_process')}}" method="POST" id="loginFrmH">
-                @csrf
-                <input type="text" name="email" placeholder="Username" class="logininp @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
-                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                <input type="password" name="password" placeholder="Password" class="logininp @error('password') is-invalid @enderror" value="{{ old('password') }}" required>
-                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                <div class="forgot-password"><a href="{{ route('website.forgot_password') }}">Forgot Password?</a></div>
-              <button class="loginbtn">Login</button>
-            </form>
-            <div class="dnt-account"><span>Don't have an account? Get <a href="{{route('website.register')}}">register.</a></span></div>
+                    <h3 class="text-center">Forgot password?</h3>
+                    <p class="text-center fs-6">Enter the email address associated with your account and we'll send you a link to reset your password.</p>
+                    <form action="{{route('website.send_forgot_password')}}" method="POST" id="PwdRstFrmH">
+                        @csrf
+                        <input type="email" name="email" placeholder="Email" class="logininp @error('email') is-invalid @enderror"
+                            value="{{ old('email') }}" required>
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                        <button class="loginbtn">Reset</button>
+                    </form>
+                </div>
             </div>
-            </div>    
         </div>
-        
     </div>
 </div>
 
@@ -96,7 +88,7 @@
             e.preventDefault();
         }
         else {
-            $('form#loginFrmH').submit();
+            $('form#PwdRstFrmH').submit();
         }
     });
   })

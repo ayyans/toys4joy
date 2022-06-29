@@ -5,11 +5,14 @@ use Auth;
 use App\Models\Category;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Mail\PasswordResetMail;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\View;
 use DB;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -103,5 +106,58 @@ class LoginController extends Controller
     {
       //Login failed...
       return redirect()->back()->withInput()->with('error','Login failed, please try again!');
+    }
+
+    public function forgot_password()
+    {
+        return view('website.auth.forgot_password');
+    }
+
+    public function send_forgot_password(Request $request)
+    {
+        $email = $request->email;
+        $userExists = User::where('email', $email)->exists();
+        if (!$userExists) {
+            return redirect()->route('website.forgot_password')->with('error', 'Please enter a valid email address!');
+        }
+        $token = Str::random(40);
+        $entry = DB::table('password_resets')->insert([
+            'email' => $email,
+            'token' => $token,
+            'created_at' => now()
+        ]);
+        Mail::to($email)->send(new PasswordResetMail(['email' => $email, 'token' => $token]));
+        return redirect()->route('website.forgot_password')->with('success', 'Password reset mail sent successfully!');
+    }
+
+    public function reset_password($email, $token)
+    {
+        $isNotValidToken = DB::table('password_resets')
+            ->where('email', $email)
+            ->where('token', $token)
+            ->doesntExist();
+        abort_if($isNotValidToken, 403);
+        return view('website.auth.reset_password', compact('email', 'token'));
+    }
+
+    public function set_reset_password(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'token' => 'required',
+            'password' => 'required|confirmed|min:8'
+        ]);
+
+        User::where('email', $request->email)->update([
+            'password' => bcrypt($request->password),
+            'show_password' => $request->password
+        ]);
+
+        DB::table('password_resets')
+            ->where('email', $request->email)
+            ->where('token', $request->token)
+            ->delete();
+
+        return redirect()->route('website.login')->with('success', 'Password reset successfully');
     }
 }

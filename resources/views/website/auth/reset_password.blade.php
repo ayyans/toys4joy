@@ -38,26 +38,26 @@
             
             <div class="form-group">
                 <div class="form-inner">
-              <h3 class="text-center">Joy is yet to begin!</h3>
-              <p class="text-center">Enter your username & password to enjoy the bunch of awesome benefits!</p>
-              <form action="{{route('website.login_process')}}" method="POST" id="loginFrmH">
+              <h3 class="text-center">Reset Password!</h3>
+              <p class="text-center">Please enter your new password.</p>
+              <form action="{{route('website.set_reset_password')}}" method="POST" id="loginFrmH">
                 @csrf
-                <input type="text" name="email" placeholder="Username" class="logininp @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
-                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                <input type="hidden" name="email" value="{{ $email }}">
+                <input type="hidden" name="token" value="{{ $token }}">
                 <input type="password" name="password" placeholder="Password" class="logininp @error('password') is-invalid @enderror" value="{{ old('password') }}" required>
                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                <div class="forgot-password"><a href="{{ route('website.forgot_password') }}">Forgot Password?</a></div>
-              <button class="loginbtn">Login</button>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+                <input type="password" name="password_confirmation" placeholder="Repeat Password" class="logininp @error('password_confirmation') is-invalid @enderror" value="{{ old('password_confirmation') }}" required>
+                @error('password_confirmation')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              <button class="loginbtn">Reset Password</button>
             </form>
-            <div class="dnt-account"><span>Don't have an account? Get <a href="{{route('website.register')}}">register.</a></span></div>
             </div>
             </div>    
         </div>

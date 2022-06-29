@@ -26,6 +26,10 @@ Route::name('website.')->namespace('App\Http\Controllers\Website\Auth')->group(f
     Route::post('/logout','LoginController@logout')->name('logout');
     Route::post('/confermotp','LoginController@confermotp')->name('confermotp');
     Route::get('/verification','LoginController@verificationotp')->name('otp');
+    Route::get('/forgot-password','LoginController@forgot_password')->name('forgot_password');
+    Route::post('/forgot-password','LoginController@send_forgot_password')->name('send_forgot_password');
+    Route::get('/reset-password/email/{email}/token/{token}','LoginController@reset_password')->name('reset_password');
+    Route::post('/reset-password','LoginController@set_reset_password')->name('set_reset_password');
 });
 
 Route::name('website.')->namespace('App\Http\Controllers\Website')->group(function(){
