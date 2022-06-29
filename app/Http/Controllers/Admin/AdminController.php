@@ -1043,7 +1043,7 @@ public function custOrdersDetails(Request $request){
                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.cust_add_id')
               ->select('products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')  
               ->where('orders.id','=',$orderid)->first();
-    return view('admin.custorderDetails',compact('orders'));
+    return view('admin.orderdetails',compact('orders'));
 }
 
 
