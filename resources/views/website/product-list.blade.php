@@ -36,6 +36,7 @@
                 </div>
                 @endforeach
             </div>
+            {!! $products->links('website.pagination') !!}
         </div>
     </div>
 </div>

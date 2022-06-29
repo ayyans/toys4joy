@@ -28,7 +28,7 @@ use DB;
 
 class OrderController extends Controller
 {
-    public function payasguest(Request $request)
+    public function payasguestordergenerate(Request $request)
     {
         $custDetails = new GuestOrder;
         $custDetails->order_id = $request->order_id;

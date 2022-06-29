@@ -8,7 +8,7 @@
                 <div class="for-mobile mbl-banner">
                     <ul class="nav nav-pills nav-fill">
                       <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Best Offers</a>
+                        <a class="nav-link" aria-current="page" href="{{ route('website.bestsellers') }}">Best Offers</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="#">Wish List</a>
@@ -36,28 +36,7 @@
             <div class="for-desktop">
             @include('website.layouts.user_menu')  
                 <img src="{{asset('website/img/t1.png')}}" class="img-fluid">
-            </div>    
-            <!-- <div class="book-your-event">
-            	<h1 class="text-center">BOOK YOUR EVENT NOW</h1>
-                <div class="d-flex">
-                	<div class="booking-cal d-flex justify-content-between">
-                        <div class="day"><h2>Day</h2>
-                            <div class="day-block digits"><h3><span>2</span></h3><h3><span>8</span></h3></div>
-                        </div>
-                        <div class="month"><h2>Month</h2>
-                            <div class="month-block digits"><h3><span>1</span></h3><h3><span>1</span></h3></div>
-                        </div>
-                        <div class="year"><h2>Year</h2>
-                            <div class="year-block digits"><h3><span>2</span></h3><h3><span>2</span></h3></div>
-                        </div>
-                        <div class="time"><h2>Time</h2><div><span>1 - 3</span><span>3 - 5</span></div><div><span>5 - 7</span><span>7 - 9</span></div></div>
-                    </div>
-                    <div class="book-now">
-                        <img src="{{asset('website/img/balloons_birthday.png')}}" class="img-fluid">
-                        <a href="#">Book Now</a>
-                    </div>
-                </div>
-            </div> -->
+            </div>
             <div class="d-flex home-prod products-list">
                 @foreach($products as $product)
                 <div class="single">
@@ -91,6 +70,9 @@
                 <li><a href="{{ route('website.products', 'best-seller') }}">Best Sellers</a></li>
                 <li><a href="{{ route('website.products', 'new-arrival') }}">New Arrival</a></li>
                 <li><a href="#">Best Offers</a></li>
+                <li><a href="{{ route('website.brands') }}">Brands</a></li>
+                <li><a href="{{ route('website.bestoffers') }}">Best Sellers</a></li>
+                <li><a href="{{ route('website.bestsellers') }}">Best Offers</a></li>
             </ul>
                 <h1 class="for-mobile age-range-title">Select Age Range</h1>
             <div class="age-range">

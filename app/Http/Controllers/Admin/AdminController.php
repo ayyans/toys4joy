@@ -611,7 +611,9 @@ public function deleteAttrVal(Request $request){
             $addproduct->discount=$request->discount;
             $addproduct->price_discount_unit=$request->discount_type;
             $addproduct->url = $this->shorten_url($request->prodname);
-            // $addproduct->points=$request->earn_point;
+            $addproduct->new_arrival=$request->new_arrival;
+            $addproduct->best_seller=$request->best_seller;
+            $addproduct->best_offer=$request->best_offer;
             $addproduct->qty=$request->current_qty;
             $addproduct->sku=$request->sku;
             $addproduct->short_desc=$request->shortdescription;
@@ -1126,7 +1128,7 @@ public function custOrdersDetails(Request $request){
                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.cust_add_id')
               ->select('products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')  
               ->where('orders.id','=',$orderid)->first();
-    return view('admin.custorderDetails',compact('orders'));
+    return view('admin.orderdetails',compact('orders'));
 }
 
 
@@ -1197,6 +1199,9 @@ public function editProcess(Request $request){
         'discount'=>$request->discount,
         'price_discount_unit'=>$request->discount_type,
         // 'points'=>$request->earn_point,
+        'new_arrival'=>$request->new_arrival,
+        'best_seller'=>$request->best_seller,
+        'best_offer'=>$request->best_offer,
         'qty'=>$request->current_qty,
         'sku'=>$request->sku,
         'short_desc'=>$request->shortdescription,
@@ -1230,6 +1235,9 @@ public function editProcess(Request $request){
         'discount'=>$request->discount,
         'price_discount_unit'=>$request->discount_type,
         'url'=>$this->shorten_url($request->prodname),
+        'new_arrival'=>$request->new_arrival,
+        'best_seller'=>$request->best_seller,
+        'best_offer'=>$request->best_offer,
         'qty'=>$request->current_qty,
         'sku'=>$request->sku,
         'short_desc'=>$request->shortdescription,

@@ -42,6 +42,41 @@ class WebsiteController extends Controller
         $products = Product::where('status','=','2')->orderBy('id','desc')->limit(3)->get();
         return view('website.home',compact('categories','products'));
     }
+    public function whyus()
+    {
+        return view('website.pages.whyus');
+    }
+    public function policy()
+    {
+        return view('website.pages.policy');
+    }
+    public function contact()
+    {
+        return view('website.pages.contact');
+    }
+    public function newarrivals()
+    {
+        $categories = $this->listCategory();
+        $products = Product::where('new_arrival','=',1)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        return view('website.product-list',compact('categories','products'));
+    }
+    public function bestoffers()
+    {
+        $categories = $this->listCategory();
+        $products = Product::where('best_offer','=',1)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        return view('website.product-list',compact('categories','products'));
+    }
+    public function bestsellers()
+    {
+        $categories = $this->listCategory();
+        $products = Product::where('best_seller','=',1)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        return view('website.product-list',compact('categories','products'));
+    }
+
+    public function brands()
+    {
+        return view('website.pages.brands');
+    }
 
     // listing category
 
@@ -56,7 +91,7 @@ class WebsiteController extends Controller
     public function listproducts($url){
         $categories = $this->listCategory();
         $catid = Category::where('url' , $url)->get()->first();
-        $products = Product::where('category_id','=',$catid->id)->where('status','=','2')->orderBy('id','desc')->get();
+        $products = Product::where('category_id','=',$catid->id)->where('status','=','2')->orderBy('id','desc')->paginate(12);
         return view('website.product-list',compact('categories','products','catid'));
     }
 
@@ -210,6 +245,8 @@ class WebsiteController extends Controller
                 $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
                 foreach ($cart as $r) {
                     $place_order = new Order;
+                    $place_order->orderid=$allparms['ORDERID'];
+                    $place_order->orderstatus='sadadpayement';
                     $place_order->cust_id=$cust_id;
                     $place_order->cust_add_id=$cust_add_id;
                     $place_order->prod_id=$r->prod_id;

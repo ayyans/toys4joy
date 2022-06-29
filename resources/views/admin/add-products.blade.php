@@ -406,6 +406,33 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-md-6 col-from-label">New Arrival</label>
+                            <div class="col-md-6">
+                                <label class="aiz-switch aiz-switch-success mb-0">
+                                    <input type="checkbox" name="new_arrival" value="1" />
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-6 col-from-label">Best Seller</label>
+                            <div class="col-md-6">
+                                <label class="aiz-switch aiz-switch-success mb-0">
+                                    <input type="checkbox" name="best_seller" value="1" />
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-6 col-from-label">Best Offers</label>
+                            <div class="col-md-6">
+                                <label class="aiz-switch aiz-switch-success mb-0">
+                                    <input type="checkbox" name="best_offer" value="1" />
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
