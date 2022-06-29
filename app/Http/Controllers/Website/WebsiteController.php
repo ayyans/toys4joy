@@ -235,6 +235,8 @@ class WebsiteController extends Controller
                 $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
                 foreach ($cart as $r) {
                     $place_order = new Order;
+                    $place_order->orderid=$allparms['ORDERID'];
+                    $place_order->orderstatus='sadadpayement';
                     $place_order->cust_id=$cust_id;
                     $place_order->cust_add_id=$cust_add_id;
                     $place_order->prod_id=$r->prod_id;
