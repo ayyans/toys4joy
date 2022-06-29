@@ -248,7 +248,7 @@ if(isValid!=true){
     form2.append('order_id','{{ $orderid }}');
     $("#cover-spin").show();
     $.ajax({
-        url:"{{route('website.payasguest')}}",
+        url:"{{route('website.payasguestordergenerate')}}",
         type:"POST",
         data:form2,
         cache:false,

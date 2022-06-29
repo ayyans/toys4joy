@@ -45,7 +45,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/share-wishlist/{cust_id}','WebsiteController@sharewishlist')->name('sharewishlist');
 
 
-    Route::post('/payasguest','OrderController@payasguest')->name('payasguest');
+    Route::post('/payasguestordergenerate','OrderController@payasguestordergenerate')->name('payasguestordergenerate');
     Route::post('/orderconfermasguest','OrderController@orderconfermasguest')->name('orderconfermasguest');
 
     
