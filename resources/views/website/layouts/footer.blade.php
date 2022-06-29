@@ -3,12 +3,12 @@
     <div class="footer">
         <div class="elements">
             <div class="d-flex why-us">
-                <a href="#">
+                <a href="{{ route('website.whyus') }}">
                     <img src="{{asset('website/img/why-us.png')}}" class="why-text">
                     <img src="{{asset('website/img/logo-t4j.png')}}" class="why-logo">
                 </a>
                 <div class="company-policy">
-                    <a href="#">
+                    <a href="{{ route('website.policy') }}">
                         <img src="{{asset('website/img/2__4_-removebg-preview.png')}}">
                         <span>COMPANY POLICY</span>
                     </a>
@@ -31,7 +31,7 @@
         </div>
         <div class="elements">
             <div class="toll-free">
-                <a href="#"><img src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
+                <a href="{{ route('website.contact') }}"><img src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
             </div>
         </div>
         <div class="elements">

@@ -30,6 +30,9 @@ Route::name('website.')->namespace('App\Http\Controllers\Website\Auth')->group(f
 
 Route::name('website.')->namespace('App\Http\Controllers\Website')->group(function(){
     Route::get('/','WebsiteController@index')->name('home');
+    Route::get('/why-us','WebsiteController@whyus')->name('whyus');
+    Route::get('/company-policy','WebsiteController@policy')->name('policy');
+    Route::get('/contact-us','WebsiteController@contact')->name('contact');
     Route::get('/removefromwishlists/{id}','WebsiteController@removefromwishlists');
     Route::get('/confermordercod','WebsiteController@confermordercod')->name('confermordercod');
     Route::get('category/{id}','WebsiteController@listproducts')->name('cat_products');

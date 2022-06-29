@@ -1116,6 +1116,21 @@ transition: all 0.2s ease-in-out;
     font-weight: 700;
     font-size: 18px;
 }
+.pagination {background: #e9f1fe; padding-bottom: 50px;}
+.pagination li {margin: 0 5px;}
+.pagination li a {
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #3a73b9;
+}
+.pagination li a:hover, .pagination li.active a {
+    background: #3a73b9 !important;
+    border-color: #3a73b9 !important;
+    color: #fff;
+}
+
 
 /************ Product listing page end *************/
 
@@ -3085,6 +3100,29 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 .error .content h1 {font-size: 100px;color: #2972bc;margin: 0;}
 .error .content p {font-size: 48px;font-weight: 700;text-transform: uppercase;}
 
+
+/**************** BRAND PAGE ******************/
+
+.brands-logo {
+    background: #f6faff;
+    border-radius: 12px;
+    padding: 50px;
+    column-gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.brands-logo .single {
+    background: #fff;
+    padding: 40px;
+    width: 22%;
+    margin-bottom: 30px;
+    border: 1px solid #dbe2eb;
+}
+.brands-logo .single:hover {box-shadow: 2px 5px 15px rgb(58 115 185 / 15%);}
+.brands-logo .single .img-block {display: flex; justify-content: center;}
+.brands-logo .single img {width: 100%;}
+
+
 /**************** RESPONSIVE CSS ******************/
 
 
@@ -3323,7 +3361,9 @@ ul.social-media img {width: 34px;}
 .copy-link img {width: 80px;} 
 .add-more a {padding: 20px 70px;font-size: 24px;}    
 #your-points .progress {height: 8.6vw;}
-.progres-bar .free img {width: 90px;}    
+.progres-bar .free img {width: 90px;}  
+.brands-logo {padding: 40px; column-gap: 25px;}
+.brands-logo .single {margin-bottom: 25px;}     
 }
 
 
@@ -3401,6 +3441,7 @@ img.g-play-store {width: 82px;}
 #company-policy .icon-block h2 {font-size: 20px;} 
 #company-policy .icon-block {margin: 30px;} 
 .com-policy-col h2 {font-size: 22px;width: 140px;} 
+.brands-logo .single {padding: 30px;}    
     
 }
 
@@ -3465,7 +3506,9 @@ ul.d-flex.social-media {justify-content: center;margin-top: -15px;}
 #why-us .content-block {height: auto;padding: 30px;}  
 .product-listing .col-9 {width: 100%!important;}
 .products-list .single {width: 30%;margin: 6px;} 
-.products-list {justify-content: normal;margin-bottom: 15px;}    
+.products-list {justify-content: normal;} 
+.pagination {padding-top: 20px;} 
+.pagination li a {padding: 3px 12px; font-size: 14px;}    
 .categories-col {width: 100%!important;} 
 .categories {border: 0;border-radius: 0;}    
 .categories h2.for-mobile {background: #d51965;border-radius: 5px; max-width: 200px; margin: 30px auto;}
@@ -3606,8 +3649,10 @@ img.why-logo {width: 55px;margin-left: 15px;}
 } 
 .discount-block input{width: 79%;}
 .pay-as-member-page .code-block input {width: 75%;}
-.products-list .availbility span {font-size: 10px; padding: 2px 4px;}    
-   
+.products-list .availbility span {font-size: 10px; padding: 2px 4px;}  
+.brands-logo {padding: 40px 20px;column-gap: 15px;margin: 30px 0;}    
+.brands-logo .single {margin-bottom: 15px;width: 21%; padding: 20px;}    
+    
 }
 
 
@@ -3739,7 +3784,9 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .contact-info .detail h3 {font-size: 20px;} 
 .contact-info .map iframe {height: 250px;}
 .contact-info {margin-bottom: 40px;margin-top: 30px;}
-.products-list .single .content-block .fa {font-size: 16px;padding: 4px; width: 25px; height: 25px;}    
+.products-list .single .content-block .fa {font-size: 16px;padding: 4px; width: 25px; height: 25px;} 
+.brands-logo {padding: 20px 10px 0;}
+.brands-logo .single {width: 30%;}    
 }
 
 
@@ -3827,5 +3874,8 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .products-list .single .content-block h3{margin-top: 10px;}  
 .products-list .single .content-block h3, .products-list .single .content-block span {font-size: 13px; margin-top: 10px;} 
 .cart-products .cart-image {max-width: 70px;height: 70px;} 
-.products-list .availbility span {font-size: 8px;}    
+.products-list .availbility span {font-size: 8px;} 
+.brands-logo {column-gap: 10px;}     
+.brands-logo .single {padding: 15px;margin-bottom: 10px;} 
+   
 }

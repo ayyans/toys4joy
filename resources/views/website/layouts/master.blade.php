@@ -13,7 +13,7 @@
 </head>
 <body>
 @include('website.layouts.header')
-@yield('content')
+    @yield('content')
 @include('website.layouts.footer')
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script> 

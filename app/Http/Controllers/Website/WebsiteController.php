@@ -40,6 +40,19 @@ class WebsiteController extends Controller
         $products = Product::where('status','=','2')->orderBy('id','desc')->limit(3)->get();
         return view('website.home',compact('categories','products'));
     }
+    public function whyus()
+    {
+        return view('website.pages.whyus');
+    }
+    public function policy()
+    {
+        return view('website.pages.policy');
+    }
+    public function contact()
+    {
+        return view('website.pages.contact');
+    }
+
 
     // listing category
 
@@ -54,7 +67,7 @@ class WebsiteController extends Controller
     public function listproducts($url){
         $categories = $this->listCategory();
         $catid = Category::where('url' , $url)->get()->first();
-        $products = Product::where('category_id','=',$catid->id)->where('status','=','2')->orderBy('id','desc')->get();
+        $products = Product::where('category_id','=',$catid->id)->where('status','=','2')->orderBy('id','desc')->paginate(12);
         return view('website.product-list',compact('categories','products','catid'));
     }
 
