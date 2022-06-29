@@ -8,7 +8,7 @@
                 <div class="for-mobile mbl-banner">
                     <ul class="nav nav-pills nav-fill">
                       <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Best Offers</a>
+                        <a class="nav-link" aria-current="page" href="{{ route('website.bestsellers') }}">Best Offers</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="#">Wish List</a>
@@ -66,9 +66,9 @@
                     </div>
                     </a>
                 </li>
-                <li><a href="#">Brands</a></li>
-                <li><a href="#">Best Sellers</a></li>
-                <li><a href="#">Best Offers</a></li>
+                <li><a href="{{ route('website.brands') }}">Brands</a></li>
+                <li><a href="{{ route('website.bestoffers') }}">Best Sellers</a></li>
+                <li><a href="{{ route('website.bestsellers') }}">Best Offers</a></li>
             </ul>
                 <h1 class="for-mobile age-range-title">Select Age Range</h1>
             <div class="age-range">

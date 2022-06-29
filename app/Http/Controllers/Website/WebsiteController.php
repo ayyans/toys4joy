@@ -52,7 +52,29 @@ class WebsiteController extends Controller
     {
         return view('website.pages.contact');
     }
+    public function newarrivals()
+    {
+        $categories = $this->listCategory();
+        $products = Product::where('new_arrival','=',1)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        return view('website.product-list',compact('categories','products'));
+    }
+    public function bestoffers()
+    {
+        $categories = $this->listCategory();
+        $products = Product::where('best_offer','=',1)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        return view('website.product-list',compact('categories','products'));
+    }
+    public function bestsellers()
+    {
+        $categories = $this->listCategory();
+        $products = Product::where('best_seller','=',1)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        return view('website.product-list',compact('categories','products'));
+    }
 
+    public function brands()
+    {
+        return view('website.pages.brands');
+    }
 
     // listing category
 

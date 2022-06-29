@@ -33,6 +33,11 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/why-us','WebsiteController@whyus')->name('whyus');
     Route::get('/company-policy','WebsiteController@policy')->name('policy');
     Route::get('/contact-us','WebsiteController@contact')->name('contact');
+    Route::get('/newarrivals','WebsiteController@newarrivals')->name('newarrivals');
+    Route::get('/brands','WebsiteController@brands')->name('brands');
+    Route::get('/bestoffers','WebsiteController@bestoffers')->name('bestoffers');
+    Route::get('/bestsellers','WebsiteController@bestsellers')->name('bestsellers');
+
     Route::get('/removefromwishlists/{id}','WebsiteController@removefromwishlists');
     Route::get('/confermordercod','WebsiteController@confermordercod')->name('confermordercod');
     Route::get('category/{id}','WebsiteController@listproducts')->name('cat_products');
@@ -46,12 +51,8 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/guestthankorder','WebsiteController@guestthankorder')->name('guestthankorder');
     Route::get('/registration-thanks','WebsiteController@registrationThank')->name('registrationThank');
     Route::get('/share-wishlist/{cust_id}','WebsiteController@sharewishlist')->name('sharewishlist');
-
-
     Route::post('/payasguestordergenerate','OrderController@payasguestordergenerate')->name('payasguestordergenerate');
     Route::post('/orderconfermasguest','OrderController@orderconfermasguest')->name('orderconfermasguest');
-
-    
 });
 
 
