@@ -37,7 +37,7 @@
                       </div>
                     </td>
                     <td><div class="img-box"><img src="{{asset('products/'.$cart->featured_img)}}"/></div></td>
-                    <td class="price"><span>{{$cart->unit_price}}</span></td>
+                    <td class="price"><span>QAR {{$cart->unit_price}}</span></td>
                     <td class="delete"><div class="rmv-icon"><a href="javascript:void(0)" onclick="removecart({{$cart->crtid}})"><img src="{{asset('website/img/delete-product.png')}}"/></a></div></td>
                 </tr>
                 @endforeach
@@ -48,7 +48,7 @@
                 <tr>
                     <td colspan="2">Total Price</td>
                     <td></td>
-                    <td>{{$total_price}}</td>
+                    <td>QAR {{$total_price}}</td>
                     <td></td>
                 </tr>
               </tfoot>    
@@ -57,7 +57,9 @@
                 <div class="vertical-shake continue-shopping"><a href="javascript:void(0)">Continue Shopping</a></div>
                 <div class="d-flex pay-as">
                     <div class="member"><a href="{{route('website.payasmember')}}">Proceed to checkout</a></div>
+                    @if(!Auth::check())
                     <div class="guest"><a href="{{route('website.payasguest')}}">Pay as Guest</a></div>
+                    @endif
                 </div>
             </div>
 
