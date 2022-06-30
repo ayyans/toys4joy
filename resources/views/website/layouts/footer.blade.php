@@ -21,11 +21,11 @@
                 <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
             </div>
             <ul class="d-flex social-media">
-                <li><a href="#"><img src="{{asset('website/img/fb.png')}}"></a></li>
-                <li><a href="#"><img src="{{asset('website/img/twitter.png')}}"></a></li>
-                <li><a href="#"><img src="{{asset('website/img/instagram.png')}}"></a></li>
-                <li><a href="#"><img src="{{asset('website/img/linkedin.png')}}"></a></li>
-                <li><a href="#"><img src="{{asset('website/img/tiktok.png')}}"></a></li>
+                <li><a href="https://www.facebook.com/Toys4joyqatar/"><img src="{{asset('website/img/fb.png')}}"></a></li>
+                <li><a href="https://twitter.com/Toys4joy3"><img src="{{asset('website/img/twitter.png')}}"></a></li>
+                <li><a href="https://www.instagram.com/toys4joyqatar/"><img src="{{asset('website/img/instagram.png')}}"></a></li>
+                <li><a href="https://www.youtube.com/channel/UCMK_gmojd4eBvMTHN1vD9Aw"><img src="{{asset('website/img/linkedin.png')}}"></a></li>
+                <li><a href="https://www.tiktok.com/@toys4joyqatar"><img src="{{asset('website/img/tiktok.png')}}"></a></li>
             </ul>
             
         </div>
