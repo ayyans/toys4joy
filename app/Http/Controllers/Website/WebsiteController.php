@@ -100,7 +100,7 @@ class WebsiteController extends Controller
         $categories = $this->listCategory();
         $catid = Category::where('url' , $main)->get()->first();
         $subcatid = SubCategory::where('url' , $sub)->get()->first();
-        $products = Product::where('category_id','=',$catid->id)->where('sub_cat','=',$subcatid->id)->where('status','=','2')->orderBy('id','desc')->get();
+        $products = Product::where('category_id','=',$catid->id)->where('sub_cat','=',$subcatid->id)->where('status','=','2')->orderBy('id','desc')->paginate(12);
         return view('website.product-list',compact('categories','products','catid'));
     }
 

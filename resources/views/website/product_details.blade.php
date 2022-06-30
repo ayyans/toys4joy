@@ -48,7 +48,9 @@
                 <div class="product-detail">
                     <div class="brand"><h5>Brand : {{$products->brand_name}}</h5></div>
                     <div class="title"><h2>{{$products->title}}</h2></div>
+                    @if($products->logo)
                     <div class="nerf-logo"><img src="{{asset('uploads/'.$products->logo)}}"/></div>
+                    @endif
                     <div class="reviews">
                         <div class="d-flex stars">
                             <img src="{{asset('website/img/star.png')}}"/>
