@@ -20,7 +20,8 @@ class SendOrderConfirmationMail
     public function handle($event)
     {
         $data = $event->user;
-        Mail::to(auth()->user()->email)->send(new OrderConfirmationMail($data));
+        $to = $data['email'] ?? auth()->user()->email;
+        Mail::to($to)->send(new OrderConfirmationMail($data));
         Mail::to(User::first()->email)->send(new OrderReceivedMailToAdmin($data));
     }
 }

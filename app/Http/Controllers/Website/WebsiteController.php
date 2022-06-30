@@ -185,8 +185,11 @@ class WebsiteController extends Controller
     // save customer address as guest
 
     public function saveCustDetails(Request $request){
+        $order_number = mt_rand(100000000, 999999999);
+
         $custDetails = new GuestOrder;
         $custDetails->prod_id=$request->prod_id;
+        $custDetails->order_id=$order_number;
         $custDetails->qty=$request->prod_qty;
         $custDetails->cust_name=$request->custname;
         $custDetails->cust_email=$request->email;
@@ -198,12 +201,25 @@ class WebsiteController extends Controller
         $custDetails->mode=$request->mode; 
         $custDetails->save();
         $lastID = $custDetails->id;
+
         if($custDetails==true){
             $getproduct = Product::where('id','=',$request->prod_id)->first();
             $qty_dec = $getproduct['qty']-$request->prod_qty;
             $update_qty = Product::where('id','=',$request->prod_id)->update([
                 'qty'=>$qty_dec
             ]);
+
+            $order_details = [
+                'email' => $request->email,
+                'order_number' => $order_number,
+                'total' => $getproduct->unit_price * $request->prod_qty,
+                'quantity' => [$request->prod_qty],
+                'amount' => [$getproduct->unit_price * $request->prod_qty],
+                'address' => 'N/A',
+                'products' => [$getproduct->title],
+            ];
+            event(new OrderPlaced($order_details));
+
             return response()->json(["status"=>"200","msg"=>$lastID]);
             exit();
         }else{
@@ -249,6 +265,19 @@ class WebsiteController extends Controller
                     $place_order->save();
                 }
                 if($place_order==true){
+                    $products = $cart->pluck('prod_id')->map(fn($i) => Product::find($i))->pluck('title');
+                    $quantity = $cart->pluck('qty');
+                    $amount = $cart->pluck('amount');
+                    $address = "Unit No: $cust_Add->unit_no, Building No: $cust_Add->building_no, Zone: $cust_Add->zone, Street: $cust_Add->street";
+                    $order_details = [
+                        'order_number' => $allparms['ORDERID'],
+                        'total' => $allparms['TXNAMOUNT'],
+                        'quantity' => $quantity,
+                        'amount' => $amount,
+                        'address' => $address,
+                        'products' => $products,
+                    ];
+                    event(new OrderPlaced($order_details));
                     $update_cart = Cart::where('cust_id','=',$ipaddres)->delete();
                     return view('website.guestthanks');
                 }else{
