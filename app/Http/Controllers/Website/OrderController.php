@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Website;
+
+use App\Events\OrderPlaced;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -62,6 +64,19 @@ class OrderController extends Controller
             $change = GuestOrder::find($data->id);
             $change->mode = 1;
             $change->save();
+
+            $product = Product::find($data->prod_id);
+
+            $order_details = [
+                'email' => $data->cust_email,
+                'order_number' => $data->order_id,
+                'total' => $product->unit_price * $data->prod_qty,
+                'quantity' => [$data->qty],
+                'amount' => [$product->unit_price * $data->prod_qty],
+                'address' => 'N/A',
+                'products' => [$product->title],
+            ];
+            event(new OrderPlaced($order_details));
             return view('website.guestthanks');
         }else{
             return redirect()->route('website.home')->with('error','Order IS Placed But Payement is Failed');
