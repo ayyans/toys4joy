@@ -21,6 +21,7 @@ use App\Models\CardInfo;
 use App\Models\Coupon;
 use App\Models\sibblings;
 use App\Models\Order;
+use App\Models\ReturnRequest;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Response;
 use Stripe;
@@ -84,5 +85,21 @@ class UserController extends Controller
 		$newsibling->girl_five_dob = $request->girl_five_dob;
 		$newsibling->save();
 		return back()->with('success','Siblings Updated Successfully');
+	}
+
+	public function returnRequest(Request $request) 
+	{
+		if ($request->hasFile('receipt')) {
+			$receipt = $request->file('receipt')->store('receipts');
+		}
+
+		ReturnRequest::create([
+			'reason' => $request->reason,
+			'detail' => $request->detail,
+			'receipt' => $receipt ?? null,
+			'status' => 'in-progress',
+		]);
+
+		return redirect()->route('website.myaccount')->with('success', 'Your return request has been submitted!');
 	}
 }
