@@ -136,6 +136,37 @@
 <hr class="sidebar-divider">
 
 <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#giftcards"
+        aria-expanded="true" aria-controls="giftcards">
+        <i class="fas fa-fw fa-shopping-bag"></i>
+        <span>Gift Cards</span>
+    </a>
+    <div id="giftcards" class="collapse" aria-labelledby="headingUtilities"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">           
+            <a class="collapse-item" href="{{route('admin.giftcards')}}">Gift Cards</a>
+           
+        </div>
+    </div>
+</li>
+<hr class="sidebar-divider">
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#sitesettigns"
+        aria-expanded="true" aria-controls="sitesettigns">
+        <i class="fas fa-fw fa-shopping-bag"></i>
+        <span>Site Settings</span>
+    </a>
+    <div id="sitesettigns" class="collapse" aria-labelledby="headingUtilities"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">           
+            <a class="collapse-item" href="{{route('admin.homepagebanners')}}">Homepage Banners</a>
+           
+        </div>
+    </div>
+</li>
+<hr class="sidebar-divider">
+
+<li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#transaction"
         aria-expanded="true" aria-controls="transaction">
         <i class="fas fa-fw fa-dollar-sign"></i>

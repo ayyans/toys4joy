@@ -477,6 +477,7 @@ class WebsiteController extends Controller
                     ->where('wishlists.cust_id','=',$cust_id)
                     ->orderBy('wishlists.id','desc')
                     ->get();
+        // print_r($wshlists);exit;
         return view('website.mywishlist',compact('wshlists'));
     }
 
@@ -710,9 +711,7 @@ public function giftcard(Request $request){
     return view('website.giftcards');
 }
 
-public function myprofile(Request $request){
-    return view('website.myprofile');
-}
+
 
 
 public function changepassword(Request $request){

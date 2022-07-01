@@ -73,8 +73,6 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
 });
 Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth'])->group(function(){
     Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
-    
-
     Route::get('/checkout','WebsiteController@payasmember')->name('payasmember');
     Route::get('/my-account','WebsiteController@myaccount')->name('myaccount');
     Route::get('/add-card','WebsiteController@addCardInfo')->name('addCardInfo');
@@ -89,8 +87,13 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     Route::get('/order-history','WebsiteController@orderhistory')->name('orderhistory');
     Route::get('/my-points','WebsiteController@yourpoints')->name('yourpoints');
     Route::get('/gift-cards','WebsiteController@giftcard')->name('giftcard');
-    Route::get('/my-profile','WebsiteController@myprofile')->name('myprofile');
+    Route::get('/my-profile','UserController@myprofile')->name('myprofile');
     Route::get('/change-password','WebsiteController@changepassword')->name('changepassword');
+    Route::get('/changemobilenumber','UserController@changemobilenumber')->name('changemobilenumber');
+    Route::post('/updatemobilenumber','UserController@updatemobilenumber');
+    Route::get('/mysiblings','UserController@mysiblings')->name('mysiblings');
+    Route::post('/siblingsupdate','UserController@siblingsupdate');
+
 });
 
 require __DIR__.'/admin.php';
