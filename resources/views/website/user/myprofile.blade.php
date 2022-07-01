@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-1"></div>
-    	<div class="col-10 content-block">
+        <div class="col-10 content-block">
             <div class="d-flex welcome-block">
                 <img src="{{asset('website/img/user-pic.png')}}"/>
                 <h2>Welcome Back Dear {{Auth::user()->name;}}</h2>
