@@ -1,11 +1,11 @@
 <header>
 <div class="container-fluid">
-	<div class="row">
-    	<div class="col-2">
+    <div class="row">
+        <div class="col-2">
             <div class="logo-here">
                 <a href="{{route('website.home')}}"><img src="{{asset('website/img/logo-t4j.png')}}"></a>
             </div>
-    	</div>
+        </div>
         <div class="col-5 search-col"><div class="search"><input type="text" class="form-control" placeholder="Search store for fun..."> <button class="btn btn-primary"><i class="fa fa-search"></i></button> </div>
         </div>
         <div class="col-3 d-flex heades-images">
@@ -17,7 +17,9 @@
                 <li><a class="dropdown-item" href="#">AR</a></li>
               </ul>
             </div>
-            <img src="{{asset('website/img/location.png')}}" class="map-pin">
+            <a href="https://www.google.com/maps/place/Toys+4+joy/@25.280667,51.503014,18z/data=!4m5!3m4!1s0x0:0xf23502d4ac817c93!8m2!3d25.2806672!4d51.5030136?ll=25.280667,51.503014&z=18&t=m&hl=en&gl=US&mapclient=embed&cid=17452859043394714771&shorturl=1" target="_blank">
+                <img src="{{asset('website/img/location.png')}}" class="map-pin">
+            </a>
             <div class="cart-icon">
                 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span id="cartno">0</span><img src="{{asset('website/img/cart.png')}}" class="cart"></button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -26,7 +28,7 @@
                     </div>
                     <div class="offcanvas-body">
                         <div class="cart-main-title"><h5 id="offcanvasRightLabel">My Bag</h5></div>
-                    	
+                        
                         <div id="cartdetailsheader"></div>
                         <!-- <div class="d-flex added-products">
                             <div class="pro-image"><img src="{{asset('website/img/cart-img.png')}}"/></div>

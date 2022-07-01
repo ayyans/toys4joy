@@ -17,6 +17,8 @@ use App\Models\ProdAttr;
 use App\Models\GuestOrder;
 use App\Models\Customer;
 use App\Models\Coupon;
+use App\Models\giftcards;
+use App\Models\homepagebanners;
 use App\Models\Order;
 use App\Models\User;
 use DB;
@@ -26,8 +28,111 @@ class AdminController extends Controller
     public function dashboard(){
         return view('admin.dashboard');
     }
+    public function homepagebanners()
+    {
+        $data = homepagebanners::orderBy('id','desc')->get();
+        return view('admin.settigns.homepagebanners',compact('data'));
+    }
+    public function homepagebannerssubmit(Request $request)
+    {
+        $banner = new homepagebanners();
+        $banner->image=Cmf::sendimagetodirectory($request->image);
+        $banner->position = $request->position;
+        $banner->status = 1;
+        $banner->save();
+        return back()->with('success','Banner Added SuccessFull!');
+    }
+    public function deactivatebanner(Request $request){
+        $id = decrypt($request->id);
+        $deactivate = homepagebanners::where('id','=',$id)->update([
+            'status'=>'1'
+        ]);
+        if($deactivate==true){
+            return back()->with('success','Banner  deactivated successfull');
+            exit();
+        }else{
+            return back()->with('error','something went wrong');
+            exit();
+        }
+    }
+    public function activatebanner(Request $request){
+        $id = decrypt($request->id);
+        $activate = homepagebanners::where('id','=',$id)->update([
+            'status'=>'2'
+        ]);
+        if($activate==true){
+            return back()->with('success','Banner activated successfull');
+            exit();
+        }else{
+            return back()->with('error','something went wrong');
+            exit();
+        }
+    }
+
+    public function deletebanner(Request $request){
+        $catid = decrypt($request->id);
+        $deletecust = homepagebanners::where('id','=',$catid)->delete();
+        if($deletecust==true){
+            return back()->with('success','Banner deleted SuccessFull!');
+            exit();
+        }else{
+            return back()->with('error','something went wrong');
+            exit();
+        }
+    }
 
 
+
+
+
+
+
+    public function giftcards()
+    {
+        $giftcard = giftcards::orderBy('id','desc')->get();
+        return view('admin.giftcards',compact('giftcard'));
+    }
+
+    public function addgiftcardsubmit(Request $request)
+    {
+        $card = new giftcards();
+        $card->name = $request->coupon_title;
+        $card->price = $request->price;
+        $card->code = $request->coupon_code;
+        $card->status = 1;
+        $card->save();
+         return back()->with('success','Gift Card Added SuccessFull!');
+
+    }
+    public function activategiftcards(Request $request){
+        $id = decrypt($request->id);
+        $activate = giftcards::where('id','=',$id)->update([
+            'status'=>'2'
+        ]);
+        if($activate==true){
+            return back()->with('success','Gift Card activated successfull');
+            exit();
+        }else{
+            return back()->with('error','something went wrong');
+            exit();
+        }
+    }
+
+    // deactivate giftcard 
+
+    public function deactivategiftcards(Request $request){
+        $id = decrypt($request->id);
+        $deactivate = giftcards::where('id','=',$id)->update([
+            'status'=>'1'
+        ]);
+        if($deactivate==true){
+            return back()->with('success','Gift Card  deactivated successfull');
+            exit();
+        }else{
+            return back()->with('error','something went wrong');
+            exit();
+        }
+    }
     // customer details 
 
     public function customer(){

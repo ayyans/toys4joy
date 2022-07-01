@@ -50,6 +50,29 @@ class WebsiteController extends Controller
     {
         return view('website.pages.policy');
     }
+
+    public function rewardspolicy()
+    {
+        return view('website.pages.rewards-policy');
+    }
+    public function returnpolicy()
+    {
+        return view('website.pages.return-policy');
+    }
+    public function deliverypolicy()
+    {
+        return view('website.pages.delivery-policy');
+    }
+    public function privacypolicy()
+    {
+        return view('website.pages.privacy-policy');
+    }
+    public function termsandconditions()
+    {
+        return view('website.pages.termsandconditions');
+    }
+
+
     public function contact()
     {
         return view('website.pages.contact');
@@ -316,7 +339,7 @@ class WebsiteController extends Controller
         }else
         {
             $getproduct = Product::where('id','=',$prod_id)->first();
-            if($qty<$getproduct['qty']){
+            if($qty<=$getproduct['qty']){
                 $addTo = new Cart;
                 $addTo->cust_id=$cust;
                 $addTo->prod_id=$prod_id;
@@ -506,6 +529,7 @@ class WebsiteController extends Controller
                     ->where('wishlists.cust_id','=',$cust_id)
                     ->orderBy('wishlists.id','desc')
                     ->get();
+        // print_r($wshlists);exit;
         return view('website.mywishlist',compact('wshlists'));
     }
 
@@ -739,9 +763,7 @@ public function giftcard(Request $request){
     return view('website.giftcards');
 }
 
-public function myprofile(Request $request){
-    return view('website.myprofile');
-}
+
 
 
 public function changepassword(Request $request){

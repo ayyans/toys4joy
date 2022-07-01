@@ -36,6 +36,15 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/','WebsiteController@index')->name('home');
     Route::get('/why-us','WebsiteController@whyus')->name('whyus');
     Route::get('/company-policy','WebsiteController@policy')->name('policy');
+
+    Route::get('/rewards-policy','WebsiteController@rewardspolicy');
+    Route::get('/return-policy','WebsiteController@returnpolicy');
+    Route::get('/delivery-policy','WebsiteController@deliverypolicy');
+    Route::get('/privacy-policy','WebsiteController@privacypolicy');
+
+
+    
+    Route::get('/terms-and-conditions','WebsiteController@termsandconditions')->name('termsandconditions');
     Route::get('/contact-us','WebsiteController@contact')->name('contact');
     Route::get('/newarrivals','WebsiteController@newarrivals')->name('newarrivals');
     Route::get('/brands','WebsiteController@brands')->name('brands');
@@ -73,8 +82,6 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
 });
 Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth'])->group(function(){
     Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
-    
-
     Route::get('/checkout','WebsiteController@payasmember')->name('payasmember');
     Route::get('/my-account','WebsiteController@myaccount')->name('myaccount');
     Route::get('/add-card','WebsiteController@addCardInfo')->name('addCardInfo');
@@ -89,8 +96,13 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     Route::get('/order-history','WebsiteController@orderhistory')->name('orderhistory');
     Route::get('/my-points','WebsiteController@yourpoints')->name('yourpoints');
     Route::get('/gift-cards','WebsiteController@giftcard')->name('giftcard');
-    Route::get('/my-profile','WebsiteController@myprofile')->name('myprofile');
+    Route::get('/my-profile','UserController@myprofile')->name('myprofile');
     Route::get('/change-password','WebsiteController@changepassword')->name('changepassword');
+    Route::get('/changemobilenumber','UserController@changemobilenumber')->name('changemobilenumber');
+    Route::post('/updatemobilenumber','UserController@updatemobilenumber');
+    Route::get('/mysiblings','UserController@mysiblings')->name('mysiblings');
+    Route::post('/siblingsupdate','UserController@siblingsupdate');
+
 });
 
 require __DIR__.'/admin.php';

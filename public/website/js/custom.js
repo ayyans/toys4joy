@@ -2009,6 +2009,15 @@ $('.categories li ul li a').each(function() {
       $this.text( $this.text().slice(0,15) );
 });    
 
+$(function() {
+  // Owl Carousel
+  var owl = $("carousel");
+  owl.owlCarousel({
+    items: 1,
+    loop: true,
+    nav: true
+  });
+});    
       
     /** @export */
   window.wNumb = wNumb;

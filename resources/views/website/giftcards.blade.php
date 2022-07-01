@@ -12,44 +12,34 @@
         </div>
         
         <div class="col-4 text-center">
-        <form class="qr-price-select">    
-            <div class="yellow r-btn">
-                <input type="radio" id="100QR" name="radio" value="option1">
-                <label for="100QR" class="yellow-text">100 QR</label>
-            </div>
-            <div class="blue r-btn">
-                <input type="radio" id="200QR" name="radio" value="option2">
-                <label for="200QR" class="blue-text">200 QR</label>
-            </div>
-            <div class="green r-btn">
-                <input type="radio" id="250QR" name="radio" value="option3">
-                <label for="250QR" class="green-text">250 QR</label>
-            </div>
-            <div class="pink r-btn">
-                <input type="radio" id="500QR" name="radio" value="option4">
-                <label for="500QR" class="pink-text">500 QR</label>
-            </div>
-            <div class="gray r-btn">
-                <input type="radio" id="other" name="radio" value="option5">
-                <label for="other" class="gray-text">Other</label>
-                <input type="text">
+        <form class="qr-price-select">
+            <div class="row">
+                @foreach(DB::table('giftcards')->where('status' , 2)->get() as $r) 
+                <div class="col-md-6">
+                    
+                    <div class="green r-btn">
+                        <input type="radio" id="card{{  $r->id }}" name="radio" value="option3">
+                        <label for="card{{  $r->id }}" class="green-text">{{ $r->price }} QR</label>
+                    </div>
+                    
+                </div>
+                @endforeach
+                <div class="col-md-12">
+                    <div class="gray r-btn">
+                        <input type="radio" id="other" name="radio" value="option5">
+                        <label for="other" class="gray-text">Other</label>
+                        <input type="text">
+                    </div>
+                </div>
             </div>
         </form>    
         </div>
         
         <div class="col-4 text-center">
-            <div class="input-security">
-            	<h2>Security Code</h2>
-				<div class="d-flex">               
-                	<input type="text">
-                	<img src="{{asset('website/img/cvv.png')}}"/>
-                </div>
-                <label>Enter the security code</label>
-            </div>
             <div class="pay-as-member">
                 <div class="text-center">
                     <div class="member">
-                        <a href="#">Pay as Member</a>
+                        <a href="#">Pay by Debit/Credit Card</a>
                     </div>
                 </div>
             </div>
