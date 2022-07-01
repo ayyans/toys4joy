@@ -67,14 +67,12 @@ class OrderController extends Controller
 
             $product = Product::find($data->prod_id);
 
-            dd($product);
-
             $order_details = [
                 'email' => $data->cust_email,
                 'order_number' => $data->order_id,
-                'total' => $product->unit_price * $data->prod_qty,
+                'total' => $product->unit_price * $data->qty,
                 'quantity' => [$data->qty],
-                'amount' => [$product->unit_price * $data->prod_qty],
+                'amount' => [$product->unit_price * $data->qty],
                 'address' => 'N/A',
                 'products' => [$product->title],
             ];
