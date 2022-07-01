@@ -2711,15 +2711,16 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     top: 25px;
     opacity: .5;
 }
-.my-profile .main-content-box .date-numbering input,
-.my-profile .main-content-box .date-numbering input:focus {
+.my-profile .main-content-box .date-numbering select,
+.my-profile .main-content-box .date-numbering select:focus {
     background: transparent;
     border: 0;color: #fff;
     outline: 0;
-    width: 25px;
     font-weight: 600;
     text-align: center;
+    -webkit-appearance: none;
 }
+.my-profile .main-content-box .date-numbering select option {color: #000;}
 .my-profile .main-content-box .date-numbering input::placeholder {color: #fff;opacity: 0.5;}
 .my-profile .main-content-box .date-numbering .num span:after{right: 2px; left: auto}
 .my-profile .main-content-box .gender input {position: absolute;bottom: -40px;background: transparent;}

@@ -25,16 +25,92 @@
                     </div>
                     <div class="d-flex date-numbering">
                         <div class="d-flex day">
-                            <div class="green-bg num"><span>2</span></div>
-                            <div class="green-bg num"><span>8</span></div>
+                            <div class="green-bg num">
+                                <span>
+                                    <select>
+                                        <option>0</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="green-bg num">
+                                <span>
+                                    <select>
+                                        <option>0</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                    </select>
+                                </span>
+                            </div>
                         </div>
                         <div class="d-flex month">
-                            <div class="pink-bg num"><span>1</span></div>
-                            <div class="pink-bg num"><span>1</span></div>
+                            <div class="pink-bg num">
+                                <span>
+                                    <select>
+                                        <option>0</option>
+                                        <option>1</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="pink-bg num">
+                                <span>
+                                    <select>
+                                        <option>0</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                    </select>
+                                </span>
+                            </div>
                         </div>
                         <div class="d-flex year">
-                            <div class="yellow-bg num"><span>0</span></div>
-                                <div class="yellow-bg num"><span>4</span></div>
+                            <div class="yellow-bg num">
+                                <span>
+                                    <select>
+                                        <option>0</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="yellow-bg num">
+                                <span>
+                                    <select>
+                                        <option>0</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                    </select>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     
