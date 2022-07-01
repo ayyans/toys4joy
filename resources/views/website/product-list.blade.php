@@ -24,8 +24,10 @@
             </div>
             <div class="d-flex products-list">
               @foreach($products as $product)
-                <div class="single"> 
-                    <div class="availbility"><span>{{ $product->qty }}</span></div>
+                <div class="single">
+                    @if($product->qty == 0)
+                    <div class="availbility"><span>Out of Stock</span></div>
+                    @endif
                     <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
                     <div class="text-center content-block">
                         <h3>{{$product->title}}</h3>
