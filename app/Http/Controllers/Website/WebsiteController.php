@@ -307,7 +307,7 @@ class WebsiteController extends Controller
         }else
         {
             $getproduct = Product::where('id','=',$prod_id)->first();
-            if($qty<$getproduct['qty']){
+            if($qty<=$getproduct['qty']){
                 $addTo = new Cart;
                 $addTo->cust_id=$cust;
                 $addTo->prod_id=$prod_id;
