@@ -15,6 +15,7 @@ class CreateReturnRequestsTable extends Migration
     {
         Schema::create('return_requests', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('reason');
             $table->text('detail')->nullable();
             $table->string('receipt')->nullable();

@@ -93,7 +93,7 @@ class UserController extends Controller
 			$receipt = $request->file('receipt')->store('receipts', 'public');
 		}
 
-		ReturnRequest::create([
+		auth()->user()->returnRequests()->create([
 			'reason' => $request->reason,
 			'detail' => $request->detail,
 			'receipt' => $receipt ?? null,
