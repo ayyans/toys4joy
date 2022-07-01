@@ -3,7 +3,7 @@
 <main class="home">
 <div class="container-fluid">
     <div class="row">
-    	<div class="col-3 categories-col">
+        <div class="col-3 categories-col">
             <div class="d-flex flex-column flex-shrink-0" >
                 <div class="for-mobile mbl-banner">
                     <ul class="nav nav-pills nav-fill">
@@ -35,8 +35,29 @@
         <div class="col-6 middle-col">
             <div class="for-desktop">
             @include('website.layouts.user_menu')  
-                <img src="{{asset('website/img/t1.png')}}" class="img-fluid">
-            </div>
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                  </div>
+                  <div class="carousel-inner">
+                    @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
+                    <div class="carousel-item @if ($loop->first) active @endif">
+                      <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid">
+                    </div>
+                    @endforeach
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+            </div>    
             <div class="d-flex home-prod products-list">
                 @foreach($products as $product)
                 <div class="single">

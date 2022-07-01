@@ -217,7 +217,7 @@ header {padding: 15px 20px;}
 }
 .heades-images .dropdown-toggle:focus {box-shadow: none;}
 .heades-images  .cart {width: 80px;margin-left: 30px;}
-.heades-images .cart-icon button{transition: 1.5s;}
+.heades-images .cart-icon button{transition: 1.5s;background: transparent;}
 .heades-images .cart-icon button:hover {
     transform: scale(1.2);
     transition: 1.5s;
@@ -433,6 +433,7 @@ ul.nav-fill .nav-item:last-child {
     animation: vertical-shaking 2s infinite;
     color: #fff;
 }
+.upload-img .tooltip{opacity: 1; position: relative;}
 .tooltip .tooltiptext {
     visibility: hidden;
     font-size: 18px;
@@ -1084,7 +1085,7 @@ transition: all 0.2s ease-in-out;
     top: 0;
 }
 .products-list .single .img-block {height: 200px;overflow: hidden;}
-.products-list .single .img-block img {width: 100%;}
+.products-list .single .img-block img {width: 100%;height: 100%; object-fit: contain;}
 .products-list .single .content-block h3 {
     font-size: 20px;
     font-weight: 700;
@@ -1637,7 +1638,7 @@ transition: all 0.2s ease-in-out;
     padding: 15px;
     text-decoration: unset;
 }
-#my-account .content-block .mid-btn a:hover{padding: 10px;border-radius: 0;}
+#my-account .content-block .mid-btn a:hover{padding: 3px;border-radius: 0;}
 #my-account .ac-btn.row {align-items: center;}
 #my-account .content-block .my-profile a,
 #my-account .content-block .siblings a {
@@ -1646,14 +1647,16 @@ transition: all 0.2s ease-in-out;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
-    line-height: 70px;
+    padding: 30px;
     color: #fff;
     font-weight: 700;
     font-size: 20px;
-    margin: 0 auto;
+    margin: 15px auto;
 }
 #my-account .content-block .my-profile a:hover, #my-account .content-block .siblings a:hover {
     animation: vertical-shaking 2s infinite;
+    padding: 30px;
+    background: #2972bc;
 }
 #my-account .content-block .siblings a,
 #otp-form.account .form-group button,
@@ -1676,12 +1679,13 @@ transition: all 0.2s ease-in-out;
     background: #2972bc;
     background-image: none;
 }
-.member a, .cash-on-delivery a{
+.member a, .cash-on-delivery a, .cash-on-delivery .member a{
     background: url(../img/green-btn-bg.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
 }
+.cash-on-delivery .member a {padding: 30px;}
 .yellowbg-img a{
     background: url(../img/yellow-bg-btn.png);
     background-position: center;
@@ -2759,11 +2763,13 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     max-width: 110px;
     margin: 0 auto;
     padding: 0 10px;
+    font-size: 24px;
 }
 #add-change-address .form-group .input-block.unit-num input,
 #add-change-address .form-group .input-block.building-num input {
     max-width: 250px;
     height: 100px;
+    font-size: 30px;
 }
 #add-change-address .form-group .zone-street {
     justify-content: center;
@@ -3084,6 +3090,8 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     margin-left: 8px;
     font-weight: 600;
 }
+.t-and-c-text a {color: #3a73b9;font-weight: 700;}
+.t-and-c-text a:hover {color: #d00064;}
 
 /**************** 404 ERROR PAGE ******************/
 
@@ -3148,7 +3156,8 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 .cart-products .cart-image {max-width: 220px;}       
 .discount-block, .code-block {padding: 25px;} 
 .account .form-col .form-group .form-inner {width: 50%;}  
-.book-your-event .booking-cal .time span {padding: 3px 7px;}    
+.book-your-event .booking-cal .time span {padding: 3px 7px;} 
+#my-account .content-block .my-profile a:hover, #my-account .content-block .siblings a:hover {padding: 25px;}    
     
 }
 
@@ -3194,6 +3203,7 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     left: -20px;
     top: 20px;
 }
+#my-account .content-block .my-profile a:hover, #my-account .content-block .siblings a:hover {padding: 18px;}    
 .book-your-event .booking-cal > div span {font-size: 36px;}
 .booking-cal .time > div {margin-bottom: 15px;}
 .book-your-event .booking-cal .time span {font-size: 15px;} 
@@ -3301,7 +3311,9 @@ ul.nav-fill .nav-item a:hover {padding-top: 12px;margin-top: -4px;}
     border-radius: 3px;
     margin-bottom: 15px;
     font-size: 16px;
-}    
+}  
+#my-account .content-block .my-profile a, #my-account .content-block .siblings a {margin: 0 auto;}    
+#my-account .content-block .my-profile a:hover, #my-account .content-block .siblings a:hover {padding: 14px;}    
 .digits h3 {padding: 10px 7px;}    
 .book-your-event .booking-cal .time h2 {margin-bottom: 20px;}  
 .book-now {width: 24%;margin-top: -70px;}
@@ -3550,6 +3562,7 @@ ul.nav-fill .nav-item a {
     width: 175px;
     margin: 8px auto 15px;
 } 
+#my-account .content-block .my-profile a, #my-account .content-block .siblings a {margin: 15px auto;}    
 .digits h3 {padding: 5px 1px;border-radius: 5px;}
 .booking-cal {column-gap: 5px;}
 .book-now a {font-size: 10px; line-height: 10px; width: 50px; border: 1px solid #fff;bottom: 5px;} 
@@ -3786,7 +3799,9 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .contact-info {margin-bottom: 40px;margin-top: 30px;}
 .products-list .single .content-block .fa {font-size: 16px;padding: 4px; width: 25px; height: 25px;} 
 .brands-logo {padding: 20px 10px 0;}
-.brands-logo .single {width: 30%;}    
+.brands-logo .single {width: 30%;} 
+#my-account .content-block .my-profile a:hover, #my-account .content-block .siblings a:hover {width: 60%;}
+#my-account .content-block .my-profile a, #my-account .content-block .siblings a {background-size: 60%;margin: 0 auto;}    
 }
 
 
