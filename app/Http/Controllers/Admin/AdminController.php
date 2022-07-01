@@ -20,6 +20,7 @@ use App\Models\Coupon;
 use App\Models\giftcards;
 use App\Models\homepagebanners;
 use App\Models\Order;
+use App\Models\ReturnRequest;
 use App\Models\User;
 use DB;
 class AdminController extends Controller
@@ -1369,14 +1370,14 @@ public function editProcess(Request $request){
 }
 
 
-
-
-
+    public function returnRequests() {
+        $returnRequests = ReturnRequest::with('user')->get();
+        return view('admin.return-requests', compact('returnRequests'));
+    }
     
+    public function returnRequestStatus(ReturnRequest $returnRequest, $status) {
+        $returnRequest->update(['status' => $status]);
+        return redirect()->route('admin.return-requests.index')->with('success', 'Return request status changed!');
+    }
 
-
-    
-    
-
-    
 }

@@ -124,6 +124,10 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('/customer-orders-details/{id}','AdminController@custOrdersDetails')->name('custOrdersDetails');
     Route::post('/customer-orders-status','AdminController@CustomerorderStatus')->name('CustomerorderStatus');
 
+    // customer orders
+
+    Route::get('/return-requests', 'AdminController@returnRequests')->name('return-requests.index');
+    Route::get('/return-requests/{returnRequest}/{status}', 'AdminController@returnRequestStatus')->name('return-requests.status');
 
 
     Route::get('/giftcards','AdminController@giftcards')->name('giftcards');

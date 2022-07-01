@@ -120,6 +120,22 @@
 <hr class="sidebar-divider">
 
 <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#returnUtility"
+        aria-expanded="true" aria-controls="returnUtility">
+        <i class="fa fa-arrow-left"></i>
+        <span>Return Requests</span>
+    </a>
+    <div id="returnUtility" class="collapse" aria-labelledby="headingUtilities"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{route('admin.return-requests.index')}}">List Requests</a>
+        </div>
+    </div>
+</li>
+
+<hr class="sidebar-divider">
+
+<li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#couponsUtility"
         aria-expanded="true" aria-controls="couponsUtility">
         <i class="fas fa-fw fa-shopping-bag"></i>

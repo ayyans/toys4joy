@@ -10,4 +10,8 @@ class ReturnRequest extends Model
     use HasFactory;
 
     protected $fillable = ['reason', 'detail', 'receipt', 'status'];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

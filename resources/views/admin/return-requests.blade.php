@@ -1,51 +1,43 @@
 @extends('admin.layouts.master')
+@push('otherstyle')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/panzoom.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
+@endpush
 @section('content')
 <div class="container-fluid">
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">All Orders</h6>
+      <h6 class="m-0 font-weight-bold text-primary">All Return Requests</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Mobile</th>
-              <th>Shipping address</th>
-              <th>Payment Mode</th>
-              <th>Payment ID</th>
+              <th>User</th>
+              <th>Reason</th>
+              <th>Detail</th>
+              <th>Recipt</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($orders as $order)
+            @foreach($returnRequests as $returnRequest)
             <tr>
-              <td>{{$order->name}}</td>
-              <td>{{$order->email}}</td>
-              <td>{{$order->mobile}}</td>
-              <td>{{$order->unit_no}},{{$order->building_no}},{{$order->zone}},{{$order->street}}</td>
-              <td>
-                @if($order->mode==2)
-                Online
-                @else
-                COD
-                @endif
+              <td>{{ $returnRequest->user->name }}</td>
+              <td>{{ $returnRequest->reason }}</td>
+              <td>{{ $returnRequest->detail }}</td>
+              <td class="text-center">
+                <img data-fancybox src="{{ asset("storage/{$returnRequest->receipt}") }}" alt="Receipt" role="button" height="25">
               </td>
-              <td>{{$order->payment_id}}</td>
               <td>
-                @if($order->status==1)
-                <div class="badge badge-danger">Pending</div>
-                @elseif($order->status==2)
-                <div class="badge badge-success">Confirm</div>
-                @elseif($order->status==3)
-                <div class="badge badge-success">Shipped</div>
-                @elseif($order->status==4)
-                <div class="badge badge-danger">Cancelled</div>
-                @elseif($order->status==5)
-                <div class="badge badge-success">Delivered</div>
+                @if($returnRequest->status == 'in-progress')
+                  <div class="badge badge-primary">In Progress</div>
+                @elseif($returnRequest->status == 'accepted')
+                  <div class="badge badge-success">Accepted</div>
+                @elseif($returnRequest->status == 'rejected')
+                  <div class="badge badge-danger">Rejected</div>
                 @endif
               </td>
               <td>
@@ -56,28 +48,13 @@
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="{{route('admin.custOrdersDetails',[encrypt($order->id)])}}"
-                        class="dropdown-item">View</a></li>
-                    @if($order->status==1)
-
-                    <li><a href="{{route('admin.confirmCustOrders',[encrypt($order->id)])}}"
-                        class="dropdown-item">Confirm</a></li>
-                    <li><a href="{{route('admin.cancelledCustOrders',[encrypt($order->id)])}}"
-                        class="dropdown-item">Concel</a></li>
-                    @elseif($order->status==2)
-                    <li><a href="{{route('admin.shippedCustOrders',[encrypt($order->id)])}}"
-                        class="dropdown-item">Shipped</a></li>
-                    <li><a href="{{route('admin.cancelledCustOrders',[encrypt($order->id)])}}"
-                        class="dropdown-item">Concel</a></li>
-                    @elseif($order->status==3)
-                    <li><a href="{{route('admin.deliveredCustOrders',[encrypt($order->id)])}}"
-                        class="dropdown-item">Delivered</a></li>
-                    <li><a href="{{route('admin.cancelledCustOrders',[encrypt($order->id)])}}"
-                        class="dropdown-item">Concel</a></li>
-                    @elseif($order->status==4)
-                    <li><a href="javascript:void(0)" class="dropdown-item">Concelled</a></li>
-                    @elseif($order->status==5)
-                    <li><a href="javascript:void(0)" class="dropdown-item">Delivered</a></li>
+                    @if ($returnRequest->status == 'in-progress')
+                      <li>
+                        <a href="{{ route('admin.return-requests.status', ['returnRequest' => $returnRequest->id, 'status' => 'accepted']) }}" class="dropdown-item">Accept</a>
+                      </li>
+                      <li>
+                        <a href="{{ route('admin.return-requests.status', ['returnRequest' => $returnRequest->id, 'status' => 'rejected']) }}" class="dropdown-item">Reject</a>
+                      </li>
                     @endif
                   </ul>
                 </div>
@@ -90,5 +67,8 @@
     </div>
   </div>
 </div>
-
 @endsection
+
+@push('otherscript')
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+@endpush
