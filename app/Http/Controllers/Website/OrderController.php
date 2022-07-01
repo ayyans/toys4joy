@@ -67,6 +67,8 @@ class OrderController extends Controller
 
             $product = Product::find($data->prod_id);
 
+            dd($product);
+
             $order_details = [
                 'email' => $data->cust_email,
                 'order_number' => $data->order_id,
@@ -77,7 +79,6 @@ class OrderController extends Controller
                 'products' => [$product->title],
             ];
             event(new OrderPlaced($order_details));
-            dd($order_details);
             return view('website.guestthanks');
         }else{
             return redirect()->route('website.home')->with('error','Order IS Placed But Payement is Failed');
