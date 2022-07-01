@@ -1701,7 +1701,7 @@ transition: all 0.2s ease-in-out;
     animation: vertical-shaking 2s infinite;
 }
 .btn.pinkbg-img a {
-    color: #fff;
+    color: #fff !important;
     text-decoration: unset;
     font-size: 20px;
     font-weight: 700;
@@ -2171,23 +2171,23 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 #my-siblings .welcome-block h2 {color: #ed0c6e;}
 .siblings-table {background: #f6faff; margin: 0; padding: 30px;}
 .sibling .table {
-    background: #f8b8da;
+    background: #f3a5cf;
     border-radius: 10px;
     text-align: center;
     color: #fff;
     max-width: 500px;
     margin: 10px auto;
 }
-.sibling.my-brother .table {background: #dbeaf9;}
+.sibling.my-brother .table {background: #a1c2e3;}
 .sibling .table thead th {
-    background: #ff8dca;
+    background: #f37cbb;
     line-height: 2.5;
     border: 1px solid #fff;
     width: 50%;
     border-radius: 5px;
     box-shadow: 0 2px 6px rgb(0 0 0 / 15%);
 }
-.sibling.my-brother .table thead th{background: #a0c8ec;}
+.sibling.my-brother .table thead th{background: #7eb3e3;}
 .sibling .table thead th:first-child {border-radius: 8px 0 0 0;}
 .sibling .table thead th:last-child {border-radius: 0 8px 0 0;}
 .sibling .table tbody tr td {padding: 0;border: 1px solid #fff;}
@@ -2696,7 +2696,7 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     border-top: 2px solid rgba(255,255,255,.5);
     position: relative;
 }
-.my-profile .main-content-box .date-numbering>div {margin-right: 18px;}
+.my-profile .main-content-box .date-numbering>div {margin-right: 9px;}
 .my-profile .main-content-box .date-numbering .num span:before,
 .my-profile .main-content-box .date-numbering .num span:after{
     content: '';
@@ -2711,6 +2711,16 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     top: 25px;
     opacity: .5;
 }
+.my-profile .main-content-box .date-numbering input,
+.my-profile .main-content-box .date-numbering input:focus {
+    background: transparent;
+    border: 0;color: #fff;
+    outline: 0;
+    width: 25px;
+    font-weight: 600;
+    text-align: center;
+}
+.my-profile .main-content-box .date-numbering input::placeholder {color: #fff;opacity: 0.5;}
 .my-profile .main-content-box .date-numbering .num span:after{right: 2px; left: auto}
 .my-profile .main-content-box .gender input {position: absolute;bottom: -40px;background: transparent;}
 .my-profile .main-content-box .gender input#female {left: 78px;}
@@ -3681,7 +3691,16 @@ img.why-logo {width: 55px;margin-left: 15px;}
 .pay-as-member-page .code-block input {width: 75%;}
 .products-list .availbility span {font-size: 10px; padding: 2px 4px;}  
 .brands-logo {padding: 40px 20px;column-gap: 15px;margin: 30px 0;}    
-.brands-logo .single {margin-bottom: 15px;width: 21%; padding: 20px;}    
+.brands-logo .single {margin-bottom: 15px;width: 21%; padding: 20px;}
+.my-profile .main-content-box .date-numbering input{width: 20px;}    
+.my-profile .main-content-box .date-numbering .num {font-size: 30px;padding: 2px 6px;} 
+.my-profile .main-content-box .col-6, .my-profile .main-content-box .outline-box {width: 100%;}
+.my-profile .main-content-box .outline-box {margin-bottom: 15px;}
+.my-profile .main-content-box .date-numbering, .my-profile .main-content-box .date {justify-content: center;}    
+.my-profile .main-content-box .date-numbering .num {font-size: 36px; padding: 2px 9px;}
+.my-profile .main-content-box .date-numbering input {width: 25px;} 
+.my-profile .main-content-box .select-gender {margin: 0 auto;}    
+    
     
 }
 
@@ -3818,7 +3837,21 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .brands-logo {padding: 20px 10px 0;}
 .brands-logo .single {width: 30%;} 
 #my-account .content-block .my-profile a:hover, #my-account .content-block .siblings a:hover {width: 60%;}
-#my-account .content-block .my-profile a, #my-account .content-block .siblings a {background-size: 60%;margin: 0 auto;}    
+#my-account .content-block .my-profile a, #my-account .content-block .siblings a {background-size: 60%;margin: 0 auto;}  
+#my-siblings .welcome-block h2 {font-size: 18px;margin: 0;}
+#my-siblings .welcome-block img {width: 40px; margin-right: 10px;} 
+.my-profile .main-content-box {padding: 40px 20px 60px;}
+#my-siblings .welcome-block {padding: 10px;}
+.my-profile .main-content-box .date .outline-box {width: 80px; font-size: 18px; padding: 5px;} 
+.my-profile .main-content-box .date-numbering .num {font-size: 30px; padding: 2px 4px;}
+.my-profile .main-content-box .date-numbering input {width: 28px;}
+.my-profile .main-content-box .outline-box {font-size: 18px; padding: 10px;} 
+.my-profile .col-10.content-block {width: 100%;} 
+.my-profile .main-content-box .gender img {width: 80px;}
+.my-profile .main-content-box .gender input[type="radio"]::before {width: 1.5em;height: 1.5em;}
+.my-profile .main-content-box .gender input {bottom: -30px;}
+.my-profile .main-content-box .gender input#female {left: 95px;}
+.my-profile .main-content-box .gender input#male {right: 95px;}    
 }
 
 
@@ -3877,7 +3910,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .add-more a {padding: 10px 40px;font-size: 14px;}
 .product-detail .title h2 {font-size: 18px;} 
 .right-sidebar .age-range ul {display: block;}    
-.right-sidebar .age-range ul li {width: 100%;}    
+.right-sidebar .age-range ul li {width: 100%;}   
     
 }
 
