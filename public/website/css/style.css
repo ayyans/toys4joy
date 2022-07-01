@@ -2712,10 +2712,27 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     opacity: .5;
 }
 .my-profile .main-content-box .date-numbering .num span:after{right: 2px; left: auto}
-.my-profile .main-content-box .gender input {display: none;}
+.my-profile .main-content-box .gender input {position: absolute;bottom: -40px;background: transparent;}
+.my-profile .main-content-box .gender input#female {left: 78px;}
+.my-profile .main-content-box .gender input#male {right: 78px;}
 .my-profile .main-content-box .gender img {width: 100px;margin: 0 auto;cursor: pointer;}
-.my-profile .main-content-box .select-gender {column-gap: 20px;width: 310px;justify-content: center;}
+.my-profile .main-content-box .select-gender {column-gap: 20px;width: 310px;justify-content: center;position: relative;}
 .my-profile .add-more a {padding: 10px 80px;display: block;margin: 25px 0;}
+.my-profile .main-content-box .gender input#female[type="radio"]::before {
+    background-color: #d3006c;
+    border: 4px solid #fff;
+    outline-width: 2px;
+    outline-color: #d3006c;
+    outline-style: solid;
+}
+.my-profile .main-content-box .gender input[type="radio"]::before{width: 2em; height: 2em;}
+.my-profile .main-content-box .gender input#male[type="radio"]::before {
+    background-color: #2972bc;
+    border: 4px solid #fff;
+    outline-width: 2px;
+    outline-color: #2972bc;
+    outline-style: solid;
+}
 
 
 #add-change-address {

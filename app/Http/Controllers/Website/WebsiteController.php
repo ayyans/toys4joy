@@ -50,6 +50,26 @@ class WebsiteController extends Controller
     {
         return view('website.pages.policy');
     }
+
+    public function rewardspolicy()
+    {
+        return view('website.pages.rewards-policy');
+    }
+    public function returnpolicy()
+    {
+        return view('website.pages.return-policy');
+    }
+    public function deliverypolicy()
+    {
+        return view('website.pages.delivery-policy');
+    }
+    public function privacypolicy()
+    {
+        return view('website.pages.privacy-policy');
+    }
+
+
+
     public function contact()
     {
         return view('website.pages.contact');

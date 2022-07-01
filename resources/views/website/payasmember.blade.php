@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div class="row">
        
-    	<div class="col-6 member-col left">
+        <div class="col-6 member-col left">
         <form action="{{ url('place-order-process') }}" method="POST" id="checkoutFrm">
             <?php $total_price = 0; ?>
             @foreach($products as $product)
@@ -28,27 +28,27 @@
             @endforeach
             </form>
             <div class="discount-block">
-            	<div class="mb-3">
-                	<label>Discount Code</label>
-                	<input type="text" id="discount_coupon">
-                	<button class="btn btn-primary discountBtn">Enter</button>
+                <div class="mb-3">
+                    <label>Discount Code</label>
+                    <input type="text" id="discount_coupon">
+                    <button class="btn btn-primary discountBtn">Enter</button>
                 </div>
                 <div class="mb-3">
-                	<label>Gift-Card Code</label>
-                	<input type="text" id="giftcard_coupon">
-                	<button class="btn btn-primary giftBtn">Enter</button>
+                    <label>Gift-Card Code</label>
+                    <input type="text" id="giftcard_coupon">
+                    <button class="btn btn-primary giftBtn">Enter</button>
                 </div>
             </div>
             <div class="code-block">
-            	<div class="mb-3">
-                	<label>Corporate Code</label>
-                	<input type="text" id="corporate_code">
-                	<button class="btn btn-primary corporateBtn">Enter</button>
+                <div class="mb-3">
+                    <label>Corporate Code</label>
+                    <input type="text" id="corporate_code">
+                    <button class="btn btn-primary corporateBtn">Enter</button>
                 </div>
                 <div class="mb-3">
-                	<label>Verify the OTP Code</label>
-                	<input type="text" id="verifyotp">
-                	<button class="btn btn-primary">Submit</button>
+                    <label>Verify the OTP Code</label>
+                    <input type="text" id="verifyotp">
+                    <button class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
@@ -166,8 +166,10 @@ $action_url = 'https://sadadqa.com/webpurchase';
     <input type="hidden" id="prev_amt" value="{{$total_price}}"/>
             <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
             <div class="yellowbg-img cash-on-delivery">
+                <div class="member">
+                    <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD" class="pay-btn">Pay</a>
+                </div>
                 <img src="{{asset('website/img/cash-on-delievery.png')}}"/>
-                    <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD">Pay</a>
                     <a id="cashondelivery" href="javascript:void(0)">Cash or Credit<br>on Delivery</a>
             </div>
         </div>

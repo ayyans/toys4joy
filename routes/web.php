@@ -36,6 +36,14 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/','WebsiteController@index')->name('home');
     Route::get('/why-us','WebsiteController@whyus')->name('whyus');
     Route::get('/company-policy','WebsiteController@policy')->name('policy');
+
+    Route::get('/rewards-policy','WebsiteController@rewardspolicy');
+    Route::get('/return-policy','WebsiteController@returnpolicy');
+    Route::get('/delivery-policy','WebsiteController@deliverypolicy');
+    Route::get('/privacy-policy','WebsiteController@privacypolicy');
+
+
+
     Route::get('/contact-us','WebsiteController@contact')->name('contact');
     Route::get('/newarrivals','WebsiteController@newarrivals')->name('newarrivals');
     Route::get('/brands','WebsiteController@brands')->name('brands');
