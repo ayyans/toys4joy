@@ -90,7 +90,7 @@ class UserController extends Controller
 	public function returnRequest(Request $request) 
 	{
 		if ($request->hasFile('receipt')) {
-			$receipt = $request->file('receipt')->store('receipts');
+			$receipt = $request->file('receipt')->store('receipts', 'public');
 		}
 
 		ReturnRequest::create([
@@ -100,6 +100,6 @@ class UserController extends Controller
 			'status' => 'in-progress',
 		]);
 
-		return redirect()->route('website.myaccount')->with('success', 'Your return request has been submitted!');
+		return view('website.user.return-request-thankyou');
 	}
 }

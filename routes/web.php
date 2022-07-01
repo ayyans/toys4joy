@@ -104,7 +104,6 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     Route::post('/siblingsupdate','UserController@siblingsupdate');
     Route::view('/return-request','website.user.return-request-form')->name('return-request-form');
     Route::post('/return-request','UserController@returnRequest')->name('return-request');
-
 });
 
 require __DIR__.'/admin.php';
