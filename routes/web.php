@@ -43,7 +43,8 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/privacy-policy','WebsiteController@privacypolicy');
 
 
-
+    
+    Route::get('/terms-and-conditions','WebsiteController@termsandconditions')->name('termsandconditions');
     Route::get('/contact-us','WebsiteController@contact')->name('contact');
     Route::get('/newarrivals','WebsiteController@newarrivals')->name('newarrivals');
     Route::get('/brands','WebsiteController@brands')->name('brands');

@@ -8,7 +8,7 @@
             <div class="content-block">
 			<div class="d-flex list">
                     <div class="icon"><img src="{{ url('website/img/mission.png') }}"/></div>
-                    <a href="https://talent-house.online/toy4joy/terms-and-conditions.html"><h4>Our Mission, Vission and Values</h4></a>
+                    <a href="{{ url('terms-and-conditions') }}"><h4>Our Mission, Vission and Values</h4></a>
                 </div>
                 <div class="d-flex list">
                     <div class="icon"><img src="{{ url('website/img/shopping-bags.png') }}"/></div>

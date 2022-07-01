@@ -67,7 +67,10 @@ class WebsiteController extends Controller
     {
         return view('website.pages.privacy-policy');
     }
-
+    public function termsandconditions()
+    {
+        return view('website.pages.termsandconditions');
+    }
 
 
     public function contact()
