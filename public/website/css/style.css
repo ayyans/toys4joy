@@ -1626,7 +1626,7 @@ transition: all 0.2s ease-in-out;
     font-size: 18px;
     font-weight: 700;
     text-decoration: unset;
-    margin: 20px 0;
+    margin: 20px auto;
     width: 100%;
     max-width: 400px;
     display: block;
@@ -2652,15 +2652,16 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     width: 75px;
     height: 24px;
     padding: 10px;
-    font-size: 12px;
+    font-size: 16px;
+    font-weight: 600;
     color: #707070;
 }
 .egift-card-member-page #pay-as-guest>div>div {align-items: center;}
 .egift-card-member-page .input-security {max-width: 60%; margin: 0 auto;}
 .egift-card-member-page .member {width: 330px; margin: 0 auto;}
 .egift-card-member-page .member a {
-    padding: 22px 40px;
-    font-size: 22px;
+    padding: 30px;
+    font-size: 20px;
     display: inline-block;
     margin-top: 30px;
 }
@@ -2690,13 +2691,14 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     font-size: 36px;
     font-weight: 700;
     border-radius: 8px;
-    padding: 2px 9px;
-    margin: 10px 3px;
+/*    padding: 2px 9px;*/
+    margin-top: 10px;
+    margin-right: 5px;
     box-shadow: 1px 1px 2px rgb(0 0 0 / 70%);
     border-top: 2px solid rgba(255,255,255,.5);
     position: relative;
 }
-.my-profile .main-content-box .date-numbering>div {margin-right: 9px;}
+.my-profile .main-content-box .date-numbering>div {margin-right: 13px;}
 .my-profile .main-content-box .date-numbering .num span:before,
 .my-profile .main-content-box .date-numbering .num span:after{
     content: '';
@@ -2715,11 +2717,13 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 .my-profile .main-content-box .date-numbering select:focus {
     background: transparent;
     border: 0;color: #fff;
+    width: 43px;
     outline: 0;
     font-weight: 600;
     text-align: center;
     -webkit-appearance: none;
 }
+
 .my-profile .main-content-box .date-numbering select option {color: #000;}
 .my-profile .main-content-box .date-numbering input::placeholder {color: #fff;opacity: 0.5;}
 .my-profile .main-content-box .date-numbering .num span:after{right: 2px; left: auto}
@@ -2744,7 +2748,10 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     outline-color: #2972bc;
     outline-style: solid;
 }
-
+.my-profile .main-content-box .date-numbering select option {color: #fff; font-size: 24px;}
+.my-profile .main-content-box .date-numbering .green-bg select option {background: #36a85c;}
+.my-profile .main-content-box .date-numbering .pink-bg select option {background: #cf0065;}
+.my-profile .main-content-box .date-numbering .yellow-bg select option {background: #f1b94e;}
 
 #add-change-address {
     background: #e2edff;
