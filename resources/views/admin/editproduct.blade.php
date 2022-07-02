@@ -100,6 +100,13 @@
                         </div>
 
                         <div class="form-group row">
+                            <label class="col-md-3 col-from-label">Recommended Age</label>
+                            <div class="col-md-8">
+                                <input type="number" class="form-control" name="recommended_age" placeholder="Recommended age for the product" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label class="col-md-3 col-from-label">Refundable</label>
                             <div class="col-md-8">
                                 <label class="aiz-switch aiz-switch-success mb-0">

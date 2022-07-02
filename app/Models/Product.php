@@ -37,6 +37,7 @@ class Product extends Model
         'tax',
         'tax_unit',
         'vat',
-        'vat_unit'
+        'vat_unit',
+        'recommended_age'
     ];
 }
