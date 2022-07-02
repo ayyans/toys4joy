@@ -52,7 +52,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/removefromwishlists/{id}','WebsiteController@removefromwishlists');
     Route::get('/confermordercod','WebsiteController@confermordercod')->name('confermordercod');
     Route::get('category/{id}','WebsiteController@listproducts')->name('cat_products');
-    Route::get('category/{main}/{id}','WebsiteController@listproductssubcategpry');
+    Route::get('category/{main}/{id}','WebsiteController@listproductssubcategpry')->name('subcat_products');
     Route::get('product/{id}','WebsiteController@productDetails')->name('productDetails');
     Route::post('category-list-with','WebsiteController@listcategorylist')->name('listcategorylist');
     Route::post('/pay-as-guest','WebsiteController@payasguest')->name('payasguest');
@@ -65,6 +65,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::post('/payasguestordergenerate','OrderController@payasguestordergenerate')->name('payasguestordergenerate');
     Route::post('/orderconfermasguest','OrderController@orderconfermasguest')->name('orderconfermasguest');
     Route::get('/products/filter','WebsiteController@products')->name('products-filter');
+    Route::post('/search','WebsiteController@search')->name('search');
 });
 
 

@@ -49,4 +49,12 @@ class Product extends Model
         $result .= $months >= 1 ? $months . ($months == 1 ? ' month' : ' months') : '';
         return $result;
     }
+
+    public function category() {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function subCategory() {
+        return $this->belongsTo(SubCategory::class, 'sub_cat', 'id');
+    }
 }

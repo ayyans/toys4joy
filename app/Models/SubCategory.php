@@ -13,4 +13,8 @@ class SubCategory extends Model
         'parent_cat',
         'icon'
     ];
+
+    public function parentCategory() {
+        return $this->belongsTo(Category::class, 'parent_cat', 'id');
+    }
 }

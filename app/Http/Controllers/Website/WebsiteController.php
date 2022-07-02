@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Events\OrderPlaced;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SearchProductResource;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -802,5 +803,33 @@ public function changepassword(Request $request){
         return view('website.product-list',compact('products'));
     }
 
+    public function search(Request $request) {
+        $products = Product::with('category', 'subCategory');
+        $categories = Category::query();
+        $subCategories = SubCategory::with(['parentCategory' => fn($q) => $q->select('id', 'url')]);
+        $request->whenFilled('search', function($search) use ($products, $categories, $subCategories) {
+            $products->where('title', 'LIKE', "%$search%")
+                ->orWhere('barcode', 'LIKE', "%$search%")
+                ->orWhere('sku', 'LIKE', "%$search%");
+            $categories = $categories->where('category_name', 'LIKE', "%{$search}%");
+            $subCategories = $subCategories->where('subcat_name', 'LIKE', "%{$search}%");
+        });
+        $products = $products->limit(4)->get();
+        $categories = $categories->limit(4)->select('category_name', 'url')->get()
+            ->map(function($item) {
+                $item->url = route('website.cat_products', ['id' => $item->url]);
+                return $item;
+            });
+        $subCategories = $subCategories->limit(4)->select('parent_cat', 'subcat_name', 'url')->get()
+            ->map(function($item) {
+                $item->url = route('website.subcat_products', ['main' => $item->parentCategory->url, 'id' => $item->url]);
+                return $item;
+            });
+
+        return SearchProductResource::collection($products)->additional([
+            'categories' => $categories,
+            'subCategories' => $subCategories
+        ]);
+    }
 
 }
