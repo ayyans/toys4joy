@@ -772,5 +772,91 @@ public function changepassword(Request $request){
 
     
 
+    public function products(Request $request) {
+        $products = Product::query();
+
+        if ($request->has('24months')) {
+            $products->whereIn('unit', [
+                'Recommended Age: 0 month',
+                'Recommended Age: 0 month +',
+                'Recommended Age: 0 months +',
+                'Recommended Age: 0 year',
+                'Recommended Age: 0 year +',
+                'Recommended Age: 0 years +',
+                'Recommended Age: 1 month to 3 years',
+                'Recommended Age: 1 month to 3 years +',
+                'Recommended Age: 1 months to 3 years',
+                'Recommended Age: 1 months to 3 years +',
+                'Recommended Age: 15 months',
+                'Recommended Age: 15 months +',
+                'Recommended Age: 18 months',
+                'Recommended Age: 18 months +',
+                'Recommended Age: 18 months to 7 years',
+                'Recommended Age: 18 months to 7 years +'
+            ]);
+        }
+
+        if ($request->has('2_4years')) {
+            $products->whereIn('unit', [
+                'Recommended Age: 2 years',
+                'Recommended Age: 2 years +',
+                'Recommended Age: 2 to 5 years',
+                'Recommended Age: 2 to 5 years +',
+                'Recommended Age: 2 years to 5 years',
+                'Recommended Age: 2 years to 5 years +',
+                'Recommended Age: 3 years',
+                'Recommended Age: 3 years +',
+                'Recommended Age: 3 to 8 years',
+                'Recommended Age: 3 to 8 years +',
+                'Recommended Age: 3 years to 8 years',
+                'Recommended Age: 3 years to 8 years +',
+                'Recommended Age: 3 to 10 years',
+                'Recommended Age: 3 to 10 years +',
+                'Recommended Age: 3 years to 10 years',
+                'Recommended Age: 3 years to 10 years +',
+                'Recommended Age: 4 years',
+                'Recommended Age: 4 years +'
+            ]);
+        }
+
+        if ($request->has('5_7years')) {
+            $products->whereIn('unit', [
+                'Recommended Age: 5 years',
+                'Recommended Age: 5 years +',
+                'Recommended Age: 6 years',
+                'Recommended Age: 6 years +',
+                'Recommended Age: 6 years (Adult Supervision)',
+                'Recommended Age: 6 years + (Adult Supervision)',
+                'Recommended Age: 7 years',
+                'Recommended Age: 7 years +',
+                'Recommended Age: 7 years (Adult Supervision)',
+                'Recommended Age: 7 years + (Adult Supervision)'
+            ]);
+        }
+
+        if ($request->has('8_13years')) {
+            $products->whereIn('unit', [
+                'Recommended Age: 8 years',
+                'Recommended Age: 8 years +',
+                'Recommended Age: 9 years',
+                'Recommended Age: 9 years +',
+                'Recommended Age: 10 years',
+                'Recommended Age: 10 years +',
+                'Recommended Age: 11 years',
+                'Recommended Age: 11 years +',
+                'Recommended Age: 12 years',
+                'Recommended Age: 12 years +',
+                'Recommended Age: 13 years',
+                'Recommended Age: 13 years +'
+            ]);
+        }
+
+        $products->whereBetween('unit_price', [$request->min_value, $request->max_value]);
+
+        $products = $products->paginate(12);
+
+        return view('website.product-list',compact('products'));
+    }
+
 
 }

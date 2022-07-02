@@ -93,26 +93,27 @@
             </ul>
                 <h1 class="for-mobile age-range-title">Select Age Range</h1>
             <div class="age-range">
+              <form id="filter" action="{{ route('website.products-filter') }}">
                 <h1 class="for-desktop">Age Range</h1>
                 <ul>
                     <li>
-                        <input type="checkbox" id="24months">
+                        <input type="checkbox" id="24months" name="24months">
                         <label for="24months">Birth to 24 Months</label>
                     </li>
                     <li>
-                        <input type="checkbox" id="2-4years">
+                        <input type="checkbox" id="2-4years" name="2_4years">
                         <label for="2-4years">02 to 04 Years</label>
                     </li>
                     <li>
-                        <input type="checkbox" id="5-7years">
+                        <input type="checkbox" id="5-7years" name="5_7years">
                         <label for="5-7years">05 to 07 Years</label>
                     </li>
                     <li>
-                        <input type="checkbox" id="8-13years">
+                        <input type="checkbox" id="8-13years" name="8_13years">
                         <label for="8-13years">08 to 13 Years</label>
                     </li>
                     <li>
-                        <input type="checkbox" id="14years">
+                        <input type="checkbox" id="14years" name="14years">
                         <label for="14years">14 Years & Up</label>
                     </li>
                 </ul>
@@ -126,16 +127,12 @@
                     <div class="caption">
                       <span id="slider-range-value2"></span>
                     </div>
-                    <div class="caption-btn"><button class="go">G0</button></div>
+                    <div class="caption-btn"><button class="go" id="filter-go">G0</button></div>
                   </div>
-                 
-                      <form>
-                        <input type="hidden" name="min-value" value="">
-                        <input type="hidden" name="max-value" value="">
-                      </form>
-                   
+                  <input type="hidden" name="min_value" id="filter-min-value">
+                  <input type="hidden" name="max_value" id="filter-max-value">
                 </div>
-                    
+              </form>
             </div>
             <div class="upload-img">
                 <div class="tooltip">
@@ -150,4 +147,14 @@
     </div>
 </div>
 </main>
-@stop
+@endsection
+
+@push('otherscript')
+  <script>
+    $(function() {
+      $('#filter-go').on('click', function() {
+        $('#filter').submit();
+      });
+    });
+  </script>
+@endpush

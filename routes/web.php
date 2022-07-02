@@ -42,8 +42,6 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/delivery-policy','WebsiteController@deliverypolicy');
     Route::get('/privacy-policy','WebsiteController@privacypolicy');
 
-
-    
     Route::get('/terms-and-conditions','WebsiteController@termsandconditions')->name('termsandconditions');
     Route::get('/contact-us','WebsiteController@contact')->name('contact');
     Route::get('/newarrivals','WebsiteController@newarrivals')->name('newarrivals');
@@ -66,6 +64,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/share-wishlist/{cust_id}','WebsiteController@sharewishlist')->name('sharewishlist');
     Route::post('/payasguestordergenerate','OrderController@payasguestordergenerate')->name('payasguestordergenerate');
     Route::post('/orderconfermasguest','OrderController@orderconfermasguest')->name('orderconfermasguest');
+    Route::get('/products/filter','WebsiteController@products')->name('products-filter');
 });
 
 
