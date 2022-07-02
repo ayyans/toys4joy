@@ -102,7 +102,11 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">Recommended Age</label>
                             <div class="col-md-8">
-                                <input type="number" class="form-control" name="recommended_age" placeholder="Recommended age for the product" />
+                                <select class="form-control " name="recommended_age" >
+                                    @for ($i = 1; $i <= 192; $i++)
+                                    <option value="{{ $i }}" {{ $i == $products->recommended_age ? 'selected' : '' }}>{{  $products->formatRecommendedAge($i) }}</option>
+                                    @endfor
+                                </select>
                             </div>
                         </div>
 

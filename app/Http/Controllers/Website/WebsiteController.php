@@ -776,27 +776,23 @@ public function changepassword(Request $request){
         $products = Product::query();
 
         if ($request->has('24months')) {
-            $products->where('recommended_age', '<=', 2);
+            $products->where('recommended_age', '<=', 24);
         }
 
         if ($request->has('2_4years')) {
-            $products->whereBetween('recommended_age', [2, 4]);
+            $products->whereBetween('recommended_age', [24, 48]);
         }
 
         if ($request->has('5_7years')) {
-            $products->whereBetween('recommended_age', [5, 7]);
+            $products->whereBetween('recommended_age', [60, 84]);
         }
 
         if ($request->has('8_13years')) {
-            $products->whereBetween('recommended_age', [8, 13]);
-        }
-
-        if ($request->has('8_13years')) {
-            $products->whereBetween('recommended_age', [8, 13]);
+            $products->whereBetween('recommended_age', [96, 156]);
         }
 
         if ($request->has('14years')) {
-            $products->where('recommended_age', '>=', 14);
+            $products->where('recommended_age', '>=', 168);
         }
 
         $products->whereBetween('unit_price', [$request->min_value, $request->max_value]);

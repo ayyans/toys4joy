@@ -14,7 +14,8 @@ class AddRecommendedAgeToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->unsignedTinyInteger('recommended_age')->nullable()->after('min_qty');
+            $table->unsignedTinyInteger('recommended_age')
+                ->default(0)->nullable()->after('min_qty');
         });
     }
 

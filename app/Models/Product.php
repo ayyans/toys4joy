@@ -40,4 +40,13 @@ class Product extends Model
         'vat_unit',
         'recommended_age'
     ];
+
+    public function formatRecommendedAge($age) {
+        $years = floor($age / 12);
+        $months = $age % 12;
+        $result = $years >= 1 ? $years . ($years == 1 ? ' year' : ' years') : '';
+        $result .= $years >= 1 && $months >= 1 ? ' ' : '';
+        $result .= $months >= 1 ? $months . ($months == 1 ? ' month' : ' months') : '';
+        return $result;
+    }
 }

@@ -1358,7 +1358,8 @@ public function editProcess(Request $request){
         'vat'=>$request->vat,
         'vat_unit'=>$request->vat_type,
         'best_seller'=>$request->best_seller ?? 0,
-        'new_arrival'=>$request->new_arrival ?? 0
+        'new_arrival'=>$request->new_arrival ?? 0,
+        'recommended_age'=>$request->recommended_age
     ]);
 
 }
