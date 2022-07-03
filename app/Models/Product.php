@@ -47,7 +47,7 @@ class Product extends Model
         $result = $years >= 1 ? $years . ($years == 1 ? ' year' : ' years') : '';
         $result .= $years >= 1 && $months >= 1 ? ' ' : '';
         $result .= $months >= 1 ? $months . ($months == 1 ? ' month' : ' months') : '';
-        return $result;
+        return $result ?: '0 month';
     }
 
     public function category() {

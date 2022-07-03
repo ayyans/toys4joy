@@ -94,7 +94,7 @@
                             <label class="col-md-3 col-from-label">Recommended Age</label>
                             <div class="col-md-8">
                                 <select class="form-control " name="recommended_age" >
-                                    @for ($i = 1; $i <= 192; $i++)
+                                    @for ($i = 0; $i <= 192; $i++)
                                     <option value="{{ $i }}">{{  $product->formatRecommendedAge($i) }}</option>
                                     @endfor
                                 </select>

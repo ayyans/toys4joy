@@ -65,7 +65,7 @@
                     <div class="earn-points"><h5>Earn Reward Points Worth {{$products->points}} Points<span>(Only for registered users)</span></h5></div>
                     @if(!empty($products->unit))
                     <div class="suitable-age">
-                        <img src="{{asset('website/img/boy.svg')}}"/> <span>Recommended Age: {{ $products->recommended_age ? "{$products->formatRecommendedAge($products->recommended_age)} +" : 'All' }} </span>
+                        <img src="{{asset('website/img/boy.svg')}}"/> <span>Recommended Age: {{ $products->recommended_age !== null ? "{$products->formatRecommendedAge($products->recommended_age)} +" : 'All' }} </span>
                     </div>
                     @endif
                     <p class="product-desc"><span>Description</span> : {!! $products->long_desc !!}</p>
