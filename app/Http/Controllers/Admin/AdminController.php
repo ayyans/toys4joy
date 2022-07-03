@@ -655,7 +655,8 @@ public function deleteAttrVal(Request $request){
         $categories = $this->listCategories();
         $brands = $this->listBrands();
         $attributes = $this->listAttr();
-        return view('admin.add-products',compact('categories','brands','attributes'));
+        $product = new Product;
+        return view('admin.add-products',compact('categories','brands','attributes','product'));
     }
 
     // list atribute value 
