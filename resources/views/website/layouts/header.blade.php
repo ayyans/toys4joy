@@ -8,8 +8,10 @@
         </div>
         <div class="col-5 search-col position-relative" style="z-index: 9999">
             <div class="search">
-                <input type="text" class="form-control" id="search" placeholder="Search store for fun..." autocomplete="off" data-url="{{ route('website.search') }}">
-                <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                <form action="{{ route('website.products-filter') }}" method="get">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="Search store for fun..." autocomplete="off" data-url="{{ route('website.search') }}">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </form>
             </div>
             <div id="search-dropdown" class="search-dropdown position-absolute w-100 bg-white mt-1 rounded-3 border d-none">
                 <div class="d-flex flex-wrap gap-2 p-1" id="categories-container">

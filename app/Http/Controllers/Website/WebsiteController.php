@@ -796,7 +796,13 @@ public function changepassword(Request $request){
             $products->where('recommended_age', '>=', 168);
         }
 
-        $products->whereBetween('unit_price', [$request->min_value, $request->max_value]);
+        if ($request->hasAny('min_value', 'max_value')) {
+            $products->whereBetween('unit_price', [$request->min_value, $request->max_value]);
+        }
+
+        if ($request->has('search')) {
+            $products->where('title', 'LIKE', "%{$request->search}%");
+        }
 
         $products = $products->paginate(12);
 
