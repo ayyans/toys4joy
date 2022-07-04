@@ -17,20 +17,30 @@ class LoginController extends Controller
 
     public function login_process(Request $request)
     {
+        //Validation...
+        
+        //Login the admin...
+        
+        //Redirect the admin...
+        // $request->only('email','password')
         $data = $request->all();
+           
         $this->validator($request);
+    
         if(auth()->attempt(['email'=>$data['email'],'password'=>$data['password']],$request->filled('remember'))){
-
-        if(Auth::user()->type == 'admin')
-        {
-           return redirect()->intended('admin/home')->with('success','You are Logged in as admin!');
-        }else{
-            Auth::logout();
-            return back()->with('error','You are Not Admin');
+            
+            if(Auth::user()->type == 'admin')
+            {
+                return redirect()->route('admin.dashboard')->with('success','You are Logged in as admin!');
+            }else{
+                Auth::logout();
+                return redirect()->route('website.login')->with('error','You are not Admin');
+            }
+            
         }
-        }else{
-            return $this->loginFailed();
-        }
+    
+        //Authentication failed...
+        return $this->loginFailed();
     }
 
     /**
@@ -42,8 +52,10 @@ class LoginController extends Controller
     {
       //logout the admin...
 
-      Auth::logout();
-      return redirect()->route('admin.login')->with('success','admin has been logged out!');
+      Auth::guard('admin')->logout();
+      return redirect()
+          ->route('admin.login')
+          ->with('success','admin has been logged out!');
 
     }
 
