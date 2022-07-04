@@ -21,11 +21,25 @@
                 <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
             </div>
             <ul class="d-flex social-media">
-                <li><a href="https://www.facebook.com/Toys4joyqatar/"><img src="{{asset('website/img/fb.png')}}"></a></li>
-                <li><a href="https://twitter.com/Toys4joy3"><img src="{{asset('website/img/twitter.png')}}"></a></li>
-                <li><a href="https://www.instagram.com/toys4joyqatar/"><img src="{{asset('website/img/instagram.png')}}"></a></li>
-                <li><a href="https://www.youtube.com/channel/UCMK_gmojd4eBvMTHN1vD9Aw"><img src="{{asset('website/img/linkedin.png')}}"></a></li>
-                <li><a href="https://www.tiktok.com/@toys4joyqatar"><img src="{{asset('website/img/tiktok.png')}}"></a></li>
+                <li><a href="https://www.facebook.com/Toys4joyqatar/" target="_blank">
+                    <img src="{{asset('website/img/fb.png')}}">
+                    </a></li>
+                <li>
+                    <a href="https://twitter.com/Toys4joy3" target="_blank">
+                    <img src="{{asset('website/img/twitter.png')}}"></a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/toys4joyqatar/" target="_blank">
+                        <img src="{{asset('website/img/instagram.png')}}"></a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/channel/UCMK_gmojd4eBvMTHN1vD9Aw" target="_blank">
+                        <img src="{{asset('website/img/linkedin.png')}}"></a>
+                </li>
+                <li>
+                    <a href="https://www.tiktok.com/@toys4joyqatar" target="_blank">
+                        <img src="{{asset('website/img/tiktok.png')}}"></a>
+                </li>
             </ul>
             
         </div>
@@ -49,10 +63,10 @@
     
 <footer class="for-mobile">
 <div class="container-fluid">
-	<div class="text-center footer">
+    <div class="text-center footer">
         <div class="col-3">
             <div class="why-us">
-                <a href="#">
+                <a href="{{ route('website.whyus') }}">
                     <img src="{{asset('website/img/why-us.png')}}" class="why-text">
                     <img src="img/logo-t4j.png" class="why-logo">
                     <p>Why Choose us</p>
@@ -61,26 +75,43 @@
         </div>
         <div class="col-3">
             <div class="company-policy">
-                <a href="#"><img src="{{asset('website/img/2__4_-removebg-preview.png')}}"><p>Company Policy</p></a>    
+                <a href="{{ route('website.policy') }}">
+                    <img src="{{asset('website/img/2__4_-removebg-preview.png')}}"><p>Company Policy</p>
+                </a>    
             </div>
         </div>
         <div class="col-6">
             <div class="get-in-touch">
                 
                 <div class="toll-free">
-                <a href="#"><img src="{{asset('website/img/picture9-removebg-preview.png')}}"><span>44414215</span></a>
+                <a href="{{ route('website.contact') }}"><img src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
                 </div>
                 
                 <div class="google-play">
-                    <a href="#"><img src="{{asset('website/img/google-play-store-icon.png')}}" class="app-store"></a>
-                    <a href="#"><img src="{{asset('website/img/google-play-badge.png')}}" class="g-play-store"></a>
+                    <a href="#"><img src="{{asset('website/img/ios.png')}}" class="app-store"></a>
+                    <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
                 </div>
                 
                 <ul class="d-flex social-media">
-            	<li><a href="#"><img src="{{asset('website/img/fb.png')}}"></a></li>
-                <li><a href="#"><img src="{{asset('website/img/twitter.png')}}"></a></li>
-                <li><a href="#"><img src="{{asset('website/img/instagram.png')}}"></a></li>
-                <li><a href="#"><img src="{{asset('website/img/linkedin.png')}}"></a></li>
+                    <li><a href="https://www.facebook.com/Toys4joyqatar/" target="_blank">
+                        <img src="{{asset('website/img/fb.png')}}">
+                        </a></li>
+                    <li>
+                        <a href="https://twitter.com/Toys4joy3" target="_blank">
+                        <img src="{{asset('website/img/twitter.png')}}"></a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/toys4joyqatar/" target="_blank">
+                            <img src="{{asset('website/img/instagram.png')}}"></a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/channel/UCMK_gmojd4eBvMTHN1vD9Aw" target="_blank">
+                            <img src="{{asset('website/img/linkedin.png')}}"></a>
+                    </li>
+                    <li>
+                        <a href="https://www.tiktok.com/@toys4joyqatar" target="_blank">
+                            <img src="{{asset('website/img/tiktok.png')}}"></a>
+                    </li>
                 </ul>
                 
             </div>
