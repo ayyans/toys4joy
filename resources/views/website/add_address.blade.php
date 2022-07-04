@@ -11,26 +11,31 @@
                     <a href="javascript:void(0)" id="updateAddress">Change Address</a>
                 </div>
             </div>
+            @php
+
+              $address =  DB::table('customer_addresses')->where('cust_id' , Auth::user()->id)->get()->first();
+
+            @endphp
             <div class="col-6 right-col">
              <form action="#" id="addressFrm">
                 <div class="form-group">
                     <div class="form-inner">
                         <div class="input-block unit-num">
                             <label>Unit Number</label>
-                            <input type="text" name="unit_no" class="cust_address">
+                            <input @if($address) value="{{ $address->unit_no }}" @endif type="text" name="unit_no" class="cust_address">
                         </div>
                         <div class="input-block building-num">
                             <label>Building Number</label>
-                            <input type="text" name="buid_no" class="cust_address">
+                            <input @if($address) value="{{ $address->building_no }}" @endif type="text" name="buid_no" class="cust_address">
                         </div>
                         <div class="d-flex zone-street">
                             <div class="input-block zone">
                                 <label>Zone</label>
-                                <input type="text" name="zone"  class="cust_address">
+                                <input @if($address) value="{{ $address->zone }}" @endif type="text" name="zone"  class="cust_address">
                             </div>
                             <div class="input-block street">
                                 <label>Street</label>
-                                <input type="text" name="street" class="cust_address">
+                                <input @if($address) value="{{ $address->street }}" @endif type="text" name="street" class="cust_address">
                             </div>
                         </div>    
                     </div>
