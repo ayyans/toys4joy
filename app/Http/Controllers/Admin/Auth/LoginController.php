@@ -19,26 +19,17 @@ class LoginController extends Controller
     {
         $data = $request->all();
         $this->validator($request);
-        if(Auth::check())
-        {
-            if(Auth::user()->type == 'customer')
-            {
-                return redirect()->intended('/')->with('success','You are already Login as a Customer');
-            }
-        }else{
-            if(auth()->attempt(['email'=>$data['email'],'password'=>$data['password']],$request->filled('remember'))){
+        if(auth()->attempt(['email'=>$data['email'],'password'=>$data['password']],$request->filled('remember'))){
 
-            if(Auth::user()->type == 'admin')
-            {
-               return redirect()->intended('admin/home')->with('success','You are Logged in as admin!');
-            }else{
-                Auth::logout();
-                return back()->with('error','You are Not Admin');
-            }
-            }else{
-                return $this->loginFailed();
-            }
-            
+        if(Auth::user()->type == 'admin')
+        {
+           return redirect()->intended('admin/home')->with('success','You are Logged in as admin!');
+        }else{
+            Auth::logout();
+            return back()->with('error','You are Not Admin');
+        }
+        }else{
+            return $this->loginFailed();
         }
     }
 
