@@ -153,7 +153,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        <form enctype="multipart/form-data" method="POST" action="{{ url('submitformlookingfor') }}">
+                        <form enctype="multipart/form-data" method="POST" action="{{ route('website.submitformlookingfor') }}">
                             @csrf
                           <div class="mb-3">
                             <label for="exampleInputName1" class="form-label">Your Name</label>

@@ -36,7 +36,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/','WebsiteController@index')->name('home');
     Route::get('/why-us','WebsiteController@whyus')->name('whyus');
     Route::get('/company-policy','WebsiteController@policy')->name('policy');
-    Route::post('submitformlookingfor','WebsiteController@submitformlookingfor');
+    Route::post('submitformlookingfor','WebsiteController@submitformlookingfor')->name('submitformlookingfor');
     Route::get('/rewards-policy','WebsiteController@rewardspolicy');
     Route::get('/return-policy','WebsiteController@returnpolicy');
     Route::get('/delivery-policy','WebsiteController@deliverypolicy');
