@@ -36,6 +36,10 @@
             {
                 $('#giftcardsformforslection').submit();
             }
+            
+        </script>
+        @if(isset($_GET["card"]))
+        <script type="text/javascript">
             function paymentsubmit()
             {
                 var orderid = '{{ $orderid }}';
@@ -50,6 +54,7 @@
                 });
             }
         </script>
+        @endif
         <div class="col-4 text-center">
             <div class="pay-as-member">
                 <div class="text-center">
