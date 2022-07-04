@@ -130,6 +130,9 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('/return-requests/{returnRequest}/{status}', 'AdminController@returnRequestStatus')->name('return-requests.status');
 
 
+    Route::get('/productrequest', 'AdminController@productrequest')->name('productrequest');
+
+
     Route::get('/giftcards','AdminController@giftcards')->name('giftcards');
     Route::post('/addgiftcardsubmit','AdminController@addgiftcardsubmit')->name('addgiftcardsubmit');
     Route::get('/giftcards-activate/{id}','AdminController@activategiftcards')->name('activategiftcard');

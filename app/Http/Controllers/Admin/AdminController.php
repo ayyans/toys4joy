@@ -22,12 +22,19 @@ use App\Models\homepagebanners;
 use App\Models\Order;
 use App\Models\ReturnRequest;
 use App\Models\User;
+use App\Models\requiredproducts;
+
 use DB;
 class AdminController extends Controller
 {
     //
     public function dashboard(){
         return view('admin.dashboard');
+    }
+    public function productrequest()
+    {
+        $data = requiredproducts::all();
+        return view('admin.productrequest',compact('data'));
     }
     public function homepagebanners()
     {

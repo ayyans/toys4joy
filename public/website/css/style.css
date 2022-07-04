@@ -59,9 +59,14 @@ body {
 .blue-text{color: #2972bc;}
 .yellow-text{color: #f6bb3d;}
 
-.logo-here img {
-    width: 100px;
-}
+button.modal-toggle{background: transparent!important;border: none!important;}
+button:focus{box-shadow: none!important;}
+.modal-body button[type="submit"]{border: none;}
+.home .modal-header {padding: 1rem 2rem;}
+.home .modal-body {padding: 2rem;}
+.home .modal-body textarea.form-control {height: 100px;}
+
+.logo-here img {width: 100px;}
 .logo-here img:hover {
     transform: scale(1.1);
     transition: 0.5s;
@@ -1669,16 +1674,20 @@ transition: all 0.2s ease-in-out;
     background-repeat: no-repeat;
     background-size: 100%;
 }
-.guest a{
+.guest a,
+.modal-body button[type="submit"]{
     background: url(../img/blue-bg.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
 }
-.guest a:hover {
+.guest a:hover,
+.modal-body button[type="submit"]:hover{
     background: #2972bc;
     background-image: none;
 }
+.modal-body button[type="submit"],
+.modal-body button[type="submit"]:hover{padding: 12px 50px;border-radius: 0;}
 .member a, .cash-on-delivery a, .cash-on-delivery .member a{
     background: url(../img/green-btn-bg.png);
     background-position: center;

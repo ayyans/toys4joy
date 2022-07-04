@@ -123,12 +123,13 @@
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#returnUtility"
         aria-expanded="true" aria-controls="returnUtility">
         <i class="fa fa-arrow-left"></i>
-        <span>Return Requests</span>
+        <span>Requests</span>
     </a>
     <div id="returnUtility" class="collapse" aria-labelledby="headingUtilities"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('admin.return-requests.index')}}">List Requests</a>
+            <a class="collapse-item" href="{{route('admin.return-requests.index')}}">Return Requests</a>
+            <a class="collapse-item" href="{{route('admin.productrequest')}}">Product Requests</a>
         </div>
     </div>
 </li>

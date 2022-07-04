@@ -22,6 +22,7 @@ use App\Models\CustomerAddress;
 use App\Models\CardInfo;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\requiredproducts;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Response;
 use Stripe;
@@ -42,6 +43,17 @@ class WebsiteController extends Controller
         $categories = $this->listCategory();
         $products = Product::where('status','=','2')->orderBy('id','desc')->limit(3)->get();
         return view('website.home',compact('categories','products'));
+    }
+    public function submitformlookingfor(Request $request)
+    {
+        $product  = new requiredproducts();
+        $product->name = $request->name;
+        $product->email = $request->email;
+        $product->phonenumber = $request->phonenumber; 
+        $product->message = $request->message;
+        $product->image = Cmf::sendimagetodirectory($request->image);
+        $product->save();
+        return back()->with('success','Request Submited Successfully');
     }
     public function whyus()
     {

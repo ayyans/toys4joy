@@ -137,10 +137,52 @@
             <div class="upload-img">
                 <div class="tooltip">
                     <a href="#">
+                        <button type="button" class="btn btn-primary modal-toggle" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <img src="{{asset('website/img/upload-image.png')}}" class="img-fluid">
+                        </button>    
                         <span class="tooltiptext">Upload image of the product you are looking for.</span>
                     </a>
                 </div>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Please Fill out the Form Below</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form enctype="multipart/form-data" method="POST" action="{{ url('submitformlookingfor') }}">
+                            @csrf
+                          <div class="mb-3">
+                            <label for="exampleInputName1" class="form-label">Your Name</label>
+                            <input type="text" required class="form-control" name="name" aria-describedby="nameHelp">
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" required class="form-control" name="email" aria-describedby="emailHelp">
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleInputPhone1" class="form-label">Phone Number</label>
+                            <input type="tel" required class="form-control" name="phonenumber">
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleInputMessage1" class="form-label">Your Message</label>
+                              <textarea class="form-control" name="message"></textarea>
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleInputUpload1" class="form-label">Upload Image</label>
+                            <input required type="file" class="form-control" name="image">
+                          </div>
+                          <button type="submit" class="btn btn-primary guest">Submit</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Modal -->
+                
             </div>
         </div>
         </div>

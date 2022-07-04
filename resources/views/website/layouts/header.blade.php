@@ -6,7 +6,7 @@
                 <a href="{{route('website.home')}}"><img src="{{asset('website/img/logo-t4j.png')}}"></a>
             </div>
         </div>
-        <div class="col-5 search-col position-relative" style="z-index: 9999">
+        <div class="col-5 search-col position-relative">
             <div class="search">
                 <form action="{{ route('website.products-filter') }}" method="get">
                     <input type="text" class="form-control" id="search" name="search" placeholder="Search store for fun..." autocomplete="off" data-url="{{ route('website.search') }}">

@@ -36,7 +36,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/','WebsiteController@index')->name('home');
     Route::get('/why-us','WebsiteController@whyus')->name('whyus');
     Route::get('/company-policy','WebsiteController@policy')->name('policy');
-
+    Route::post('submitformlookingfor','WebsiteController@submitformlookingfor');
     Route::get('/rewards-policy','WebsiteController@rewardspolicy');
     Route::get('/return-policy','WebsiteController@returnpolicy');
     Route::get('/delivery-policy','WebsiteController@deliverypolicy');
@@ -48,8 +48,6 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/brands','WebsiteController@brands')->name('brands');
     Route::get('/bestoffers','WebsiteController@bestoffers')->name('bestoffers');
     Route::get('/bestsellers','WebsiteController@bestsellers')->name('bestsellers');
-    
-
     Route::get('/removefromwishlists/{id}','WebsiteController@removefromwishlists');
     Route::get('/confermordercod','WebsiteController@confermordercod')->name('confermordercod');
     Route::get('category/{id}','WebsiteController@listproducts')->name('cat_products');
