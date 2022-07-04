@@ -12,13 +12,14 @@ use App\Models\AttrValue;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProdAttr;
-use App\Models\GuestOrder;
+use App\Models\giftcards;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\Wishlist;
 use App\Models\CustomerAddress;
 use App\Models\CardInfo;
 use App\Models\Coupon;
+use App\Models\usergiftcards;
 use App\Models\sibblings;
 use App\Models\Order;
 use App\Models\ReturnRequest;
@@ -101,5 +102,39 @@ class UserController extends Controller
 		]);
 
 		return view('website.user.return-request-thankyou');
+	}
+	public function addgiftcard($id , $orderid)
+	{
+		$giftcard = giftcards::where('id' , $id)->get()->first();
+		$card = new usergiftcards();
+		$card->user_id = Auth::user()->id;
+		$card->gift_card_id = $id;
+		$card->remaining_ammount = $giftcard->price;
+		$card->orderid = $orderid;
+		$card->status = 1;
+		$card->payement = 'pending';
+		$card->save();
+		if($card){
+            return response()->json(["status"=>"200","msg"=>'success']);
+            exit();
+        }else{
+            return response()->json(["status"=>"400","msg"=>"2"]);
+            exit();
+        }
+	}
+	public function giftcardconfermorder(Request $request)
+	{
+		$allparms =  $request->all();
+		if($allparms['STATUS'] == 'TXN_SUCCESS')
+        {
+        	$usergiftcard = usergiftcards::where('orderid' , $allparms['ORDERID'])->get()->first();
+        	$card = usergiftcards::find($usergiftcard->id);
+			$card->status = 2;
+			$card->payement = 'completed';
+			$card->save();
+			return view('website.guestthanks');
+        }else{
+        	return redirect()->route('website.giftcard')->with('error','Payement Failed');
+        }
 	}
 }

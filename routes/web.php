@@ -48,6 +48,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/brands','WebsiteController@brands')->name('brands');
     Route::get('/bestoffers','WebsiteController@bestoffers')->name('bestoffers');
     Route::get('/bestsellers','WebsiteController@bestsellers')->name('bestsellers');
+    
 
     Route::get('/removefromwishlists/{id}','WebsiteController@removefromwishlists');
     Route::get('/confermordercod','WebsiteController@confermordercod')->name('confermordercod');
@@ -89,6 +90,10 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     Route::post('/add-wishlist','WebsiteController@addWishlist')->name('addWishlist');  
     Route::get('/my-wishlist/{cust_id}','WebsiteController@mywishlist')->name('mywishlist');    
     Route::get('/remove-wishlist/{id}','WebsiteController@removeWishlist')->name('removeWishlist');
+
+    Route::get('/addgiftcard/{id}/{orderid}','UserController@addgiftcard');
+    Route::post('/giftcardconfermorder','UserController@giftcardconfermorder')->name('giftcardconfermorder');
+
     Route::post('/customer-address-process','WebsiteController@addAddressProcess')->name('addAddressProcess');
     Route::post('/corporate-coupon','WebsiteController@corporate_coupon')->name('corporate_coupon');
     Route::post('/add-card-info-process','WebsiteController@Usercardinfo')->name('Usercardinfo');
