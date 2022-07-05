@@ -2726,7 +2726,7 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 .my-profile .main-content-box .date-numbering select:focus {
     background: transparent;
     border: 0;color: #fff;
-    width: 43px;
+    width: 90px;
     outline: 0;
     font-weight: 600;
     text-align: center;

@@ -19,35 +19,18 @@
                 <div class="col-6">
                     
                     <div class="d-flex date">
-                        <div class="outline-box">DD</div>
-                        <div class="outline-box">MM</div>
-                        <div class="outline-box">YY</div>
+                        <div class="outline-box">Day</div>
+                        <div class="outline-box">Month</div>
+                        <div class="outline-box">Year</div>
                     </div>
                     <div class="d-flex date-numbering">
                         <div class="d-flex day">
                             <div class="green-bg num">
                                 <span>
                                     <select>
-                                        <option>0</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                    </select>
-                                </span>
-                            </div>
-                            <div class="green-bg num">
-                                <span>
-                                    <select>
-                                        <option>0</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
+                                        @for($i=1; $i < 32; $i++)
+                                           <option>{{ $i }}</option>
+                                        @endfor
                                     </select>
                                 </span>
                             </div>
@@ -56,24 +39,9 @@
                             <div class="pink-bg num">
                                 <span>
                                     <select>
-                                        <option>0</option>
-                                        <option>1</option>
-                                    </select>
-                                </span>
-                            </div>
-                            <div class="pink-bg num">
-                                <span>
-                                    <select>
-                                        <option>0</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
+                                        @for($i=1; $i < 13; $i++)
+                                           <option>{{ $i }}</option>
+                                        @endfor
                                     </select>
                                 </span>
                             </div>
@@ -82,32 +50,9 @@
                             <div class="yellow-bg num">
                                 <span>
                                     <select>
-                                        <option>0</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                    </select>
-                                </span>
-                            </div>
-                            <div class="yellow-bg num">
-                                <span>
-                                    <select>
-                                        <option>0</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
+                                        @for($i=1960; $i < 2022; $i++)
+                                           <option>{{ $i }}</option>
+                                        @endfor
                                     </select>
                                 </span>
                             </div>
