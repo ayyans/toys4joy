@@ -50,7 +50,9 @@
         </div>
         <div class="elements">
             <div class="d-flex why-us">
-                <a href="#" class="whatsapp-icon"><img src="{{asset('website/img/whatsapp.png')}}" class="whatsapp"></a>
+                <a href="https://api.whatsapp.com/send?phone=97460005370&text=Welcome%20to%20Toys4joy" target="_blank" class="whatsapp-icon">
+                    <img src="{{asset('website/img/whatsapp.png')}}" class="whatsapp">
+                </a>
             </div>
         </div>
     </div>

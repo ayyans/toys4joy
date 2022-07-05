@@ -17,9 +17,10 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>product</th>
+                    <th>Product ID</th>
+                    <th>SKU</th>
                     <th>Name</th>
-                    <th>Sale price</th> 
+                    <th>price</th> 
                     <th>Qty</th>                                              
                     <th>Status</th>
                     <th>Action</th>                        
@@ -29,7 +30,8 @@
             <tbody>
               @foreach($products as $product)
               <tr>
-                    <td><img src="{{asset('products/'.$product->featured_img)}}" style="width:50px"/></td>
+                    <td>{{ $product->id }}</td>
+                    <td>{{ $product->sku }}</td>
                     <td>{{$product->title}}</td>
                     <td>{{$product->unit_price}}</td>
                     <td>{{$product->qty}}</td>

@@ -1117,11 +1117,31 @@ public function orderStatus(Request $request){
 // logged in user orders
 
 public function custOrders(){
-    $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
-                ->leftJoin('users','users.id','=','orders.cust_id')
-                ->leftJoin('customer_addresses','customer_addresses.id','=','orders.cust_add_id')
-              ->select('products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')  
-              ->orderBy('orders.id','desc')->get();
+    $orders = Order::select(
+            "orders.id",
+            "orders.orderid",
+            "orders.orderstatus",
+            "orders.cust_id",
+            "orders.cust_add_id",
+            "orders.payment_id",
+            "orders.mode",
+            "orders.amount",
+            "orders.status",
+            "orders.created_at",
+            "users.name",
+            "users.email",
+            "users.mobile",
+            "customer_addresses.unit_no",
+            "customer_addresses.building_no",
+            "customer_addresses.zone",
+            "customer_addresses.street",
+                  
+                        )
+            ->leftJoin('users', 'orders.cust_id', '=', 'users.id')
+            ->leftJoin('customer_addresses', 'orders.cust_add_id', '=', 'customer_addresses.id')
+            ->orderby('orders.id' , 'desc')
+            ->get();
+
     return view('admin.order',compact('orders'));
 }
 

@@ -13,12 +13,15 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>                   
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Order ID</th> 
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Mobile</th> 
-                    <th>Shipping address</th>
-                    <th>Payment Mode</th>
-                    <th>Payment ID</th>                                                                 
+                    <th>Mobile</th>
+                    <th>Address</th>                                                                 
+                    <th>Payement Method</th>
+                    <th>Payement ID</th>
+                    <th>Total Ammount</th>
                     <th>Status</th>
                     <th>Action</th>                        
                 </tr>
@@ -28,8 +31,10 @@
                 @foreach($orders as $order)
                 <tr>
                     
+                    <td>{{date('d M Y', strtotime($order->created_at))}}</td>
+                    <td>{{date('h:i:s A', strtotime($order->created_at))}}</td>
+                    <td>{{$order->orderid}}</td>
                     <td>{{$order->name}}</td>
-                    <td>{{$order->email}}</td>
                     <td>{{$order->mobile}}</td>
                     <td>{{$order->unit_no}},{{$order->building_no}},{{$order->zone}},{{$order->street}}</td>
                     <td>
@@ -40,6 +45,7 @@
                         @endif
                     </td>
                     <td>{{$order->payment_id}}</td>
+                    <td>{{$order->amount}}</td>
                     <td>
                         @if($order->status==1)
                         <div class="badge badge-danger">Pending</div>
