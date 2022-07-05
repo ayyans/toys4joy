@@ -89,6 +89,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     Route::get('/my-wishlist/{cust_id}','WebsiteController@mywishlist')->name('mywishlist');    
     Route::get('/remove-wishlist/{id}','WebsiteController@removeWishlist')->name('removeWishlist');
 
+    Route::post('/submituserprofile','UserController@submituserprofile')->name('submituserprofile');
     Route::get('/addgiftcard/{id}/{orderid}','UserController@addgiftcard');
     Route::post('/giftcardconfermorder','UserController@giftcardconfermorder')->name('giftcardconfermorder');
 

@@ -137,4 +137,14 @@ class UserController extends Controller
         	return redirect()->route('website.giftcard')->with('error','Payement Failed');
         }
 	}
+	public function submituserprofile(Request $request)
+	{
+		$user = User::find(Auth::user()->id);
+		$user->day = $request->day;
+		$user->month = $request->month;
+		$user->year = $request->year;
+		$user->gender = $request->radio;
+		$user->save();
+		return back()->with('success','Profile Updated Successfully');
+	}
 }

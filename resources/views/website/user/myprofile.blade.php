@@ -1,6 +1,6 @@
 @extends('website.layouts.master')
 @section('content')
-
+<form id="formsubmitprofile" method="POST" action="{{ route('website.submituserprofile') }}">
 <main id="my-siblings" class="my-profile">
 <div class="container-fluid">
     <div class="row">
@@ -27,9 +27,9 @@
                         <div class="d-flex day">
                             <div class="green-bg num">
                                 <span>
-                                    <select>
+                                    <select name="day">
                                         @for($i=1; $i < 32; $i++)
-                                           <option>{{ $i }}</option>
+                                           <option @if(Auth::user()->day == $i) selected @endif value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
                                 </span>
@@ -38,9 +38,9 @@
                         <div class="d-flex month">
                             <div class="pink-bg num">
                                 <span>
-                                    <select>
+                                    <select name="month">
                                         @for($i=1; $i < 13; $i++)
-                                           <option>{{ $i }}</option>
+                                           <option @if(Auth::user()->month == $i) selected @endif value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
                                 </span>
@@ -49,9 +49,9 @@
                         <div class="d-flex year">
                             <div class="yellow-bg num">
                                 <span>
-                                    <select>
+                                    <select name="year">
                                         @for($i=1960; $i < 2022; $i++)
-                                           <option>{{ $i }}</option>
+                                           <option @if(Auth::user()->year == $i) selected @endif value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
                                 </span>
@@ -67,22 +67,27 @@
                 </div>
                 <div class="col-6">
                     <div class="d-flex select-gender">
-                        <input type="radio" name="radio" id="female">
+                        <input type="radio" value="1" name="radio" id="female">
                         <label for="female"><img src="{{asset('website/img/sisters.png')}}"/></label>
-                        <input type="radio" name="radio" id="male">
+                        <input value="2" type="radio" name="radio" id="male">
                         <label for="male"><img src="{{asset('website/img/brothers.png')}}"/></label>
                     </div>
                 </div>
             </div>
             </div>    
             <div class="btn add-more">
-                <a class="vertical-shake" href="#">Submit</a>
+                <a class="vertical-shake" onclick="formsubmitprofile()" href="#">Submit</a>
             </div>
         </div>
         <div class="col-1"></div>
   </div>      
 </div>
-
 </main>
-
+</form>
+<script type="text/javascript">
+    function formsubmitprofile()
+    {
+        $('#formsubmitprofile').submit();
+    }
+</script>
 @stop
