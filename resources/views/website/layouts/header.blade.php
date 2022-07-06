@@ -1,4 +1,4 @@
-<header>
+<header id="main-header">
 <div class="container-fluid">
     <div class="row">
         <div class="col-2 logo-col">
@@ -6,7 +6,7 @@
                 <a href="{{route('website.home')}}"><img src="{{asset('website/img/logo-t4j.png')}}"></a>
             </div>
         </div>
-        <div class="col-5 search-col position-relative for-desktop">
+        <div class="col-5 search-col">
             <div class="search">
                 <form action="{{ route('website.products-filter') }}" method="get">
                     <input type="text" class="form-control" id="search" name="search" placeholder="Search store for fun..." autocomplete="off" data-url="{{ route('website.search') }}">
@@ -184,37 +184,6 @@
             
             <!-- MOBILE MENU END -->
             
-        </div>
-        <div class="col-12 mt-3 search-col position-relative for-mobile">
-            <div class="search">
-                <form action="{{ route('website.products-filter') }}" method="get">
-                    <input type="text" class="form-control" id="search" name="search" placeholder="Search store for fun..." autocomplete="off" data-url="{{ route('website.search') }}">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-            <div id="search-dropdown" class="search-dropdown position-absolute w-100 bg-white mt-1 rounded-3 border d-none">
-                <div class="d-flex flex-wrap gap-2 p-1" id="categories-container">
-                    {{-- <a href="#" class="badge bg-light text-dark text-decoration-none fw-light">Light</a> --}}
-                </div>
-                <div class="d-flex flex-column" id="search-container">
-                    {{-- <div class="border d-flex align-items-center gap-2 p-2">
-                        <div>
-                            <a href="#">
-                                <img src="http://toysforjoy.local/website/img/logo-t4j.png" alt="img-thumbnail rounded" width="70">
-                            </a>
-                        </div>
-                        <div class="flex-fill">
-                            <p class="mb-0 lead">
-                                <a href="#" class="text-decoration-none text-reset">
-                                    Hello Kitty Drift Nissan Skyline GTR
-                                </a>
-                            </p>
-                            <small class="fst-italic"><a href="#" class="text-decoration-none text-reset">Outdoor</a> > <a href="#" class="text-decoration-none text-reset">Pools and Simms</a></small>
-                            <p class="mb-0 fw-bold">QAR 529</p>
-                        </div>
-                    </div> --}}
-                </div>
-            </div>
         </div>
     </div>
 </div>

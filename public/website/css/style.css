@@ -100,6 +100,7 @@ button:focus{box-shadow: none!important;}
 header .navbar-expand-lg .navbar-nav {flex-direction: column;}
 header .navbar-expand-lg .navbar-collapse {justify-content: end;}
 header button.navbar-light {background: transparent; border: 0;}
+#main-header .search-col {position: relative;}
 .navbar-toggler-icon {width: 2em;height: 2em;}
 .banner img {transition: 5s;cursor: pointer;}
 .banner {overflow: hidden;}
@@ -3519,7 +3520,8 @@ img.g-play-store {width: 82px;}
 
 @media only screen and (max-width: 767px) {
    
-header {padding: 15px 5px;}    
+
+#main-header {position: relative; padding:10px 0 70px;}    
 .logo-col {width: 58%!important;}    
 .logo-here img {width: 70px;}
 .heades-images .dropdown {display: none;}  
@@ -3530,7 +3532,13 @@ header {padding: 15px 5px;}
 .heades-images .cart {width: 60px;margin-left: 5px;}     
 .heades-images .map-pin {margin-left: 0;} 
 .heades-images .dropdown-toggle {padding: 5px;} 
-.search-col {width: 50%;} 
+#main-header .search-col {
+    width: 100% !important;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 .search input, .search button {height: 40px;} 
 .search button {width: 50px;}    
 #search-dropdown .lead a {
@@ -3538,7 +3546,7 @@ header {padding: 15px 5px;}
     text-transform: capitalize;
     font-weight: 500;
 }
-    
+#search-dropdown {width: 95% !important; top: 35px;}    
 .cart-icon span {
     left: 11px;
     top: 1px;
@@ -3603,7 +3611,7 @@ ul.d-flex.social-media {justify-content: center;margin-top: -15px;}
 ul.nav-fill .nav-item {margin: 0 1px;}    
 ul.nav-fill .nav-item a {
     font-size: 11px;
-    padding: 5px;
+    padding: 4px;
     font-weight: 700;
     border: 2px solid #fff;
     box-shadow: 0 0 10px rgb(0 0 0 / 20%);
@@ -3747,18 +3755,26 @@ img.why-logo {width: 55px;margin-left: 15px;}
 #add-change-address .left-col {margin-bottom: 25px;}
 #return-exchange .col-6 {width: 100%;} 
 #return-exchange .member-col {margin-top: 60px;}  
-.siblings-table .col-6 {width: 100%;margin: 15px 0;}    
-    
+.siblings-table .col-6 {width: 100%;margin: 15px 0;}
+#my-account {padding: 10px 0 50px;} 
+.my-profile .main-content-box .date-numbering>div {margin: 0 10px;}    
+.my-profile .main-content-box .date-numbering .num {font-size: 20px; padding: 2px 4px;}
+.my-profile .main-content-box .date-numbering select,
+.my-profile .main-content-box .date-numbering select:focus {width: 68px;}
+.my-profile .main-content-box .date-numbering .num span:before,
+.my-profile .main-content-box .date-numbering .num span:after {top: 14px;}    
     
 }
 
 
 @media only screen and (max-width: 480px) {
 
+#main-header {padding:10px 0 60px;}     
 .logo-here img {width: 55px;}  
 .search input, .search button {height: 32px;}  
 .search button {width: 45px;}     
 .search input{font-size: 9px;font-weight: 600;} 
+#search-dropdown .lead a, #search-dropdown small.fst-italic, #search-dropdown p.fw-bold {font-size: 12px;}    
 .heades-images .map-pin {margin-top: -8px;height: 40px;} 
 .heades-images .cart {width: 40px;margin-left: 0;}
 .heades-images {width: 18%;} 
@@ -3891,7 +3907,6 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .my-profile .main-content-box {padding: 40px 20px 60px;}
 #my-siblings .welcome-block {padding: 10px;}
 .my-profile .main-content-box .date .outline-box {width: 80px; font-size: 18px; padding: 5px;} 
-.my-profile .main-content-box .date-numbering .num {font-size: 30px; padding: 2px 4px;}
 .my-profile .main-content-box .date-numbering input {width: 28px;}
 .my-profile .main-content-box .outline-box {font-size: 18px; padding: 10px;} 
 .my-profile .col-10.content-block {width: 100%;} 
@@ -4026,7 +4041,8 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 
 
 @media only screen and (max-width: 375px) {
-    
+  
+#search-dropdown {width: 93% !important;}    
 .menu > li > .megadrop {left: -160px;}    
 .book-your-event .booking-cal .time span {font-size: 10px; padding: 0px 2px;} 
 .digits h3 {padding: 8px 0px;border-radius: 2px;}
