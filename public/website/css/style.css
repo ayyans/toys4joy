@@ -230,6 +230,7 @@ header {padding: 15px 20px;}
 .cart-icon {position: relative;}
 .cart-icon span {position: absolute;left: 42px;top: 4px;color: #21326b;font-size: 16px;font-weight: 700;}
 .logo-here svg {width: 130px;}
+#search-dropdown {z-index: 1;}
 .search input {border-radius: 50px;height: 45px;}
 .search {position: relative;}
 .search button {
@@ -2056,6 +2057,7 @@ input[type="radio"]:focus {box-shadow: none;}
 .thank-guest-page .thanks-box .print {justify-content: center;align-items: center;column-gap: 20px;}
 .thank-guest-page .thanks-box .print h4 a{color: #2972bc;font-weight: 600;text-decoration: none;}
 .thank-member-page .service-link {justify-content: space-around; margin: 30px 0;}
+.thanks-feedback .thanks-box .print h4 {margin: 0;}
 .thanks-box .print {
     justify-content: center;
     align-items: center;
@@ -3303,7 +3305,8 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 .input-security {max-width: 50%;} 
 .account .form-col .form-group .form-inner {width: 80%;padding: 40px;} 
 .egift-card-member-page .input-security {max-width: 100%;} 
-.contact-info .detail {padding: 30px;}    
+.contact-info .detail {padding: 30px;} 
+.thanks-feedback {padding: 70px 20px;}    
    
 }
 
@@ -3477,7 +3480,8 @@ input[type="radio"] {width: 1.8em;height: 1.8em;}
 .cash-on-delivery a {padding: 20px;font-size: 20px;}
 .cash-on-delivery img {width: 120px;} 
 .input-security + button {padding: 18px 30px;font-size: 18px;} 
-.account .form-col .form-group .form-inner {width: 100%;}         
+.account .form-col .form-group .form-inner {width: 100%;} 
+#add-change-address {padding: 100px 30px;}    
 }
 
 
@@ -3497,7 +3501,8 @@ img.g-play-store {width: 82px;}
 #company-policy .icon-block h2 {font-size: 20px;} 
 #company-policy .icon-block {margin: 30px;} 
 .com-policy-col h2 {font-size: 22px;width: 140px;} 
-.brands-logo .single {padding: 30px;}    
+.brands-logo .single {padding: 30px;}
+.thanks-feedback .col-6 {width: 100% !important;}    
     
 }
 
@@ -3505,6 +3510,7 @@ img.g-play-store {width: 82px;}
 @media only screen and (max-width: 767px) {
    
 header {padding: 15px 5px;}    
+.logo-col {width: 58%!important;}    
 .logo-here img {width: 70px;}
 .heades-images .dropdown {display: none;}  
 .mobile-menu .offcanvas {width: 240px;bottom: auto;}    
@@ -3517,6 +3523,12 @@ header {padding: 15px 5px;}
 .search-col {width: 50%;} 
 .search input, .search button {height: 40px;} 
 .search button {width: 50px;}    
+#search-dropdown .lead a {
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+    
 .cart-icon span {
     left: 11px;
     top: 1px;
@@ -3524,7 +3536,8 @@ header {padding: 15px 5px;}
     font-weight: 700;
 }    
 .account-buttons {width: 8%;}
-.account-buttons  button.navbar-toggler {border: 0;padding: 0;}    
+.account-buttons  button.navbar-toggler {border: 0;padding: 0;} 
+.my-account {display: none;}    
 .login a, .my-account a {
     width: 33%;
     display: inherit;
@@ -3624,10 +3637,12 @@ ul.nav-fill .nav-item a {
 }
 .categories li:last-child a {border-bottom: 2px solid #b3b3b3!important;}
 .categories li a img {height: 25px;}   
-.categories li a span svg {display: none;} 
+.categories li a span svg {display: none;}
+.categories-col + .col-9 {width: 100%; margin-bottom: 15px;}    
 .menu > li:hover {background: #fff;}    
 .menu > li a:hover, .categories .nav-pills .nav-link.active {background: #D9E7FF;border-bottom: 2px solid #d51965 !important;} 
 .menu > li > .megadrop {left: -310px;width: 80vw;background: #fff;} 
+.categories ul li:nth-child(odd) .megadrop {left: 0;}    
 .menu .image {width: 100%;}    
 .menu .col ul li a {margin: 0;box-shadow: none;} 
 .menu .col ul li {padding: 5px 0;width: 100%;} 
@@ -3716,7 +3731,10 @@ img.why-logo {width: 55px;margin-left: 15px;}
 .my-profile .main-content-box .date-numbering, .my-profile .main-content-box .date {justify-content: center;}    
 .my-profile .main-content-box .date-numbering .num {font-size: 36px; padding: 2px 9px;}
 .my-profile .main-content-box .date-numbering input {width: 25px;} 
-.my-profile .main-content-box .select-gender {margin: 0 auto;}    
+.my-profile .main-content-box .select-gender {margin: 0 auto;}
+#add-change-address .col-6 {width: 100%;}
+#add-change-address {padding: 70px 15px; margin: 0 15px 15px;}
+#add-change-address .left-col {margin-bottom: 25px;}    
     
     
 }
@@ -3732,7 +3750,7 @@ img.why-logo {width: 55px;margin-left: 15px;}
 .heades-images .cart {width: 40px;margin-left: 0;}
 .heades-images {width: 18%;} 
 .account-buttons {width: 15%;}   
-.menu > li > .megadrop {left: -220px;}    
+.menu > li > .megadrop {left: -220px;}     
 .cart-icon span {left: 4px;top: 0;font-size: 10px;}    
 .products-list .single, .home-prod.products-list .single {width: 46%;}
 .products-list .single .content-block h3, .products-list .single .content-block span {font-size: 14px;}
@@ -3868,7 +3886,38 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .my-profile .main-content-box .gender input[type="radio"]::before {width: 1.5em;height: 1.5em;}
 .my-profile .main-content-box .gender input {bottom: -30px;}
 .my-profile .main-content-box .gender input#female {left: 95px;}
-.my-profile .main-content-box .gender input#male {right: 95px;}    
+.my-profile .main-content-box .gender input#male {right: 95px;}
+.thanks-feedback {padding: 10px; margin: 15px;}    
+.thanks-feedback .thanks-box img {width: 70px;}
+.thanks-feedback .thanks-box {padding: 20px;}    
+.thanks-feedback.t-guest .thanks-box>img {margin: 20px 0;} 
+.thanks-feedback.t-guest .thanks-box p {font-size: 16px;line-height: 22px; margin-bottom: 25px;}
+.thanks-feedback .thanks-box .print img {width: 30px;}    
+.thanks-box .print a {font-size: 16px;}
+#add-change-address {padding: 30px 15px;}    
+#add-change-address .right-col .google-location img {width: 50px; height: 55px;}
+#add-change-address .left-col .guest a, #add-change-address .google-location .guest a {margin: 8px 0;} 
+#add-change-address .form-group .input-block.unit-num input,
+#add-change-address .form-group .input-block.building-num input {height: 60px; font-size: 24px;}
+#add-change-address .form-group {padding: 10px; border-radius: 30px;}
+#add-change-address .form-group .form-inner {border: 4px solid #FFF;border-radius: 20px; padding: 0 10px;} 
+#add-change-address .form-group .input-block {border: 4px solid #fff; border-radius: 15px;padding: 10px;}
+#add-change-address .form-group .zone-street .input-block {margin-top: 0;}
+#products-ranking.order-history .table thead tr th {padding: 10px;font-size: 12px;}    
+#products-ranking.order-history .table tbody .img-box img {width: 70px;}    
+#products-ranking.order-history .table .order-status {padding: 10px;}
+#products-ranking .table tbody .img-box {margin-right: 5px;}
+#products-ranking.order-history .table tbody .detail a {font-size: 11px;}
+#products-ranking .table tbody .detail p {font-size: 14px;}
+#products-ranking .table tbody .detail span {font-size: 13px;}
+#products-ranking.order-history .table tbody .detail .shiping span,
+#products-ranking.order-history .table tbody .detail .date span {font-size: 13px;}    
+#products-ranking.order-history .order-status .odr-btn a {
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 7px;
+    width: 100px;
+}    
 }
 
 
@@ -3877,7 +3926,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 #products-ranking .table thead tr th {font-size: 16px;}    
 #products-ranking .table tbody .img-box img {width: 50px;} 
 #products-ranking .table .product-rank {padding: 0;}  
-#products-ranking .table tbody .detail p {font-size: 14px;width: 150px;}   
+#products-ranking .table tbody .detail p {font-size: 13px;width: 150px;}   
 #products-ranking .table tbody .likes-count {font-size: 18px;font-weight: 700;}
 .products-list .single .img-block {height: 80px;}
 .book-your-event {padding: 10px;}
@@ -3927,7 +3976,11 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .add-more a {padding: 10px 40px;font-size: 14px;}
 .product-detail .title h2 {font-size: 18px;} 
 .right-sidebar .age-range ul {display: block;}    
-.right-sidebar .age-range ul li {width: 100%;}   
+.right-sidebar .age-range ul li {width: 100%;}
+#add-change-address .left-col {margin-bottom: 15px;} 
+#add-change-address .form-group .input-block.unit-num input,
+#add-change-address .form-group .input-block.building-num input {height: 50px; font-size: 20px;}
+#add-change-address .form-group .input-block input {height: 50px;font-size: 20px;}    
     
 }
 
@@ -3958,6 +4011,18 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .cart-products .cart-image {max-width: 70px;height: 70px;} 
 .products-list .availbility span {font-size: 8px;} 
 .brands-logo {column-gap: 10px;}     
-.brands-logo .single {padding: 15px;margin-bottom: 10px;} 
+.brands-logo .single {padding: 15px;margin-bottom: 10px;}
+.thanks-feedback .thanks-box {padding: 15px;}    
+.thanks-feedback h3 {font-size: 18px;} 
+.thanks-feedback .thanks-box img {width: 60px;}    
+.thanks-feedback.t-guest .thanks-box p {font-size: 14px; line-height: 18px;} 
+#add-change-address {padding: 25px 5px;}
+#add-change-address .form-group .input-block label {font-size: 11px;} 
+#add-change-address .form-group .form-inner,
+#add-change-address .form-group .input-block {border: 2px solid #FFF;}
+#add-change-address .form-group .input-block.unit-num input,
+#add-change-address .form-group .input-block.building-num input,
+#add-change-address .form-group .input-block input {height: 40px;font-size: 18px;}
+#add-change-address .left-col .guest {width: 100%;}    
    
 }

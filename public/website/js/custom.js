@@ -2072,10 +2072,10 @@ $(document).ready(function() {
   });
 });    
  
-$('.categories li ul li a').each(function() {
-      var $this = $(this);
-      $this.text( $this.text().slice(0,15) );
-});    
+//$('.categories li ul li a').each(function() {
+//      var $this = $(this);
+//      $this.text( $this.text().slice(0,15) );
+//});    
 
 $(function() {
   // Owl Carousel

@@ -122,23 +122,62 @@
                 <div class="text-center logo-here"><a href="#"><img src="{{asset('website/img/logo-t4j.png')}}"></a></div>
                   <div class="mbl-menu-list">
                       <ul style="list-style:none">
-                        <li> <a href="#" class="nav-link text-dark"> <img src="{{asset('website/img/best-seller.png')}}"><span class="ms-2">Best Sellers</span> </a> </li>
-                        <li> <a href="#" class="nav-link text-dark"> <img src="{{asset('website/img/new-arrivals.png')}}"><span class="ms-2">New Arrivals</span> </a> </li>
-                        <li> <a href="#" class="nav-link text-dark"> <img src="{{asset('website/img/brands.png')}}"><span class="ms-2">Brands</span> </a> </li>
-                        <li> <a href="#" class="nav-link text-dark"> <img src="{{asset('website/img/my-account.png')}}"><span class="ms-2">My Account</span> </a> </li>
-                        <li> <a href="#" class="nav-link text-dark"> <img src="{{asset('website/img/settings.png')}}"><span class="ms-2">Settings</span> </a> </li>
-                        <li> <a href="#" class="nav-link text-dark"> <img src="{{asset('website/img/login-register.png')}}"><span class="ms-2">Login/SignUp</span> </a> </li>
+                        <li> <a href="{{ route('website.bestsellers') }}" class="nav-link text-dark">
+                            <img src="{{asset('website/img/best-seller.png')}}"><span class="ms-2">Best Sellers</span>
+                            </a>
+                        </li>
+                        <li> <a href="{{ route('website.newarrivals') }}" class="nav-link text-dark">
+                            <img src="{{asset('website/img/new-arrivals.png')}}"><span class="ms-2">New Arrivals</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('website.brands') }}" class="nav-link text-dark">
+                                <img src="{{asset('website/img/brands.png')}}"><span class="ms-2">Brands</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link text-dark">
+                                <img src="{{asset('website/img/my-account.png')}}"><span class="ms-2">My Account</span>
+                            </a>
+                        </li>
+<!--
+                        <li>
+                            <a href="#" class="nav-link text-dark">
+                                <img src="{{asset('website/img/settings.png')}}"><span class="ms-2">Settings</span>
+                            </a>
+                        </li>
+-->
+                        <li>
+                            <a href="#" class="nav-link text-dark">
+                                <img src="{{asset('website/img/login-register.png')}}"><span class="ms-2">Login/SignUp</span>
+                            </a>
+                        </li>
                       </ul>
                   </div>
                   <div class="text-center follow-us">
-                      <h5>Follow us</h5>
+                    <h5>Follow us</h5>
                     <ul class="d-flex social-media">
-                        <li><a href="#"><img src="{{asset('website/img/fb.png')}}"></a></li>
-                        <li><a href="#"><img src="{{asset('website/img/twitter.png')}}"></a></li>
-                        <li><a href="#"><img src="{{asset('website/img/instagram.png')}}"></a></li>
-                        <li><a href="#"><img src="{{asset('website/img/linkedin.png')}}"></a></li>
+                        <li><a href="https://www.facebook.com/Toys4joyqatar/" target="_blank">
+                            <img src="{{asset('website/img/fb.png')}}">
+                            </a></li>
+                        <li>
+                            <a href="https://twitter.com/Toys4joy3" target="_blank">
+                            <img src="{{asset('website/img/twitter.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/toys4joyqatar/" target="_blank">
+                                <img src="{{asset('website/img/instagram.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/channel/UCMK_gmojd4eBvMTHN1vD9Aw" target="_blank">
+                                <img src="{{asset('website/img/linkedin.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.tiktok.com/@toys4joyqatar" target="_blank">
+                                <img src="{{asset('website/img/tiktok.png')}}"></a>
+                        </li>
                     </ul>
-                  </div>
+                </div>
               </div>
             </div>
             </div>

@@ -47,7 +47,7 @@
                         <li>Free delivery for all orders below 99 QR within 24 hours.</li>
                         <li>Free delivery and assembling on products that includes assembly requirement within 24 to 48 hours.</li>
                     </ul>
-                    <p><strong>Note: All operation in Toys 4 Joy closed before, during, and after one hour of Friday Pary.</strong></p> 
+                    <p><strong>Note: All operation in Toys 4 Joy closed before, during, and after one hour of Friday Pray.</strong></p> 
 
                 </div>
             </div>
