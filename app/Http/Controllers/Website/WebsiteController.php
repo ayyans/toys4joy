@@ -315,7 +315,8 @@ class WebsiteController extends Controller
                     ];
                     event(new OrderPlaced($order_details));
                     $update_cart = Cart::where('cust_id','=',$ipaddres)->delete();
-                    return view('website.guestthanks');
+                    $orderid = $allparms['ORDERID'];
+                    return view('website.guestthanks',compact('orderid'));
                 }else{
                    return redirect()->route('website.payasmember')->with('error','Order Not Placed!');
                 }

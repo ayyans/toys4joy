@@ -70,7 +70,7 @@
                         <input type="radio" value="1" name="radio" id="female">
                         <label for="female"><img src="{{asset('website/img/sisters.png')}}"/></label>
                         <input value="2" type="radio" name="radio" id="male">
-                        <label for="male"><img src="{{asset('website/img/brothers.png')}}"/></label>
+                        <label for="male" class="selected"><img src="{{asset('website/img/brothers.png')}}"/></label>
                     </div>
                 </div>
             </div>

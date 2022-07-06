@@ -2086,13 +2086,13 @@ $(function() {
     nav: true
   });
 });    
-   
-$(document).on("click", 'input.check', function () {
-  if ($(this).is(":checked")) {
-    $('label.checked').removeClass('checked');
-    $(this).next("label.checkLabel").addClass("checked");
-  }
-});   
+       
+//$(document).on("click", 'input.check', function () {
+//  if ($(this).is(":checked")) {
+//    $('label.checked').removeClass('checked');
+//    $(this).next("label.checkLabel").addClass("checked");
+//  }
+//});   
     
     /** @export */
   window.wNumb = wNumb;

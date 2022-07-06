@@ -27,7 +27,7 @@ use Stripe;
 use Session;
 use Auth;
 use DB;
-
+use PDF;
 class OrderController extends Controller
 {
     public function payasguestordergenerate(Request $request)
@@ -81,5 +81,29 @@ class OrderController extends Controller
         }else{
             return redirect()->route('website.home')->with('error','Order IS Placed But Payement is Failed');
         }
+    }
+    public function generatepdf($id)
+    {
+        $checkorder = order::where('orderid' , $id)->get()->count();
+        if($checkorder > 0)
+        {
+            $data = [
+                'ordernumber' => $id,
+            ];
+            $pdf = PDF::loadView('invoice.indexonline', $data);
+            return $pdf->download('Order Invoice - '.$id.'.pdf');
+        }
+        else
+        {
+            $data = [
+                'ordernumber' => $id,
+            ];
+            $pdf = PDF::loadView('invoice.invoicecod', $data);
+            return $pdf->download('Order Invoice - '.$id.'.pdf');
+        }
+
+        
+          
+        
     }
 }
