@@ -3306,7 +3306,8 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 .account .form-col .form-group .form-inner {width: 80%;padding: 40px;} 
 .egift-card-member-page .input-security {max-width: 100%;} 
 .contact-info .detail {padding: 30px;} 
-.thanks-feedback {padding: 70px 20px;}    
+.thanks-feedback {padding: 70px 20px;}
+#change-mob-num {padding: 90px 20px;}    
    
 }
 
@@ -3463,7 +3464,9 @@ input[type="radio"] {width: 1.8em;height: 1.8em;}
 .input-security input {height: 42px;}
 #products-ranking {padding: 20px;}     
 .contact-info ul li strong {display: block;}
-.contact-info ul li span {margin: 0;}    
+.contact-info ul li span {margin: 0;}
+#change-mob-num .col-6 {padding: 10px;}
+#my-siblings .col-10 {width: 100%;}    
    
     
 }
@@ -3502,7 +3505,14 @@ img.g-play-store {width: 82px;}
 #company-policy .icon-block {margin: 30px;} 
 .com-policy-col h2 {font-size: 22px;width: 140px;} 
 .brands-logo .single {padding: 30px;}
-.thanks-feedback .col-6 {width: 100% !important;}    
+.thanks-feedback .col-6 {width: 100% !important;}
+#change-mob-num .col-6 {width: 100%;}
+#return-exchange {padding: 40px;}
+.attach-file label img {width: 60px;}    
+.attach-file label {width: 150px;font-size: 24px;}
+.want-to-return h3 {font-size: 24px;}
+#return-exchange .want-to-return label {font-size: 16px;}
+#return-exchange .want-to-return input[type="radio"] {width: 1.3em;height: 1.3em; margin-right: 10px;}    
     
 }
 
@@ -3734,7 +3744,10 @@ img.why-logo {width: 55px;margin-left: 15px;}
 .my-profile .main-content-box .select-gender {margin: 0 auto;}
 #add-change-address .col-6 {width: 100%;}
 #add-change-address {padding: 70px 15px; margin: 0 15px 15px;}
-#add-change-address .left-col {margin-bottom: 25px;}    
+#add-change-address .left-col {margin-bottom: 25px;}
+#return-exchange .col-6 {width: 100%;} 
+#return-exchange .member-col {margin-top: 60px;}  
+.siblings-table .col-6 {width: 100%;margin: 15px 0;}    
     
     
 }
@@ -3823,7 +3836,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .input-security img {width: 20%;} 
 .input-security + button {padding: 12px 17px;font-size: 16px;}
 .cash-on-delivery img {width: 80px;}
-.main-title .title {font-size: 18px;width: 140px; padding: 8px;margin-right: 5px}
+.main-title .title {font-size: 16px;width: 140px; padding: 5px;margin-right: 5px}
 .main-title .icon img {width: 70px;} 
 .main-title .icon button span {top: 7px;left: 20px;font-size: 16px;}
 .continue-shopping a, .guest a, .member a {padding: 8px 14px;font-size: 13px;}
@@ -3858,7 +3871,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .rmv-icon {width: 30px;height: 30px;} 
 .rmv-icon img {width: 24px;padding: 5px;} 
 .main-title {margin-bottom: 25px;} 
-.my-wishlist-page .main-title .icon img {width: 60px;}
+.my-wishlist-page .main-title .icon img {width: 40px;margin: 0;padding: 8px;border: 2px solid #fff;}
 .copy-link img {width: 50px;} 
 .copy-link {line-height: 18px;font-size: 16px;}    
 .add-more a {padding: 10px 50px;font-size: 16px;} 
@@ -3872,7 +3885,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .brands-logo {padding: 20px 10px 0;}
 .brands-logo .single {width: 30%;} 
 #my-account .content-block .my-profile a:hover, #my-account .content-block .siblings a:hover {width: 60%;}
-#my-account .content-block .my-profile a, #my-account .content-block .siblings a {background-size: 60%;margin: 0 auto;}  
+#my-account .content-block .my-profile a, #my-account .content-block .siblings a {background-size: 60%;margin: 0 auto;font-size: 15px;}  
 #my-siblings .welcome-block h2 {font-size: 18px;margin: 0;}
 #my-siblings .welcome-block img {width: 40px; margin-right: 10px;} 
 .my-profile .main-content-box {padding: 40px 20px 60px;}
@@ -3917,7 +3930,30 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
     font-size: 12px;
     padding: 7px;
     width: 100px;
-}    
+}
+#change-mob-num {margin:0 15px 15px; padding: 10px;}
+#change-mob-num .discount-block {padding: 25px; border-radius: 6px;} 
+#change-mob-num .discount-block h4 {margin-bottom: 20px;font-size: 18px;}
+#change-mob-num .discount-block label {font-size: 14px;margin-bottom: 5px;}
+.change-pswrd .lock {height: 40px;}
+.change-pswrd .lock img {width: 14px;}
+.change-pswrd .pswrd-input img {width: 20px;}
+#return-exchange {padding: 30px 15px; margin: 0 15px 15px;}
+.want-to-return h3 {font-size: 18px;}
+#return-exchange .want-to-return label {font-size: 14px;}
+#return-exchange .want-to-return .form-check {margin-bottom: 0.5rem;}
+#return-exchange .want-to-return input[type="radio"] {width: 1em;height: 1em;margin-top: 4px;}
+#return-exchange .member-col {margin-top: 30px;}    
+.attach-area label {font-size: 16px;width: 80px;}    
+.attach-file label img {width: 35px;}
+#return-exchange .want-to-return .form-group.message label {font-size: 16px;margin: 10px 0;}    
+.attach-area button {font-size: 16px;padding: 8px 60px;} 
+#return-exchange .want-to-return .form-group.message textarea {height: 80px;}
+.siblings-table {padding: 30px 10px;}
+#my-siblings .btn.pinkbg-img a {font-size: 18px;padding: 7px 60px;}
+.sibling .sib-img img {width: 70px;}    
+.sibling .table thead th {line-height: 1;font-size: 14px;} 
+.sibling .table tbody tr td input {padding: 5px;font-size: 14px;}    
 }
 
 
@@ -3980,7 +4016,11 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 #add-change-address .left-col {margin-bottom: 15px;} 
 #add-change-address .form-group .input-block.unit-num input,
 #add-change-address .form-group .input-block.building-num input {height: 50px; font-size: 20px;}
-#add-change-address .form-group .input-block input {height: 50px;font-size: 20px;}    
+#add-change-address .form-group .input-block input {height: 50px;font-size: 20px;} 
+.change-pswrd .lock {height: 34px;}
+.change-pswrd .lock img {width: 12px; margin-top: 8px;}
+.change-pswrd .pswrd-input img {top: 10px;width: 16px;}
+#change-mob-num .btn.pinkbg-img a {font-size: 16px; padding: 8px 50px;}    
     
 }
 
@@ -4000,9 +4040,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 #products-ranking.my-basket .table tbody .img-box img {width: 40px;} 
 #products-ranking.my-basket .table tfoot td {font-size: 12px;}    
 .copy-link img {width: 40px;}
-.copy-link {font-size: 14px;} 
-.main-title .title {font-size: 16px;padding: 5px;} 
-.my-wishlist-page .main-title .icon img {width: 52px;}  
+.copy-link {font-size: 14px;}  
 .products-list {padding: 9px;}
 .categories li a {font-size: 12px;padding: 5px 10px;}
 .products-list .single, .home-prod.products-list .single {width: 45%;}
@@ -4023,6 +4061,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 #add-change-address .form-group .input-block.unit-num input,
 #add-change-address .form-group .input-block.building-num input,
 #add-change-address .form-group .input-block input {height: 40px;font-size: 18px;}
-#add-change-address .left-col .guest {width: 100%;}    
+#add-change-address .left-col .guest {width: 100%;}
+#change-mob-num .discount-block h4 {font-size: 16px;}    
    
 }
