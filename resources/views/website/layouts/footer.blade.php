@@ -143,7 +143,7 @@
                 var js_data = JSON.parse(JSON.stringify(res));
                 if(js_data.status==200){
                     toastr.success('Product added to cart');
-                    location.reload();
+                    headercart();
                 }else if(js_data.msg=='3'){
                     toastr.error('product out of stock! please check product stock');
                     return false; 
@@ -157,45 +157,46 @@
    }
 </script>
 
-<script>
-        $(function(){
-           
-            var cust_id = $("#cust_id").val();
-            if(cust_id==null ||cust_id=='0'){
-                return false;
-            }else{
-                var form = new FormData();
-                form.append('cust_id',cust_id);
-                $.ajax({
-                    url:"{{route('website.headerCart')}}",
-                    type:"POST",
-                    data:form,
-                    cache:false,
-                    contentType:false,
-                    processData:false,
-                    success:function(res){
-                        var js_data = JSON.parse(JSON.stringify(res));
-                        if(js_data.status==200){
-                                var  total_price = 0;
-                                var cartsize = js_data.msg.length;
-                              $.each(js_data.msg,function(a,v){
-                                total_price += parseInt(v.cartQty)*parseInt(v.unit_price);
-                                    $("#cartdetailsheader").append('<div class="d-flex added-products"> <div class="pro-image"><img src="{{asset("products")}}/'+v.featured_img+'"/></div><div class="product-detail"> <h2 class="title">'+v.title+'</h2> <h4 class="price">QAR '+v.unit_price+'</h4> <div class="d-flex rmv-or-edit"> <div class="qty"><input type="number" value="'+v.cartQty+'" id="quantity" name="quantity" min="1" max="'+v.qty+'" onchange="updateQty('+v.crtid+',this.value)"></div><div class="remove icon"><a href="javascript:void(0)" onclick="removecart('+v.crtid+')"><img src="{{asset("website/img/delete.png")}}"/></a></div></div></div></div>')    
-                              })
-                              $("#subtotal_price").text(total_price+' QAR'); 
-                             var cnt = $("#cartdetailsheader").size;
-                              $("#cartno").text(cartsize);   
-                        }else{
-                            $("#cartdetailsheader").append('<p>No products in cart</p>') 
-                            $("#cartno").text(0);   
-                        }
-
-
-                    }
-                })
+<script>  
+    function showcart()
+    {
+        $("#cover-spin").show();
+        $.ajax({
+            url:"{{url('showcart')}}",
+            type:"get",
+            success:function(res){
+                $("#cover-spin").hide();
+                $(".showcart").html(res);
             }
         })
-    </script>
+    }
+    function headercart()
+     {
+        var cust_id = $("#cust_id").val();
+       var form = new FormData();
+        form.append('cust_id',cust_id);
+        $.ajax({
+            url:"{{route('website.headerCart')}}",
+            type:"POST",
+            data:form,
+            cache:false,
+            contentType:false,
+            processData:false,
+            success:function(res){
+                var js_data = JSON.parse(JSON.stringify(res));
+                if(js_data.status==200){
+                    var cartsize = js_data.msg.length;
+                    $("#cartno").text(cartsize);
+                }else{
+                    $("#cartdetailsheader").append('<p>No products in cart</p>') 
+                    $("#cartno").text(0);   
+                }
+
+
+            }
+        })
+     }
+</script>
 
 <script>
     function removecart(cartid){
@@ -212,13 +213,13 @@
             success:function(res){
                 var js_data = JSON.parse(JSON.stringify(res));
                 $("#cover-spin").hide();
-                    if(js_data.status==200){
-                        toastr.success('Product removed from cart');
-                        location.reload();
-                    }else{
-                        toastr.error('something went wrong');
-                        return false;
-                    }
+                if(js_data.status==200){
+                    toastr.success('Product removed from cart');
+                    showcart();
+                }else{
+                    toastr.error('something went wrong');
+                    return false;
+                }
             }
         })
     }
@@ -240,13 +241,13 @@
             success:function(res){
                 var js_data = JSON.parse(JSON.stringify(res));
                 $("#cover-spin").hide();
-                    if(js_data.status==200){
-                        toastr.success('cart updated successfull!');
-                        location.reload();
-                    }else{
-                        toastr.error('something went wrong');
-                        return false;
-                    }
+                if(js_data.status==200){
+                    toastr.success('cart updated successfull!');
+                    showcart();
+                }else{
+                    toastr.error('something went wrong');
+                    return false;
+                }
             }
         })
     }

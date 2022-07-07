@@ -372,7 +372,72 @@ class WebsiteController extends Controller
 
     }
     // view cart 
+    public function showcart()
+    {
+        $cust_id = Cmf::ipaddress();
+        $data = Cart::leftJoin('products','products.id','=','carts.prod_id')
+                
+        ->select('carts.id as crtid','carts.qty as cartQty','products.*')
+        ->where('carts.cust_id','=',$cust_id)       
+        ->orderBy('carts.id','desc')
+        ->get();
 
+        if($data->count() > 0)
+        {
+            echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Bag</h5></div>       
+            <div id="cartdetailsheader">';
+            $total_price = 0;
+            foreach ($data as $r) {
+            $total_price += $r->cartQty*$r->unit_price;
+            echo '<div class="d-flex added-products"> 
+                <div class="pro-image">
+                <img src="'.asset("products").'/'.$r->featured_img.'">
+                </div><div class="product-detail"> 
+                <h2 class="title">'.$r->title.'</h2> 
+                <h4 class="price">QAR '.$r->unit_price.'</h4> 
+                <div class="d-flex rmv-or-edit"> 
+                <div class="qty">
+                <input type="number" value="'.$r->cartQty.'" id="quantity" name="quantity" min="1" max="2" onchange="updateQty('.$r->crtid.',this.value)">
+                </div>
+                <div class="remove icon">
+                <a href="javascript:void(0)" onclick="removecart('.$r->crtid.')">
+                <img src="'.asset('website/img/delete.png').'">
+                </a>
+                </div>
+                </div>
+                </div>
+                </div>';
+            }
+
+            echo '</div>
+             <hr>
+            <div class="d-flex total-n-shipping">
+                <div class="d-flex subtotal">
+                    <h4>Subtotal:</h4>
+                    <h5 class="price" id="subtotal_price">QAR '.$total_price.'</h5>
+                </div>
+                <div class="d-flex shipping">
+                    <h4>Shipping:</h4>
+                    <p>Taxes & shipping fee will be calculated at checkout.</p>
+                </div>
+            </div>
+            <div class="d-flex btn-area">
+                <div class="checkout btn"><a href="'.route('website.payasmember').'">Checkout</a></div>
+                <div class="view-cart btn"><a href="'.route('website.cartpage').'">View Cart</a></div>
+            </div>';
+
+        }else{
+            echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Bag</h5></div>       
+            <div id="cartdetailsheader">
+                <p>No products in cart</p>
+            </div>
+            ';
+        }
+
+        
+
+        
+    }
     public function headerCart(Request $request){
         $cust_id = $request->cust_id;
         $data = Cart::leftJoin('products','products.id','=','carts.prod_id')

@@ -34,6 +34,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website\Auth')->group(f
 
 Route::name('website.')->namespace('App\Http\Controllers\Website')->group(function(){
     Route::get('/','WebsiteController@index')->name('home');
+    Route::get('/showcart','WebsiteController@showcart');
     Route::get('/why-us','WebsiteController@whyus')->name('whyus');
     Route::get('/company-policy','WebsiteController@policy')->name('policy');
     Route::post('submitformlookingfor','WebsiteController@submitformlookingfor')->name('submitformlookingfor');

@@ -50,52 +50,13 @@
                 <img src="{{asset('website/img/location.png')}}" class="map-pin">
             </a>
             <div class="cart-icon">
-                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span id="cartno">0</span><img src="{{asset('website/img/cart.png')}}" class="cart"></button>
+                <button onclick="showcart()" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span id="cartno">{{ DB::table('carts')->where('cust_id' , Cmf::ipaddress())->count() }}</span><img src="{{asset('website/img/cart.png')}}" class="cart"></button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close">Close</button>
                     </div>
-                    <div class="offcanvas-body">
-                        <div class="cart-main-title"><h5 id="offcanvasRightLabel">My Bag</h5></div>
-                        
-                        <div id="cartdetailsheader"></div>
-                        <!-- <div class="d-flex added-products">
-                            <div class="pro-image"><img src="{{asset('website/img/cart-img.png')}}"/></div>
-                            <div class="product-detail">
-                                <h2 class="title">Maisto 1:18 2016 Chevrolet Camaro SS Sport Model Car</h2>
-                                <h4 class="price">QAR 169</h4>
-                                <div class="d-flex rmv-or-edit">
-                                    <div class="qty"><input type="number" value="1" id="quantity" name="quantity" min="1" max="10"></div>
-                                    <div class="remove icon"><a href="#"><img src="{{asset('website/img/delete.png')}}"/></a></div>
-                                    <div class="edit icon"><a href="#"><img src="{{asset('website/img/edit.png')}}"/></a></div>
-                                </div>
-                            </div>
-                        </div> -->
-                         <hr>
-                        <div class="d-flex total-n-shipping">
-                            <div class="d-flex subtotal">
-                                <h4>Subtotal:</h4>
-                                <h5 class="price" id="subtotal_price"></h5>
-                            </div>
-                            <div class="d-flex shipping">
-                                <h4>Shipping:</h4>
-                                <p>Taxes & shipping fee will be calculated at checkout.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex btn-area">
-                            <div class="checkout btn"><a href="{{route('website.payasmember')}}">Checkout</a></div>
-                            <div class="view-cart btn"><a href="{{route('website.cartpage')}}">View Cart</a></div>
-                        </div>
-                        <!-- <div class="cmplt-your-purchase">
-                            <h4>Complete Your Purchase With:</h4>
-                            <div class="d-flex purchase-product">
-                                <div class="img-block"><img src="{{asset('website/img/purchase-product-img.png')}}"/></div>
-                                <div class="detail">
-                                    <h4>Maisto 1:18 2016 Chevrolet Camero SS Sport Model Car</h4>
-                                    <p class="price">190$</p>
-                                </div>
-                            </div>
-                        </div> -->
+                    <div class="offcanvas-body showcart">
+                       
                     </div>
                 </div>
             
