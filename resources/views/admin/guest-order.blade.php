@@ -12,7 +12,8 @@
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
-                <tr>                   
+                <tr> 
+                    <th>#</th>                  
                     <th>Name</th>
                     <th>Email</th>
                     <th>Mobile</th> 
@@ -27,7 +28,7 @@
             <tbody>
                 @foreach($orders as $order)
                 <tr>
-                    
+                    <td>{{$order->id}}</td>
                     <td>{{$order->cust_name}}</td>
                     <td>{{$order->cust_email}}</td>
                     <td>{{$order->cust_mobile}}</td>
