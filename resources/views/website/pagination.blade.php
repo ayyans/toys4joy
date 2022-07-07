@@ -8,7 +8,6 @@
             @endif
 
             @foreach ($elements as $element)
-
                 @if (is_string($element))
                     <li class="page-item disabled"><a class="page-link" href="#">{{ $element }}</a></li>
                 @endif

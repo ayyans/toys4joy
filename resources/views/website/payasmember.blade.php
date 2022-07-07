@@ -325,7 +325,6 @@ $action_url = 'https://sadadqa.com/webpurchase';
 
     })
 </script>
-
 <script>
     $("#cashondelivery").click(function(e){
         e.preventDefault();
@@ -350,10 +349,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
                 }else if(js_data.status==300){
                     toastr.options.timeOut = 10000;
                     toastr.error('Please add Address');
-
-
                     window.location.href="{{route('website.addAddressInfo')}}"
-
                 }else{
                     return false;
                 }

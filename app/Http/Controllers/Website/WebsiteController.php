@@ -687,7 +687,7 @@ class WebsiteController extends Controller
                 if($place_order==true){
                     $cartid = Cmf::ipaddress();
                     $update_cart = Cart::where('cust_id','=',$cartid)->delete();
-                    event(new OrderPlaced($order_details));
+                    // event(new OrderPlaced($order_details));
                     return response()->json(["status"=>"200","msg"=>"1"]);
                     exit();
                 }else{
