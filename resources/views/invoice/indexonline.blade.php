@@ -137,7 +137,15 @@
                 <td>
                   Order ID #: {{ $ordernumber }}<br />
                   Order Date: {{ date('M d, Y', strtotime($order->first()->created_at)) }}<br />
-                  Invoice Status: <b style="color: green;">PAID</b>
+                  Invoice Status: <b style="color: green;">
+                    @if($order->first()->mode == 2)
+                  PAID
+                  @else 
+
+                  COD
+
+                  @endif
+                </b>
                 </td>
               </tr>
             </table>
