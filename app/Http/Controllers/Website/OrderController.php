@@ -62,6 +62,7 @@ class OrderController extends Controller
         {
             $data = GuestOrder::where('order_id' , $allparms['ORDERID'])->get()->first();
             $change = GuestOrder::find($data->id);
+            $change->payment_id = $allparms['transaction_number'];
             $change->mode = 1;
             $change->save();
 
