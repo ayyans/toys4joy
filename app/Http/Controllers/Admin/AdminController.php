@@ -1139,7 +1139,9 @@ public function custOrders(){
                         )
             ->leftJoin('users', 'orders.cust_id', '=', 'users.id')
             ->leftJoin('customer_addresses', 'orders.cust_add_id', '=', 'customer_addresses.id')
+            ->groupBy('orders.orderid')
             ->orderby('orders.id' , 'desc')
+
             ->get();
 
     return view('admin.order',compact('orders'));

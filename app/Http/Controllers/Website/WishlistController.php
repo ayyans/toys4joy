@@ -82,6 +82,10 @@ class WishlistController extends Controller
             $orderid = $allparms['ORDERID'];
             Order::where('orderid' , $orderid)->update(['orderstatus'=>'payementdone']);
             return view('website.guestthanks',compact('orderid'));
+        }else{
+        	$orderid = $allparms['ORDERID'];
+        	Order::where('orderid' , $orderid)->delete();
+        	return redirect()->route('website.home')->with('error','Order Not Placed!');
         }
 	}
 }

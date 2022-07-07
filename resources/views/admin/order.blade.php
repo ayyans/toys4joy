@@ -45,7 +45,7 @@
                         @endif
                     </td>
                     <td>{{$order->payment_id}}</td>
-                    <td>{{$order->amount}}</td>
+                    <td>QAR {{$order->amount}}</td>
                     <td>
                         @if($order->status==1)
                         <div class="badge badge-danger">Pending</div>
