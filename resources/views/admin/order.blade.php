@@ -37,11 +37,11 @@
                     <td>{{$order->name}}</td>
                     <td>{{$order->mobile}}</td>
                     <td>{{$order->unit_no}},{{$order->building_no}},{{$order->zone}},{{$order->street}}</td>
-                    <td>
+                    <td style="text-align: center;">
                         @if($order->mode==2)
-                        Online
+                        <div style="font-size: 16px;" class="badge badge-success"> PAID </div>
                         @else
-                        COD
+                        <div style="font-size: 16px;" class="badge badge-danger"> COD </div>
                         @endif
                     </td>
                     <td>{{$order->payment_id}}</td>
@@ -67,7 +67,7 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{route('admin.custOrdersDetails',[encrypt($order->id)])}}" class="dropdown-item">View</a></li>
+                                <li><a href="{{route('admin.custOrdersDetails',[encrypt($order->orderid)])}}" class="dropdown-item">View</a></li>
                                 @if($order->status==1)
                                 
                                     <li><a href="{{route('admin.confirmCustOrders',[encrypt($order->id)])}}" class="dropdown-item">Confirm</a></li>

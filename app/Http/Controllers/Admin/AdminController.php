@@ -1258,12 +1258,18 @@ public function deliveredCustOrders(Request $request){
 
 public function custOrdersDetails(Request $request){
     $orderid = decrypt($request->id);
+
     $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
                 ->leftJoin('users','users.id','=','orders.cust_id')
                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.cust_add_id')
+              ->select('products.id as product_id','products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')  
+              ->where('orders.orderid','=',$orderid)->get();
+    $orderdetail = Order::leftJoin('products','products.id','=','orders.prod_id')
+                ->leftJoin('users','users.id','=','orders.cust_id')
+                ->leftJoin('customer_addresses','customer_addresses.id','=','orders.cust_add_id')
               ->select('products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')  
-              ->where('orders.id','=',$orderid)->first();
-    return view('admin.orderdetails',compact('orders'));
+              ->where('orders.orderid','=',$orderid)->first();
+    return view('admin.orderdetails',compact('orders','orderdetail'));
 }
 
 

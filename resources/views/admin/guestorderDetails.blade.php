@@ -33,6 +33,9 @@
                             <option value="5">Delivered</option>
                         </select>
                         @endif
+
+
+                        <a href="{{ url('generateinvoice') }}/{{ $orders->order_id }}">Download Invoice</a>
                     </td>
                   
                 </tr>
@@ -48,11 +51,11 @@
                        
                 </td>
                 <td style="text-align:justify">
-                    <strong>Order Id:{{$orders->id}}</strong><br/>
+                    <strong>Order Id:{{ $orders->order_id }}</strong><br/>
                     <strong>Order status:</strong> @if($orders->status==1)
-                    Pending
+                    <b style="color:red;"> Pending </b>
                     @elseif($orders->status==2)
-                    confirm
+                    <b style="color:red;"> Conferm</b>
                     @elseif($orders->status==3)
                     shipped
                     @elseif($orders->status==4)
@@ -61,12 +64,14 @@
                     delivered
                     @endif
                     <br/>
-                    <strong>Order date:</strong>{{$orders->created_at}}<br/>
-                    <strong>Payment Mode</strong>: @if($orders->mode==1)
-                    Online
+                    <strong>Order date:</strong> {{date('d M Y', strtotime($orders->created_at))}} <br/>
+                    <strong>Order Time:</strong> {{date('h:i:s A', strtotime($orders->created_at))}} <br/>
+                    <strong>Payment Mode</strong>: <b style="color: green;"> @if($orders->mode==1)
+                    PAID
                     @else
-                    Offline
+                    COD
                     @endif
+                    </b>
                     <br/>
             </td>
                 </tr>
