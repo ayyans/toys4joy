@@ -326,7 +326,8 @@ if(isValid!=true){
             var js_data = JSON.parse(JSON.stringify(res));
             $("#cover-spin").hide();
             if(js_data.status==200){
-                window.location.href="{{route('website.guestthankorder')}}";
+                var url = "{{ url('guestthankorder') }}";
+                window.location.href=url+'/'+js_data.orderid;
             }
         }
     })

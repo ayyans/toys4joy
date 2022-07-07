@@ -222,7 +222,6 @@ class WebsiteController extends Controller
 
     public function saveCustDetails(Request $request){
         $order_number = mt_rand(100000000, 999999999);
-
         $custDetails = new GuestOrder;
         $custDetails->prod_id=$request->prod_id;
         $custDetails->order_id=$order_number;
@@ -237,7 +236,6 @@ class WebsiteController extends Controller
         $custDetails->mode=$request->mode; 
         $custDetails->save();
         $lastID = $custDetails->id;
-
         if($custDetails==true){
             $getproduct = Product::where('id','=',$request->prod_id)->first();
             $qty_dec = $getproduct['qty']-$request->prod_qty;
@@ -254,9 +252,9 @@ class WebsiteController extends Controller
                 'address' => 'N/A',
                 'products' => [$getproduct->title],
             ];
-            event(new OrderPlaced($order_details));
+            // event(new OrderPlaced($order_details));
 
-            return response()->json(["status"=>"200","msg"=>$lastID]);
+            return response()->json(["status"=>"200","msg"=>$lastID,"orderid"=>$order_number]);
             exit();
         }else{
             return response()->json(["status"=>"400","msg"=>"2"]);
@@ -264,9 +262,10 @@ class WebsiteController extends Controller
         }       
 
     }
-    public function guestthankorder()
+    public function guestthankorder($id)
     {
-        return view('website.guestthanks');
+        $orderid = $id;
+        return view('website.guestthanks',compact('orderid'));
     }
 
 
@@ -635,9 +634,10 @@ class WebsiteController extends Controller
         }
         
     }
-    public function confermordercod()
+    public function confermordercod($id)
     {
-        return view('website.guestthanks');
+        $orderid = $id;
+        return view('website.guestthanks',compact('orderid'));
     }
 
 
@@ -688,7 +688,7 @@ class WebsiteController extends Controller
                     $cartid = Cmf::ipaddress();
                     $update_cart = Cart::where('cust_id','=',$cartid)->delete();
                     // event(new OrderPlaced($order_details));
-                    return response()->json(["status"=>"200","msg"=>"1"]);
+                    return response()->json(["status"=>"200","msg"=>"1","orderid"=>$order_number]);
                     exit();
                 }else{
                     return response()->json(["status"=>"400","msg"=>"2"]);

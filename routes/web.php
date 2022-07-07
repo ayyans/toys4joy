@@ -49,7 +49,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/bestoffers','WebsiteController@bestoffers')->name('bestoffers');
     Route::get('/bestsellers','WebsiteController@bestsellers')->name('bestsellers');
     Route::get('/removefromwishlists/{id}','WebsiteController@removefromwishlists');
-    Route::get('/confermordercod','WebsiteController@confermordercod')->name('confermordercod');
+    Route::get('/confermordercod/{id}','WebsiteController@confermordercod')->name('confermordercod');
     Route::get('category/{id}','WebsiteController@listproducts')->name('cat_products');
     Route::get('category/{main}/{id}','WebsiteController@listproductssubcategpry')->name('subcat_products');
     Route::get('product/{id}','WebsiteController@productDetails')->name('productDetails');
@@ -58,7 +58,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::post('/stripe','WebsiteController@StripePayment')->name('StripePayment');
     Route::post('/guest-details','WebsiteController@saveCustDetails')->name('saveCustDetails');
     Route::post('/orderconferm','WebsiteController@guestthank')->name('guestthank');
-    Route::get('/guestthankorder','WebsiteController@guestthankorder')->name('guestthankorder');
+    Route::get('/guestthankorder/{id}','WebsiteController@guestthankorder');
     Route::get('/registration-thanks','WebsiteController@registrationThank')->name('registrationThank');
     Route::get('/share-wishlist/{cust_id}','WebsiteController@sharewishlist')->name('sharewishlist');
     Route::post('/payasguestordergenerate','OrderController@payasguestordergenerate')->name('payasguestordergenerate');

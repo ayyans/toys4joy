@@ -345,7 +345,8 @@ $action_url = 'https://sadadqa.com/webpurchase';
                 $("#cover-spin").hide();
                 var js_data = JSON.parse(JSON.stringify(res));
                 if(js_data.status==200){
-                    window.location.href="{{route('website.confermordercod')}}"
+                    var url = "{{ url('confermordercod') }}";
+                    window.location.href=url+'/'+js_data.orderid;
                 }else if(js_data.status==300){
                     toastr.options.timeOut = 10000;
                     toastr.error('Please add Address');

@@ -77,7 +77,9 @@ class OrderController extends Controller
                 'products' => [$product->title],
             ];
             event(new OrderPlaced($order_details));
-            return view('website.guestthanks');
+
+            $orderid = $allparms['ORDERID'];
+            return view('website.guestthanks',compact('orderid'));
         }else{
             return redirect()->route('website.home')->with('error','Order IS Placed But Payement is Failed');
         }
