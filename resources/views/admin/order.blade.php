@@ -12,7 +12,8 @@
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
-                <tr>                   
+                <tr>    
+                    <th>#</th>               
                     <th>Date</th>
                     <th>Time</th>
                     <th>Order ID</th> 
@@ -30,7 +31,7 @@
             <tbody>
                 @foreach($orders as $order)
                 <tr>
-                    
+                    <td>{{ $order->id }}</td>
                     <td>{{date('d M Y', strtotime($order->created_at))}}</td>
                     <td>{{date('h:i:s A', strtotime($order->created_at))}}</td>
                     <td>{{$order->orderid}}</td>
