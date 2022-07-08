@@ -169,6 +169,7 @@
         </tr>
         <tr class="heading">
           <td>Item</td>
+          <td style="text-align:center">Item SKU</td>
           <td style="text-align:center">Price</td>
           <td style="text-align:center">Quatity</td>
           <td style="text-align:right">Subtotal</td>
@@ -180,6 +181,7 @@
         @endphp
         <tr class="item">
           <td>{{ $product->title }}</td>
+          <td style="text-align:center">{{ $product->sku }}</td>
           <td style="text-align:center">QAR {{ $product->unit_price }}</td>
           <td style="text-align:center">{{ $r->qty }}</td>
           <td style="text-align:right">QAR {{ $product->unit_price*$r->qty }}</td>

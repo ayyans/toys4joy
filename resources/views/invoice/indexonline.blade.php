@@ -173,7 +173,7 @@
         </tr>
         <tr class="heading">
           <td>Item</td>
-          <td style="text-align:center">Item SKU</td>
+          <td style="text-align:center">Item SKU</td> 
           <td style="text-align:center">Price</td>
           <td style="text-align:center">Quatity</td>
           <td style="text-align:right">Subtotal</td>
