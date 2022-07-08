@@ -90,10 +90,19 @@
                             <label>Like</label>
                             <div class="icon"><img src="{{asset('website/img/thumb-up.svg')}}"/></div>
                         </div>
+                        @if(Auth::check())
                         <div class="wishlist block">
                             <label>Wish List</label>
                             <div class="icon" id="addwishlist"><img src="{{asset('website/img/bi_heart.svg')}}"/></div>
                         </div>
+                        @else
+                        <a href="{{ url('login') }}">
+                        <div class="wishlist block">
+                            <label>Wish List</label>
+                            <div class="icon"><img src="{{asset('website/img/bi_heart.svg')}}"/></div>
+                        </div>
+                        </a>
+                        @endif
                     </div>
                     <div class="d-flex btn-area">
                         @if(!Auth::check())

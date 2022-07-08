@@ -136,7 +136,7 @@
                   Order ID #: {{ $ordernumber }}<br />
                   Order Date: {{ date('M d, Y', strtotime($order->first()->created_at)) }}<br />
                   Invoice Status: <b style="color: green;">
-                     @if($order->first()->mode == 2)
+                     @if($order->first()->mode == 1)
                      PAID
                      @else 
                      COD
