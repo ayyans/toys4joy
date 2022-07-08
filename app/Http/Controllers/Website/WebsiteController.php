@@ -252,7 +252,7 @@ class WebsiteController extends Controller
                 'address' => 'N/A',
                 'products' => [$getproduct->title],
             ];
-            // event(new OrderPlaced($order_details));
+            event(new OrderPlaced($order_details));
 
             return response()->json(["status"=>"200","msg"=>$lastID,"orderid"=>$order_number]);
             exit();
@@ -415,10 +415,6 @@ class WebsiteController extends Controller
                 <div class="d-flex subtotal">
                     <h4>Subtotal:</h4>
                     <h5 class="price" id="subtotal_price">QAR '.$total_price.'</h5>
-                </div>
-                <div class="d-flex shipping">
-                    <h4>Shipping:</h4>
-                    <p>Taxes & shipping fee will be calculated at checkout.</p>
                 </div>
             </div>
             <div class="d-flex btn-area">

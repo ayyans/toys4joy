@@ -165,7 +165,8 @@
                 <td colspan="2">
                   {{ $customer->name }}.<br />
                   {{ $customer->mobile }}<br />
-                  {{ $customer->email }}
+                  {{ $customer->email }}<br>
+                  {{$customer_addresses->unit_no}},{{$customer_addresses->building_no}},{{$customer_addresses->zone}},{{$customer_addresses->street}}
                 </td>
               </tr>
             </table>

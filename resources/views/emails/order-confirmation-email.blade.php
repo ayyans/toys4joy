@@ -111,10 +111,19 @@
                           {{ $data['order_number'] }} </td>
                       </tr>
                       @foreach ($data['products'] as $index => $name )
-                      <tr>
-                        <td width="75%" align="left"
+
+                      @php
+
+                        $product = DB::table('products')->where('title' , $name)->get()->first();
+
+                      @endphp
+                      <tr> 
+                        <td width="65%" align="left"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
                           {{ $name }} ({{ $data['quantity'][$index] }}) </td>
+                          <td width="75%" align="left"
+                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
+                          {{ $product->sku }}</td>
                         <td width="25%" align="left"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
                           {{ 'QAR ' . $data['amount'][$index] }} </td>
