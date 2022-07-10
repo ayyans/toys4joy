@@ -96,11 +96,13 @@
                                 <img src="{{asset('website/img/brands.png')}}"><span class="ms-2">Brands</span>
                             </a>
                         </li>
+                        @auth
                         <li>
-                            <a href="#" class="nav-link text-dark">
+                            <a href="{{ route('website.myaccount') }}" class="nav-link text-dark">
                                 <img src="{{asset('website/img/my-account.png')}}"><span class="ms-2">My Account</span>
                             </a>
                         </li>
+                        @endauth
 <!--
                         <li>
                             <a href="#" class="nav-link text-dark">
@@ -108,11 +110,24 @@
                             </a>
                         </li>
 -->
+                        @guest
                         <li>
-                            <a href="#" class="nav-link text-dark">
+                            <a href="{{route('website.login')}}" class="nav-link text-dark">
                                 <img src="{{asset('website/img/login-register.png')}}"><span class="ms-2">Login/SignUp</span>
                             </a>
                         </li>
+                        @endguest
+
+                        @auth
+                        <li>
+                            <a href="{{ route('website.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="nav-link text-dark">
+                                <img src="{{asset('website/img/logout.png')}}"><span class="ms-2">Logout</span>
+                            </a>
+                            <form id="logout-form" action="{{ route('website.logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                        @endauth
                       </ul>
                   </div>
                   <div class="text-center follow-us">

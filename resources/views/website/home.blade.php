@@ -6,7 +6,7 @@
         <div class="col-3 categories-col">
             <div class="d-flex flex-column flex-shrink-0" >
                 <div class="for-mobile mbl-banner">
-                    <ul class="nav nav-pills nav-fill">
+                    {{-- <ul class="nav nav-pills nav-fill">
                       <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{ route('website.bestsellers') }}">Best Offers</a>
                       </li>
@@ -19,7 +19,8 @@
                       <li class="nav-item">
                         <a class="nav-link">Your Points</a>
                       </li>
-                    </ul>    
+                    </ul>     --}}
+                    @include('website.layouts.user_menu')
                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                       <div class="carousel-indicators">
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -78,7 +79,7 @@
                     <span class="visually-hidden">Next</span>
                   </button>
                 </div>
-            </div>    
+            </div>
             <div class="d-flex home-prod products-list">
                 @foreach($products as $product)
                 <div class="single">
@@ -215,9 +216,24 @@
 @push('otherscript')
   <script>
     $(function() {
+      // filter
       $('#filter-go').on('click', function() {
         $('#filter').submit();
       });
+
+      // hide 4th product on big screens
+      const hideLastProduct = () => {
+        const width = $(window).width();
+        if (width >= 480) {
+          $('.single').last().hide();
+        } else {
+          $('.single').last().show();
+        }
+      };
+      hideLastProduct();
+      $(window).on('resize', function() {
+        hideLastProduct();
+      })
     });
   </script>
 @endpush

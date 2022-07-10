@@ -5,31 +5,47 @@
  $orderid = rand('123456798' , '987654321');
 @endphp
 <div class="egift-card-guest-page egift-card-member-page">
-<main  id="pay-as-guest">
+<main  id="pay-as-guest" class="p-2 p-md-5">
 <div class="container-fluid">
     <div class="row">
         <div class="text-center green-text title"><h2>Buy E-Gift Cards to the ones you loved.</h2></div>
-    	<div class="col-4">
+    	{{-- <div class="col-4">
             <div class="img-box">
                 <img src="{{asset('website/img/toy-gift-box.png')}}"/>
             </div>
-        </div>
+        </div> --}}
         
-        <div class="col-4 text-center">
-        <form method="get" id="giftcardsformforslection" class="qr-price-select">
-            <div class="row">
-                @foreach(DB::table('giftcards')->where('status' , 2)->get() as $r) 
-                <div class="col-md-6">
-                    
-                    <div class="green r-btn">
-                        <input onclick="formsubmit()" @if(isset($_GET['card'])) @if($_GET['card'] == $r->id) checked @endif @endif type="radio" id="card{{  $r->id }}" name="card" value="{{  $r->id }}">
-                        <label for="card{{  $r->id }}" class="green-text">{{ $r->price }} QR</label>
+        <div class="col-12 text-center">
+            <div class="row align-items-center gy-4">
+                <div class="col-xl-4">
+                    <div class="img-box">
+                        <img src="{{asset('website/img/toy-gift-box.png')}}" style="max-width: 200px"/>
                     </div>
-                    
                 </div>
-                @endforeach
+                <div class="col-xl-4">
+                    <form method="get" id="giftcardsformforslection" class="qr-price-select">
+                        <div class="row">
+                            @foreach(DB::table('giftcards')->where('status' , 2)->get() as $r) 
+                            <div class="col-md-6">
+                                <div class="green r-btn">
+                                    <input onclick="formsubmit()" @if(isset($_GET['card'])) @if($_GET['card'] == $r->id) checked @endif @endif type="radio" id="card{{  $r->id }}" name="card" value="{{  $r->id }}">
+                                    <label for="card{{  $r->id }}" class="green-text">{{ $r->price }} QR</label>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xl-4">
+                    <div class="pay-as-member">
+                        <div class="text-center">
+                            <div class="gift-cards member">
+                                <a onclick="paymentsubmit()">Pay by Debit/Credit Card</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>    
         </div>
         <script type="text/javascript">
             function formsubmit()
@@ -55,7 +71,7 @@
             }
         </script>
         @endif
-        <div class="col-4 text-center">
+        {{-- <div class="col-4 text-center">
             <div class="pay-as-member">
                 <div class="text-center">
                     <div class="member">
@@ -63,7 +79,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 </main>

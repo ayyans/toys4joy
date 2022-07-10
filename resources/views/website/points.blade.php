@@ -4,21 +4,26 @@
 <main id="your-points">
 <div class="container-fluid">
     <div class="row">
+        <div class="col-12">
+            <div class="d-flex align-items-center gap-5">
+                <a href="#" class="mascot"><img style="max-width: 200px" src="{{asset('website/img/mascot-only.png')}}"></a>
+                <h5 class="fw-bold">3,250</h5>
+            </div>
+        </div>
     	<div class="col-12">
-            <div class="row progres-bar">
-                <div class="col-2">
+            <div class="row progres-bar gap-4 gap-md-0">
+                <div class="col-md-2">
                     <div class="your-points">
                         <span>Your Points</span>
                     </div>
                 </div>
-                <div class="col-8">   
+                <div class="col-md-8">   
                     <div class="progress">
-                      <a href="#" class="mascot"><img src="{{asset('website/img/mascot-only.png')}}"></a>
                       <a href="#" class="ballons"><img src="{{asset('website/img/party-ballons.png')}}"></a>
-                      <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"><span>1,750 points left</span><h5>3,250</h5></div>
+                      <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"><span>1,750 points left</span></div>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-md-2">
                     <div class="text-center free">
                         <h4 class="text-center pink-text">Free</h4>
                         <img src="{{asset('website/img/like-emoji.png')}}">

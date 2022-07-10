@@ -41,7 +41,7 @@ class WebsiteController extends Controller
     }
     public function index(){
         $categories = $this->listCategory();
-        $products = Product::where('status','=','2')->orderBy('id','desc')->limit(3)->get();
+        $products = Product::where('status','=','2')->orderBy('id','desc')->limit(4)->get();
         return view('website.home',compact('categories','products'));
     }
     public function submitformlookingfor(Request $request)
