@@ -8,7 +8,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin\Auth')->prefix('adm
 
 });
 
-Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')->middleware(['auth:admin'])->group(function(){
+Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')->middleware('admin')->group(function(){
     Route::get('/home','AdminController@dashboard')->name('dashboard');
 
     // customer route
