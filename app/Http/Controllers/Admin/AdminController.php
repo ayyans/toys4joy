@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\OrderStatusChanged;
+use App\Exports\InventoryReportExport;
+use App\Exports\SalesReportExport;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -23,13 +25,32 @@ use App\Models\Order;
 use App\Models\ReturnRequest;
 use App\Models\User;
 use App\Models\requiredproducts;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
-use DB;
 class AdminController extends Controller
 {
     //
     public function dashboard(){
-        return view('admin.dashboard');
+        // delivered orders count
+        $customersOrderCount = Order::where('status', 5)->count();
+        $guestsOrderCount = GuestOrder::where('status', 5)->count();
+        $ordersCount = $customersOrderCount + $guestsOrderCount;
+
+        // total customers
+        $customersCount = User::where('status', 2)->count();
+
+        // total products
+        $productsCount = Product::where('status', 2)->count();
+
+        // Total revenue
+        $customersOrderSum = Order::where('status', 5)->sum(DB::raw('amount * qty'));
+        $guestsOrderSum = GuestOrder::where('guest_orders.status', 5)
+            ->join('products', 'guest_orders.prod_id', 'products.id')
+            ->sum(DB::raw('products.unit_price * guest_orders.qty'));
+        $revenueCount = $customersOrderSum + $guestsOrderSum;
+
+        return view('admin.dashboard', compact('ordersCount', 'customersCount', 'productsCount', 'revenueCount'));
     }
     public function productrequest()
     {
@@ -1419,4 +1440,82 @@ public function editProcess(Request $request){
         return redirect()->route('admin.return-requests.index')->with('success', 'Return request status changed!');
     }
 
+    // Reports
+
+    public function salesReport(Request $request) {
+        $applyFilter = false;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        if ($request->anyFilled('start_date', 'end_date')) {
+            $applyFilter = true;
+        }
+
+        $products = Product::query()
+            ->withSum(['orders' => function ($query) use ($applyFilter, $start_date, $end_date) {
+                $query->where('status', 5)->when($applyFilter, function($query) use ($start_date, $end_date) {
+                    $query->whereBetween('created_at', [$start_date, $end_date]);
+                });
+            }], 'qty')
+            ->withSum(['guestOrders' => function ($query) use ($applyFilter, $start_date, $end_date) {
+                $query->where('status', 5)->when($applyFilter, function($query) use ($start_date, $end_date) {
+                    $query->whereBetween('created_at', [$start_date, $end_date]);
+                });
+            }], 'qty')
+            ->havingRaw('guest_orders_sum_qty > 0 || orders_sum_qty > 0')
+            ->get()
+            ->map(function($product) {
+                return [
+                    'title' => $product->title,
+                    'sales' => (int) ($product->guest_orders_sum_qty + $product->orders_sum_qty)
+                ];
+            })
+            ->sortByDesc('sales');
+
+        // delivered orders count
+        $productsSold = $products->reduce(function($total, $current) {
+            return $total + $current['sales'];
+        }, 0);
+
+        // Total revenue
+        $customersOrderSum = Order::where('status', 5)
+            ->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('created_at', [$start_date, $end_date]);
+            })
+            ->sum(DB::raw('amount * qty'));
+        $guestsOrderSum = GuestOrder::where('guest_orders.status', 5)
+            ->join('products', 'guest_orders.prod_id', 'products.id')
+            ->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('guest_orders.created_at', [$start_date, $end_date]);
+            })
+            ->sum(DB::raw('products.unit_price * guest_orders.qty'));
+        $revenueCount = $customersOrderSum + $guestsOrderSum;
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new SalesReportExport($products, $productsSold, $revenueCount), 'sales-report.xlsx');
+        }
+
+        return view('admin.reports.sales-report', compact('products', 'productsSold', 'revenueCount'));
+    }
+
+    public function inventoryReport(Request $request) {
+        $products = Product::where('status', 2)->select('title', 'unit_price', 'qty', 'status')->get();
+
+        // total products count
+        $productsCount = $products->count();
+
+        // total cagegories count
+        $categoriesCount = Category::where('status', 2)->count();
+
+        // total subcagegories count
+        $subcategoriesCount = SubCategory::where('status', 2)->count();
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new InventoryReportExport($products, $productsCount, $categoriesCount, $subcategoriesCount), 'inventory-report.xlsx');
+        }
+
+        return view('admin.reports.inventory-report', compact('products', 'productsCount', 'categoriesCount', 'subcategoriesCount'));
+    }
 }

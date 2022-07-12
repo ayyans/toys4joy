@@ -146,6 +146,10 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('/banner-deactivate/{id}','AdminController@deactivatebanner')->name('deactivatebanner');
     Route::get('/banner-delete/{id}','AdminController@deletebanner')->name('deletebanner');
 
+    // Reports
+    Route::get('sales-report', 'AdminController@salesReport')->name('report.sales');
+    Route::get('inventory-report', 'AdminController@inventoryReport')->name('report.inventory');
+
 });
 
 
