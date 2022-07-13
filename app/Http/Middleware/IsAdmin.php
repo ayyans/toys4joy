@@ -16,7 +16,8 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        abort_if(auth()->check() && auth()->user()->type !== 'admin', 401);
+        abort_if(!auth()->check(), 401);
+        abort_if(auth()->user()->type !== 'admin', 401);
         return $next($request);
     }
 }
