@@ -39,7 +39,17 @@
             <div class="d-flex brands-logo">
             	@foreach(DB::table('brands')->where('status' , 2)->get() as $r)
                 <div class="single">
-                    <div class="img-block"><a href="{{ url('brand') }}/{{ $r->id }}"><img src="{{ url('uploads') }}/{{ $r->logo }}"/></a></div>
+                    <a style="color: black;text-decoration: none;" href="{{ url('brand') }}/{{ $r->brand_name }}">
+                        @if($r->logo)
+                        <div class="img-block">
+                            <img src="{{ url('uploads') }}/{{ $r->logo }}"/>
+                        </div>
+                        @else
+                        <div class="img-block">
+                            <h2 style="font-size: 20px;">{{ $r->brand_name }}</h2>
+                        </div>
+                        @endif
+                    </a>
                 </div>
                	@endforeach
             </div>

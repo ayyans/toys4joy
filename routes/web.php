@@ -34,6 +34,8 @@ Route::name('website.')->namespace('App\Http\Controllers\Website\Auth')->group(f
 
 Route::name('website.')->namespace('App\Http\Controllers\Website')->group(function(){
     Route::get('/','WebsiteController@index')->name('home');
+    Route::get('brand/{id}','WebsiteController@brandshow');
+    
     Route::get('/showcart','WebsiteController@showcart');
     Route::get('/why-us','WebsiteController@whyus')->name('whyus');
     Route::get('/company-policy','WebsiteController@policy')->name('policy');

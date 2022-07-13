@@ -55,6 +55,7 @@ class WebsiteController extends Controller
         $product->save();
         return back()->with('success','Request Submited Successfully');
     }
+
     public function whyus()
     {
         return view('website.pages.whyus');
@@ -89,6 +90,13 @@ class WebsiteController extends Controller
     public function contact()
     {
         return view('website.pages.contact');
+    }
+    public function brandshow($id)
+    {
+        $categories = $this->listCategory();
+        $brand = Brand::where('brand_name' , $id)->get()->first();
+        $products = Product::where('brand_id','=',$brand->id)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        return view('website.product-list',compact('categories','products'));
     }
     public function newarrivals()
     {
