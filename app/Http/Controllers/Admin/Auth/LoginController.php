@@ -38,8 +38,8 @@ class LoginController extends Controller
      */
     public function logout()
     {
-      Auth::guard('admin')->logout();
-      return redirect()->route('admin.login')->with('success','admin has been logged out!');
+      Auth::logout();
+      return redirect()->route('website.login')->with('success','Admin has been logged out!');
     }
 
     /**
