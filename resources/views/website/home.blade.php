@@ -110,8 +110,8 @@
                     </a>
                 </li>
                 <li><a href="{{ route('website.brands') }}">Brands</a></li>
-                <li><a href="{{ route('website.bestoffers') }}">Best Sellers</a></li>
-                <li><a href="{{ route('website.bestsellers') }}">Best Offers</a></li>
+                <li><a href="{{ route('website.bestsellers') }}">Best Sellers</a></li>
+                <li><a href="{{ route('website.bestoffers') }}">Best Offers</a></li>
             </ul>
                 <h1 class="for-mobile age-range-title">Select Age Range</h1>
             <div class="age-range">
