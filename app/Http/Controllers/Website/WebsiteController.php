@@ -253,7 +253,7 @@ class WebsiteController extends Controller
                 'products' => [$getproduct->title],
             ];
             event(new OrderPlaced($order_details));
-
+            Cmf::sendordersms($order_number);
             return response()->json(["status"=>"200","msg"=>$lastID,"orderid"=>$order_number]);
             exit();
         }else{
@@ -313,6 +313,7 @@ class WebsiteController extends Controller
                         'products' => $products,
                     ];
                     event(new OrderPlaced($order_details));
+                    Cmf::sendordersms($allparms['ORDERID']);
                     $update_cart = Cart::where('cust_id','=',$ipaddres)->delete();
                     $orderid = $allparms['ORDERID'];
                     return view('website.guestthanks',compact('orderid'));
@@ -749,6 +750,9 @@ class WebsiteController extends Controller
                     $cartid = Cmf::ipaddress();
                     $update_cart = Cart::where('cust_id','=',$cartid)->delete();
                     event(new OrderPlaced($order_details));
+
+                    Cmf::sendordersms($order_number);
+
                     return response()->json(["status"=>"200","msg"=>"1","orderid"=>$order_number]);
                     exit();
                 }else{

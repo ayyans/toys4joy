@@ -17,24 +17,17 @@ class LoginController extends Controller
 
     public function login_process(Request $request)
     {
-        //Validation...
-        
-        //Login the admin...
-        
-        //Redirect the admin...
-        // $request->only('email','password')
         $data = $request->all();
-           
         $this->validator($request);
-    
-        if(Auth::guard('admin')->attempt(['email'=>$data['email'],'password'=>$data['password']],$request->filled('remember'))){
-            //Authentication passed...
-            return redirect()
-                ->intended('admin/home')
-                ->with('success','You are Logged in as admin!');
+        if(auth()->attempt(['email'=>$data['email'],'password'=>$data['password']],$request->filled('remember'))){
+            if(Auth::user()->type == 'admin')
+            {
+                return redirect()->route('admin.dashboard')->with('success','You are Login as Admin!');
+            }else{
+                Auth::logout();
+                return back()->with('error','You have not Access For Admin');
+            }
         }
-    
-        //Authentication failed...
         return $this->loginFailed();
     }
 
@@ -45,13 +38,8 @@ class LoginController extends Controller
      */
     public function logout()
     {
-      //logout the admin...
-
       Auth::guard('admin')->logout();
-      return redirect()
-          ->route('admin.login')
-          ->with('success','admin has been logged out!');
-
+      return redirect()->route('admin.login')->with('success','admin has been logged out!');
     }
 
     /**
@@ -87,11 +75,6 @@ class LoginController extends Controller
      */
     private function loginFailed()
     {
-      //Login failed...
-
-      return redirect()
-      ->back()
-      ->withInput()
-      ->with('error','Login failed, please try again!');
+      return redirect()->back()->withInput()->with('error','Login failed, please try again!');
     }
 }

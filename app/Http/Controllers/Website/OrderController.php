@@ -78,7 +78,7 @@ class OrderController extends Controller
                 'products' => [$product->title],
             ];
             event(new OrderPlaced($order_details));
-
+            Cmf::sendordersms($order_number);
             $orderid = $allparms['ORDERID'];
             return view('website.guestthanks',compact('orderid'));
         }else{
