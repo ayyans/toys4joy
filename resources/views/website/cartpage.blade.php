@@ -107,6 +107,7 @@
                 if(js_data.status==200){
                     toastr.success('Product removed from cart');
                     showCartContent();
+                    headercart();
                 }else{
                     toastr.error('something went wrong');
                     return false;
