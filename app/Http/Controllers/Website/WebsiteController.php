@@ -380,6 +380,48 @@ class WebsiteController extends Controller
     }
 
     }
+
+    public function cartPageContent()
+    {
+        $cust_id = Cmf::ipaddress();
+        $data = Cart::leftJoin('products','products.id','=','carts.prod_id')
+                
+        ->select('carts.id as crtid','carts.qty as cartQty','products.*')
+        ->where('carts.cust_id','=',$cust_id)       
+        ->orderBy('carts.id','desc')
+        ->get();
+
+        $totalPrice = $data->sum(function ($cart) {
+            return $cart->unit_price * $cart->cartQty;
+        });
+
+        $body = '';
+
+        if($data->count() > 0) {
+            $total_price = 0;
+            foreach($data as $cart) {
+                $total_price+=$cart->unit_price*$cart->cartQty;
+                $body .= '
+                <tr>
+                    <td class="qty"><input type="number" value="'.$cart->cartQty.'" id="quantity" name="quantity" min="1" max="'.$cart->qty.'" onchange="updateQty('.$cart->crtid.',this.value)"></td>
+                    <td class="title">
+                    <div class="d-flex product-rank">
+                        <div class="detail"><p>'.$cart->title.'</p></div>
+                    </div>
+                    </td>
+                    <td><div class="img-box"><img src="'.asset('products/'.$cart->featured_img).'"/></div></td>
+                    <td class="price"><span>QAR '.$cart->unit_price.'</span></td>
+                    <td class="delete"><div class="rmv-icon"><a href="javascript:void(0)" onclick="removeCartContent('.$cart->crtid.')"><img src="'.asset('website/img/delete-product.png').'"/></a></div></td>
+                </tr>';
+            }
+        }
+
+        return [
+            'body' => $body,
+            'total' => $totalPrice
+        ];
+    }
+
     // view cart 
     public function showcart()
     {
