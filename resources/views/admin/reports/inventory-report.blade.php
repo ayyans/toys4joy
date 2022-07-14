@@ -72,6 +72,7 @@
           <th>Price</th>
           <th>Stock</th>
           <th>Category</th>
+          <th>Subcategory</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -83,6 +84,7 @@
             <td>{{ $product->unit_price }}</td>
             <td>{{ $product->qty }}</td>
             <td>{{ $product->category_id }}</td>
+            <td>{{ $product->sub_cat }}</td>
             <td>{{ $product->status }}</td>
           </tr>
         @empty

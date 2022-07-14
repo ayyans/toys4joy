@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div id="filter-container" class="mb-3 border p-3 rounded" style="display: none">
+  <div id="filter-container" class="mb-3 border p-3 rounded">
     <form action="{{ route('admin.report.sales') }}" method="get">
       <div class="row">
         <div class="col-6 col-md-5">
