@@ -68,8 +68,10 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>SKU</th>
           <th>Price</th>
           <th>Stock</th>
+          <th>Category</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -77,8 +79,10 @@
         @forelse ($products as $product)
           <tr>
             <td>{{ $product->title }}</td>
+            <td>{{ $product->sku }}</td>
             <td>{{ $product->unit_price }}</td>
             <td>{{ $product->qty }}</td>
+            <td>{{ $product->category_id }}</td>
             <td>{{ $product->status }}</td>
           </tr>
         @empty

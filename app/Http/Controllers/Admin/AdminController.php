@@ -1500,7 +1500,14 @@ public function editProcess(Request $request){
     }
 
     public function inventoryReport(Request $request) {
-        $products = Product::where('status', 2)->select('title', 'unit_price', 'qty', 'status')->get();
+        $products = Product::with('category:id,category_name')
+            ->where('status', 2)
+            ->select('title', 'sku', 'unit_price', 'qty', 'category_id', 'status')
+            ->get()
+            ->map(function($product) {
+                $product->category_id = $product->category->category_name;
+                return $product;
+            });
 
         // total products count
         $productsCount = $products->count();
