@@ -77,7 +77,7 @@
 <script>
 function copyToClipboard(text) {
 var inputc = document.body.appendChild(document.createElement("input"));
-inputc.value = "{{route('website.sharewishlist',[encrypt(Auth::user()->id)])}}";
+inputc.value = "{{route('website.sharewishlist',[Auth::user()->id])}}";
 inputc.focus();
 inputc.select();
 document.execCommand('copy');

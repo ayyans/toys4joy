@@ -659,7 +659,7 @@ class WebsiteController extends Controller
     // share wishlist to any one
 
     public function sharewishlist(Request $request){
-        $cust_id = decrypt($request->cust_id);
+        $cust_id = $request->cust_id;
         $wshlists = Wishlist::leftJoin('products','products.id','=','wishlists.prod_id')
                     ->leftJoin('users','users.id','=','wishlists.cust_id')
                     ->select('products.*','users.name','users.email','users.mobile','wishlists.id as wish_id','wishlists.share_status')
