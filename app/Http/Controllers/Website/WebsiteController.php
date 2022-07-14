@@ -585,23 +585,7 @@ class WebsiteController extends Controller
 
     // add address process
 
-    public function addAddressProcess(Request $request){
-        $cust_id = Auth::user()->id;
-        $cust_address = new CustomerAddress;
-        $cust_address->cust_id=$cust_id;
-        $cust_address->unit_no=$request->unit_no;
-        $cust_address->building_no=$request->buid_no;
-        $cust_address->zone=$request->zone;
-        $cust_address->street=$request->street;
-        $cust_address->save();
-        if($cust_address==true){
-            return response()->json('1');
-            exit();
-        }else{
-            return response()->json('2');
-            exit();
-        }
-    }
+    
 
 
     // add product in wishlist
@@ -675,7 +659,7 @@ class WebsiteController extends Controller
     // share wishlist to any one
 
     public function sharewishlist(Request $request){
-        $cust_id = decrypt($request->cust_id);
+        $cust_id = $request->cust_id;
         $wshlists = Wishlist::leftJoin('products','products.id','=','wishlists.prod_id')
                     ->leftJoin('users','users.id','=','wishlists.cust_id')
                     ->select('products.*','users.name','users.email','users.mobile','wishlists.id as wish_id','wishlists.share_status')
@@ -830,15 +814,7 @@ class WebsiteController extends Controller
     // customer order history 
 
 
-    public function orderhistory(){
-        $cust_id = Auth::user()->id;
-        $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
-                ->select('products.*','orders.qty as OrderQty','orders.amount as orderAmt','orders.status as orderStatus','orders.id as orderid')
-                ->where('orders.cust_id','=',$cust_id)
-                ->orderBy('orders.id','desc')
-                ->get();
-        return view('website.orderHistory',compact('orders'));
-    }
+   
 
 
    

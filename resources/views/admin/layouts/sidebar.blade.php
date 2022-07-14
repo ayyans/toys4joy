@@ -98,6 +98,14 @@
     </div>
 </li>
 
+<hr class="sidebar-divider my-0">
+
+<!-- Nav Item - Dashboard -->
+<li class="nav-item">
+    <a class="nav-link" href="{{route('admin.bulkupload')}}">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Bulk Upload</span></a>
+</li>
 <!-- Divider -->
 <hr class="sidebar-divider">
 
@@ -181,7 +189,7 @@
         </div>
     </div>
 </li>
-<hr class="sidebar-divider">
+<!-- <hr class="sidebar-divider">
 
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#transaction"
@@ -198,7 +206,7 @@
             <a class="collapse-item" href="javascript:void(0)">List of products</a>
         </div>
     </div>
-</li>
+</li> -->
 
 <hr class="sidebar-divider">
 

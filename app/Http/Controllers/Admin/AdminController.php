@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\OrderStatusChanged;
 use App\Exports\InventoryReportExport;
 use App\Exports\SalesReportExport;
+use App\Imports\ImportProducts;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -67,7 +68,20 @@ class AdminController extends Controller
         $banner = new homepagebanners();
         $banner->image=Cmf::sendimagetodirectory($request->image);
         $banner->position = $request->position;
+        $banner->url = $request->url;
         $banner->status = 1;
+        $banner->save();
+        return back()->with('success','Banner Added SuccessFull!');
+    }
+    public function homepagebannersedit(Request $request)
+    {
+        $banner = homepagebanners::find($request->id);
+        if($request->image)
+        {
+            $banner->image=Cmf::sendimagetodirectory($request->image);
+        }
+        $banner->position = $request->position;
+        $banner->url = $request->url;
         $banner->save();
         return back()->with('success','Banner Added SuccessFull!');
     }
@@ -1524,5 +1538,14 @@ public function editProcess(Request $request){
         }
 
         return view('admin.reports.inventory-report', compact('products', 'productsCount', 'categoriesCount', 'subcategoriesCount'));
+    }
+    public function bulkupload()
+    {
+        return view('admin.reports.bulkupload');
+    }
+    public function bulkupdateprocess(Request $request)
+    {
+        Excel::import(new ImportProducts, $request->file('file')->store('files'));
+        return back()->with('success','Produts Updated Successfully');
     }
 }

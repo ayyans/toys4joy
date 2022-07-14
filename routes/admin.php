@@ -10,7 +10,9 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin\Auth')->prefix('adm
 
 Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')->middleware('admin')->group(function(){
     Route::get('/home','AdminController@dashboard')->name('dashboard');
-
+    Route::get('/bulkupload','AdminController@bulkupload')->name('bulkupload');
+    Route::post('/bulkupdateprocess','AdminController@bulkupdateprocess')->name('bulkupdateprocess');
+    
     // customer route
     Route::get('/customers','AdminController@customer')->name('customer');
     Route::get('/customers-activate/{id}','AdminController@activateCustomer')->name('activateCustomer');
@@ -145,6 +147,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('/banner-activate/{id}','AdminController@activatebanner')->name('activatebanner');
     Route::get('/banner-deactivate/{id}','AdminController@deactivatebanner')->name('deactivatebanner');
     Route::get('/banner-delete/{id}','AdminController@deletebanner')->name('deletebanner');
+    Route::post('/homepagebannersedit','AdminController@homepagebannersedit')->name('homepagebannersedit');
 
 
 

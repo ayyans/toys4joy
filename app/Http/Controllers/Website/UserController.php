@@ -147,4 +147,53 @@ class UserController extends Controller
 		$user->save();
 		return back()->with('success','Profile Updated Successfully');
 	}
+	public function addAddressProcess(Request $request){
+		$check = CustomerAddress::where('cust_id' , Auth::user()->id)->get();
+		if($check->count() > 0)
+		{
+			$cust_address = CustomerAddress::find($check->first()->id);
+	        $cust_address->unit_no=$request->unit_no;
+	        $cust_address->building_no=$request->buid_no;
+	        $cust_address->zone=$request->zone;
+	        $cust_address->street=$request->street;
+	        $cust_address->save();
+		}else{
+			$cust_id = Auth::user()->id;
+	        $cust_address = new CustomerAddress;
+	        $cust_address->cust_id=$cust_id;
+	        $cust_address->unit_no=$request->unit_no;
+	        $cust_address->building_no=$request->buid_no;
+	        $cust_address->zone=$request->zone;
+	        $cust_address->street=$request->street;
+	        $cust_address->save();
+		}
+        if($cust_address==true){
+            return response()->json('1');
+            exit();
+        }else{
+            return response()->json('2');
+            exit();
+        }
+    }
+     public function orderhistory(){
+        $cust_id = Auth::user()->id;
+        $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
+                ->select('products.*','orders.qty as OrderQty','orders.orderid as ordernumber','orders.amount as orderAmt','orders.status as orderStatus','orders.id as orderid')
+                ->where('orders.cust_id','=',$cust_id)
+                ->orderBy('orders.id','desc')
+                ->groupby('orders.orderid')
+                ->get();
+        return view('website.user.orderHistory',compact('orders'));
+    }
+    public function orderdetail($id)
+    {
+    	$orderid = $id;
+    	$orders = Order::leftJoin('products','products.id','=','orders.prod_id')
+                ->select('products.*','orders.qty as OrderQty','orders.orderid as ordernumber','orders.amount as orderAmt','orders.status as orderStatus','orders.id as orderid')
+                ->orderBy('orders.id','desc')
+                ->where('orders.orderid' , $id)
+                ->get();
+    	return view('website.user.orderdetail',compact('orders','orderid'));
+    	
+    }
 }

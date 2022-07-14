@@ -93,15 +93,17 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     Route::get('/my-wishlist/{cust_id}','WebsiteController@mywishlist')->name('mywishlist');    
     Route::get('/remove-wishlist/{id}','WebsiteController@removeWishlist')->name('removeWishlist');
 
+    
     Route::post('/submituserprofile','UserController@submituserprofile')->name('submituserprofile');
     Route::get('/addgiftcard/{id}/{orderid}','UserController@addgiftcard');
     Route::post('/giftcardconfermorder','UserController@giftcardconfermorder')->name('giftcardconfermorder');
 
-    Route::post('/customer-address-process','WebsiteController@addAddressProcess')->name('addAddressProcess');
+    Route::post('/customer-address-process','UserController@addAddressProcess')->name('addAddressProcess');
     Route::post('/corporate-coupon','WebsiteController@corporate_coupon')->name('corporate_coupon');
     Route::post('/add-card-info-process','WebsiteController@Usercardinfo')->name('Usercardinfo');
     Route::post('/place-order-process','WebsiteController@placeorder')->name('placeorder');
-    Route::get('/order-history','WebsiteController@orderhistory')->name('orderhistory');
+    Route::get('/order-history','UserController@orderhistory')->name('orderhistory');
+    Route::get('/orderdetail/{id}','UserController@orderdetail');
     Route::get('/my-points','WebsiteController@yourpoints')->name('yourpoints');
     Route::get('/gift-cards','WebsiteController@giftcard')->name('giftcard');
     Route::get('/my-profile','UserController@myprofile')->name('myprofile');

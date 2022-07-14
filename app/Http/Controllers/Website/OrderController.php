@@ -30,6 +30,7 @@ use DB;
 use PDF;
 class OrderController extends Controller
 {
+    
     public function payasguestordergenerate(Request $request)
     {
         $custDetails = new GuestOrder;
