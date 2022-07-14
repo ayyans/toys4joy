@@ -67,7 +67,20 @@ class AdminController extends Controller
         $banner = new homepagebanners();
         $banner->image=Cmf::sendimagetodirectory($request->image);
         $banner->position = $request->position;
+        $banner->url = $request->url;
         $banner->status = 1;
+        $banner->save();
+        return back()->with('success','Banner Added SuccessFull!');
+    }
+    public function homepagebannersedit(Request $request)
+    {
+        $banner = homepagebanners::find($request->id);
+        if($request->image)
+        {
+            $banner->image=Cmf::sendimagetodirectory($request->image);
+        }
+        $banner->position = $request->position;
+        $banner->url = $request->url;
         $banner->save();
         return back()->with('success','Banner Added SuccessFull!');
     }

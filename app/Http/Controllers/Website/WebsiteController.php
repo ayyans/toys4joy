@@ -543,23 +543,7 @@ class WebsiteController extends Controller
 
     // add address process
 
-    public function addAddressProcess(Request $request){
-        $cust_id = Auth::user()->id;
-        $cust_address = new CustomerAddress;
-        $cust_address->cust_id=$cust_id;
-        $cust_address->unit_no=$request->unit_no;
-        $cust_address->building_no=$request->buid_no;
-        $cust_address->zone=$request->zone;
-        $cust_address->street=$request->street;
-        $cust_address->save();
-        if($cust_address==true){
-            return response()->json('1');
-            exit();
-        }else{
-            return response()->json('2');
-            exit();
-        }
-    }
+    
 
 
     // add product in wishlist
@@ -788,15 +772,7 @@ class WebsiteController extends Controller
     // customer order history 
 
 
-    public function orderhistory(){
-        $cust_id = Auth::user()->id;
-        $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
-                ->select('products.*','orders.qty as OrderQty','orders.amount as orderAmt','orders.status as orderStatus','orders.id as orderid')
-                ->where('orders.cust_id','=',$cust_id)
-                ->orderBy('orders.id','desc')
-                ->get();
-        return view('website.orderHistory',compact('orders'));
-    }
+   
 
 
    

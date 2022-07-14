@@ -145,6 +145,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('/banner-activate/{id}','AdminController@activatebanner')->name('activatebanner');
     Route::get('/banner-deactivate/{id}','AdminController@deactivatebanner')->name('deactivatebanner');
     Route::get('/banner-delete/{id}','AdminController@deletebanner')->name('deletebanner');
+    Route::post('/homepagebannersedit','AdminController@homepagebannersedit')->name('homepagebannersedit');
 
 
 

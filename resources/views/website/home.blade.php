@@ -65,9 +65,11 @@
                   </div>
                   <div class="carousel-inner">
                     @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
+                    <a href="{{ url('') }}/{{ $r->url }}">
                     <div class="carousel-item @if ($loop->first) active @endif">
                       <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid">
                     </div>
+                    </a>
                     @endforeach
                   </div>
                   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
