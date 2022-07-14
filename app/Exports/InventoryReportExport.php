@@ -40,6 +40,7 @@ class InventoryReportExport implements FromCollection, WithHeadings, ShouldAutoS
     {
         return [
             'Name',
+            'SKU',
             'Price',
             'Stock',
             'Status'

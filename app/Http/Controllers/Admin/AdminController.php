@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\OrderStatusChanged;
 use App\Exports\InventoryReportExport;
 use App\Exports\SalesReportExport;
+use App\Imports\ImportProducts;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -1513,7 +1514,7 @@ public function editProcess(Request $request){
     }
 
     public function inventoryReport(Request $request) {
-        $products = Product::where('status', 2)->select('title', 'unit_price', 'qty', 'status')->get();
+        $products = Product::where('status', 2)->select('title','sku', 'unit_price', 'qty', 'status')->get();
 
         // total products count
         $productsCount = $products->count();
@@ -1530,5 +1531,14 @@ public function editProcess(Request $request){
         }
 
         return view('admin.reports.inventory-report', compact('products', 'productsCount', 'categoriesCount', 'subcategoriesCount'));
+    }
+    public function bulkupload()
+    {
+        return view('admin.reports.bulkupload');
+    }
+    public function bulkupdateprocess(Request $request)
+    {
+        Excel::import(new ImportProducts, $request->file('file')->store('files'));
+        return redirect()->back();
     }
 }
