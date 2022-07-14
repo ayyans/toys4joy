@@ -19,7 +19,7 @@
                       <div class="d-flex product-rank">
                           <div class="img-box"><img src="{{asset('products/'.$order->featured_img)}}"/></div>
                           <div class="detail">
-                              <a href="javascript:void(0)" class="order-id">Order# {{$order->ordernumber}}</a>
+                              <a href="{{ url('orderdetail') }}/{{ $order->ordernumber }}" class="order-id">Order# {{$order->ordernumber}}</a>
                               <p>{{$order->title}}</p>
                               <div class="price-qty"><span class="qty">{{$order->OrderQty}}</span><span>{{$order->orderAmt}} QAR</span></div>
                               <div class="shiping"><span>Ship to: {{Auth::user()->name}}</span></div>

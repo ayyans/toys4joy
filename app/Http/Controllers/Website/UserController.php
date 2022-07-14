@@ -185,4 +185,15 @@ class UserController extends Controller
                 ->get();
         return view('website.user.orderHistory',compact('orders'));
     }
+    public function orderdetail($id)
+    {
+    	$orderid = $id;
+    	$orders = Order::leftJoin('products','products.id','=','orders.prod_id')
+                ->select('products.*','orders.qty as OrderQty','orders.orderid as ordernumber','orders.amount as orderAmt','orders.status as orderStatus','orders.id as orderid')
+                ->orderBy('orders.id','desc')
+                ->where('orders.orderid' , $id)
+                ->get();
+    	return view('website.user.orderdetail',compact('orders','orderid'));
+    	
+    }
 }
