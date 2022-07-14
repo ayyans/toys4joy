@@ -6,22 +6,52 @@
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Customers Report</h1>
     <div class="d-flex">
+      <a id="filter-button" href="javascript:;" class="d-inline-block btn btn-sm btn-success shadow-sm mr-2" style="width: 120px">
+        <i class="fas fa-filter fa-sm text-white-50"></i> Filter</a>
       <a href="{{ request()->fullUrlWithQuery(['export' => 'true']) }}" class="d-inline-block btn btn-sm btn-primary shadow-sm"><i
         class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
     </div>
   </div>
 
+  <div id="filter-container" class="mb-3 border p-3 rounded">
+    <form action="{{ route('admin.report.customers') }}" method="get">
+      <div class="row">
+        <div class="col-6 col-md-5">
+          <div class="form-group mb-0">
+            <label for="start_date">Start Date</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" required>
+          </div>
+        </div>
+        <div class="col-6 col-md-5">
+          <div class="form-group mb-0">
+            <label for="end_date">End Date</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" required>
+          </div>
+        </div>
+        <div class="col-12 col-md-2">
+          <div class="form-group">
+            <label for="end_date">ㅤ</label>
+            <button type="submit" class="btn btn-dark btn-block">Apply</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
   <table class="datatable table table-striped table-bordered" style="width:100%">
     <thead>
       <tr>
+        <th>#</th>
         <th>Name</th>
         <th>Total Orders</th>
         <th>Total Spent</th>
       </tr>
     </thead>
     <tbody>
-      @foreach ($users as $user)
+      @php $count = 1 @endphp
+      @foreach ($users as $index => $user)
         <tr>
+          <td>{{ $count++ }}</td>
           <td>{{ $user['name'] }}</td>
           <td>{{ $user['total_orders'] }}</td>
           <td>{{ $user['total_amount'] }}</td>
@@ -36,9 +66,12 @@
 <script>
 $(function () {
   // datatables
-  $('.datatable').DataTable({
-    'order': [[2, 'desc']]
-  });
+  $('.datatable').DataTable();
+
+  // filters
+  $('#filter-button').on('click', function() {
+    $('#filter-container').slideToggle();
+  })
 });
 </script>
 @endpush

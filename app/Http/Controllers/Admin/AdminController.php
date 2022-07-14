@@ -1545,17 +1545,39 @@ public function editProcess(Request $request){
     }
 
     public function customersReport(Request $request) {
-        $users = User::withCount(['paid_orders'])
-            ->withSum('paid_orders', 'amount')
+
+        $applyFilter = false;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        if ($request->anyFilled('start_date', 'end_date')) {
+            $applyFilter = true;
+        }
+
+        $users = User::with(['paid_orders' => function($query) use ($applyFilter, $start_date, $end_date) {
+            $query->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('created_at', [$start_date, $end_date]);
+            });
+        }])
+            ->withCount(['paid_orders' => function($query) use ($applyFilter, $start_date, $end_date) {
+                $query->when($applyFilter, function($query) use ($start_date, $end_date) {
+                    $query->whereBetween('created_at', [$start_date, $end_date]);
+                });
+            }])
+            ->withSum(['paid_orders' => function($query) use ($applyFilter, $start_date, $end_date) {
+                $query->when($applyFilter, function($query) use ($start_date, $end_date) {
+                    $query->whereBetween('created_at', [$start_date, $end_date]);
+                });
+            }], 'amount')
             ->get()
+            ->sortByDesc('paid_orders.*.created_at')
             ->map(function ($user) {
                 return [
                     'name' => $user->name,
                     'total_orders' => $user->paid_orders_count,
                     'total_amount' => $user->paid_orders_sum_amount ?? 0
                 ];
-            })
-            ->sortByDesc('total_amount');
+            });
 
         // Export
         if ($request->filled('export') && $request->export === 'true') {
