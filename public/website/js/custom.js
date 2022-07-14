@@ -80,11 +80,11 @@ $(document).ready(function() {
     //prefix: '$'
   });
   noUiSlider.create(rangeSlider, {
-    start: [0, 6000],
+    start: [0, 60000],
     step: 1,
     range: {
       'min': [0],
-      'max': [6000]
+      'max': [60000]
     },
     format: moneyFormat,
     connect: true
