@@ -6,7 +6,7 @@
         <div class="col-3 categories-col">
             <div class="d-flex flex-column flex-shrink-0" > 
                 <div class="for-mobile mbl-banner">
-                    <ul class="nav nav-pills nav-fill">
+                    {{-- <ul class="nav nav-pills nav-fill">
                       <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Best Offers</a>
                       </li>
@@ -19,7 +19,8 @@
                       <li class="nav-item">
                         <a class="nav-link">Your Points</a>
                       </li>
-                    </ul>
+                    </ul> --}}
+                    @include('website.layouts.user_menu')
                 </div>
                 <div class="categories">
                     <h2 class="for-desktop">Categories</h2>
