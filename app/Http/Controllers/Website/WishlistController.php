@@ -81,6 +81,9 @@ class WishlistController extends Controller
         {
             $orderid = $allparms['ORDERID'];
             Order::where('orderid' , $orderid)->update(['orderstatus'=>'payementdone']);
+
+						Cmf::sendordersms($orderid);
+
             return view('website.guestthanks',compact('orderid'));
         }else{
         	$orderid = $allparms['ORDERID'];
