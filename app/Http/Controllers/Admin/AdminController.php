@@ -1539,6 +1539,6 @@ public function editProcess(Request $request){
     public function bulkupdateprocess(Request $request)
     {
         Excel::import(new ImportProducts, $request->file('file')->store('files'));
-        return redirect()->back();
+        return back()->with('success','Produts Updated Successfully');
     }
 }
