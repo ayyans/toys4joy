@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\OrderStatusChanged;
+use App\Exports\CustomersReportExport;
 use App\Exports\InventoryReportExport;
 use App\Exports\SalesReportExport;
 use App\Imports\ImportProducts;
@@ -1542,6 +1543,28 @@ public function editProcess(Request $request){
 
         return view('admin.reports.inventory-report', compact('products', 'productsCount', 'categoriesCount', 'subcategoriesCount'));
     }
+
+    public function customersReport(Request $request) {
+        $users = User::withCount(['paid_orders'])
+            ->withSum('paid_orders', 'amount')
+            ->get()
+            ->map(function ($user) {
+                return [
+                    'name' => $user->name,
+                    'total_orders' => $user->paid_orders_count,
+                    'total_amount' => $user->paid_orders_sum_amount ?? 0
+                ];
+            })
+            ->sortByDesc('total_amount');
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new CustomersReportExport($users), 'customers-report.xlsx');
+        }
+
+        return view('admin.reports.customers-report', compact('users'));
+    }
+
     public function bulkupload()
     {
         return view('admin.reports.bulkupload');
