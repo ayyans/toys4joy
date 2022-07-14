@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Events\OrderStatusChanged;
 use App\Exports\CustomersReportExport;
+use App\Exports\GuestsReportExport;
 use App\Exports\InventoryReportExport;
 use App\Exports\SalesReportExport;
 use App\Imports\ImportProducts;
@@ -29,6 +30,7 @@ use App\Models\User;
 use App\Models\requiredproducts;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use PDO;
 
 class AdminController extends Controller
 {
@@ -1585,6 +1587,41 @@ public function editProcess(Request $request){
         }
 
         return view('admin.reports.customers-report', compact('users'));
+    }
+
+    public function guestsReport(Request $request) {
+
+        $applyFilter = false;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        if ($request->anyFilled('start_date', 'end_date')) {
+            $applyFilter = true;
+        }
+
+        $orders = GuestOrder::where('guest_orders.status', 5)
+            ->join('products', 'guest_orders.prod_id', 'products.id')
+            ->select('guest_orders.cust_email', 'guest_orders.created_at', 'guest_orders.qty', 'products.title', 'products.unit_price')
+            ->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('guest_orders.created_at', [$start_date, $end_date]);
+            })
+            ->get()
+            ->groupBy('cust_email')
+            ->sortByDesc(fn ($orders) => $orders->max('created_at'))
+            ->map(function($orders, $key) {
+                return [
+                    'email' => $key,
+                    'total_orders' => $orders->count(),
+                    'total_amount' => $orders->sum(DB::raw('products.unit_price * guest_orders.qty'))
+                ];
+            });
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new GuestsReportExport($orders), 'guests-report.xlsx');
+        }
+
+        return view('admin.reports.guests-report', compact('orders'));
     }
 
     public function bulkupload()

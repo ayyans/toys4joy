@@ -4,7 +4,7 @@
 
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Sales Report</h1>
+    <h1 class="h3 mb-0 text-gray-800">Guests Report</h1>
     <div class="d-flex">
       <a id="filter-button" href="javascript:;" class="d-inline-block btn btn-sm btn-success shadow-sm mr-2" style="width: 120px">
         <i class="fas fa-filter fa-sm text-white-50"></i> Filter</a>
@@ -14,7 +14,7 @@
   </div>
 
   <div id="filter-container" class="mb-3 border p-3 rounded">
-    <form action="{{ route('admin.report.sales') }}" method="get">
+    <form action="{{ route('admin.report.guests') }}" method="get">
       <div class="row">
         <div class="col-6 col-md-5">
           <div class="form-group mb-0">
@@ -38,56 +38,23 @@
     </form>
   </div>
 
-  <div class="row">
-
-    <div class="col-md-6 mb-4">
-      <div class="card border-left-primary shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                Products Sold</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $productsSold }}</div>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-calendar fa-2x text-gray-300"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-6 mb-4">
-      <div class="card border-left-success shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                Total Revenue</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $revenueCount }}</div>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
   <table class="datatable table table-striped table-bordered" style="width:100%">
     <thead>
       <tr>
+        <th>#</th>
         <th>Name</th>
-        <th>Sales</th>
+        <th>Total Orders</th>
+        <th>Total Spent</th>
       </tr>
     </thead>
     <tbody>
-      @foreach ($products as $product)
+      @php $count = 1 @endphp
+      @foreach ($orders as $order)
         <tr>
-          <td>{{ $product['title'] }}</td>
-          <td>{{ $product['sales'] }}</td>
+          <td>{{ $count++ }}</td>
+          <td>{{ $order['email'] }}</td>
+          <td>{{ $order['total_orders'] }}</td>
+          <td>{{ $order['total_amount'] }}</td>
         </tr>
       @endforeach
     </tbody>
@@ -99,9 +66,7 @@
 <script>
 $(function () {
   // datatables
-  $('.datatable').DataTable({
-    'order': [[1, 'desc']]
-  });
+  $('.datatable').DataTable();
 
   // filters
   $('#filter-button').on('click', function() {

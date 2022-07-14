@@ -19,13 +19,13 @@
         <div class="col-6 col-md-5">
           <div class="form-group mb-0">
             <label for="start_date">Start Date</label>
-            <input type="date" class="form-control" id="start_date" name="start_date" required>
+            <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request()->start_date }}" required>
           </div>
         </div>
         <div class="col-6 col-md-5">
           <div class="form-group mb-0">
             <label for="end_date">End Date</label>
-            <input type="date" class="form-control" id="end_date" name="end_date" required>
+            <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request()->end_date }}" required>
           </div>
         </div>
         <div class="col-12 col-md-2">
@@ -49,7 +49,7 @@
     </thead>
     <tbody>
       @php $count = 1 @endphp
-      @foreach ($users as $index => $user)
+      @foreach ($users as $user)
         <tr>
           <td>{{ $count++ }}</td>
           <td>{{ $user['name'] }}</td>
