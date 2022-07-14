@@ -17,7 +17,7 @@ class ImportProducts implements ToModel
         if($product)
         {
             $productsave = Product::find($product->id);
-            $productsave->unit_price = $row[1];
+            $productsave->qty = $row[1];
             $productsave->unit_price = $row[2];
             $productsave->save();
         }
