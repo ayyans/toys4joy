@@ -29,9 +29,11 @@
                       </div>
                       <div class="carousel-inner">
                         @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
-                        <div class="carousel-item @if ($loop->first) active @endif">
-                          <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid">
-                        </div>
+                        <a href="{{ url('') }}/{{ $r->url }}">
+                          <div class="carousel-item @if ($loop->first) active @endif">
+                            <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid">
+                          </div>
+                        </a>
                         @endforeach
                       </div>
                       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -164,7 +166,7 @@
                         <button type="button" class="btn btn-primary modal-toggle" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <img src="{{asset('website/img/upload-image.png')}}" class="img-fluid">
                         </button>    
-                        <span class="tooltiptext">Upload image of the product you are looking for.</span>
+                        <span class="tooltiptext">Share with us the products and prices you wish</span>
                     </a>
                 </div>
                 
