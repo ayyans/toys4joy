@@ -47,4 +47,12 @@ class User extends Authenticatable
     public function returnRequests() {
         return $this->hasMany(ReturnRequest::class);
     }
+
+    public function orders() {
+        return $this->hasMany(Order::class, 'cust_id', 'id');
+    }
+
+    public function paid_orders() {
+        return $this->hasMany(Order::class, 'cust_id', 'id')->where('status', 5);
+    }
 }
