@@ -14,6 +14,8 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
+              <th>Date</th>
+              <th>Time</th>
               <th>User</th>
               <th>Reason</th>
               <th>Detail</th>
@@ -25,6 +27,8 @@
           <tbody>
             @foreach($returnRequests as $returnRequest)
             <tr>
+              <td>{{ $returnRequest->created_at->format('Y-m-d') }}</td>
+              <td>{{ $returnRequest->created_at->format('H:m:s') }}</td>
               <td>{{ $returnRequest->user->name }}</td>
               <td>{{ $returnRequest->reason }}</td>
               <td>{{ $returnRequest->detail }}</td>
@@ -71,4 +75,12 @@
 
 @push('otherscript')
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<script>
+  $(function () {
+  // datatables
+  $('.datatable').DataTable({
+    'order': [[1, 'desc']]
+  });
+});
+</script>
 @endpush
