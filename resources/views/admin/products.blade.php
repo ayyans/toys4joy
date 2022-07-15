@@ -21,6 +21,7 @@
                     <th>SKU</th>
                     <th>Name</th>
                     <th>price</th> 
+                    <th>discount</th> 
                     <th>Qty</th>                                              
                     <th>Status</th>
                     <th>Action</th>                        
@@ -34,6 +35,7 @@
                     <td>{{ $product->sku }}</td>
                     <td>{{$product->title}}</td>
                     <td>{{$product->unit_price}}</td>
+                    <td>{{$product->discount}}</td>
                     <td>{{$product->qty}}</td>
                     <td>
                             @if($product->status==1)
