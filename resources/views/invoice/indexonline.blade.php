@@ -182,14 +182,19 @@
         @foreach($order as $r)
         @php
           $product = DB::table('products')->where('id' , $r->prod_id)->get()->first();
-
+          if($product->discount)
+          {
+              $price = $product->discount;
+          }else{
+              $price = $product->unit_price;
+          }
         @endphp
         <tr class="item">
           <td>{{ $product->title }}</td>
           <td style="text-align:center">{{ $product->sku }}</td>
-          <td style="text-align:center">QAR {{ $product->unit_price }}</td>
+          <td style="text-align:center">QAR {{ $price }}</td>
           <td style="text-align:center">{{ $r->qty }}</td>
-          <td style="text-align:right">QAR {{ $product->unit_price*$r->qty }}</td>
+          <td style="text-align:right">QAR {{ $price*$r->qty }}</td>
         </tr>
         @endforeach
 

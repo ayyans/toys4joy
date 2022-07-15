@@ -89,12 +89,24 @@
                 <div class="single">
                     @if($product->qty == 0)
                     <div class="availbility"><span>Out of Stock</span></div>
+                    @elseif($product->discount)
+                    @php
+                      $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
+                    @endphp
+                    <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
                     @endif
-
                     <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
                     <div class="text-center content-block">
                         <h3>{{$product->title}}</h3>
-                        <div class="d-flex price-cart"><span class="price">QAR {{$product->unit_price}}</span><i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i></div>
+                        <div class="d-flex price-cart">
+                          @if($product->discount)
+                          <span class="price">QAR {{$product->discount}}</span>
+                          <del class="price">QAR {{$product->unit_price}}</del>
+                          @else
+                          <span class="price">QAR {{$product->unit_price}}</span>
+                          @endif
+                          <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
+                        </div>
                     </div>
                 </div>
                 @endforeach

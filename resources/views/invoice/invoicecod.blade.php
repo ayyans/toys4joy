@@ -137,9 +137,9 @@
                   Order Date: {{ date('M d, Y', strtotime($order->first()->created_at)) }}<br />
                   Invoice Status: <b style="color: green;">
                      @if($order->first()->mode == 2)
-                     PAID
-                     @else 
                      COD
+                     @else 
+                     PAID
                      @endif
                   </b>
                 </td>
@@ -178,16 +178,24 @@
         @php
           $product = DB::table('products')->where('id' , $r->prod_id)->get()->first();
           $totalammount = 0;
+
+
+          if($product->discount)
+          {
+              $price = $product->discount;
+          }else{
+              $price = $product->unit_price;
+          }
         @endphp
         <tr class="item">
           <td>{{ $product->title }}</td>
           <td style="text-align:center">{{ $product->sku }}</td>
-          <td style="text-align:center">QAR {{ $product->unit_price }}</td>
+          <td style="text-align:center">QAR {{ $price }}</td>
           <td style="text-align:center">{{ $r->qty }}</td>
-          <td style="text-align:right">QAR {{ $product->unit_price*$r->qty }}</td>
+          <td style="text-align:right">QAR {{ $price*$r->qty }}</td>
         </tr>
         @php
-            $totalammount += $product->unit_price*$r->qty;
+            $totalammount += $price*$r->qty;
         @endphp
         @endforeach
 

@@ -53,12 +53,22 @@ if(Auth::check())
  $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
  $sadad_checksum_array['CALLBACK_URL'] = url('orderconfermasguest'); 
  $sadad_checksum_array['txnDate'] = $txnDate; 
+
+
+if($products->discount)
+{
+    $price = $products->discount;
+}else{
+    $price = $products->unit_price;
+}
+               
+
 $sadad_checksum_array['productdetail'] = 
  array( 
  array( 
  'order_id'=> $orderid,
  'itemname'=>  $products->title,
- 'amount'=>$products->unit_price, 
+ 'amount'=>$price, 
  'quantity'=>$fnlqty,
 ) 
 ); 
@@ -117,9 +127,9 @@ $action_url = 'https://sadadqa.com/webpurchase';
                 <div class="cart-image"><img src="{{asset('products/'.$products->featured_img)}}"/></div>
                 <div class="product-detail">
                     <h2 class="title">{{$products->title}}</h2>
-                    <h4 class="price">QAR {{$products->unit_price}}</h4>
+                    <h4 class="price">QAR {{$price}}</h4>
                     <div class="qty">Quantity : {{$fnlqty}}</div>
-                    <input type="hidden" value="{{$products->unit_price}}" id="initprice" />
+                    <input type="hidden" value="{{$price}}" id="initprice" />
                     <input type="hidden" value="{{$fnlqty}}" id="fnlqty" />
                     <div class="d-flex rmv-or-edit">
                         <div class="remove icon"><a href="#"><img src="{{asset('website/img/delete.png')}}"/></a></div>

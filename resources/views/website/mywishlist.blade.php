@@ -24,7 +24,16 @@
               <tbody>
                 <?php $total_price = 0; ?>
                 @foreach($wshlists as $wishlist)
-                <?php $total_price+=$wishlist->unit_price; ?>
+                @php
+                if($wishlist->discount)
+                {
+                    $price = $wishlist->discount;
+                }else{
+                    $price = $wishlist->unit_price;
+                }
+                @endphp
+
+                <?php $total_price+=$price; ?>
                 <tr>
                     <td class="qty"><input type="number" value="1" id="quantity" name="quantity" min="{{$wishlist->min_qty}}" max="{{$wishlist->qty}}" class="quantity" data="{{$wishlist->id}}"></td>
                     <td class="title">
@@ -33,9 +42,9 @@
                       </div>
                     </td>
                     <td><div class="img-box"><a href="{{route('website.productDetails',[encrypt($wishlist->category_id),encrypt($wishlist->id)])}}"><img src="{{asset('products/'.$wishlist->featured_img)}}"/></a></div></td>
-                    <td class="price"><span>{{$wishlist->unit_price}} QAR</span></td>
+                    <td class="price"><span>{{$price}} QAR</span></td>
                     <td class="delete"><div class="rmv-icon"><a href="{{route('website.removeWishlist',[encrypt($wishlist->wish_id)])}}"><img src="{{asset('website/img/delete-product.png')}}"/></a></div></td>
-                    <td><button class="btn btn-success addtocartBtn{{$wishlist->id}}" onclick="addtocart({{$wishlist->id}},1,{{$wishlist->unit_price}})" >Add to cart</button></td>
+                    <td><button class="btn btn-success addtocartBtn{{$wishlist->id}}" onclick="addtocart({{$wishlist->id}},1,{{$price}})" >Add to cart</button></td>
                 </tr>
                 @endforeach
                

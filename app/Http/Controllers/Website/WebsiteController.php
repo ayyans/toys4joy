@@ -251,12 +251,19 @@ class WebsiteController extends Controller
                 'qty'=>$qty_dec
             ]);
 
+            if($getproduct->discount)
+            {
+                $price = $getproduct->discount;
+            }else{
+                $price = $getproduct->unit_price;
+            }
+
             $order_details = [
                 'email' => $request->email,
                 'order_number' => $order_number,
-                'total' => $getproduct->unit_price * $request->prod_qty,
+                'total' => $price * $request->prod_qty,
                 'quantity' => [$request->prod_qty],
-                'amount' => [$getproduct->unit_price * $request->prod_qty],
+                'amount' => [$price * $request->prod_qty],
                 'address' => 'N/A',
                 'products' => [$getproduct->title],
             ];
@@ -348,6 +355,16 @@ class WebsiteController extends Controller
         $cust = Cmf::ipaddress();
         $prod_id = $request->prod_id;
         $qty = $request->quantity;
+
+        $product = Product::where('id','=',$prod_id)->first();
+
+        if($product->discount)
+        {
+            $price = $product->discount;
+        }else{
+            $price = $product->unit_price;
+        }
+
         $existcart = Cart::where('cust_id','=',$cust)->where('prod_id','=',$prod_id)->count();        
         if($existcart>0){
             $existqty = Cart::where('cust_id','=',$cust)->where('prod_id','=',$prod_id)->first();
@@ -366,7 +383,7 @@ class WebsiteController extends Controller
                 $addTo->cust_id=$cust;
                 $addTo->prod_id=$prod_id;
                 $addTo->qty = $qty;
-                $addTo->amount=$request->amt;
+                $addTo->amount=$price;
                 $addTo->save();
                 if($addTo==true){
                     return response()->json(["status"=>"200","msg"=>"1"]);
@@ -392,7 +409,13 @@ class WebsiteController extends Controller
         ->get();
 
         $totalPrice = $data->sum(function ($cart) {
-            return $cart->unit_price * $cart->cartQty;
+            if($cart->discount)
+            {
+                $price = $cart->discount;
+            }else{
+                $price = $cart->unit_price;
+            }
+            return $price * $cart->cartQty;
         });
 
         $body = '';
@@ -400,7 +423,16 @@ class WebsiteController extends Controller
         if($data->count() > 0) {
             $total_price = 0;
             foreach($data as $cart) {
-                $total_price+=$cart->unit_price*$cart->cartQty;
+
+                if($cart->discount)
+                {
+                    $price = $cart->discount;
+                }else{
+                    $price = $cart->unit_price;
+                }
+
+                
+                $total_price+=$price*$cart->cartQty;
                 $body .= '
                 <tr>
                     <td class="qty"><input type="number" value="'.$cart->cartQty.'" id="quantity" name="quantity" min="1" max="'.$cart->qty.'" onchange="updateQty('.$cart->crtid.',this.value)"></td>
@@ -410,7 +442,7 @@ class WebsiteController extends Controller
                     </div>
                     </td>
                     <td><div class="img-box"><img src="'.asset('products/'.$cart->featured_img).'"/></div></td>
-                    <td class="price"><span>QAR '.$cart->unit_price.'</span></td>
+                    <td class="price"><span>QAR '.$price.'</span></td>
                     <td class="delete"><div class="rmv-icon"><a href="javascript:void(0)" onclick="removeCartContent('.$cart->crtid.')"><img src="'.asset('website/img/delete-product.png').'"/></a></div></td>
                 </tr>';
             }
@@ -439,13 +471,20 @@ class WebsiteController extends Controller
             <div id="cartdetailsheader">';
             $total_price = 0;
             foreach ($data as $r) {
-            $total_price += $r->cartQty*$r->unit_price;
+            if($r->discount)
+            {
+                $price = $r->discount;
+            }else{
+                $price = $r->unit_price;
+            }
+
+            $total_price += $r->cartQty*$price;
             echo '<div class="d-flex added-products"> 
                 <div class="pro-image">
                 <img src="'.asset("products").'/'.$r->featured_img.'">
                 </div><div class="product-detail"> 
                 <h2 class="title">'.$r->title.'</h2> 
-                <h4 class="price">QAR '.$r->unit_price.'</h4> 
+                <h4 class="price">QAR '.$price.'</h4> 
                 <div class="d-flex rmv-or-edit"> 
                 <div class="qty">
                 <input type="number" value="'.$r->cartQty.'" id="quantity" name="quantity" min="1" max="2" onchange="updateQty('.$r->crtid.',this.value)">

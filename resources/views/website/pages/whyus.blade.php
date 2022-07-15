@@ -40,7 +40,7 @@
                 </div>
                 <div class="d-flex list">
                     <div class="icon"><img src="{{ url('website/img/wishlist-cart.png') }}"/></div>
-                    <h4>Add your favorite toys to your Whislist, and share it with the one you loved to help them buy your favorite gifts</h4>
+                    <h4>Add your favourite toys to your Wish List, and share it with the one you love to help them buy your favourite gifts</h4>
                 </div>
                 <div class="d-flex list">
                     <div class="icon"><img src="{{ url('website/img/gift-card.png') }}"/></div>

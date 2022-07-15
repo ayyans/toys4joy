@@ -9,15 +9,24 @@
         <form action="{{ url('place-order-process') }}" method="POST" id="checkoutFrm">
             <?php $total_price = 0; ?>
             @foreach($products as $product)
-            <?php $total_price+=$product->unit_price*$product->cartQty; ?>
+
+            @php
+              if($product->discount)
+              {
+                  $price = $product->discount;
+              }else{
+                  $price = $product->unit_price;
+              }
+            @endphp
+            <?php $total_price+=$price*$product->cartQty; ?>
             <input type="hidden" id="prod_id" value="{{$product->id}}" name="prodid[]" />
             <input type="hidden" id="cart_qty" value="{{$product->cartQty}}" name="cartQty[]" />
-            <input type="hidden" id="cart_amount" value="{{$product->unit_price}}" name="cart_amount[]" />
+            <input type="hidden" id="cart_amount" value="{{$price}}" name="cart_amount[]" />
             <div class="d-flex cart-products">
                 <div class="cart-image"><img src="{{asset('products/'.$product->featured_img)}}"/></div>
                 <div class="product-detail">
                     <h2 class="title">{{$product->title}}</h2>
-                    <h4 class="price">QAR {{$product->unit_price}}</h4>
+                    <h4 class="price">QAR {{$price}}</h4>
                     <div class="qty">Quantity : {{$product->cartQty}}</div>
                     <div class="d-flex rmv-or-edit">
                         <div class="remove icon"><a href="javascript:void(0)" onclick="removecart({{$product->crtid}})"><img src="{{asset('website/img/delete.png')}}"/></a></div>
@@ -109,8 +118,17 @@ if(Auth::check())
  $sadad_checksum_array['txnDate'] = $txnDate; 
 
 foreach ($products as $product) {
+
+    if($product->discount)
+      {
+          $price = $product->discount;
+      }else{
+          $price = $product->unit_price;
+      }
+
+    
     $json_decoded = json_decode($product);
-    $allproducts[] = array('order_id' => $orderid, 'itemname' => $product->title, 'amount' =>$product->unit_price, 'quantity' => $product->cartQty);
+    $allproducts[] = array('order_id' => $orderid, 'itemname' => $product->title, 'amount' =>$price, 'quantity' => $product->cartQty);
 }
 $sadad_checksum_array['productdetail'] = $allproducts;
 

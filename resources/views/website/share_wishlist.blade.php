@@ -54,8 +54,17 @@ function encrypt_e($input, $ky) {
 foreach ($wshlists as $product) {
   if($product->share_status == 0)
   {
+
+     if($product->discount)
+      {
+          $price = $product->discount;
+      }else{
+          $price = $product->unit_price;
+      }
+
+
     $json_decoded = json_decode($product);
-    $allproducts[] = array('order_id' => $orderid, 'itemname' => $product->title, 'amount' =>$product->unit_price, 'quantity' =>1);
+    $allproducts[] = array('order_id' => $orderid, 'itemname' => $product->title, 'amount' =>$price, 'quantity' =>1);
   }
     
 }
@@ -125,7 +134,15 @@ $action_url = 'https://sadadqa.com/webpurchase';
 
                 @if($wishlist->share_status == 0)
                 @php
-                  $total_price+=$wishlist->unit_price;
+                if($wishlist->discount)
+                  {
+                      $price = $wishlist->discount;
+                  }else{
+                      $price = $wishlist->unit_price;
+                  }
+
+
+                  $total_price+=$price;
                 @endphp
 
                 @endif
@@ -139,7 +156,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
                       </div>
                     </td>
                     <td><div class="img-box"><a href="{{ url('product') }}/{{ $wishlist->url }}"><img src="{{asset('products/'.$wishlist->featured_img)}}"/></a></div></td>
-                    <td class="price"><span>{{$wishlist->unit_price}} QAR</span></td>
+                    <td class="price"><span>{{$price}} QAR</span></td>
                 </tr>
                 @endforeach
               </tbody>
@@ -184,11 +201,19 @@ $action_url = 'https://sadadqa.com/webpurchase';
               <tbody>
                 <?php $total_price = 0; ?>
                 @foreach($wshlists as $wishlist)
-
-                @if($wishlist->share_status == 0)
                 @php
-                  $total_price+=$wishlist->unit_price;
+                if($wishlist->discount)
+                  {
+                      $price = $wishlist->discount;
+                  }else{
+                      $price = $wishlist->unit_price;
+                  }
                 @endphp
+                @if($wishlist->share_status == 0)
+
+                    @php
+                      $total_price+=$price;
+                    @endphp
 
                 @endif
                 <tr>
@@ -201,7 +226,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
                       </div>
                     </td>
                     <td><div class="img-box"><a href="{{ url('product') }}/{{ $wishlist->url }}"><img src="{{asset('products/'.$wishlist->featured_img)}}"/></a></div></td>
-                    <td class="price"><span>{{$wishlist->unit_price}} QAR</span></td>
+                    <td class="price"><span>{{$price}} QAR</span></td>
                 </tr>
                 @endforeach
               </tbody>

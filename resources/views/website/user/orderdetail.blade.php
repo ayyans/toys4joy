@@ -39,13 +39,21 @@
               </thead>
               <tbody>
               	@foreach($orders as $order)
+                @php
+                if($order->discount)
+                {
+                  $price = $order->discount;
+                }else{
+                  $price = $order->unit_price;
+                }
+                @endphp
                 <tr>
                   <td>
                       <div class="d-flex product-rank">
                           <div class="img-box"><img src="{{asset('products/'.$order->featured_img)}}"/></div>
                           <div class="detail">
                               <p>{{$order->title}}</p>
-                              <div><span>Price: {{ $order->unit_price }} QAR</span></div>
+                              <div><span>Price: {{ $price }} QAR</span></div>
                               <p>QTY: {{$order->OrderQty}}</p>
                           </div>
                       </div>
