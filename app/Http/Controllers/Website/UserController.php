@@ -154,6 +154,8 @@ class UserController extends Controller
 			$cust_address = CustomerAddress::find($check->first()->id);
 	        $cust_address->unit_no=$request->unit_no;
 	        $cust_address->building_no=$request->buid_no;
+	        $cust_address->latitude=$request->latitude;
+	        $cust_address->longitude=$request->longitude;
 	        $cust_address->zone=$request->zone;
 	        $cust_address->street=$request->street;
 	        $cust_address->save();
@@ -162,6 +164,8 @@ class UserController extends Controller
 	        $cust_address = new CustomerAddress;
 	        $cust_address->cust_id=$cust_id;
 	        $cust_address->unit_no=$request->unit_no;
+	        $cust_address->latitude=$request->latitude;
+	        $cust_address->longitude=$request->longitude;
 	        $cust_address->building_no=$request->buid_no;
 	        $cust_address->zone=$request->zone;
 	        $cust_address->street=$request->street;
