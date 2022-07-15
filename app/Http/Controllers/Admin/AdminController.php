@@ -1175,6 +1175,7 @@ public function custOrders(){
             "customer_addresses.street",
                   
                         )
+            ->where('orders.orderstatus' , '!=' , 'payementpending')
             ->leftJoin('users', 'orders.cust_id', '=', 'users.id')
             ->leftJoin('customer_addresses', 'orders.cust_add_id', '=', 'customer_addresses.id')
             ->groupBy('orders.orderid')
