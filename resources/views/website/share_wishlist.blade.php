@@ -1,5 +1,11 @@
 @extends('website.layouts.master')
 @section('content')
+
+@php
+$orderid = rand('123456798' , '987654321');
+@endphp
+
+@if($wshlists->first()->share_status == 0)
 <?php 
 function getChecksumFromString($str, $key) {
  $salt = generateSalt_e(4); 
@@ -34,7 +40,7 @@ function encrypt_e($input, $ky) {
  $email = $wshlists->first()->email;
  $secretKey = 'ewHgg8NgyY5zo59M'; 
  $merchantID = '7288803';
- $orderid = rand('123456798' , '987654321');
+ 
  $sadad_checksum_array['merchant_id'] = $merchantID;  
  $sadad_checksum_array['ORDER_ID'] = $orderid; 
  $sadad_checksum_array['WEBSITE'] = url('');  
@@ -153,8 +159,84 @@ $action_url = 'https://sadadqa.com/webpurchase';
         </div>
     </div>
 </div>
-
 </main>
+@else
+<main id="products-ranking" class="my-basket my-wishlist-page">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex main-title">
+                <div class="title">{{ $wshlists->first()->name }} Wish List</div>
+                <div class="icon">
+                    <button class="btn btn-primary" type="button"><img src="{{asset('website/img/wishlist-heart.png')}}" class="wishlist"></button>
+                </div>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="first"></th>
+                  <th>Name</th>
+                  <th>Images</th>
+                  <th>Prices</th>
+                    <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php $total_price = 0; ?>
+                @foreach($wshlists as $wishlist)
+
+                @if($wishlist->share_status == 0)
+                @php
+                  $total_price+=$wishlist->unit_price;
+                @endphp
+
+                @endif
+                <tr>
+                    <td class="qty">
+                      <input onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
+                    </td>
+                    <td class="title">
+                      <div class="d-flex product-rank">
+                          <div class="detail"><a href="{{ url('product') }}/{{ $wishlist->url }}" style="text-decoration:none"><p>{{$wishlist->title}}</p></a></div>
+                      </div>
+                    </td>
+                    <td><div class="img-box"><a href="{{ url('product') }}/{{ $wishlist->url }}"><img src="{{asset('products/'.$wishlist->featured_img)}}"/></a></div></td>
+                    <td class="price"><span>{{$wishlist->unit_price}} QAR</span></td>
+                </tr>
+                @endforeach
+              </tbody>
+              <tfoot>
+                <tr>
+                    <td colspan="2">Total Price</td>
+                    <td colspan="4">{{$total_price}} QAR</td>
+                </tr>
+              </tfoot>    
+            </table>
+            <div class="d-flex ftr-btn-area">
+                <div class="vertical-shake continue-shopping"></div>
+                <div class="d-flex pay-as">
+                    <div onclick="placeorderzerowishlist()" class="guest"><a href="javascript:void(0)">Place Order (QAR{{$total_price}})</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+<script type="text/javascript">
+    function placeorderzerowishlist()
+    {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Please Select Atleast one Product',
+            showConfirmButton: false,
+            timer: 3500
+          })
+    }
+</script>
+@endif
+
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 @stop
 
