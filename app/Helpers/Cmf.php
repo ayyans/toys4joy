@@ -9,7 +9,7 @@ use Session;
 use Carbon\Carbon;
 use App\Models\adminsmsnumbers;
 use App\Models\GuestOrder;
-use App\Models\order;
+use App\Models\Order;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Http;
 class Cmf
@@ -25,10 +25,10 @@ class Cmf
     public static function sendordersms($orderid)
     {
         $data = adminsmsnumbers::all();
-        $checkorder = order::where('orderid' , $orderid)->get()->count();
+        $checkorder = Order::where('orderid' , $orderid)->get()->count();
         if($checkorder > 0)
         {
-            $order = order::where('orderid' , $orderid)->get()->first();
+            $order = Order::where('orderid' , $orderid)->get()->first();
             $user = DB::table('users')->where('id' , $order->cust_id)->get()->first();
             $name = $user->name;
         }
