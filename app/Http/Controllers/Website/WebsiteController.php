@@ -910,9 +910,7 @@ public function giftcard(Request $request){
 
 
 
-public function changepassword(Request $request){
-    return view('website.changepassword');
-}
+
 
     
 

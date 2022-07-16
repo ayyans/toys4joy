@@ -107,7 +107,8 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     Route::get('/my-points','WebsiteController@yourpoints')->name('yourpoints');
     Route::get('/gift-cards','WebsiteController@giftcard')->name('giftcard');
     Route::get('/my-profile','UserController@myprofile')->name('myprofile');
-    Route::get('/change-password','WebsiteController@changepassword')->name('changepassword');
+    Route::get('/change-password','UserController@changepassword')->name('changepassword');
+    Route::POST('/updateusersecurity','UserController@updateusersecurity')->name('updateusersecurity');
     Route::get('/changemobilenumber','UserController@changemobilenumber')->name('changemobilenumber');
     Route::post('/updatemobilenumber','UserController@updatemobilenumber');
     Route::get('/mysiblings','UserController@mysiblings')->name('mysiblings');

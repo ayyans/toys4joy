@@ -200,4 +200,37 @@ class UserController extends Controller
     	return view('website.user.orderdetail',compact('orders','orderid'));
     	
     }
+    public function changepassword(Request $request){
+	    return view('website.user.changepassword');
+	}
+	public function updateusersecurity(Request $request)
+	{
+		$this->validate($request, [
+        'oldpassword' => 'required',
+        'newpassword' => 'required',
+        ]);
+        if($request->newpassword == $request->password_confirmed){
+        $hashedPassword = Auth::user()->password;
+       if (\Hash::check($request->oldpassword , $hashedPassword )) {
+         if (!\Hash::check($request->newpassword , $hashedPassword)) {
+              $users =User::find(Auth::user()->id);
+              $users->password = bcrypt($request->newpassword);
+              User::where( 'id' , Auth::user()->id)->update( array( 'password' =>  $users->password));
+              session()->flash('message','password updated successfully');
+              return redirect()->back();
+            }
+            else{
+                  session()->flash('errorsecurity','New password can not be the old password!');
+                  return redirect()->back();
+                }
+           }
+          else{
+               session()->flash('errorsecurity','Old password Doesnt matched ');
+               return redirect()->back();
+             }
+        }else{
+            session()->flash('errorsecurity','Repeat password Doesnt matched With New Password');
+            return redirect()->back();
+        }
+	}
 }
