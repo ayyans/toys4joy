@@ -1632,7 +1632,25 @@ public function editProcess(Request $request){
     }
     public function bulkupdateprocess(Request $request)
     {
-        Excel::import(new ImportProducts, $request->file('file')->store('files'));
+        $sheet = Excel::toCollection(null, $request->file('file'))->first();
+        $selectedProductsSKU = $sheet->pluck(0);
+        $products = Product::all();
+        $selectedProducts = $products->whereIn('sku', $selectedProductsSKU);
+        $otherProducts = $products->whereNotIn('sku', $selectedProductsSKU);
+        // Selected Products
+        foreach ($sheet as $row) {
+            $product = $selectedProducts->firstWhere('sku', $row[0]);
+            if ($product) {
+                $product->update([
+                    'qty' => $row[1],
+                    'unit_price' => $row[2]
+                ]);
+            }
+        }
+        // Order Products
+        foreach ($otherProducts as $product) {
+            $product->update(['qty' => 0]);
+        }
         return back()->with('success','Produts Updated Successfully');
     }
 }
