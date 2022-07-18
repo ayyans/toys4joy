@@ -73,6 +73,7 @@
           <th>Stock</th>
           <th>Category</th>
           <th>Subcategory</th>
+          <th>Description</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -85,6 +86,7 @@
             <td>{{ $product->qty }}</td>
             <td>{{ $product->category_id }}</td>
             <td>{{ $product->sub_cat }}</td>
+            <td><a href="#" class="text-decoration-none" data-description="{{ $product->long_desc }}" data-toggle="modal" data-target="#descriptionModal">view</a></td>
             <td>{{ $product->status }}</td>
           </tr>
         @empty
@@ -93,6 +95,26 @@
       </tbody>
     </table>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="descriptionModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="descriptionModalTitle">Description</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="description"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @push('otherscript')
@@ -100,5 +122,12 @@
 $(document).ready(function () {
   $('.datatable').DataTable();
 });
+
+$('#descriptionModal').on('show.bs.modal', function (e) {
+  const button = $(e.relatedTarget);
+  const description = button.data('description');
+  const modal = $(this);
+  modal.find('#description').text(description);
+})
 </script>
 @endpush
