@@ -78,7 +78,7 @@
         </tr>
       </thead>
       <tbody>
-        @forelse ($products as $product)
+        @foreach ($products as $product)
           <tr>
             <td>{{ $product->title }}</td>
             <td>{{ $product->sku }}</td>
@@ -89,9 +89,7 @@
             <td><a href="#" class="text-decoration-none" data-description="{{ $product->long_desc }}" data-toggle="modal" data-target="#descriptionModal">view</a></td>
             <td>{{ $product->status }}</td>
           </tr>
-        @empty
-          
-        @endforelse
+        @endforeach
       </tbody>
     </table>
 </div>
