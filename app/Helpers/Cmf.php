@@ -49,14 +49,20 @@ Order ID '.$orderid.'';
         }
     }
     public static function ipaddress(){
-        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        if(session()->get('cart'))
+        {
+            return session()->get('cart');
         }else{
-            $ip = $_SERVER['REMOTE_ADDR'];
+            $length = 12;
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i=0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
+            session()->put('cart' , $randomString);
+            return session()->get('cart');
         }
-        return $ip;
     }
     public static function sendimagetodirectory($imagename)
     {
