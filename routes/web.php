@@ -65,6 +65,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/guestthankorder/{id}','WebsiteController@guestthankorder');
     Route::get('/registration-thanks','WebsiteController@registrationThank')->name('registrationThank');
     Route::get('/share-wishlist/{cust_id}','WebsiteController@sharewishlist')->name('sharewishlist');
+    Route::post('/savegreetings','WishlistController@savegreetings');
     Route::post('/payasguestordergenerate','OrderController@payasguestordergenerate')->name('payasguestordergenerate');
     Route::post('/orderconfermasguest','OrderController@orderconfermasguest')->name('orderconfermasguest');
     Route::get('/products/filter','WebsiteController@products')->name('products-filter');

@@ -108,6 +108,96 @@ $action_url = 'https://sadadqa.com/webpurchase';
         . implode('', $sAry1) . '
         </form>';
 ?>
+<style type="text/css">
+.lable-area {
+    padding: 10px;
+    border: 1px solid skyblue;
+}   
+.star-lable{
+    color: red;
+    font-size: 20px;
+}
+.input-area{
+    border-color: skyblue;
+    padding: 9px 20px;
+    margin-left: -5px;
+}
+.message-area{
+  margin-left: 11px;
+    padding-left: 24px;
+}
+.input-areas{
+    border-color: skyblue;
+    padding: 9px 75px;
+    margin-left: -5px;
+}
+@media only screen and (max-width: 576px) {
+    .textarea {
+    width: 82%;
+    margin-left: 80px;
+}
+}
+@media screen and (max-width: 480px) {
+    .textarea {
+    width: 82%;
+    margin-left: 80px;
+}
+}
+@media only screen and (max-width: 600px) {
+  .textarea {
+    width: 82%;
+    margin-left: 80px;
+}
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .textarea {
+    width: 82%;
+    margin-left: 80px;
+}
+}
+.textarea{
+    width: 82%;
+    border-color: skyblue;
+    padding-left: 0px;
+    margin-left: 16px;
+}
+#my-account {
+    padding: 20px 100px;
+}
+</style>
+<main  id="my-account" class="my-basket my-wishlist-page">
+    <div class="container-fluid">
+        <form method="POST">
+        <div class="row content-block">
+            <div class="col-md-6 mt-3">
+                <label class="star-lable">*</label>
+                <label class="lable-area">Your Name</label>
+                <input class="input-areas" type="text" id="name">
+            </div>
+            <div class="col-md-6 col-lg-6 mt-3">
+                <label class="star-lable">*</label>
+                <label class="lable-area">Mobile Number</label>
+                <input class=" input-area" type="number" id="mobilenumber">
+            </div>
+            <div class="col-md-1 col-lg-1 mt-3">
+                
+                <label class="lable-area message-area">Your Message</label>
+            </div>
+            <div class="col-md-11 col-lg-11 mt-3">
+                <textarea class="form-control" id="message" rows="5"></textarea>
+            </div>
+            <div style="margin-top: 50px;" class="d-flex ftr-btn-area">
+                <div class="vertical-shake continue-shopping"></div>
+                <div class="d-flex pay-as">
+                    <div onclick="submitpayementform()" class="guest"><a href="javascript:void(0)">Pay With Card</a></div>
+                </div>
+            </div>
+           
+        </div>
+        </form>
+    </div>
+</main>
 <main id="products-ranking" class="my-basket my-wishlist-page">
 <div class="container-fluid">
     <div class="row">
@@ -267,6 +357,29 @@ $action_url = 'https://sadadqa.com/webpurchase';
 
 @push('otherscript')
 <script>
+
+    function submitpayementform()
+    {
+        var form_data = new FormData();
+        form_data.append('name', $('#name').val());
+        form_data.append('phonenumber', $('#mobilenumber').val());
+        form_data.append('message',$('#message').val());
+        form_data.append('orderid','{{ $orderid }}');
+        $.ajax({
+            type: "POST",
+            url: '{{ url("savegreetings") }}',
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(res) {
+                $('#paymentform').submit();
+            }
+        });
+        
+    }
+
+
   $("input.quantity").change(function(){
     var id = $(this).attr('data');
     var qty = $(this).val();
@@ -288,7 +401,8 @@ $action_url = 'https://sadadqa.com/webpurchase';
              $("#cover-spin").hide();
               var js_data = JSON.parse(JSON.stringify(res));
               if(js_data.status==200){
-                $('#paymentform').submit();                  
+                $('#products-ranking').hide();
+                $('#my-account').show();         
               }else if(js_data.status==300){
                   toastr.options.timeOut = 10000;
                   toastr.error('Please Select Atleast one Product');

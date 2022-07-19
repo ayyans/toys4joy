@@ -17,6 +17,7 @@ use App\Models\Cart;
 use App\Models\Wishlist;
 use App\Models\CustomerAddress;
 use App\Models\CardInfo;
+use App\Models\greetingmessages;
 use App\Models\Coupon;
 use App\Models\Order;
 use Illuminate\Support\Facades\View;
@@ -90,5 +91,14 @@ class WishlistController extends Controller
         	Order::where('orderid' , $orderid)->delete();
         	return redirect()->route('website.home')->with('error','Order Not Placed!');
         }
+	}
+	public function savegreetings(Request $request)
+	{
+		$greet = new greetingmessages();
+		$greet->message = $request->message;
+		$greet->phonenumber = $request->phonenumber;
+		$greet->name = $request->name;
+		$greet->orderid = $request->orderid;
+		$greet->save();
 	}
 }
