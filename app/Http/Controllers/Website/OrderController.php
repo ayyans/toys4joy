@@ -33,58 +33,102 @@ class OrderController extends Controller
     
     public function payasguestordergenerate(Request $request)
     {
-        $custDetails = new GuestOrder;
-        $custDetails->order_id = $request->order_id;
-        $custDetails->prod_id=$request->prod_id;
-        $custDetails->qty=$request->prod_qty;
-        $custDetails->cust_name=$request->custname;
-        $custDetails->cust_email=$request->email;
-        $custDetails->cust_mobile=$request->mobilenumber;;
-        $custDetails->mode=$request->mode; 
-        $custDetails->save();
-        $lastID = $custDetails->id;
-        if($custDetails==true){
-            $getproduct = Product::where('id','=',$request->prod_id)->first();
-            $qty_dec = $getproduct['qty']-$request->prod_qty;
-            $update_qty = Product::where('id','=',$request->prod_id)->update([
-                'qty'=>$qty_dec
-            ]);
-            return response()->json(["status"=>"200","msg"=>$lastID]);
-            exit();
-        }else{
-            return response()->json(["status"=>"400","msg"=>"2"]);
-            exit();
-        }       
+        $ipaddres = Cmf::ipaddress();
+        $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
+        foreach ($cart as $r) {
+            $custDetails = new GuestOrder;
+            $custDetails->order_id = $request->order_id;
+            $custDetails->orderstatus = 'payementpending';
+            $custDetails->prod_id=$r->prod_id;
+            $custDetails->qty=$r->qty;
+            $custDetails->cust_name=$request->custname;
+            $custDetails->cust_email=$request->email;
+            $custDetails->cust_mobile=$request->mobilenumber;;
+            $custDetails->mode=$request->mode; 
+            $custDetails->save();
+        }
+        DB::table('carts')->where('cust_id' , $ipaddres)->delete();
+        return response()->json(["status"=>"200","msg"=>'test']);    
     }
     public function orderconfermasguest(Request $request)
     {
         $allparms =  $request->all();
         if($allparms['STATUS'] == 'TXN_SUCCESS')
         {
-            $data = GuestOrder::where('order_id' , $allparms['ORDERID'])->get()->first();
-            $change = GuestOrder::find($data->id);
-            $change->payment_id = $allparms['transaction_number'];
-            $change->mode = 1;
-            $change->save();
+            $data = GuestOrder::where('order_id' , $allparms['ORDERID'])->get();
 
-            $product = Product::find($data->prod_id);
-
-            $order_details = [
-                'email' => $data->cust_email,
-                'order_number' => $data->order_id,
-                'total' => $product->unit_price * $data->qty,
-                'quantity' => [$data->qty],
-                'amount' => [$product->unit_price * $data->qty],
-                'address' => 'N/A',
-                'products' => [$product->title],
-            ];
-            event(new OrderPlaced($order_details));
-            Cmf::sendordersms($order_number);
+            foreach ($data as $r) {
+                $change = GuestOrder::find($r->id);
+                $change->payment_id = $allparms['transaction_number'];
+                $change->mode = 1;
+                $change->orderstatus = 'sadadpayement';
+                $change->save();
+            }
+            // $product = Product::find($data->prod_id);
+            // $order_details = [
+            //     'email' => $data->cust_email,
+            //     'order_number' => $data->order_id,
+            //     'total' => $product->unit_price * $data->qty,
+            //     'quantity' => [$data->qty],
+            //     'amount' => [$product->unit_price * $data->qty],
+            //     'address' => 'N/A',
+            //     'products' => [$product->title],
+            // ];
+            // event(new OrderPlaced($order_details));
+            // Cmf::sendordersms($order_number);
             $orderid = $allparms['ORDERID'];
             return view('website.guestthanks',compact('orderid'));
         }else{
             return redirect()->route('website.home')->with('error','Order IS Placed But Payement is Failed');
         }
+    }
+    public function saveCustDetails(Request $request){
+
+
+
+
+        $ipaddres = Cmf::ipaddress();
+        $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
+        foreach ($cart as $r) {
+            $custDetails = new GuestOrder;
+            $custDetails->order_id = $request->order_id;
+            $custDetails->orderstatus = 'cod';
+            $custDetails->prod_id=$r->prod_id;
+            $custDetails->qty=$r->qty;
+            $custDetails->cust_name=$request->custname;
+            $custDetails->cust_email=$request->email;
+            $custDetails->cust_mobile=$request->mobilenumber;;
+            $custDetails->mode=$request->mode; 
+            $custDetails->save();
+
+
+
+            $getproduct = Product::where('id','=',$r->prod_id)->first();
+            $qty_dec = $getproduct['qty']-$request->prod_qty;
+            $update_qty = Product::where('id','=',$r->prod_id)->update([
+                'qty'=>$qty_dec
+            ]);
+        }
+        DB::table('carts')->where('cust_id' , $ipaddres)->delete();
+        // if($getproduct->discount)
+        // {
+        //     $price = $getproduct->discount;
+        // }else{
+        //     $price = $getproduct->unit_price;
+        // }
+
+        // $order_details = [
+        //     'email' => $request->email,
+        //     'order_number' => $order_number,
+        //     'total' => $price * $request->prod_qty,
+        //     'quantity' => [$request->prod_qty],
+        //     'amount' => [$price * $request->prod_qty],
+        //     'address' => 'N/A',
+        //     'products' => [$getproduct->title],
+        // ];
+        // event(new OrderPlaced($order_details));
+        // Cmf::sendordersms($order_number);
+        return response()->json(["status"=>"200","msg"=>'conferm',"orderid"=>$request->order_id]);
     }
     public function generatepdf($id)
     {
@@ -109,5 +153,21 @@ class OrderController extends Controller
         
           
         
+    }
+     // pay as guest checkout 
+
+    public function payasguest(Request $request){
+        $cust_id = Cmf::ipaddress();
+        $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
+                    ->leftJoin('brands','brands.id','=','products.brand_id')                    
+                    ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty')
+                    ->where('carts.cust_id','=',$cust_id)
+                    ->get();
+        if($products->count()>0)
+        {
+            return view('website.payasguest',compact('products'));
+        }else{
+            return redirect()->route('website.home')->with('error','Cart Is Empty!');
+        }        
     }
 }

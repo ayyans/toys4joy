@@ -174,12 +174,16 @@
           <td style="text-align:center">Quatity</td>
           <td style="text-align:right">Subtotal</td>
         </tr>
+
+        @php
+
+          $totalammount = 0;
+
+        @endphp
+
         @foreach($order as $r)
         @php
           $product = DB::table('products')->where('id' , $r->prod_id)->get()->first();
-          $totalammount = 0;
-
-
           if($product->discount)
           {
               $price = $product->discount;

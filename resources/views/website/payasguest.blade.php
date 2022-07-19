@@ -53,25 +53,22 @@ if(Auth::check())
  $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
  $sadad_checksum_array['CALLBACK_URL'] = url('orderconfermasguest'); 
  $sadad_checksum_array['txnDate'] = $txnDate; 
+           
 
+foreach ($products as $product) {
 
-if($products->discount)
-{
-    $price = $products->discount;
-}else{
-    $price = $products->unit_price;
+    if($product->discount)
+      {
+          $price = $product->discount;
+      }else{
+          $price = $product->unit_price;
+      }
+
+    
+    $json_decoded = json_decode($product);
+    $allproducts[] = array('order_id' => $orderid, 'itemname' => $product->title, 'amount' =>$price, 'quantity' => $product->cartQty);
 }
-               
-
-$sadad_checksum_array['productdetail'] = 
- array( 
- array( 
- 'order_id'=> $orderid,
- 'itemname'=>  $products->title,
- 'amount'=>$price, 
- 'quantity'=>$fnlqty,
-) 
-); 
+$sadad_checksum_array['productdetail'] = $allproducts;
 
 
   
@@ -123,24 +120,38 @@ $action_url = 'https://sadadqa.com/webpurchase';
 <div class="container-fluid">
     <div class="row">
     	<div class="col-6">
+            <?php $total_price = 0; ?>
+            @foreach($products as $product)
+
+            @php
+              if($product->discount)
+              {
+                  $price = $product->discount;
+              }else{
+                  $price = $product->unit_price;
+              }
+            @endphp
+            <?php $total_price+=$price*$product->cartQty; ?>
+            <input type="hidden" id="prod_id" value="{{$product->id}}" name="prodid[]" />
+            <input type="hidden" id="cart_qty" value="{{$product->cartQty}}" name="cartQty[]" />
+            <input type="hidden" id="cart_amount" value="{{$price}}" name="cart_amount[]" />
             <div class="d-flex cart-products">
-                <div class="cart-image"><img src="{{asset('products/'.$products->featured_img)}}"/></div>
+                <div class="cart-image"><img src="{{asset('products/'.$product->featured_img)}}"/></div>
                 <div class="product-detail">
-                    <h2 class="title">{{$products->title}}</h2>
+                    <h2 class="title">{{$product->title}}</h2>
                     <h4 class="price">QAR {{$price}}</h4>
-                    <div class="qty">Quantity : {{$fnlqty}}</div>
-                    <input type="hidden" value="{{$price}}" id="initprice" />
-                    <input type="hidden" value="{{$fnlqty}}" id="fnlqty" />
+                    <div class="qty">Quantity : {{$product->cartQty}}</div>
                     <div class="d-flex rmv-or-edit">
-                        <div class="remove icon"><a href="#"><img src="{{asset('website/img/delete.png')}}"/></a></div>
-                        <div class="edit icon"><a href="#"><img src="{{asset('website/img/edit.png')}}"/></a></div>
+                        <div class="remove icon"><a href="javascript:void(0)" onclick="removecart({{$product->crtid}})"><img src="{{asset('website/img/delete.png')}}"/></a></div>
+                        <!-- <div class="edit icon"><a href="#"><img src="{{asset('website/img/edit.png')}}"/></a></div> -->
                     </div>
                 </div>
             </div>
+            @endforeach
             <form action="#" method="POST" id="guestcheckoutFrm">
                 @csrf
-                <input type="hidden" name="prod_id" value="{{$products->id}}"/>
-                <input type="hidden" name="prod_qty" value="{{$fnlqty}}"/>
+                <input type="hidden" name="prod_id" value=""/>
+                <input type="hidden" name="prod_qty" value=""/>
             <div class="discount-block">
             	<div class="mb-3">
                 	<label>Name <span style="color:#ff0000">*</span></label>
@@ -155,18 +166,14 @@ $action_url = 'https://sadadqa.com/webpurchase';
                 	<label>Email<span style="color:#ff0000">*</span></label>
                 	<input type="email" name="email" class="guestcheckinp" required>
                 </div>
-
-                
             </div>
             </form>
         </div>
         <div class="col-6 text-center">
-         
-           
             <div class="pay-as-guest row">
                 <div class="text-center col-6">
                     <div class="guest">
-                        <a href="javascript:void(0)" id="payasgueast">Pay as Guest (<span id="total_amount"></span>)</a>
+                        <a href="javascript:void(0)" id="payasgueast">Pay as Guest (<span>{{ $total_price }}</span>)</a>
                     </div>
                     <p>You need to create an account with us to be able to Enter Discount, Corporate Code, or Gift Card.</p>
                 </div>
@@ -268,7 +275,7 @@ if(isValid!=true){
             var js_data = JSON.parse(JSON.stringify(res));
             $("#cover-spin").hide();
             if(js_data.status==200){
-                $('#paymentform').submit();
+                // $('#paymentform').submit();
             }
         }
     })
@@ -324,6 +331,7 @@ if(isValid!=true){
     var form = $("form#guestcheckoutFrm")[0];
     var form2 = new FormData(form);
     form2.append('mode','2');
+    form2.append('order_id','{{ $orderid }}');
     $("#cover-spin").show();
     $.ajax({
         url:"{{route('website.saveCustDetails')}}",

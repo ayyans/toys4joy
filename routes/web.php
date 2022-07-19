@@ -58,9 +58,9 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('category/{main}/{id}','WebsiteController@listproductssubcategpry')->name('subcat_products');
     Route::get('product/{id}','WebsiteController@productDetails')->name('productDetails');
     Route::post('category-list-with','WebsiteController@listcategorylist')->name('listcategorylist');
-    Route::post('/pay-as-guest','WebsiteController@payasguest')->name('payasguest');
+    Route::get('/pay-as-guest','OrderController@payasguest')->name('payasguest');
     Route::post('/stripe','WebsiteController@StripePayment')->name('StripePayment');
-    Route::post('/guest-details','WebsiteController@saveCustDetails')->name('saveCustDetails');
+    Route::post('/guest-details','OrderController@saveCustDetails')->name('saveCustDetails');
     Route::post('/orderconferm','WebsiteController@guestthank')->name('guestthank');
     Route::get('/guestthankorder/{id}','WebsiteController@guestthankorder');
     Route::get('/registration-thanks','WebsiteController@registrationThank')->name('registrationThank');

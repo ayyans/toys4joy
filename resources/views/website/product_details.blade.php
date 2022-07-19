@@ -134,15 +134,9 @@
 @push('otherscript')
 <script>
     $(function(){
-        $("#addtocart").click(function(){
-            var cust_id = $("#cust_id").val();
-            
-       if(cust_id==0){
-           window.location.href="{{route('website.login')}}";
-       }else{
-           var form =$("form#productFRM")[0]; 
+        $("#addtocart").click(function(){        
+        var form =$("form#productFRM")[0]; 
         var form2 =new FormData(form);
-        
         $("#cover-spin").show();
         $.ajax({
             url:"{{route('website.addTocart')}}",
@@ -167,17 +161,29 @@
                 }
             }
         })
-    }
-        })
     })
+})
 </script>
 
 <script>
     $(function(){
         $("a#payasguest").click(function(e){
             e.preventDefault();
-            $("form#productFRM").submit();
 
+            var form =$("form#productFRM")[0]; 
+            var form2 =new FormData(form);
+            $("#cover-spin").show();
+            $.ajax({
+                url:"{{route('website.addTocart')}}",
+                type:"POST",
+                data:form2,
+                cache:false,
+                contentType:false,
+                processData:false,
+                success:function(res){
+                    window.location.href="{{route('website.payasguest')}}";
+                }
+            })
         })
     })
 </script>

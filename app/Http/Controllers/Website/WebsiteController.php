@@ -181,17 +181,7 @@ class WebsiteController extends Controller
         return view('website.myaccount');
     }
 
-    // pay as guest checkout 
-
-    public function payasguest(Request $request){
-        $prod_id = $request->prod_id;
-        $fnlqty = $request->quantity;
-        $products = Product::leftJoin('brands','brands.id','=','products.brand_id')                    
-                    ->select('products.*','brand_name','logo')
-                    ->where('products.id','=',$prod_id)
-                    ->first();
-        return view('website.payasguest',compact('products','prod_id','fnlqty'));
-    }
+   
 
 
     // online payment stripe
@@ -228,55 +218,7 @@ class WebsiteController extends Controller
 
     // save customer address as guest
 
-    public function saveCustDetails(Request $request){
-        $order_number = mt_rand(100000000, 999999999);
-        $custDetails = new GuestOrder;
-        $custDetails->prod_id=$request->prod_id;
-        $custDetails->order_id=$order_number;
-        $custDetails->qty=$request->prod_qty;
-        $custDetails->cust_name=$request->custname;
-        $custDetails->cust_email=$request->email;
-        $custDetails->cust_mobile=$request->mobilenumber;;
-        $custDetails->city=$request->city;
-        $custDetails->state=$request->state;
-        $custDetails->apartment=$request->aprtment;
-        $custDetails->faddress=$request->address;
-        $custDetails->mode=$request->mode; 
-        $custDetails->save();
-        $lastID = $custDetails->id;
-        if($custDetails==true){
-            $getproduct = Product::where('id','=',$request->prod_id)->first();
-            $qty_dec = $getproduct['qty']-$request->prod_qty;
-            $update_qty = Product::where('id','=',$request->prod_id)->update([
-                'qty'=>$qty_dec
-            ]);
-
-            if($getproduct->discount)
-            {
-                $price = $getproduct->discount;
-            }else{
-                $price = $getproduct->unit_price;
-            }
-
-            $order_details = [
-                'email' => $request->email,
-                'order_number' => $order_number,
-                'total' => $price * $request->prod_qty,
-                'quantity' => [$request->prod_qty],
-                'amount' => [$price * $request->prod_qty],
-                'address' => 'N/A',
-                'products' => [$getproduct->title],
-            ];
-            event(new OrderPlaced($order_details));
-            Cmf::sendordersms($order_number);
-            return response()->json(["status"=>"200","msg"=>$lastID,"orderid"=>$order_number]);
-            exit();
-        }else{
-            return response()->json(["status"=>"400","msg"=>"2"]);
-            exit();
-        }       
-
-    }
+    
     public function guestthankorder($id)
     {
         $orderid = $id;
