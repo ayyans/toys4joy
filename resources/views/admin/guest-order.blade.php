@@ -13,7 +13,9 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr> 
-                    <th>#</th>                  
+                    <th>#</th>  
+                    <th>Date</th>
+                    <th>Time</th>                
                     <th>Name</th>
                     <th>Email</th>
                     <th>Mobile</th> 
@@ -28,7 +30,9 @@
             <tbody>
                 @foreach($orders as $order)
                 <tr>
-                    <td>{{$order->id}}</td>
+                    <td>{{$order->id}}</td> 
+                    <td>{{date('d M Y', strtotime($order->created_at))}}</td>
+                    <td>{{date('h:i:s A', strtotime($order->created_at))}}</td>
                     <td>{{$order->cust_name}}</td>
                     <td>{{$order->cust_email}}</td>
                     <td>{{$order->cust_mobile}}</td>
