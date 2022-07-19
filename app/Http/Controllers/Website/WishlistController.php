@@ -87,6 +87,7 @@ class WishlistController extends Controller
 						$orders = Order::with('product', 'address')->where('orderid' , $orderid)->get();
 						$cust_Add = $orders->first()->address;
 						// mail data
+						$email = $orders->first()->customer->email;
             $order_number = $orders->first()->order_id;
             $total = 0;
             $quantity = [];
@@ -103,6 +104,7 @@ class WishlistController extends Controller
 
 							// mail data
 							$order_details = [
+								'email' => $email,
 								'order_number' => $order_number,
 								'total' => $total,
 								'quantity' => $quantity,
