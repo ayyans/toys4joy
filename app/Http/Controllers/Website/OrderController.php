@@ -55,7 +55,15 @@ class OrderController extends Controller
         $allparms =  $request->all();
         if($allparms['STATUS'] == 'TXN_SUCCESS')
         {
-            $data = GuestOrder::where('order_id' , $allparms['ORDERID'])->get();
+            $data = GuestOrder::with('product')->where('order_id' , $allparms['ORDERID'])->get();
+
+            // mail data
+            $email = $data->first()->cust_email;
+            $order_number = $data->first()->order_id;
+            $total = 0;
+            $quantity = [];
+            $amount = [];
+            $products = [];
 
             foreach ($data as $r) {
                 $change = GuestOrder::find($r->id);
@@ -63,21 +71,27 @@ class OrderController extends Controller
                 $change->mode = 1;
                 $change->orderstatus = 'sadadpayement';
                 $change->save();
+                
+                // mail data
+                $total += $r->product->unit_price * $r->qty;
+                array_push($quantity, $r->qty);
+                array_push($amount, $r->product->unit_price * $r->qty);
+                array_push($products, $r->product->title);
             }
-            // $product = Product::find($data->prod_id);
-            // $order_details = [
-            //     'email' => $data->cust_email,
-            //     'order_number' => $data->order_id,
-            //     'total' => $product->unit_price * $data->qty,
-            //     'quantity' => [$data->qty],
-            //     'amount' => [$product->unit_price * $data->qty],
-            //     'address' => 'N/A',
-            //     'products' => [$product->title],
-            // ];
-            // event(new OrderPlaced($order_details));
-            // Cmf::sendordersms($order_number);
-            $orderid = $allparms['ORDERID'];
-            return view('website.guestthanks',compact('orderid'));
+
+            // mail data
+            $order_details = [
+                'email' => $email,
+                'order_number' => $order_number,
+                'total' => $total,
+                'quantity' => $quantity,
+                'amount' => $amount,
+                'address' => 'N/A',
+                'products' => $products,
+            ];
+            event(new OrderPlaced($order_details));
+            Cmf::sendordersms($order_number);
+            return view('website.guestthanks',compact('order_number'));
         }else{
             return redirect()->route('website.home')->with('error','Order IS Placed But Payement is Failed');
         }
