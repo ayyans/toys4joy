@@ -18,4 +18,12 @@ class Order extends Model
         'payment_id',
         'mode'        
     ];
+
+    public function product() {
+        return $this->belongsTo(Product::class, 'prod_id', 'id');
+    }
+
+    public function address() {
+        return $this->belongsTo(CustomerAddress::class, 'cust_add_id', 'id');
+    }
 }
