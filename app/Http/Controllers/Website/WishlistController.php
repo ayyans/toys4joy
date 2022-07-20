@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Website;
-
+use App\Helpers\Cmf;
 use App\Events\OrderPlaced;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
