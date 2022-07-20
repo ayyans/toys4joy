@@ -4,8 +4,7 @@
 @php
 $orderid = rand('123456798' , '987654321');
 @endphp
-
-@if($wshlists->first()->share_status == 0)
+@if($wshlists->sum('share_status') > 0)
 <?php 
 function getChecksumFromString($str, $key) {
  $salt = generateSalt_e(4); 
@@ -109,6 +108,10 @@ $action_url = 'https://sadadqa.com/webpurchase';
         </form>';
 ?>
 <style type="text/css">
+#quantity{
+    height: 40px;
+    width: 40px;
+}
 .lable-area {
     padding: 10px;
     border: 1px solid skyblue;
@@ -166,7 +169,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
     padding: 20px 100px;
 }
 </style>
-<main  id="my-account" class="my-basket my-wishlist-page">
+<main style="display: none;" id="my-account" class="my-basket my-wishlist-page">
     <div class="container-fluid">
         <form method="POST">
         <div class="row content-block">
@@ -238,7 +241,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
                 @endif
                 <tr>
                     <td class="qty">
-                      <input onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
+                      <input style="height: 40px;width: 40px;" onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
                     </td>
                     <td class="title">
                       <div class="d-flex product-rank">
@@ -308,7 +311,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
                 @endif
                 <tr>
                     <td class="qty">
-                      <input onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
+                      <input style="height: 40px;width: 40px;" onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
                     </td>
                     <td class="title">
                       <div class="d-flex product-rank">

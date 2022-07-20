@@ -581,7 +581,7 @@ class WebsiteController extends Controller
             $addwishlist = new Wishlist;
             $addwishlist->cust_id=$cust_id;
             $addwishlist->prod_id=$prod_id;
-            $addwishlist->share_status=0;
+            $addwishlist->share_status=1;
             $addwishlist->save();
             if($addwishlist==true){
                 return response()->json(["status"=>"200","msg"=>"1"]);
