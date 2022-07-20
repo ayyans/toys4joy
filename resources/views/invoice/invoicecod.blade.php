@@ -10,7 +10,7 @@
     <title>Order Invoice {{ $ordernumber }}</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="./images/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="https://www.toys4joy.com/website/img/logo-t4j.png" type="image/x-icon" />
 
     <!-- Invoice styling -->
     <style>
