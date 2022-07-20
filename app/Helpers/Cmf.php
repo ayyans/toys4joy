@@ -53,7 +53,7 @@ Order ID '.$orderid.'';
         {
             return session()->get('cart');
         }else{
-            $cartnumber = rand('123456798987654321' , '123456798987654321123465798');
+            $cartnumber = rand('123456789987654321' , '987654123123456789');
             session()->put('cart' , $cartnumber);
             return session()->get('cart');
         }
