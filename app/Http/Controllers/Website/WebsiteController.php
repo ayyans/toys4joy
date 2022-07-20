@@ -409,7 +409,7 @@ class WebsiteController extends Controller
 
         if($data->count() > 0)
         {
-            echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Bag</h5></div>       
+            echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Basket</h5></div>       
             <div id="cartdetailsheader">';
             $total_price = 0;
             foreach ($data as $r) {
