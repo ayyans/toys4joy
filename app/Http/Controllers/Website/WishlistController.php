@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Events\OrderPlaced;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -83,6 +84,35 @@ class WishlistController extends Controller
             $orderid = $allparms['ORDERID'];
             Order::where('orderid' , $orderid)->update(['orderstatus'=>'payementdone']);
 
+						$orders = Order::with('product', 'address')->where('orderid' , $orderid)->get();
+						$cust_Add = $orders->first()->address;
+						// mail data
+						$email = $orders->first()->customer->email;
+            $order_number = $orders->first()->order_id;
+            $total = 0;
+            $quantity = [];
+            $amount = [];
+						$address = "Unit No: $cust_Add->unit_no, Building No: $cust_Add->building_no, Zone: $cust_Add->zone, Street: $cust_Add->street";
+            $products = [];
+
+						foreach ($orders as $order) {
+								$total += $order->amount;
+                array_push($quantity, $order->qty);
+                array_push($amount, $order->amount);
+                array_push($products, $order->product->title);
+						}
+
+							// mail data
+							$order_details = [
+								'email' => $email,
+								'order_number' => $order_number,
+								'total' => $total,
+								'quantity' => $quantity,
+								'amount' => $amount,
+								'address' => 'N/A',
+								'products' => $products,
+						];
+						event(new OrderPlaced($order_details));
 						Cmf::sendordersms($orderid);
 
             return view('website.guestthanks',compact('orderid'));
