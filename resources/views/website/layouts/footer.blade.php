@@ -223,6 +223,7 @@
                 if(js_data.status==200){
                     toastr.success('Product removed from cart');
                     showcart();
+                    headercart();
                 }else{
                     toastr.error('something went wrong');
                     return false;
