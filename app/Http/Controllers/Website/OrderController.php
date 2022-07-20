@@ -56,7 +56,7 @@ class OrderController extends Controller
         if($allparms['STATUS'] == 'TXN_SUCCESS')
         {
             $data = GuestOrder::with('product')->where('order_id' , $allparms['ORDERID'])->get();
-
+            
             // mail data
             $email = $data->first()->cust_email;
             $order_number = $data->first()->order_id;
@@ -132,17 +132,35 @@ class OrderController extends Controller
         //     $price = $getproduct->unit_price;
         // }
 
-        // $order_details = [
-        //     'email' => $request->email,
-        //     'order_number' => $order_number,
-        //     'total' => $price * $request->prod_qty,
-        //     'quantity' => [$request->prod_qty],
-        //     'amount' => [$price * $request->prod_qty],
-        //     'address' => 'N/A',
-        //     'products' => [$getproduct->title],
-        // ];
-        // event(new OrderPlaced($order_details));
-        // Cmf::sendordersms($order_number);
+        $data = GuestOrder::with('product')->where('order_id' , $request->order_id)->get();
+
+        // mail data
+        $email = $data->first()->cust_email;
+        $order_number = $data->first()->order_id;
+        $total = 0;
+        $quantity = [];
+        $amount = [];
+        $products = [];
+
+        foreach ($data as $r) {
+            $total += $r->product->unit_price * $r->qty;
+            array_push($quantity, $r->qty);
+            array_push($amount, $r->product->unit_price * $r->qty);
+            array_push($products, $r->product->title);
+        }
+
+        $order_details = [
+            'email' => $email,
+            'order_number' => $order_number,
+            'total' => $total,
+            'quantity' => $quantity,
+            'amount' => $amount,
+            'address' => 'N/A',
+            'products' => $products,
+        ];
+        event(new OrderPlaced($order_details));
+        Cmf::sendordersms($order_number);
+
         return response()->json(["status"=>"200","msg"=>'conferm',"orderid"=>$request->order_id]);
     }
     public function generatepdf($id)
