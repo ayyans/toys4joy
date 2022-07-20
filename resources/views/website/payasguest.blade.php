@@ -275,7 +275,7 @@ if(isValid!=true){
             var js_data = JSON.parse(JSON.stringify(res));
             $("#cover-spin").hide();
             if(js_data.status==200){
-                // $('#paymentform').submit();
+                 $('#paymentform').submit();
             }
         }
     })
