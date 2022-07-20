@@ -4,6 +4,15 @@
 @php
 $orderid = rand('123456798' , '987654321');
 @endphp
+
+<h1>{{ $wshlists->sum('share_status') }}</h1>
+
+
+@php
+    
+    exit;
+
+@endphp
 @if($wshlists->sum('share_status') > 0)
 <?php 
 function getChecksumFromString($str, $key) {
