@@ -450,7 +450,7 @@ class WebsiteController extends Controller
                 </div>
             </div>
             <div class="d-flex btn-area">
-                <div class="view-cart btn"><a href="'.route('website.cartpage').'">View Cart</a></div>
+                <div class="checkout btn"><a href="'.route('website.cartpage').'">Checkout</a></div>
             </div>';
 
         }else{
