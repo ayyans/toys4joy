@@ -91,7 +91,8 @@ class OrderController extends Controller
             ];
             event(new OrderPlaced($order_details));
             Cmf::sendordersms($order_number);
-            return view('website.guestthanks',compact('order_number'));
+            $orderid = $order_number;
+            return view('website.guestthanks',compact('orderid'));
         }else{
             return redirect()->route('website.home')->with('error','Order IS Placed But Payement is Failed');
         }
