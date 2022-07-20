@@ -1,19 +1,9 @@
 @extends('website.layouts.master')
 @section('content')
-
 @php
 $orderid = rand('123456798' , '987654321');
 @endphp
-
-<h1>{{ $wshlists->sum('share_status') }}</h1>
-
-
-@php
-    
-    exit;
-
-@endphp
-@if($wshlists->sum('share_status') > 0)
+@if($wshlists->where('share_status' , 0)->count() > 0)
 <?php 
 function getChecksumFromString($str, $key) {
  $salt = generateSalt_e(4); 
@@ -74,7 +64,6 @@ foreach ($wshlists as $product) {
     $json_decoded = json_decode($product);
     $allproducts[] = array('order_id' => $orderid, 'itemname' => $product->title, 'amount' =>$price, 'quantity' =>1);
   }
-    
 }
 $sadad_checksum_array['productdetail'] = $allproducts;
 
