@@ -115,7 +115,7 @@
                     </div>
                     <div class="d-flex btn-area">
                         @if(!Auth::check())
-                        <div class="guest"><a href="javascript:void(0)" id="payasguest"><span>Pay as</span>Guest</a></div>
+                        <!-- <div class="guest"><a href="javascript:void(0)" id="payasguest"><span>Pay as</span>Guest</a></div> -->
                         @endif
                         <div class="member"><a href="javascript:void(0)" id="payasmember"><span>Pay as</span>Member</a></div>
                     </div>
