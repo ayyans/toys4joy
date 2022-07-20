@@ -49,7 +49,7 @@ Order ID '.$orderid.'';
         }
     }
     public static function ipaddress(){
-        if(session()->get('cart'))
+        if(!empty(session()->get('cart')))
         {
             return session()->get('cart');
         }else{
