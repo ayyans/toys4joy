@@ -148,28 +148,29 @@ $action_url = 'https://sadadqa.com/webpurchase';
                 </div>
             </div>
             @endforeach
+            
+        </div>
+        <div class="col-6 text-center">
             <form action="#" method="POST" id="guestcheckoutFrm">
                 @csrf
                 <input type="hidden" name="prod_id" value=""/>
                 <input type="hidden" name="prod_qty" value=""/>
-            <div class="discount-block">
-            	<div class="mb-3">
-                	<label>Name <span style="color:#ff0000">*</span></label>
-                	<input type="text" name="custname" id="custname" class="guestcheckinp" required>
+            <div style="margin-top: 0px;" class="discount-block">
+                <div class="mb-3">
+                    <label>Name <span style="color:#ff0000">*</span></label>
+                    <input type="text" name="custname" id="custname" class="guestcheckinp" required>
                 </div>
                 <div class="mb-3">
-                	<label>Mobile Number <span style="color:#ff0000">*</span></label>
-                	<input id="phone" class="guestcheckinp" name="phone" type="tel">
+                    <label>Mobile Number <span style="color:#ff0000">*</span></label>
+                    <input id="phone" class="guestcheckinp" name="phone" type="tel">
                     <input type="hidden" name="mobilenumber" id="mobilenumber">
                 </div>
                 <div class="mb-3">
-                	<label>Email<span style="color:#ff0000">*</span></label>
-                	<input type="email" name="email" class="guestcheckinp" required>
+                    <label>Email<span style="color:#ff0000">*</span></label>
+                    <input type="email" name="email" class="guestcheckinp" required>
                 </div>
             </div>
             </form>
-        </div>
-        <div class="col-6 text-center">
             <div class="pay-as-guest row">
                 <div class="text-center col-6">
                     <div class="guest">
