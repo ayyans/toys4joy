@@ -409,7 +409,7 @@ class WebsiteController extends Controller
 
         if($data->count() > 0)
         {
-            echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Bag</h5></div>       
+            echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Basket</h5></div>       
             <div id="cartdetailsheader">';
             $total_price = 0;
             foreach ($data as $r) {
@@ -450,8 +450,7 @@ class WebsiteController extends Controller
                 </div>
             </div>
             <div class="d-flex btn-area">
-                <div class="checkout btn"><a href="'.route('website.payasmember').'">Checkout</a></div>
-                <div class="view-cart btn"><a href="'.route('website.cartpage').'">View Cart</a></div>
+                <div class="checkout btn"><a href="'.route('website.cartpage').'">Checkout</a></div>
             </div>';
 
         }else{
@@ -582,7 +581,7 @@ class WebsiteController extends Controller
             $addwishlist = new Wishlist;
             $addwishlist->cust_id=$cust_id;
             $addwishlist->prod_id=$prod_id;
-            $addwishlist->share_status=0;
+            $addwishlist->share_status=1;
             $addwishlist->save();
             if($addwishlist==true){
                 return response()->json(["status"=>"200","msg"=>"1"]);

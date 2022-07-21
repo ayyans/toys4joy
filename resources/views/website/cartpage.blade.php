@@ -57,7 +57,7 @@
             <div class="d-flex ftr-btn-area">
                 <div class="vertical-shake continue-shopping"><a href="javascript:void(0)">Continue Shopping</a></div>
                 <div class="d-flex pay-as">
-                    <div class="member"><a href="{{route('website.payasmember')}}">Proceed to checkout</a></div>
+                    <div class="member"><a href="{{route('website.payasmember')}}">Pay as Member</a></div>
                     @if(!Auth::check())
                     <div class="guest"><a href="{{route('website.payasguest')}}">Pay as Guest</a></div>
                     @endif

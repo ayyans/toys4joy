@@ -91,10 +91,10 @@
                             </div>
                         </form>
                        
-                        <div class="add-to-cart block">
+                        <!-- <div class="add-to-cart block">
                             <label>Add to Cart</label>
                             <div class="icon" id="addtocart"><img src="{{asset('website/img/cart-icon.png')}}"/></div>
-                        </div>
+                        </div> -->
                         <div class="like block">
                             <label>Like</label>
                             <div class="icon"><img src="{{asset('website/img/thumb-up.svg')}}"/></div>
@@ -114,10 +114,8 @@
                         @endif
                     </div>
                     <div class="d-flex btn-area">
-                        @if(!Auth::check())
-                        <!-- <div class="guest"><a href="javascript:void(0)" id="payasguest"><span>Pay as</span>Guest</a></div> -->
-                        @endif
-                        <div class="member"><a href="javascript:void(0)" id="payasmember"><span>Pay as</span>Member</a></div>
+                        <div class="guest"><a href="javascript:void(0)" id="checkoutaddtocart"><span>Checkout</span></a></div>
+                        <div class="member"><a href="javascript:void(0)" id="addtocart"><span>Add to Cart</span></a></div>
                     </div>
                     @else
                     <p style="color:red"><strong>Out of stock</strong></p>
@@ -167,7 +165,7 @@
 
 <script>
     $(function(){
-        $("a#payasguest").click(function(e){
+        $("a#checkoutaddtocart").click(function(e){
             e.preventDefault();
 
             var form =$("form#productFRM")[0]; 
@@ -181,7 +179,7 @@
                 contentType:false,
                 processData:false,
                 success:function(res){
-                    window.location.href="{{route('website.payasguest')}}";
+                    window.location.href="{{route('website.cartpage')}}";
                 }
             })
         })

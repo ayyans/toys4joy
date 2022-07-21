@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Toy 4 Joy</title>
+<title>Toys 4 Joy</title>
 <link rel="icon" href="{{asset('website/img/logo-t4j.png')}}" type="image/x-icon">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{asset('website/css/style.css')}}" rel="stylesheet">

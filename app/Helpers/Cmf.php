@@ -49,18 +49,12 @@ Order ID '.$orderid.'';
         }
     }
     public static function ipaddress(){
-        if(!empty(session()->get('cart')))
+        if(session()->get('cart') > 0)
         {
             return session()->get('cart');
         }else{
-            $length = 12;
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $charactersLength = strlen($characters);
-            $randomString = '';
-            for ($i=0; $i < $length; $i++) {
-                $randomString .= $characters[rand(0, $charactersLength - 1)];
-            }
-            session()->put('cart' , $randomString);
+            $cartnumber = rand('123456789987654321' , '987654123123456789');
+            session()->put('cart' , $cartnumber);
             return session()->get('cart');
         }
     }

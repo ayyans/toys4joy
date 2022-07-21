@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Website;
-
+use App\Helpers\Cmf;
 use App\Events\OrderPlaced;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -83,7 +83,8 @@ class WishlistController extends Controller
         {
             $orderid = $allparms['ORDERID'];
             Order::where('orderid' , $orderid)->update(['orderstatus'=>'payementdone']);
-
+            Order::where('orderid' , $orderid)->update(['mode'=>'2']);
+            Order::where('orderid' , $orderid)->update(['payment_id'=>$allparms['transaction_number']]);
 						$orders = Order::with('product', 'address')->where('orderid' , $orderid)->get();
 						$cust_Add = $orders->first()->address;
 						// mail data

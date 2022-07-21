@@ -1,11 +1,11 @@
 @extends('website.layouts.master')
 @section('content')
-
 @php
 $orderid = rand('123456798' , '987654321');
 @endphp
 
-@if($wshlists->first()->share_status == 0)
+@if($wshlists->count())
+@if($wshlists->where('share_status' , 0)->count() > 0)
 <?php 
 function getChecksumFromString($str, $key) {
  $salt = generateSalt_e(4); 
@@ -66,7 +66,6 @@ foreach ($wshlists as $product) {
     $json_decoded = json_decode($product);
     $allproducts[] = array('order_id' => $orderid, 'itemname' => $product->title, 'amount' =>$price, 'quantity' =>1);
   }
-    
 }
 $sadad_checksum_array['productdetail'] = $allproducts;
 
@@ -109,6 +108,10 @@ $action_url = 'https://sadadqa.com/webpurchase';
         </form>';
 ?>
 <style type="text/css">
+#quantity{
+    height: 40px;
+    width: 40px;
+}
 .lable-area {
     padding: 10px;
     border: 1px solid skyblue;
@@ -166,7 +169,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
     padding: 20px 100px;
 }
 </style>
-<main  id="my-account" class="my-basket my-wishlist-page">
+<main style="display: none;" id="my-account" class="my-basket my-wishlist-page">
     <div class="container-fluid">
         <form method="POST">
         <div class="row content-block">
@@ -238,7 +241,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
                 @endif
                 <tr>
                     <td class="qty">
-                      <input onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
+                      <input style="height: 40px;width: 40px;" onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
                     </td>
                     <td class="title">
                       <div class="d-flex product-rank">
@@ -308,7 +311,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
                 @endif
                 <tr>
                     <td class="qty">
-                      <input onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
+                      <input style="height: 40px;width: 40px;" onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
                     </td>
                     <td class="title">
                       <div class="d-flex product-rank">
@@ -350,6 +353,9 @@ $action_url = 'https://sadadqa.com/webpurchase';
     }
 </script>
 @endif
+
+
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
@@ -418,3 +424,16 @@ $action_url = 'https://sadadqa.com/webpurchase';
 </script>
 @endpush
 
+
+@else
+
+<main id="products-ranking" class="my-basket my-wishlist-page">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3>This Link is Empty or you enter a Wrong Link!</h3>
+        </div>
+    </div>
+</div>
+</main>
+@endif
