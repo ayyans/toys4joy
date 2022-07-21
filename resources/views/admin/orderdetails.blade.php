@@ -102,11 +102,6 @@
              
             </tbody>
             <tfoot>
-                        <tr>
-                            <td colspan="4" style="text-align:right"><strong>Subtotal</strong></td>
-                            <td>QAR {{$orderdetail->prod_price*$orderdetail->qty}}</td>
-
-                        </tr>
                         <!-- <tr>
                             <td colspan="4" style="text-align:right"><strong>Discount(coupon)</strong></td>
 
