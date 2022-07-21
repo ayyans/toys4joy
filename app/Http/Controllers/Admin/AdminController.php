@@ -1643,7 +1643,8 @@ public function editProcess(Request $request){
             if ($product) {
                 $product->update([
                     'qty' => $row[1],
-                    'unit_price' => $row[2]
+                    'unit_price' => $row[2],
+                    'discount' => $row[3]
                 ]);
             }
         }
