@@ -354,18 +354,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
 </script>
 @endif
 
-@else
 
-<main id="products-ranking" class="my-basket my-wishlist-page">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <h3>This Link is Empty or you enter a Wrong Link!</h3>
-        </div>
-    </div>
-</div>
-</main>
-@endif
 
 
 
@@ -435,3 +424,16 @@ $action_url = 'https://sadadqa.com/webpurchase';
 </script>
 @endpush
 
+
+@else
+
+<main id="products-ranking" class="my-basket my-wishlist-page">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3>This Link is Empty or you enter a Wrong Link!</h3>
+        </div>
+    </div>
+</div>
+</main>
+@endif
