@@ -3,6 +3,8 @@
 @php
 $orderid = rand('123456798' , '987654321');
 @endphp
+
+@if($wshlists->count())
 @if($wshlists->where('share_status' , 0)->count() > 0)
 <?php 
 function getChecksumFromString($str, $key) {
@@ -351,6 +353,20 @@ $action_url = 'https://sadadqa.com/webpurchase';
     }
 </script>
 @endif
+
+@else
+
+<main id="products-ranking" class="my-basket my-wishlist-page">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3>This Link is Empty or you enter a Wrong Link!</h3>
+        </div>
+    </div>
+</div>
+</main>
+@endif
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
