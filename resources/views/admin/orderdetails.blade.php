@@ -126,7 +126,7 @@
                         </tr> -->
                         <tr>
                             <td colspan="4" style="text-align:right"><strong>Total</strong></td>
-                            <td>QAR {{$orderdetail->amount}}</td>
+                            <td>QAR {{ DB::table('orders')->where('orderid' , $orderdetail->orderid)->sum('amount') }}</td>
                         </tr>
                     </tfoot>
         </table>
