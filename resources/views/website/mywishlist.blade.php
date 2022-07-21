@@ -60,6 +60,7 @@
               </tfoot>    
             </table>
             
+            @if(DB::table('customer_addresses')->where('cust_id' , Auth::user()->id)->count() > 0)
             <div class="d-flex ftr-btn-area">
             <p id="copied"></p>
                 <div class="d-flex copy-link">
@@ -72,7 +73,18 @@
                     <div class="vertical-shake add-more"><a href="{{route('website.home')}}">Add More</a></div>
                 </div>
             </div>
-
+            @else
+            <div class="d-flex ftr-btn-area">
+            <p id="copied"></p>
+                <div class="d-flex copy-link">
+                    <img src="{{asset('website/img/link.png')}}" onclick="addresserror()">
+                    <div>Copy this link, and share it with the ones you love to help them buying your favorite toys.</div>
+                </div>
+                <div class="d-flex pay-as">
+                    <div class="vertical-shake add-more"><a href="{{route('website.home')}}">Add More</a></div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>
@@ -82,7 +94,13 @@
 @stop
 
 @push('otherscript')
-
+<script type="text/javascript">
+    function addresserror()
+    {
+        toastr.options.timeOut = 10000;
+        toastr.error('Please add Address then you Coppy this Link for Share with others');
+    }
+</script>
 <script>
 function copyToClipboard(text) {
 var inputc = document.body.appendChild(document.createElement("input"));
