@@ -229,6 +229,7 @@ class WebsiteController extends Controller
     // guest thanks page
 
     public function guestthank(Request $request){
+        $ipaddres = Cmf::ipaddress();
         $allparms =  $request->all();
         $getorder = Order::where('orderid' , $allparms['ORDERID'])->get()->first();
         $customer = DB::table('users')->where('id' , $getorder->cust_id)->get()->first();
