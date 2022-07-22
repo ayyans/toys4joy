@@ -181,7 +181,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
         $("#cover-spin").show();
         $.ajax({
             url:"{{route('website.orderplacepayasmember')}}",
-            type:"GET",
+            type:"POST",
             data:form,
             cache:false,
             contentType:false,
