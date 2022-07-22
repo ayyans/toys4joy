@@ -545,9 +545,44 @@ class WebsiteController extends Controller
     public function addCardInfo(){
         return view('website.add_card_info');
     }
+    function grabIpInfo($ip)
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, "https://api.ipgeolocation.io/ipgeo?apiKey=97136d19e82c4014a6ca11f8fe1971ab&ip=".$ip);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        $returnData = curl_exec($curl);
+        curl_close($curl);
+        return $returnData;
+    }
+    function getUserIpAddr(){
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }else{
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+    }
 
     public function addAddressInfo(){
-        return view('website.add_address');
+        $ip_address =  $this->getUserIpAddr();
+        $ip_address =  '182.188.148.57';
+        $ipInfo = $this->grabIpInfo($ip_address);
+        $ipdata =  json_decode($ipInfo);
+        $address = CustomerAddress::where('cust_id' , Auth::user()->id);
+        if($address->count() > 0)
+        {
+            if($address->get()->first()->latitude)
+            {
+                $lattitude =  $ipdata->latitude;
+                $longitude =  $ipdata->longitude;
+            }
+        }else{
+            $lattitude =  $ipdata->longitude;
+            $longitude =  $ipdata->latitude;
+        }
+        return view('website.add_address')->with(array('lattitude'=>$lattitude,'longitude'=>$longitude));
     }
 
 
