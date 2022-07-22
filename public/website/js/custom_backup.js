@@ -2070,37 +2070,6 @@ $(document).ready(function() {
     audio.load();
     audio.play();
   });
-
-
-  var owl_single = $(".owl-carousel-single-picture");
-  owl_single.owlCarousel({
-    items:1,
-    margin:30,
-    stagePadding:30,
-    smartSpeed:450,
-    loop: true,
-    dots:false,
-    autoplay:true,
-    navigation : true,
-    singleItem : true,
-    slideSpeed : 300,
-    paginationSpeed : 400,
-    transitionStyle : "scaleUp",
-    animateOut: 'slideOutDown',
-    animateIn: 'flipInX',
-    lazyLoad:true,
-    responsive:{
-      0:{
-          items:1
-      },
-      600:{
-          items:1
-      },
-      1000:{
-          items:1
-      }
-  }
-  });
 });    
  
 //$('.categories li ul li a').each(function() {
@@ -2110,83 +2079,14 @@ $(document).ready(function() {
 
 $(function() {
   // Owl Carousel
-  var owl = $(".owl-carousel-features");
+  var owl = $("carousel");
   owl.owlCarousel({
-    items: 5,
-    loop: true,
-    nav: true,
-    dots:true,
-    autoplay:true,
-    autoplayTimeout:2000,
-    autoplayHoverPause:true,
-    animateIn:true,
-    lazyLoad:true,
-    navigation : true,
-    responsive:{
-      0:{
-          items:1
-      },
-      600:{
-          items:3
-      },
-      1000:{
-          items:5
-      }
-  }
-  });
-  
-  var owl = $(".owl-carousel-brands");
-  owl.owlCarousel({
-    items: 5,
-    loop: true,
-    nav: true,
-    dots:false,
-    autoplay:true,
-    autoplayTimeout:2000,
-    autoplayHoverPause:true,
-    animateIn:true,
-    lazyLoad:true,
-    navigation : true,
-    responsive:{
-      0:{
-          items:1
-      },
-      600:{
-          items:3
-      },
-      1000:{
-          items:5
-      }
-  }
-  });
-});    
-$(function() {  
-  
-  var owl_single_banner = $(".owl-carousel-single-banner");
-  owl_single_banner.owlCarousel({
     items: 1,
     loop: true,
-    dots:false,
-    autoplay:true,
-    autoplayTimeout:2000,
-    autoplayHoverPause:true,
-    animateOut: 'slideOutDown',
-    animateIn: 'flipInX',
-    singleItem: true,
-    lazyLoad:true,
-    responsive:{
-      0:{
-          items:1
-      },
-      600:{
-          items:1
-      },
-      1000:{
-          items:1
-      }
-  }
+    nav: true
   });
-});   
+});    
+       
 //$(document).on("click", 'input.check', function () {
 //  if ($(this).is(":checked")) {
 //    $('label.checked').removeClass('checked');

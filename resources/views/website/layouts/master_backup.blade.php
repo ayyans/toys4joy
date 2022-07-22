@@ -7,13 +7,11 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{asset('website/css/style.css')}}" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="{{asset('website/js/animate/animate.min.css')}}" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-
-
 <link rel='stylesheet' href='https://unpkg.com/xzoom/dist/xzoom.css'>    
 
 @stack('otherstyle')
@@ -64,20 +62,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 @include('website.layouts.footer')
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script> 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.2.0/jquery-migrate.min.js" integrity="sha512-5O0jzCJTmTO9ylmof+eDShChXs+Y0GncP7fXqEq1jQQ7KwoIALwLIleE4ritPTgfuWEALFmXOTeXopcLMQ8X8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type="text/javascript" src="{{asset('website/js/owl-carousel-2.3.4/js/owl.carousel.js')}}"></script>
-<script type="text/javascript" src="{{asset('website/js/owl-carousel-2.3.4/js/owl.autoplay.js')}}"></script>
-<script type="text/javascript" src="{{asset('website/js/owl-carousel-2.3.4/js/owl.animate.js')}}"></script>
-<script type="text/javascript" src="{{asset('website/js/owl-carousel-2.3.4/js/owl.navigation.js')}}"></script>
-
-
+<script type="text/javascript" src="{{asset('website/js/custom.js')}}"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
 <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
 <script src='https://unpkg.com/xzoom/dist/xzoom.min.js'></script>
 <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/foundation.min.js'></script>  
-<script type="text/javascript" src="{{asset('website/js/custom.js')}}"></script>   
+<script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/foundation.min.js'></script>    
         <script>
         $(document).ready(function() {
             toastr.options.timeOut = 10000; 

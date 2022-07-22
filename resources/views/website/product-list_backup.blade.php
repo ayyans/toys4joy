@@ -3,7 +3,7 @@
 <main>
 <div class="container-fluid">
     <div class="row">
-    	<div class="col-2 categories-col">
+    	<div class="col-3 categories-col">
             <div class="d-flex flex-column flex-shrink-0" >
                 <div class="for-mobile mbl-banner">
                 @include('website.layouts.user_menu')
@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-10">
+        <div class="col-9">
             <div class="for-desktop">
             @include('website.layouts.user_menu')  
             </div>
@@ -43,18 +43,7 @@
                               @else
                               <span class="price">QAR {{$product->unit_price}}</span>
                               @endif
-                              <span class="card-action d-flex mr-1">
-                          <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @if(Auth::check())
-                          <i class="fa fa-heart wishlist-list" id="addwishlist" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @else
-                          <a href="{{ url('login') }}">
-                          <i class="fa fa-heart wishlist-list"></i>
-                         </a>
-                         @endif
-                          </span>
-                            <!--<i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>-->
-
+                            <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
                         </div>
                     </div>
                 </div>

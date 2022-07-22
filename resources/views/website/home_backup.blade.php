@@ -3,7 +3,7 @@
 <main class="home">
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2 col-md-2 col-xl-2 categories-col">
+        <div class="col-3 categories-col">
             <div class="d-flex flex-column flex-shrink-0" >
                 <div class="for-mobile mbl-banner">
                     {{-- <ul class="nav nav-pills nav-fill">
@@ -56,11 +56,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8 middle-col">
+        <div class="col-6 middle-col">
             <div class="for-desktop">
             @include('website.layouts.user_menu')  
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                
                   <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -68,13 +67,11 @@
                   </div>
                   <div class="carousel-inner">
                     @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
-                    
-                    <div class="carousel-item @if ($loop->first) active @endif">
                     <a href="{{ url('') }}/{{ $r->url }}">
-                    <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid">
-                    </a>
+                    <div class="carousel-item @if ($loop->first) active @endif">
+                      <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid">
                     </div>
-                    
+                    </a>
                     @endforeach
                   </div>
                   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -87,11 +84,37 @@
                   </button>
                 </div>
             </div>
-            
+            <div class="d-flex home-prod products-list">
+                @foreach($products as $product)
+                <div class="single">
+                    @if($product->qty == 0)
+                    <div class="availbility"><span>Out of Stock</span></div>
+                    @elseif($product->discount)
+                    @php
+                      $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
+                    @endphp
+                    <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
+                    @endif
+                    <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
+                    <div class="text-center content-block">
+                        <h3>{{$product->title}}</h3>
+                        <div class="d-flex price-cart">
+                          @if($product->discount)
+                          <span class="price">QAR {{$product->discount}}</span>
+                          <del class="price">QAR {{$product->unit_price}}</del>
+                          @else
+                          <span class="price">QAR {{$product->unit_price}}</span>
+                          @endif
+                          <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
-        <div class="col-sm-2 col-md-2 col-xl-2 right-col">
+        <div class="col-3 right-col">
             <div class="right-sidebar">
-            <!--<ul class="product-list">
+            <ul class="product-list">
                 <li>
                     <a href="#" class="active">Top
                     <div class="content-box">
@@ -104,8 +127,8 @@
                 </li>
                 <li><a href="{{ route('website.brands') }}">Brands</a></li>
                 <li><a href="{{ route('website.bestsellers') }}">Best Sellers</a></li>
-                <li><a href="{{ route('website.newarrivals') }}">New Arrivals</a></li>
-            </ul>-->
+                <li><a href="{{ route('website.bestoffers') }}">Best Offers</a></li>
+            </ul>
                 <h1 class="for-mobile age-range-title">Select Age Range</h1>
             <div class="age-range">
               <form id="filter" action="{{ route('website.products-filter') }}">
@@ -149,177 +172,13 @@
                 </div>
               </form>
             </div>
-            
-        </div>
-        </div>
-    </div>
-    <!--new section-->
-<section class="row mt-3">
-<div class="col-sm-2 col-md-2 col-xl-2">
-<div class="row">
-<div class="owl-carousel-single-picture owl-carousel owl-theme mt-3">
-@foreach($products as $product)
-  <div class="item single"><img class="img-widget" src="{{asset('products/'.$product->featured_img)}}"></div>
-@endforeach 
-</div>
-</div>
-<div class="row">
-<div class="owl-carousel-single-picture owl-carousel owl-theme mt-3">
-@foreach($products as $product)
-  <div class="item single"><img class="img-widget" src="{{asset('products/'.$product->featured_img)}}"></div>
-@endforeach 
-</div>
-</div>
-</div>
-<div class="col-md-8 middle-col mt-3">
-  <!--seection-->
-<div class="section-title"><h3>Best Sellers</h3></div>
-<div class="row">
-<div class="owl-carousel-features owl-carousel owl-theme">
-@foreach($products as $product)
-                <div class="item single single-home-card">
-                    @if($product->qty == 0)
-                    <div class="availbility"><span>Out of Stock</span></div>
-                    @elseif($product->discount)
-                    @php
-                      $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
-                    @endphp
-                    <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
-                    @endif
-                    <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>{{$product->title}}</h3>
-                        <div class="d-flex price-cart">
-                          @if($product->discount)
-                          <span class="price">QAR {{$product->discount}}</span>
-                          <del class="price">QAR {{$product->unit_price}}</del>
-                          @else
-                          <span class="price">QAR {{$product->unit_price}}</span>
-                          @endif
-                          <span class="card-action d-flex mr-1">
-                          <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @if(Auth::check())
-                          <i class="fa fa-solid fa-heart" id="addwishlist" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @else
-                          <a href="{{ url('login') }}">
-                          <i class="fa fa-heart"></i>
-                         </a>
-                         @endif
-                          </span>
-                          
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-</div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col text-center">
-      <a href="{{ route('website.bestsellers') }}" class="btn btn-outline-primary outlined">View more</a>
-    </div>
-  </div>
-</div>
-<!--section-->
-
-<!--section-->
-<div class="section-title"><h3>New arrivals</h3></div>
-<div class="row">
-<div class="owl-carousel-features owl-carousel owl-theme">
-@foreach($products as $product)
-                <div class="item single single-home-card">
-                    @if($product->qty == 0)
-                    <div class="availbility"><span>Out of Stock</span></div>
-                    @elseif($product->discount)
-                    @php
-                      $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
-                    @endphp
-                    <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
-                    @endif
-                    <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>{{$product->title}}</h3>
-                        <div class="d-flex price-cart">
-                          @if($product->discount)
-                          <span class="price">QAR {{$product->discount}}</span>
-                          <del class="price">QAR {{$product->unit_price}}</del>
-                          @else
-                          <span class="price">QAR {{$product->unit_price}}</span>
-                          @endif
-                          <span class="card-action d-flex mr-1">
-                          <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @if(Auth::check())
-                          <i class="fa fa-solid fa-heart" id="addwishlist" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @else
-                          <a href="{{ url('login') }}">
-                          <i class="fa fa-heart"></i>
-                         </a>
-                         @endif
-                          </span>
-                          
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-</div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col text-center">
-      <a href="{{ route('website.newarrivals') }}" class="btn btn-outline-primary outlined">View more</a>
-    </div>
-  </div>
-</div>
-<!--section-->
- <!--seection-->
- <div class="section-title"><h3>Our Brands</h3></div>
-<div class="row">
-<div class="owl-carousel-brands owl-carousel owl-theme">
-@foreach(DB::table('brands')->where('status' , 2)->get() as $r)
-<div class="single">
-                    <a style="color: black;text-decoration: none;" href="{{ url('brand') }}/{{ $r->brand_name }}">
-                        @if($r->logo)
-                        <div class="img-block">
-                            <img src="{{ url('uploads') }}/{{ $r->logo }}"/>
-                        </div>
-                        @else
-                        <div class="img-block">
-                            <h2 style="font-size: 20px;">{{ $r->brand_name }}</h2>
-                        </div>
-                        @endif
-                    </a>
-                </div>
-                @endforeach
-</div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col text-center">
-      <a href="{{ route('website.brands') }}" class="btn btn-outline-primary outlined">View more</a>
-    </div>
-  </div>
-</div>
-<!--section-->
-
-<!--banner-->
-<div class="row">
-<div class="owl-carousel-single-banner owl-carousel owl-theme">
-
-  <div class="item single"><img class="img-widget" style="height: fit-content;;" src="{{asset('uploads/banner1-01.png')}}"></div>
-
-</div>
-</div>
-<!--banner-->  
-</div>
-<div class="col-sm-2 col-md-2 col-xl-2 right-col">
-<div class="right-sidebar">
-<div class="upload-img">
+            <div class="upload-img">
                 <div class="tooltip">
                     <a href="#">
-                        <button type="button" class="btn btn-primary modal-toggle share-price-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button type="button" class="btn btn-primary modal-toggle" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <img src="{{asset('website/img/upload-image.png')}}" class="img-fluid">
                         </button>    
-                        <span class="row tooltiptext_fixed">Share with us the products and prices you wish</span>
+                        <span class="tooltiptext">Share with us the products and prices you wish</span>
                     </a>
                 </div>
                 
@@ -363,17 +222,9 @@
                 <!-- End Modal -->
                 
             </div>
-
-</div>
-
-<div>
-
-
-
-</section>
-
-    <!--end section-->
-  
+        </div>
+        </div>
+    </div>
 </div>
 </main>
 @endsection
