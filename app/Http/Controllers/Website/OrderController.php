@@ -30,7 +30,27 @@ use DB;
 use PDF;
 class OrderController extends Controller
 {
-    
+    public function orderplacepayasmember(Request $request)
+    {
+        $ipaddres = Cmf::ipaddress();
+        $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
+        $cust_id = Auth::user()->id;
+        $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
+        $cust_add_id = $cust_Add['id'];
+        foreach ($cart as $r) {
+            $place_order = new Order;
+            $place_order->orderid=$request->order_id;
+            $place_order->orderstatus='payementpending';
+            $place_order->cust_id=$cust_id;
+            $place_order->cust_add_id=$cust_add_id;
+            $place_order->prod_id=$r->prod_id;
+            $place_order->qty = $r->qty;
+            $place_order->amount = $r->amount;
+            $place_order->mode = '2';
+            $place_order->save();
+        }
+        return response()->json(["status"=>"200","msg"=>'test']);
+    }
     public function payasguestordergenerate(Request $request)
     {
         $ipaddres = Cmf::ipaddress();

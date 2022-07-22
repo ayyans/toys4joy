@@ -175,7 +175,30 @@ $action_url = 'https://sadadqa.com/webpurchase';
 <script type="text/javascript">
     function submitpayementform()
     {
-        $('#paymentform').submit();
+        var form = new FormData();
+        form.append('order_id','{{ $orderid }}');
+
+        $("#cover-spin").show();
+        $.ajax({
+            url:"{{route('website.orderplacepayasmember')}}",
+            type:"GET",
+            data:form,
+            cache:false,
+            contentType:false,
+            processData:false,
+            success:function(res){
+                var js_data = JSON.parse(JSON.stringify(res));
+                $("#cover-spin").hide();
+                if(js_data.status==200){
+                    $('#paymentform').submit();
+                }
+            }
+        })
+
+
+
+
+        
     }
 </script>
 

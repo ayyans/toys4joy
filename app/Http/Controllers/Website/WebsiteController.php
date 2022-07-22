@@ -229,37 +229,27 @@ class WebsiteController extends Controller
     // guest thanks page
 
     public function guestthank(Request $request){
-        $allparms =  $request->all();
-        $ipaddres = Cmf::ipaddress();
-        $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get()->first();
-        $customer = DB::table('users')->where('id' , $cart->customer_id)->get()->first();
+        $getorder = Order::where('orderid' , $allparms['ORDERID'])->get()->first();
+        $customer = DB::table('users')->where('id' , $getorder->cust_id)->get()->first();
         auth()->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
         if(Auth::check()){
             if($allparms['STATUS'] == 'TXN_SUCCESS')
             {
+                $data = Order::where('orderid' , $allparms['ORDERID'])->get();
+                foreach ($data as $r) {
+                    $updateorder = Order::find($r->id);
+                    $updateorder->orderstatus = 'sadadpayement';
+                    $updateorder->payment_id = $allparms['transaction_number'];
+                    $updateorder->save();
+                }
                 $cust_id = Auth::user()->id;
                 $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
                 $cust_card = CardInfo::where('cust_id','=',$cust_id)->first();
                 $cust_add_id = $cust_Add['id'];
-                $cartid = $allparms['ORDERID'];
-                $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
-                foreach ($cart as $r) {
-                    $place_order = new Order;
-                    $place_order->orderid=$allparms['ORDERID'];
-                    $place_order->orderstatus='sadadpayement';
-                    $place_order->cust_id=$cust_id;
-                    $place_order->cust_add_id=$cust_add_id;
-                    $place_order->prod_id=$r->prod_id;
-                    $place_order->qty = $r->qty;
-                    $place_order->payment_id = $allparms['transaction_number'];
-                    $place_order->amount = $allparms['TXNAMOUNT'];
-                    $place_order->mode = '2';
-                    $place_order->save();
-                }
-                if($place_order==true){
-                    $products = $cart->pluck('prod_id')->map(fn($i) => Product::find($i))->pluck('title');
-                    $quantity = $cart->pluck('qty');
-                    $amount = $cart->pluck('amount');
+                if($updateorder==true){
+                    $products = $updateorder->pluck('prod_id')->map(fn($i) => Product::find($i))->pluck('title');
+                    $quantity = $updateorder->pluck('qty');
+                    $amount = $updateorder->pluck('amount');
                     $address = "Unit No: $cust_Add->unit_no, Building No: $cust_Add->building_no, Zone: $cust_Add->zone, Street: $cust_Add->street";
                     $order_details = [
                         'order_number' => $allparms['ORDERID'],
