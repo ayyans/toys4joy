@@ -46,10 +46,10 @@
                               <span class="card-action d-flex mr-1">
                           <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
                           @if(Auth::check())
-                          <i class="fa fa-heart wishlist-list" id="addwishlist" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
+                          <i class="fa @if(DB::table('wishlists')->where('cust_id' , Auth::user()->id)->where('prod_id' , $product->id)->count() > 0) fa-heart @else fa-heart-o @endif wishlist-list addtowishlist{{ $product->id }}" id="addwishlist" onclick="addtowishlist({{$product->id}})"></i>
                           @else
                           <a href="{{ url('login') }}">
-                          <i class="fa fa-heart wishlist-list"></i>
+                          <i class="fa fa-heart-o wishlist-list"></i>
                          </a>
                          @endif
                           </span>

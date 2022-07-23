@@ -176,41 +176,41 @@
 <div class="section-title"><h3>Best Sellers</h3></div>
 <div class="row">
 <div class="owl-carousel-features owl-carousel owl-theme">
-@foreach($products as $product)
-                <div class="item single single-home-card">
-                    @if($product->qty == 0)
-                    <div class="availbility"><span>Out of Stock</span></div>
-                    @elseif($product->discount)
-                    @php
-                      $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
-                    @endphp
-                    <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
-                    @endif
-                    <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>{{$product->title}}</h3>
-                        <div class="d-flex price-cart">
-                          @if($product->discount)
-                          <span class="price">QAR {{$product->discount}}</span>
-                          <del class="price">QAR {{$product->unit_price}}</del>
-                          @else
-                          <span class="price">QAR {{$product->unit_price}}</span>
-                          @endif
-                          <span class="card-action d-flex mr-1">
-                          <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @if(Auth::check())
-                          <i class="fa fa-solid fa-heart" id="addwishlist" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @else
-                          <a href="{{ url('login') }}">
-                          <i class="fa fa-heart"></i>
-                         </a>
-                         @endif
-                          </span>
-                          
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+@foreach($bestsellers as $product)
+  <div class="item single single-home-card">
+      @if($product->qty == 0)
+      <div class="availbility"><span>Out of Stock</span></div>
+      @elseif($product->discount)
+      @php
+        $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
+      @endphp
+      <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
+      @endif
+      <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
+      <div class="text-center content-block">
+          <h3>{{$product->title}}</h3>
+          <div class="d-flex price-cart">
+            @if($product->discount)
+            <span class="price">QAR {{$product->discount}}</span>
+            <del class="price">QAR {{$product->unit_price}}</del>
+            @else
+            <span class="price">QAR {{$product->unit_price}}</span>
+            @endif
+            <span class="card-action d-flex mr-1">
+            <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
+            @if(Auth::check())
+            <i class="fa fa-solid @if(DB::table('wishlists')->where('cust_id' , Auth::user()->id)->where('prod_id' , $product->id)->count() > 0) fa-heart @else fa-heart-o @endif" id="addwishlist" onclick="addtowishlist({{$product->id}})"></i>
+            @else
+            <a href="{{ url('login') }}">
+            <i class="fa fa-heart"></i>
+           </a>
+           @endif
+            </span>
+            
+          </div>
+      </div>
+  </div>
+  @endforeach
 </div>
 </div>
 <div class="container">
@@ -226,41 +226,41 @@
 <div class="section-title"><h3>New arrivals</h3></div>
 <div class="row">
 <div class="owl-carousel-features owl-carousel owl-theme">
-@foreach($products as $product)
-                <div class="item single single-home-card">
-                    @if($product->qty == 0)
-                    <div class="availbility"><span>Out of Stock</span></div>
-                    @elseif($product->discount)
-                    @php
-                      $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
-                    @endphp
-                    <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
-                    @endif
-                    <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>{{$product->title}}</h3>
-                        <div class="d-flex price-cart">
-                          @if($product->discount)
-                          <span class="price">QAR {{$product->discount}}</span>
-                          <del class="price">QAR {{$product->unit_price}}</del>
-                          @else
-                          <span class="price">QAR {{$product->unit_price}}</span>
-                          @endif
-                          <span class="card-action d-flex mr-1">
-                          <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @if(Auth::check())
-                          <i class="fa fa-solid fa-heart" id="addwishlist" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @else
-                          <a href="{{ url('login') }}">
-                          <i class="fa fa-heart"></i>
-                         </a>
-                         @endif
-                          </span>
-                          
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+@foreach($newarrivals as $product)
+  <div class="item single single-home-card">
+      @if($product->qty == 0)
+      <div class="availbility"><span>Out of Stock</span></div>
+      @elseif($product->discount)
+      @php
+        $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
+      @endphp
+      <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
+      @endif
+      <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
+      <div class="text-center content-block">
+          <h3>{{$product->title}}</h3>
+          <div class="d-flex price-cart">
+            @if($product->discount)
+            <span class="price">QAR {{$product->discount}}</span>
+            <del class="price">QAR {{$product->unit_price}}</del>
+            @else
+            <span class="price">QAR {{$product->unit_price}}</span>
+            @endif
+            <span class="card-action d-flex mr-1">
+            <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
+            @if(Auth::check())
+            <i class="fa fa-solid @if(DB::table('wishlists')->where('cust_id' , Auth::user()->id)->where('prod_id' , $product->id)->count() > 0) fa-heart @else fa-heart-o @endif" id="addwishlist" onclick="addtowishlist({{$product->id}})"></i>
+            @else
+            <a href="{{ url('login') }}">
+            <i class="fa fa-heart"></i>
+           </a>
+           @endif
+            </span>
+            
+          </div>
+      </div>
+  </div>
+  @endforeach
 </div>
 </div>
 <div class="container">
@@ -277,19 +277,19 @@
 <div class="owl-carousel-brands owl-carousel owl-theme">
 @foreach(DB::table('brands')->where('status' , 2)->get() as $r)
 <div class="single">
-                    <a style="color: black;text-decoration: none;" href="{{ url('brand') }}/{{ $r->brand_name }}">
-                        @if($r->logo)
-                        <div class="img-block">
-                            <img src="{{ url('uploads') }}/{{ $r->logo }}"/>
-                        </div>
-                        @else
-                        <div class="img-block">
-                            <h2 style="font-size: 20px;">{{ $r->brand_name }}</h2>
-                        </div>
-                        @endif
-                    </a>
-                </div>
-                @endforeach
+    <a style="color: black;text-decoration: none;" href="{{ url('brand') }}/{{ $r->brand_name }}">
+        @if($r->logo)
+        <div class="img-block">
+            <img src="{{ url('uploads') }}/{{ $r->logo }}"/>
+        </div>
+        @else
+        <div class="img-block">
+            <h2 style="font-size: 20px;">{{ $r->brand_name }}</h2>
+        </div>
+        @endif
+    </a>
+</div>
+@endforeach
 </div>
 </div>
 <div class="container">
@@ -314,55 +314,55 @@
 <div class="col-sm-2 col-md-2 col-xl-2 right-col">
 <div class="right-sidebar">
 <div class="upload-img">
-                <div class="tooltip">
-                    <a href="#">
-                        <button type="button" class="btn btn-primary modal-toggle share-price-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <img src="{{asset('website/img/upload-image.png')}}" class="img-fluid">
-                        </button>    
-                        <span class="row tooltiptext_fixed">Share with us the products and prices you wish</span>
-                    </a>
-                </div>
-                
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Please Fill out the Form Below</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <form enctype="multipart/form-data" method="POST" action="{{ route('website.submitformlookingfor') }}">
-                            @csrf
-                          <div class="mb-3">
-                            <label for="exampleInputName1" class="form-label">Your Name</label>
-                            <input type="text" required class="form-control" name="name" aria-describedby="nameHelp">
-                          </div>
-                          <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" required class="form-control" name="email" aria-describedby="emailHelp">
-                          </div>
-                          <div class="mb-3">
-                            <label for="exampleInputPhone1" class="form-label">Phone Number</label>
-                            <input type="tel" required class="form-control" name="phonenumber">
-                          </div>
-                          <div class="mb-3">
-                            <label for="exampleInputMessage1" class="form-label">Your Message</label>
-                              <textarea class="form-control" name="message"></textarea>
-                          </div>
-                          <div class="mb-3">
-                            <label for="exampleInputUpload1" class="form-label">Upload Image</label>
-                            <input required type="file" class="form-control" name="image">
-                          </div>
-                          <button type="submit" class="btn btn-primary guest">Submit</button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Modal -->
-                
+  <div class="tooltip">
+      <a href="#">
+          <button type="button" class="btn btn-primary modal-toggle share-price-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <img src="{{asset('website/img/upload-image.png')}}" class="img-fluid">
+          </button>    
+          <span class="row tooltiptext_fixed">Share with us the products and prices you wish</span>
+      </a>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Please Fill out the Form Below</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" method="POST" action="{{ route('website.submitformlookingfor') }}">
+              @csrf
+            <div class="mb-3">
+              <label for="exampleInputName1" class="form-label">Your Name</label>
+              <input type="text" required class="form-control" name="name" aria-describedby="nameHelp">
             </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" required class="form-control" name="email" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPhone1" class="form-label">Phone Number</label>
+              <input type="tel" required class="form-control" name="phonenumber">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputMessage1" class="form-label">Your Message</label>
+                <textarea class="form-control" name="message"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputUpload1" class="form-label">Upload Image</label>
+              <input required type="file" class="form-control" name="image">
+            </div>
+            <button type="submit" class="btn btn-primary guest">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal -->
+  
+</div>
 
 </div>
 

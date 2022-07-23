@@ -132,6 +132,36 @@
 @include('website.layouts.loader')
 @push('otherscript')
 <script>
+    function addtowishlist(id)
+    {
+        $("#cover-spin").show();
+        var form = new FormData();
+        form.append('prod_id',id);
+        $.ajax({
+            url:"{{route('website.addWishlist')}}", 
+            type:"POST",
+            data:form,
+            cache:false,
+            contentType:false,
+            processData:false,
+            success:function(res){
+                $("#cover-spin").hide();
+                var js_data = JSON.parse(JSON.stringify(res));
+                if(js_data.status==200){
+                    toastr.success('Product added to wishlist');
+                    $('.addtowishlist'+id).removeClass('fa-heart-o');
+                    $('.addtowishlist'+id).addClass('fa-heart');
+                }else if(js_data.msg=='3'){
+                    toastr.error('product already added in wishlist');
+                    return false; 
+                }
+                else{
+                    toastr.error('something went wrong');
+                    return false; 
+                }
+            }
+        })    
+    }
    function addtocart(prod_id,qty,amt){
         var form =new FormData();
         form.append('prod_id',prod_id);
