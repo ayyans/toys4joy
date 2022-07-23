@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-10">
+        <div class="col-md-10 col-sm-12">
             <div class="for-desktop">
             @include('website.layouts.user_menu')  
             </div>

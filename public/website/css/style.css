@@ -405,6 +405,7 @@ ul.nav-fill .nav-item:last-child {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 3px 8px rgb(0 0 0 / 15%);
+    margin-top: 23%;
 }
 .right-sidebar .age-range {
     background: #fff;
@@ -1365,7 +1366,7 @@ transition: all 0.2s ease-in-out;
     font-weight: 700;
     font-size: 18px;
 }
-.pagination {background: #e9f1fe; padding-bottom: 50px;}
+.pagination {background: #e9f1fe; padding-bottom: 50px;overflow: auto;}
 .pagination li {margin: 0 5px;}
 .pagination li a {
     padding: 5px 15px;
@@ -3854,7 +3855,7 @@ ul.d-flex.social-media {justify-content: center;margin-top: -15px;}
 .right-col {width: 100%!important; padding: 0 15px;}    
 .right-sidebar .product-list {display: none;}
 .right-sidebar .age-range {background: #eef7ff;border: 0;} 
-.right-sidebar {background: #fff;box-shadow: none; padding: 0;}
+.right-sidebar {background: #fff;box-shadow: none; padding: 0;margin-top:0%;}
 .right-sidebar .upload-img {padding: 20px 50px;} 
 .book-your-event h1 {font-size: 18px;margin-bottom: 15px;}
 .book-now img {margin-top: 30px;}    
