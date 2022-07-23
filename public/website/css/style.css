@@ -431,8 +431,8 @@ ul.nav-fill .nav-item:last-child {
 .right-sidebar .age-range ul {list-style: none;padding: 0;}
 .right-sidebar .age-range ul input[type="checkbox"] {width: 20px;height: 20px; margin-right: 8px;}
 .right-sidebar .age-range ul li {display: flex;align-items: center;line-height: 32px;}
-.right-sidebar  .upload-img {padding: 20px 0 0;}
-.right-sidebar .upload-img img {animation: zoom-in-zoom-out 2s ease infinite; width:110px;}
+.right-sidebar  .upload-img {/*padding: 20px 0 0;*/}
+.right-sidebar .upload-img img {animation: zoom-in-zoom-out 2s ease infinite; width:130px;}
 .tooltip {
   position: relative;
   display: inline-block;
