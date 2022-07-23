@@ -333,7 +333,7 @@
                         <button type="button" class="btn btn-primary modal-toggle share-price-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <img src="{{asset('website/img/upload-image.png')}}" class="img-fluid">
                         </button>    
-                        <span class="row tooltiptext_fixed">Share with us the products and prices you wish</span>
+                        <span class="row tooltiptext_fixed">Share products & prices you wish</span>
                     </a>
                 </div>
                 
