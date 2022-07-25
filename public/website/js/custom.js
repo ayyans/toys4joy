@@ -2079,15 +2079,13 @@ $(document).ready(function() {
     stagePadding:30,
     smartSpeed:450,
     loop: true,
-    dots:false,
+    dots:true,
     autoplay:true,
     navigation : true,
-    singleItem : true,
     slideSpeed : 300,
     paginationSpeed : 400,
-    transitionStyle : "scaleUp",
-    animateOut: 'slideOutDown',
-    animateIn: 'flipInX',
+    animateOut: true,
+    animateIn: true,
     lazyLoad:true,
     responsive:{
       0:{
@@ -2099,8 +2097,30 @@ $(document).ready(function() {
       1000:{
           items:1
       }
+  },
+  onChange: function (event) {
+    //$('.owl-carousel-single-picture').find('.img-widget').addClass('animate__animated animate__bounce')
+    //animateCSS('.owl-carousel-single-picture .img-widget', 'zoomIn');
+    
+setTimeout(function(){
+  animateCSS('.owl-carousel-single-picture .img-widget', 'zoomIn');
+  }, 500);
+  },
+  onChanged: function (event) {
+    //$('.owl-carousel-single-picture').find('.img-widget').addClass('animate__animated animate__bounce')
+    animateCSS('.owl-carousel-single-picture .img-widget', 'zoomIn');
   }
   });
+  
+  owl_single.on('changed.owl.carousel', function(event) {
+    //animateCSS('.owl-carousel-single-picture .img-widget', 'zoomOut');
+   /*$('.owl-carousel-single-picture').find('.img-widget').removeClass('animate__animated animate__bounce')
+    $('.owl-carousel-single-picture').find('.img-widget').addClass('animate__animated animate__bounce')*/
+})
+
+$('.carousel').carousel({
+  interval: 2000
+})
 });    
  
 //$('.categories li ul li a').each(function() {
@@ -2189,7 +2209,27 @@ $(function() {
       }
   }
   });
-});   
+});  
+
+const animateCSS = (element, animation, prefix = 'animate__') =>
+  // We create a Promise and return it
+  new Promise((resolve, reject) => {
+    const animationName = `${prefix}${animation}`;
+    const node = document.querySelector(element);
+
+    node.classList.add(`${prefix}animated`, animationName);
+
+    // When the animation ends, we clean the classes and resolve the Promise
+    function handleAnimationEnd(event) {
+      event.stopPropagation();
+      node.classList.remove(`${prefix}animated`, animationName);
+      resolve('Animation ended');
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd, {once: true});
+  });
+    
+    
 //$(document).on("click", 'input.check', function () {
 //  if ($(this).is(":checked")) {
 //    $('label.checked').removeClass('checked');
