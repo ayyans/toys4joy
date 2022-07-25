@@ -189,41 +189,41 @@
 <div class="section-title"><h3>Best Sellers</h3></div>
 <div class="row">
 <div class="owl-carousel-features owl-carousel owl-theme">
-@foreach($products as $product)
-                <div class="item single single-home-card">
-                    @if($product->qty == 0)
-                    <div class="availbility"><span>Out of Stock</span></div>
-                    @elseif($product->discount)
-                    @php
-                      $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
-                    @endphp
-                    <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
-                    @endif
-                    <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>{{$product->title}}</h3>
-                        <div class="d-flex price-cart">
-                          @if($product->discount)
-                          <span class="price">QAR {{$product->discount}}</span>
-                          <del class="price">QAR {{$product->unit_price}}</del>
-                          @else
-                          <span class="price">QAR {{$product->unit_price}}</span>
-                          @endif
-                          <span class="card-action d-flex mr-1">
-                          <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @if(Auth::check())
-                          <i class="fa fa-solid fa-heart" id="addwishlist" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @else
-                          <a href="{{ url('login') }}">
-                          <i class="fa fa-heart"></i>
-                         </a>
-                         @endif
-                          </span>
-                          
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+@foreach($bestsellers as $product)
+  <div class="item single single-home-card">
+      @if($product->qty == 0)
+      <div class="availbility"><span>Out of Stock</span></div>
+      @elseif($product->discount)
+      @php
+        $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
+      @endphp
+      <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
+      @endif
+      <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
+      <div class="text-center content-block">
+          <h3>{{$product->title}}</h3>
+          <div class="d-flex price-cart">
+            @if($product->discount)
+            <span class="price">QAR {{$product->discount}}</span>
+            <del class="price">QAR {{$product->unit_price}}</del>
+            @else
+            <span class="price">QAR {{$product->unit_price}}</span>
+            @endif
+            <span class="card-action d-flex mr-1">
+            <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
+            @if(Auth::check())
+            <i class="fa fa-solid @if(DB::table('wishlists')->where('cust_id' , Auth::user()->id)->where('prod_id' , $product->id)->count() > 0) fa-heart @else fa-heart-o @endif" id="addwishlist" onclick="addtowishlist({{$product->id}})"></i>
+            @else
+            <a href="{{ url('login') }}">
+            <i class="fa fa-heart"></i>
+           </a>
+           @endif
+            </span>
+            
+          </div>
+      </div>
+  </div>
+  @endforeach
 </div>
 </div>
 <div class="container">
@@ -239,41 +239,41 @@
 <div class="section-title"><h3>New arrivals</h3></div>
 <div class="row">
 <div class="owl-carousel-features owl-carousel owl-theme">
-@foreach($products as $product)
-                <div class="item single single-home-card">
-                    @if($product->qty == 0)
-                    <div class="availbility"><span>Out of Stock</span></div>
-                    @elseif($product->discount)
-                    @php
-                      $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
-                    @endphp
-                    <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
-                    @endif
-                    <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
-                    <div class="text-center content-block">
-                        <h3>{{$product->title}}</h3>
-                        <div class="d-flex price-cart">
-                          @if($product->discount)
-                          <span class="price">QAR {{$product->discount}}</span>
-                          <del class="price">QAR {{$product->unit_price}}</del>
-                          @else
-                          <span class="price">QAR {{$product->unit_price}}</span>
-                          @endif
-                          <span class="card-action d-flex mr-1">
-                          <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @if(Auth::check())
-                          <i class="fa fa-solid fa-heart" id="addwishlist" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
-                          @else
-                          <a href="{{ url('login') }}">
-                          <i class="fa fa-heart"></i>
-                         </a>
-                         @endif
-                          </span>
-                          
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+@foreach($newarrivals as $product)
+  <div class="item single single-home-card">
+      @if($product->qty == 0)
+      <div class="availbility"><span>Out of Stock</span></div>
+      @elseif($product->discount)
+      @php
+        $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
+      @endphp
+      <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
+      @endif
+      <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
+      <div class="text-center content-block">
+          <h3>{{$product->title}}</h3>
+          <div class="d-flex price-cart">
+            @if($product->discount)
+            <span class="price">QAR {{$product->discount}}</span>
+            <del class="price">QAR {{$product->unit_price}}</del>
+            @else
+            <span class="price">QAR {{$product->unit_price}}</span>
+            @endif
+            <span class="card-action d-flex mr-1">
+            <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
+            @if(Auth::check())
+            <i class="fa fa-solid @if(DB::table('wishlists')->where('cust_id' , Auth::user()->id)->where('prod_id' , $product->id)->count() > 0) fa-heart @else fa-heart-o @endif" id="addwishlist" onclick="addtowishlist({{$product->id}})"></i>
+            @else
+            <a href="{{ url('login') }}">
+            <i class="fa fa-heart"></i>
+           </a>
+           @endif
+            </span>
+            
+          </div>
+      </div>
+  </div>
+  @endforeach
 </div>
 </div>
 <div class="container">
@@ -290,19 +290,19 @@
 <div class="owl-carousel-brands owl-carousel owl-theme">
 @foreach(DB::table('brands')->where('status' , 2)->get() as $r)
 <div class="single">
-                    <a style="color: black;text-decoration: none;" href="{{ url('brand') }}/{{ $r->brand_name }}">
-                        @if($r->logo)
-                        <div class="img-block">
-                            <img src="{{ url('uploads') }}/{{ $r->logo }}"/>
-                        </div>
-                        @else
-                        <div class="img-block">
-                            <h2 style="font-size: 20px;">{{ $r->brand_name }}</h2>
-                        </div>
-                        @endif
-                    </a>
-                </div>
-                @endforeach
+    <a style="color: black;text-decoration: none;" href="{{ url('brand') }}/{{ $r->brand_name }}">
+        @if($r->logo)
+        <div class="img-block">
+            <img src="{{ url('uploads') }}/{{ $r->logo }}"/>
+        </div>
+        @else
+        <div class="img-block">
+            <h2 style="font-size: 20px;">{{ $r->brand_name }}</h2>
+        </div>
+        @endif
+    </a>
+</div>
+@endforeach
 </div>
 </div>
 <div class="container">
@@ -374,12 +374,11 @@
                   </div>
                 </div>
                 <!-- End Modal -->
-                
-            </div>
+</div>
 
 </div>
 
-<div>
+</div>
 
 
 

@@ -42,7 +42,11 @@ class WebsiteController extends Controller
     public function index(){
         $categories = $this->listCategory();
         $products = Product::where('status','=','2')->orderBy('id','desc')->limit(4)->get();
-        return view('website.home',compact('categories','products'));
+
+        $newarrivals = Product::where('new_arrival','=',1)->where('status','=','2')->orderBy('id','desc')->limit(10)->get();
+        $bestsellers = Product::where('best_seller','=',1)->where('status','=','2')->orderBy('id','desc')->limit(10)->get();
+
+        return view('website.home',compact('categories','products','newarrivals','bestsellers'));
     }
     public function submitformlookingfor(Request $request)
     {
