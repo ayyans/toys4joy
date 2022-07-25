@@ -50,7 +50,7 @@
         </div>
         <div class="elements">
             <div class="d-flex why-us">
-                <a href="https://api.whatsapp.com/send?phone=97460005970&text=Welcome%20to%20Toys4joy" target="_blank" class="whatsapp-icon">
+                <a href="https://api.whatsapp.com/send?phone=97460005370&text=Welcome%20to%20Toys4joy" target="_blank" class="whatsapp-icon">
                     <img src="{{asset('website/img/whatsapp.png')}}" class="whatsapp">
                 </a>
             </div>
@@ -65,17 +65,19 @@
     
 <footer class="for-mobile">
 <div class="container-fluid">
-    <div class="text-center footer">
-        <div class="col-3">
+    <!--text-center-->
+    <div class="row footer">
+        
+        <div class="col-2">
             <div class="why-us">
                 <a href="{{ route('website.whyus') }}">
                     <img src="{{asset('website/img/why-us.png')}}" class="why-text">
-                    <img src="img/logo-t4j.png" class="why-logo">
-                    <p>Why Choose us</p>
+                    <img src="{{asset('website/img/logo-t4j.png')}}" class="why-logo">
+                    <!--<p>Why Choose us</p>-->
                 </a>    
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-4">
             <div class="company-policy">
                 <a href="{{ route('website.policy') }}">
                     <img src="{{asset('website/img/2__4_-removebg-preview.png')}}"><p>Company Policy</p>
@@ -83,12 +85,15 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="get-in-touch">
-                
-                <div class="toll-free">
+        <div class="toll-free">
                 <a href="{{ route('website.contact') }}"><img src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
                 </div>
-                
+        </div>
+        
+        
+        <div class="col-12">
+            <div class="get-in-touch">
+        
                 <div class="google-play">
                     <a href="#"><img src="{{asset('website/img/ios.png')}}" class="app-store"></a>
                     <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
@@ -125,6 +130,7 @@
                 </div>
             </div>
         </div>
+      
     </div>
 </div> 
 </footer>
@@ -223,7 +229,6 @@
                 if(js_data.status==200){
                     toastr.success('Product removed from cart');
                     showcart();
-                    headercart();
                 }else{
                     toastr.error('something went wrong');
                     return false;
