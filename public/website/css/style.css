@@ -316,6 +316,7 @@ header {padding: 15px 20px;}
     border-bottom: 1px solid #c4c4c4 !important;
     border-radius: 0 !important;
     padding: 13.5px 0;
+    
 }
 .categories li:hover a {border-bottom: 0 !important;}
 .categories li:last-child a{border: 0!important;}
@@ -324,12 +325,12 @@ header {padding: 15px 20px;}
     border-radius: 0 !important;
 }
 .categories ul li {padding: 0 30px;}
-.categories li a {font-size: 12px; font-weight: 700;}
+.categories li a {font-size: 19px; font-weight: 700;}
 .categories li a img {height: 40px;}
 ul.nav-fill .nav-item a {
     border-radius: 8px 8px 0 0;
     color: #fff;
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 600;
     background: #333;
     padding: 10px;
@@ -337,7 +338,7 @@ ul.nav-fill .nav-item a {
     box-shadow: 0 0 15px rgb(0 0 0 / 15%);
     border-bottom: 0;
 }
-.categories li ul li a {font-size: 14px;}
+.categories li ul li a {font-size: 18px;}
 /*
 ul.nav-fill .nav-item a.nav-link span:after {
   content: '»';
@@ -446,7 +447,7 @@ ul.nav-fill .nav-item:last-child {
 }
 .upload-img .tooltip{opacity: 1; position: relative;}
 .tooltip a{text-decoration: none !important;}
-.share-price-button{ width: 100%;}
+.share-price-button{ width: 100%;padding-bottom: 44px !important;}
 .tooltiptext_fixed {
     /*visibility: hidden;*/
     font-size: 17px;
@@ -1207,6 +1208,13 @@ transition: all 0.2s ease-in-out;
     /*height: 100% !important;*/
     object-fit: fill;
 }
+/*
+.owl-carousel-single-picture img { opacity: 0; visibility: hidden;  }
+        .owl-carousel-single-picture img {
+          -webkit-transition: opacity 1s, ease-in;
+          transition: opacity 1s ease-in;
+        }
+        .animate .owl-carousel-single-picture img { opacity: 1; visibility: visible; }*/
 .owl-carousel-brands .single, .owl-carousel-features .single {
     background: #fff;
     border: 1px solid #CCCCCC;
@@ -1353,7 +1361,7 @@ transition: all 0.2s ease-in-out;
   }
 /*end owl carousel*/
 .wishlist-list {
-    color: #d52a65 !important;
+    color: #ffffff !important;
     
 }
 .wishlist-list:hover{
@@ -3364,7 +3372,7 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     margin-bottom: 15px;
 }
 .contact-info .content-block {width: 50%;}
-.contact-info {column-gap: 30px;}
+.contact-info {column-gap: 0px;}
 .contact-info ul li span {display: block;margin-left: 72px;}
 
 /**************** USE OF TERMS PAGE ******************/
@@ -3670,7 +3678,8 @@ ul.social-media img {width: 34px;}
 #your-points .progress {height: 8.6vw;}
 .progres-bar .free img {width: 90px;}  
 .brands-logo {padding: 40px; column-gap: 25px;}
-.brands-logo .single {margin-bottom: 25px;}     
+.brands-logo .single {margin-bottom: 25px;} 
+.categories li a {font-size: 16px;}     
 }
 
 
@@ -3714,7 +3723,7 @@ input[type="radio"] {width: 1.8em;height: 1.8em;}
 .contact-info ul li span {margin: 0;}
 #change-mob-num .col-6 {padding: 10px;}
 #my-siblings .col-10 {width: 100%;}    
-   
+.categories li a {font-size: 16px;} 
     
 }
 
@@ -3731,7 +3740,8 @@ input[type="radio"] {width: 1.8em;height: 1.8em;}
 .cash-on-delivery img {width: 120px;} 
 .input-security + button {padding: 18px 30px;font-size: 18px;} 
 .account .form-col .form-group .form-inner {width: 100%;} 
-#add-change-address {padding: 100px 30px;}    
+#add-change-address {padding: 100px 30px;} 
+.categories li a {font-size: 16px;}    
 }
 
 
@@ -3855,7 +3865,7 @@ ul.d-flex.social-media {justify-content: center;margin-top: -15px;}
 .right-col {width: 100%!important; padding: 0 15px;}    
 .right-sidebar .product-list {display: none;}
 .right-sidebar .age-range {background: #eef7ff;border: 0;} 
-.right-sidebar {background: #fff;box-shadow: none; padding: 0;margin-top:0%;}
+.right-sidebar {background: #fff;box-shadow: none; padding: 0; margin-top: 0%;} 
 .right-sidebar .upload-img {padding: 20px 50px;} 
 .book-your-event h1 {font-size: 18px;margin-bottom: 15px;}
 .book-now img {margin-top: 30px;}    
@@ -4316,7 +4326,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .categories li a {font-size: 12px;padding: 5px 10px;}
 .products-list .single, .home-prod.products-list .single {width: 45%;}
 .products-list .single .content-block h3{margin-top: 10px;}  
-.products-list .single .content-block h3, .products-list .single .content-block span {font-size: 13px; margin-top: 10px;} 
+.products-list .single .content-block h3, .products-list .single .content-block span {font-size: 11px; margin-top: 10px;} 
 .cart-products .cart-image {max-width: 70px;height: 70px;} 
 .products-list .availbility span {font-size: 8px;} 
 .brands-logo {column-gap: 10px;}     
