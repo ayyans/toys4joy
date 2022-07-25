@@ -176,7 +176,7 @@
     </div>
     <!--new section-->
 <section class="row mt-3">
-<div class="col-sm-2 col-md-2 col-xl-2">
+<div class="col-sm-2 col-md-2 col-xl-2 mb-5">
 <div class="row">
 <div class="owl-carousel-single-picture owl-carousel owl-theme mt-3">
 <div class="item single"><img class="img-widget" src="{{asset('uploads/ad-1.png')}}"></div>
