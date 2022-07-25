@@ -41,7 +41,7 @@
                         @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
                         <a href="{{ url('') }}/{{ $r->url }}">
                           <div class="carousel-item @if ($loop->first) active @endif">
-                            <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid">
+                            <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid" style="width: 100%;">
                           </div>
                         </a>
                         @endforeach
@@ -92,7 +92,7 @@
                     
                     <div class="carousel-item @if ($loop->first) active @endif">
                     <a href="{{ url('') }}/{{ $r->url }}">
-                    <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid">
+                    <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid" style="width: 100%;">
                     </a>
                     </div>
                     
