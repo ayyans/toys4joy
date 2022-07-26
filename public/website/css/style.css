@@ -1241,12 +1241,12 @@ transition: all 0.2s ease-in-out;
     margin-top: 15px;
     margin-bottom: 5px;
     text-align: left;*/
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     margin-top: 4px;
     margin-bottom: 5px;
     text-align: left;
-    height: 26px;
+    height: 30px;
 }
 .owl-carousel-features .single .content-block span {
     font-size: 17px;
@@ -1305,6 +1305,7 @@ transition: all 0.2s ease-in-out;
     cursor: pointer;
     border-color: #d62b64;
 }
+.banner-desktop{display:block;}
 .owl-carousel-single-banner .single {
     background: #fff;
     border: 1px solid #CCCCCC;
@@ -3480,6 +3481,24 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 .input-security {max-width: 40%;}    
 .account .form-col .form-group .form-inner {width: 55%;} 
 #your-points .progress {height: 9vw;}     
+.owl-carousel-features .single .content-block .fa{
+    font-size: 14px;
+    color: #ffffff;
+    background: #fabe33;
+    border-radius: 30px;
+    padding: 6px;
+    padding-top: 7px;
+    padding-right: 7px;
+    padding-bottom: 7px;
+    padding-left: 7px;
+    width: 29px;
+    height: 29px;
+    text-align: center;
+    margin-right: 2px;
+}
+.owl-carousel-features .single .content-block .price-cart{
+    margin-top: 25px;
+}
 }
 
 
@@ -4042,7 +4061,7 @@ img.why-logo {width: 55px;margin-left: 15px;}
 
 
 @media only screen and (max-width: 480px) {
-
+    .banner-desktop{display:none;}
 #main-header {padding:10px 0 60px;}     
 .logo-here img {width: 55px;}  
 .search input, .search button {height: 32px;}  
