@@ -1222,7 +1222,7 @@ transition: all 0.2s ease-in-out;
     box-shadow: 0 3px 4px rgb(0 0 0 / 15%);
     /*width: 22.5%;*/
     text-align: center;
-    margin: 15px 5px;
+    margin: 10;
     padding: 10px;
     z-index: 3;
 }
@@ -1959,7 +1959,7 @@ transition: all 0.2s ease-in-out;
     color: #fff;
     background-image: none;
     border-radius: 0;
-    padding: 16px;
+    padding: 30px;
     animation: vertical-shaking 2s infinite;
 }
 .btn.pinkbg-img a {
@@ -3530,7 +3530,7 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 .categories li {padding: 5.5px 0;}
 .right-sidebar .age-range ul li {line-height: 24px;}
 .book-your-event h1 {font-size: 30px;}    
-.products-list .single .content-block h3, .products-list .single .content-block span {font-size: 16px;}  
+.products-list .single .content-block h3, .products-list .single .content-block span {font-size: 12px;}  
 .products-list .single .img-block {height: 120px;} 
 .products-list {margin-top: 55px;padding: 15px;} 
 .product-detail .brand h5 {font-size: 15px;}    
@@ -3560,7 +3560,13 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 .contact-info .detail {padding: 30px;} 
 .thanks-feedback {padding: 70px 20px;}
 #change-mob-num {padding: 90px 20px;}    
-   
+.owl-carousel-features .single .content-block h3{
+    font-size: 11px;
+    height: 36px;
+}  
+.owl-carousel-features .single .content-block span{
+    font-size: 12px;
+}
 }
 
 
@@ -3575,17 +3581,18 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 ul.nav-fill .nav-item a {font-size: 18px;padding: 8px;}
 ul.nav-fill .nav-item a:hover {padding-top: 12px;margin-top: -4px;}
 .categories h2 {padding: 11px;} 
-.categories li a {font-size: 16px;}    
+.categories li a {font-size: 14px;}    
 .right-sidebar .product-list li a {font-size: 16px;}  
 .right-sidebar .age-range ul input[type="checkbox"] {width: 15px; height: 15px;}   
 .right-sidebar .age-range ul li label {font-size: 14px;}
 .caption-btn .go {padding: 2px 10px;font-size: 14px;}
 .slider-labels {column-gap: 5px;} 
 .slider-labels .caption span {padding: 2px 15px;} 
-.right-sidebar .age-range {padding: 15px 30px 10px;} 
-.right-sidebar .age-range ul li {line-height: 22px;} 
-.right-sidebar .age-range h1 {font-size: 16px;} 
-.slider-labels {margin-top: 20px;} 
+.right-sidebar .age-range {padding: 15px 2px 10px;} 
+.right-sidebar .age-range ul li {line-height: 24px;} 
+.right-sidebar .age-range h1 {font-size: 14px;} 
+.slider-labels {margin-top: 20px; display: block;text-align: center;} 
+.slider-labels .caption span{margin-top: 5px;line-height: 32px;}
 #slider-range {margin: 10px auto;}
 .noUi-horizontal .noUi-handle {
     width: 10px;
@@ -3679,7 +3686,8 @@ ul.social-media img {width: 34px;}
 .progres-bar .free img {width: 90px;}  
 .brands-logo {padding: 40px; column-gap: 25px;}
 .brands-logo .single {margin-bottom: 25px;} 
-.categories li a {font-size: 16px;}     
+.categories li a {font-size: 12px;}  
+.categories ul li {padding: 0 10px;}   
 }
 
 
@@ -4028,6 +4036,8 @@ img.why-logo {width: 55px;margin-left: 15px;}
 .my-profile .main-content-box .date-numbering .num span:before,
 .my-profile .main-content-box .date-numbering .num span:after {top: 14px;}    
     
+.banner-desktop{display:none;}
+
 }
 
 
@@ -4232,11 +4242,17 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 #my-siblings .btn.pinkbg-img a {font-size: 18px;padding: 7px 60px;}
 .sibling .sib-img img {width: 70px;}    
 .sibling .table thead th {line-height: 1;font-size: 14px;} 
-.sibling .table tbody tr td input {padding: 5px;font-size: 14px;}    
+.sibling .table tbody tr td input {padding: 5px;font-size: 14px;}  
+ 
+.owl-carousel-features .single .content-block h3{
+    font-size: 11px;
+    height: 36px;
+} 
+.banner-desktop{display:none;} 
 }
 
 @media only screen and (max-width: 430px) {
-
+    .banner-desktop{display:none;}
 .gift-cards.member {width: auto}
     
 #products-ranking .table thead tr th {font-size: 16px;}    
@@ -4300,8 +4316,37 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .change-pswrd .lock {height: 34px;}
 .change-pswrd .lock img {width: 12px; margin-top: 8px;}
 .change-pswrd .pswrd-input img {top: 10px;width: 16px;}
-#change-mob-num .btn.pinkbg-img a {font-size: 16px; padding: 8px 50px;}    
-    
+#change-mob-num .btn.pinkbg-img a {font-size: 16px; padding: 8px 50px;}  
+ 
+.owl-carousel-features .single .content-block h3{
+    font-size: 11px;
+    height: 36px;
+}  
+.owl-carousel-features .single .content-block span{
+    font-size: 11px;
+}
+.owl-carousel-features .single .content-block .fa{
+      font-size: 14px;
+      color: #ffffff;
+      background: #fabe33;
+      border-radius: 30px;
+      padding: 6px;
+      padding-top: 7px;
+      padding-right: 7px;
+      padding-bottom: 7px;
+      padding-left: 7px;
+      width: 29px;
+      height: 29px;
+      text-align: center;
+      margin-right: 2px;
+}
+.owl-carousel-single-picture .single{
+    margin: 46px;
+}
+.owl-carousel-brands .single .img-block {
+    height: 85px;
+    overflow: hidden;
+  }
 }
 
 
@@ -4344,5 +4389,34 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 #add-change-address .form-group .input-block input {height: 40px;font-size: 18px;}
 #add-change-address .left-col .guest {width: 100%;}
 #change-mob-num .discount-block h4 {font-size: 16px;}    
-   
+    
+.owl-carousel-features .single .content-block h3{
+    font-size: 11px;
+    height: 36px;
+}
+.owl-carousel-features .single .content-block span{
+    font-size: 14px;
+}
+.owl-carousel-features .single .content-block .fa{
+      font-size: 14px;
+      color: #ffffff;
+      background: #fabe33;
+      border-radius: 30px;
+      padding: 6px;
+      padding-top: 7px;
+      padding-right: 7px;
+      padding-bottom: 7px;
+      padding-left: 7px;
+      width: 29px;
+      height: 29px;
+      text-align: center;
+      margin-right: 2px;
+}
+.owl-carousel-single-picture .single{
+    margin: 46px;
+}
+.owl-carousel-brands .single .img-block {
+    height: 85px;
+    overflow: hidden;
+  }
 }
