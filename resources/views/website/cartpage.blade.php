@@ -7,9 +7,6 @@
     	<div class="col-12">
             <div class="d-flex main-title">
                 <div class="title">My Basket</div>
-                <div class="icon">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><img src="{{asset('website/img/cart.png')}}" class="cart"></button>
-                </div>
             </div>
             <table class="table">
               <thead>
