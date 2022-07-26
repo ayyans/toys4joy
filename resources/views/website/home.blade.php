@@ -178,7 +178,7 @@
 <section class="row mt-3">
 <div class="col-sm-2 col-md-2 col-xl-2 mb-5">
 <div class="row">
-<div class="owl-carousel-single-picture owl-carousel owl-theme mt-3">
+<div class="owl-carousel-single-picture owl-carousel owl-theme mt-3" style="height: fit-content;">
 <div class="item single"><img class="img-widget" src="{{asset('uploads/ad-1.png')}}"></div>
 <div class="item single"><img class="img-widget" src="{{asset('uploads/ad-2.png')}}"></div>
 </div>
@@ -316,11 +316,13 @@
 
 <!--banner-->
 <div class="row">
-<div class="owl-carousel-single-banner owl-carousel owl-theme">
+  <div class="banner-desktop">
+  <div class="owl-carousel-single-banner owl-carousel owl-theme ">
+<div class="item single"><img class="img-widget" style="height: fit-content;;" src="{{asset('uploads/banner1-01.png')}}"></div>
+  </div>
 
-  <div class="item single"><img class="img-widget" style="height: fit-content;;" src="{{asset('uploads/banner1-01.png')}}"></div>
+  </div>
 
-</div>
 </div>
 <!--banner-->  
 </div>
