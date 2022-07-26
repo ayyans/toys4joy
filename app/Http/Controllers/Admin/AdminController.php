@@ -892,7 +892,8 @@ public function confirmGuestOrders(Request $request){
         'order_number' => $orderid,
         'to' => $order->cust_name,
         'date' => $order->created_at->format('d/m/Y'),
-        'status' => 'Confirmed'
+        'status' => 'Confirmed',
+        'email' => $order->cust_email
     ];
     event(new OrderStatusChanged($data));
     if($update_orders==true){
@@ -919,7 +920,8 @@ public function shippedGuestOrders(Request $request){
         'order_number' => $orderid,
         'to' => $order->cust_name,
         'date' => $order->created_at->format('d/m/Y'),
-        'status' => 'Shipped'
+        'status' => 'Shipped',
+        'email' => $order->cust_email
     ];
     event(new OrderStatusChanged($data));
     if($update_orders==true){
@@ -945,7 +947,8 @@ public function cancelledGuestOrders(Request $request){
         'order_number' => $orderid,
         'to' => $order->cust_name,
         'date' => $order->created_at->format('d/m/Y'),
-        'status' => 'Cancelled'
+        'status' => 'Cancelled',
+        'email' => $order->cust_email
     ];
     event(new OrderStatusChanged($data));
     if($update_orders==true){
@@ -972,7 +975,8 @@ public function deliveredGuestOrders(Request $request){
         'order_number' => $orderid,
         'to' => $order->cust_name,
         'date' => $order->created_at->format('d/m/Y'),
-        'status' => 'Delivered'
+        'status' => 'Delivered',
+        'email' => $order->cust_email
     ];
     event(new OrderStatusChanged($data));
     if($update_orders==true){
@@ -1227,14 +1231,15 @@ public function confirmCustOrders(Request $request){
     $update_orders = Order::where('id','=',$orderid)->update([
         'status'=>'2'
     ]);
-    $order = Order::where('id','=',$orderid)->first();
+    $order = Order::with('customer')->where('id','=',$orderid)->first();
     $data = [
         'title' => 'Order Confirmed!',
         'description' => 'Your order has confirmed.',
         'order_number' => $order->orderid,
-        'to' => User::find($order->cust_id)->name,
+        'to' => $order->customer->name,
         'date' => $order->created_at->format('d/m/Y'),
-        'status' => 'Confirmed'
+        'status' => 'Confirmed',
+        'email' => $order->customer->email
     ];
     event(new OrderStatusChanged($data));
     if($update_orders==true){
@@ -1254,14 +1259,15 @@ public function shippedCustOrders(Request $request){
     $update_orders = Order::where('id','=',$orderid)->update([
         'status'=>'3'
     ]);
-    $order = Order::where('id','=',$orderid)->first();
+    $order = Order::with('customer')->where('id','=',$orderid)->first();
     $data = [
         'title' => 'Order Shipped!',
         'description' => 'Your order is shipped.',
         'order_number' => $order->orderid,
-        'to' => User::find($order->cust_id)->name,
+        'to' => $order->customer->name,
         'date' => $order->created_at->format('d/m/Y'),
-        'status' => 'Shipped'
+        'status' => 'Shipped',
+        'email' => $order->customer->email
     ];
     event(new OrderStatusChanged($data));
     if($update_orders==true){
@@ -1280,14 +1286,15 @@ public function cancelledCustOrders(Request $request){
     $update_orders = Order::where('id','=',$orderid)->update([
         'status'=>'4'
     ]);
-    $order = Order::where('id','=',$orderid)->first();
+    $order = Order::with('customer')->where('id','=',$orderid)->first();
     $data = [
         'title' => 'Order Cancelled!',
         'description' => 'Your order is cancelled.',
         'order_number' => $order->orderid,
-        'to' => User::find($order->cust_id)->name,
+        'to' => $order->customer->name,
         'date' => $order->created_at->format('d/m/Y'),
-        'status' => 'Cancelled'
+        'status' => 'Cancelled',
+        'email' => $order->customer->email
     ];
     event(new OrderStatusChanged($data));
     if($update_orders==true){
@@ -1307,14 +1314,15 @@ public function deliveredCustOrders(Request $request){
     $update_orders = Order::where('id','=',$orderid)->update([
         'status'=>'5'
     ]);
-    $order = Order::where('id','=',$orderid)->first();
+    $order = Order::with('customer')->where('id','=',$orderid)->first();
     $data = [
         'title' => 'Order Delivered!',
         'description' => 'Your order is delivered.',
         'order_number' => $order->orderid,
-        'to' => User::find($order->cust_id)->name,
+        'to' => $order->customer->name,
         'date' => $order->created_at->format('d/m/Y'),
-        'status' => 'Delivered'
+        'status' => 'Delivered',
+        'email' => $order->customer->email
     ];
     event(new OrderStatusChanged($data));
     if($update_orders==true){

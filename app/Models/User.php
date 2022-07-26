@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
+use Bavix\Wallet\Interfaces\Customer;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Bavix\Wallet\Traits\HasWallet;
+use Bavix\Wallet\Interfaces\Wallet;
+use Bavix\Wallet\Traits\CanPay;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Wallet, Customer
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasWallet, CanPay;
 
     /**
      * The attributes that are mass assignable.

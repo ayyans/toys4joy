@@ -2,12 +2,10 @@
 
 namespace App\Listeners;
 
-use App\Mail\OrderStatusChangedMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Mail;
 
-class SendOrderStatusChangeMail
+class GivePointsWhenOrderDelivered
 {
     /**
      * Handle the event.
@@ -18,6 +16,5 @@ class SendOrderStatusChangeMail
     public function handle($event)
     {
         $data = $event->data;
-        Mail::to($data['email'])->send(new OrderStatusChangedMail($data));
     }
 }

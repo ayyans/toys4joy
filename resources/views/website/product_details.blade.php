@@ -71,7 +71,7 @@
                     <h2 class="price"> QAR {{$products->unit_price}}</h2>
                     @endif
 
-                    <div class="earn-points"><h5>Earn Reward Points Worth {{$products->points}} Points<span>(Only for registered users)</span></h5></div>
+                    <div class="earn-points"><h5>Earn Reward Points Worth {{$products->rewardPoints}} Points<span>(Only for registered users)</span></h5></div>
                     @if(!empty($products->unit))
                     <div class="suitable-age">
                         <img src="{{asset('website/img/boy.svg')}}"/> <span>Recommended Age: {{ $products->recommended_age !== null ? "{$products->formatRecommendedAge($products->recommended_age)} +" : 'All' }} </span>

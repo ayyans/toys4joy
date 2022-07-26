@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\OrderPlaced;
 use App\Events\OrderStatusChanged;
+use App\Listeners\GivePointsWhenOrderDelivered;
 use App\Listeners\SendOrderConfirmationMail;
 use App\Listeners\SendOrderStatusChangeMail;
 use App\Listeners\SendWelcomeMail;
@@ -28,7 +29,8 @@ class EventServiceProvider extends ServiceProvider
             SendOrderConfirmationMail::class
         ],
         OrderStatusChanged::class => [
-            SendOrderStatusChangeMail::class
+            SendOrderStatusChangeMail::class,
+            GivePointsWhenOrderDelivered::class
         ]
     ];
 

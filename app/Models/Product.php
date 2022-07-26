@@ -50,6 +50,10 @@ class Product extends Model
         return $result ?: '0 month';
     }
 
+    public function getRewardPointsAttribute() {
+        return $this->unit_price / 50;
+    }
+
     public function category() {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
