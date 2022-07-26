@@ -23,22 +23,25 @@
                     @include('website.layouts.user_menu')
                     <div id="carouselExampleIndicators_mobile" class="carousel slide" data-bs-ride="carousel">
                       <div class="carousel-indicators">
-                      {{$i=0}}
+                      @php
+                     $i = 0
+                     @endphp
                       @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
-                      @if ($i!==0)
-                      <button type="button" data-bs-target="#carouselExampleIndicators_mobile" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                      @if ($i==0)
+                      <button data-bs-target="#carouselExampleIndicators_mobile" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
                       @else
-                      <button type="button" data-bs-target="#carouselExampleIndicators_mobile" data-bs-slide-to="{{$i}}" aria-label="Slide 2"></button>
+                      <button data-bs-target="#carouselExampleIndicators_mobile" data-bs-slide-to="{{$i}}" aria-label="Slide {{$i}}"></button>
                       @endif 
-                      {{$i+1}}
+                      @php 
+                      $i++;
+                      @endphp
                         @endforeach
-                        
                       </div>
                       <div class="carousel-inner">
                         @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
                         <a href="{{ url('') }}/{{ $r->url }}">
                           <div class="carousel-item @if ($loop->first) active @endif">
-                            <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid">
+                            <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid" style="width: 100%;">
                           </div>
                         </a>
                         @endforeach
@@ -69,14 +72,18 @@
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 
                   <div class="carousel-indicators">
-                      
+                      @php
+                     $i = 0;
+                     @endphp
                       @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
-                      @if ($i!==0)
-                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                      @if ($i==0)
+                      <button data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                       @else
-                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{$i++}}" aria-label="Slide 2"></button>
+                      <button data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{$i}}" aria-label="Slide {{$i}}"></button>
                       @endif 
-                     
+                      @php 
+                      $i++;
+                      @endphp
                         @endforeach
                         
                 </div>
@@ -85,7 +92,7 @@
                     
                     <div class="carousel-item @if ($loop->first) active @endif">
                     <a href="{{ url('') }}/{{ $r->url }}">
-                    <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid">
+                    <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid" style="width: 100%;">
                     </a>
                     </div>
                     
@@ -169,19 +176,11 @@
     </div>
     <!--new section-->
 <section class="row mt-3">
-<div class="col-sm-2 col-md-2 col-xl-2">
+<div class="col-sm-2 col-md-2 col-xl-2 mb-5">
 <div class="row">
 <div class="owl-carousel-single-picture owl-carousel owl-theme mt-3">
-@foreach($products as $product)
-  <div class="item single"><img class="img-widget" src="{{asset('products/'.$product->featured_img)}}"></div>
-@endforeach 
-</div>
-</div>
-<div class="row">
-<div class="owl-carousel-single-picture owl-carousel owl-theme mt-3">
-@foreach($products as $product)
-  <div class="item single"><img class="img-widget" src="{{asset('products/'.$product->featured_img)}}"></div>
-@endforeach 
+<div class="item single"><img class="img-widget" src="{{asset('uploads/ad-1.png')}}"></div>
+<div class="item single"><img class="img-widget" src="{{asset('uploads/ad-2.png')}}"></div>
 </div>
 </div>
 </div>
@@ -328,59 +327,58 @@
 <div class="col-sm-2 col-md-2 col-xl-2 right-col">
 <div class="right-sidebar">
 <div class="upload-img">
-  <div class="tooltip">
-      <a href="#">
-          <button type="button" class="btn btn-primary modal-toggle share-price-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          <img src="{{asset('website/img/upload-image.png')}}" class="img-fluid">
-          </button>    
-          <span class="row tooltiptext_fixed">Share with us the products and prices you wish</span>
-      </a>
-  </div>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Please Fill out the Form Below</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form enctype="multipart/form-data" method="POST" action="{{ route('website.submitformlookingfor') }}">
-              @csrf
-            <div class="mb-3">
-              <label for="exampleInputName1" class="form-label">Your Name</label>
-              <input type="text" required class="form-control" name="name" aria-describedby="nameHelp">
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" required class="form-control" name="email" aria-describedby="emailHelp">
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputPhone1" class="form-label">Phone Number</label>
-              <input type="tel" required class="form-control" name="phonenumber">
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputMessage1" class="form-label">Your Message</label>
-                <textarea class="form-control" name="message"></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputUpload1" class="form-label">Upload Image</label>
-              <input required type="file" class="form-control" name="image">
-            </div>
-            <button type="submit" class="btn btn-primary guest">Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Modal -->
-  
+                <div class="tooltip">
+                    <a href="#">
+                        <button type="button" class="btn btn-primary modal-toggle share-price-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <img src="{{asset('website/img/upload-image.png')}}" class="img-fluid">
+                        </button>    
+                        <span class="row tooltiptext_fixed">Share products & prices you wish</span>
+                    </a>
+                </div>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Please Fill out the Form Below</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form enctype="multipart/form-data" method="POST" action="{{ route('website.submitformlookingfor') }}">
+                            @csrf
+                          <div class="mb-3">
+                            <label for="exampleInputName1" class="form-label">Your Name</label>
+                            <input type="text" required class="form-control" name="name" aria-describedby="nameHelp">
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" required class="form-control" name="email" aria-describedby="emailHelp">
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleInputPhone1" class="form-label">Phone Number</label>
+                            <input type="tel" required class="form-control" name="phonenumber">
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleInputMessage1" class="form-label">Your Message</label>
+                              <textarea class="form-control" name="message"></textarea>
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleInputUpload1" class="form-label">Upload Image</label>
+                            <input required type="file" class="form-control" name="image">
+                          </div>
+                          <button type="submit" class="btn btn-primary guest">Submit</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Modal -->
 </div>
 
 </div>
 
-<div>
+</div>
 
 
 
