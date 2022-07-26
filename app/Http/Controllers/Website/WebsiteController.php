@@ -373,7 +373,7 @@ class WebsiteController extends Controller
                 $total_price+=$price*$cart->cartQty;
                 $body .= '
                 <tr>
-                    <td class="qty"><input type="number" value="'.$cart->cartQty.'" id="quantity" name="quantity" min="1" max="'.$cart->qty.'" onchange="updateQty('.$cart->crtid.',this.value)"></td>
+                    <td class="qty"><input type="number" value="'.$cart->cartQty.'" id="quantity" name="quantity" min="1" max="'.$cart->qty.'" onchange="updatecartQty('.$cart->crtid.',this.value)"></td>
                     <td class="title">
                     <div class="d-flex product-rank">
                         <div class="detail"><p>'.$cart->title.'</p></div>
@@ -571,7 +571,6 @@ class WebsiteController extends Controller
 
     public function addAddressInfo(){
         $ip_address =  $this->getUserIpAddr();
-        $ip_address =  '182.188.148.57';
         $ipInfo = $this->grabIpInfo($ip_address);
         $ipdata =  json_decode($ipInfo);
         $address = CustomerAddress::where('cust_id' , Auth::user()->id);
@@ -782,11 +781,14 @@ class WebsiteController extends Controller
                 for($i=0;$i<$total_prod_id;$i++){
                     $place_order = new Order;
                     $place_order->orderid=$order_number;
+                    $place_order->orderstatus='simpleorder';
                     $place_order->cust_id=$cust_id;
                     $place_order->cust_add_id=$cust_add_id;
                     $place_order->prod_id=$prod_id[$i];
                     $place_order->qty = $qty[$i];
                     $place_order->amount = $total_amount;
+                    $place_order->ordertype = 'membercashondelivery';
+                    $place_order->newstatus = 1;
                     $place_order->mode = '1';
                     $place_order->save();
 

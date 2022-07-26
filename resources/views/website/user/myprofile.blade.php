@@ -61,15 +61,20 @@
                     
                 </div>
             </div>
+            <style type="text/css">
+                .activemaleinput::before{
+                    transform: scale(1) !important;
+                }
+            </style>
             <div class="row gender">
                 <div class="col-6">
                     <div class="outline-box gender">My Gender</div>
                 </div>
                 <div class="col-6">
                     <div class="d-flex select-gender">
-                        <input type="radio" value="1" name="radio" id="female">
+                        <input type="radio" @if(Auth::user()->gender == 1) class="activemaleinput"  @endif value="1" name="radio" id="female">
                         <label for="female"><img src="{{asset('website/img/sisters.png')}}"/></label>
-                        <input value="2" type="radio" name="radio" id="male">
+                        <input value="2" @if(Auth::user()->gender == 2) class="activemaleinput"  @endif  type="radio" name="radio" id="male">
                         <label for="male" class="selected"><img src="{{asset('website/img/brothers.png')}}"/></label>
                     </div>
                 </div>

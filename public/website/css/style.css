@@ -1951,7 +1951,7 @@ transition: all 0.2s ease-in-out;
     color: #fff;
     background-image: none;
     border-radius: 0;
-    padding: 16px;
+    padding: 30px;
     animation: vertical-shaking 2s infinite;
 }
 .btn.pinkbg-img a {

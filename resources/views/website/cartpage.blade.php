@@ -30,7 +30,7 @@
                   // $total_price+=$cart->unit_price*$cart->cartQty;
                    ?>
                 {{-- <tr>
-                    <td class="qty"><input type="number" value="{{$cart->cartQty}}" id="quantity" name="quantity" min="1" max="{{$cart->qty}}" onchange="updateQty({{$cart->crtid}},this.value)"></td>
+                    <td class="qty"><input type="number" value="{{$cart->cartQty}}" id="quantity" name="quantity" min="1" max="{{$cart->qty}}" onchange="updatecartQty({{$cart->crtid}},this.value)"></td>
                     <td class="title">
                       <div class="d-flex product-rank">
                           <div class="detail"><p>{{$cart->title}}</p></div>
@@ -55,7 +55,7 @@
               </tfoot>    
             </table>
             <div class="d-flex ftr-btn-area">
-                <div class="vertical-shake continue-shopping"><a href="javascript:void(0)">Continue Shopping</a></div>
+                <div class="vertical-shake continue-shopping"><a href="{{ url('') }}">Continue Shopping</a></div>
                 <div class="d-flex pay-as">
                     <div class="member"><a href="{{route('website.payasmember')}}">Pay as Member</a></div>
                     @if(!Auth::check())
@@ -74,6 +74,31 @@
 
 @push('otherscript')
 <script>
+     function updatecartQty(cartid,qty){        
+        $("#cover-spin").show();
+        var form = new FormData();
+        form.append('cartid',cartid);
+        form.append('qty',qty);
+        $.ajax({
+            url:"{{route('website.updateQTY')}}",
+            type:"POST",
+            data:form,
+            cache:false,
+            contentType:false,
+            processData:false,
+            success:function(res){
+                var js_data = JSON.parse(JSON.stringify(res));
+                $("#cover-spin").hide();
+                if(js_data.status==200){
+                    toastr.success('cart updated successfull!');
+                    showCartContent();
+                }else{
+                    toastr.error('something went wrong');
+                    return false;
+                }
+            }
+        })
+    }
   function showCartContent()
   {
       $("#cover-spin").show();
@@ -81,9 +106,7 @@
           url:"{{url('cartpagecontent')}}",
           type:"get",
           success:function(res){
-            console.log(res.body);
             $("#cover-spin").hide();
-            // $(".showcart").html(res);
             $('tbody').html(res.body);
             $('#total').html(res.total);
           }

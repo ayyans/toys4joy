@@ -108,19 +108,26 @@
 </li>
 <!-- Divider -->
 <hr class="sidebar-divider">
+@php
+    $order = DB::table('orders')->where('ordertype' , '!=' , 'wishlist')->where('newstatus' , 1)->where('orderstatus' ,'!=','payementpending')->where('ordertype' , 'simpleorder')->count();
 
+    $guestorder = DB::table('guest_orders')->where('newstatus' , 1)->where('orderstatus' , '!=','payementpending')->count();
+    $wishlistorder = DB::table('orders')->where('ordertype', 'wishlist')->where('newstatus' , 1)->where('orderstatus' , '!=','payementpending')->count();
+
+    $totalordernumbers = $order+$guestorder+$wishlistorder;
+@endphp
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ordersUtility"
         aria-expanded="true" aria-controls="ordersUtility">
         <i class="fas fa-fw fa-shopping-bag"></i>
-        <span>Orders</span>
+        <span>Orders @if($totalordernumbers > 0) <span style="margin-left: 50px;padding: 4px 7px;" class="badge badge-danger">{{ $totalordernumbers }}</span>@endif</span>    
     </a>
     <div id="ordersUtility" class="collapse" aria-labelledby="headingUtilities"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">           
-            <a class="collapse-item" href="{{route('admin.guestOrders')}}">Guest Orders</a>
-            <a class="collapse-item" href="{{route('admin.custOrders')}}">Orders</a>
-           
+            <a class="collapse-item" href="{{route('admin.guestOrders')}}">Guest Orders @if($guestorder > 0) <span style="padding: 4px 7px;margin-left: 30px;" class="badge badge-danger">{{ $guestorder }}</span>@endif</a>
+            <a class="collapse-item" href="{{route('admin.custOrders')}}">Orders @if($order > 0) <span style="padding: 4px 7px;margin-left: 30px;" class="badge badge-danger">{{ $order }}</span>@endif</a>
+            <a class="collapse-item" href="{{route('admin.custOrders')}}">Wishlist Orders @if($wishlistorder > 0) <span style="padding: 4px 7px;margin-left: 30px;" class="badge badge-danger">{{ $wishlistorder }}</span>@endif</a>
         </div>
     </div>
 </li>
