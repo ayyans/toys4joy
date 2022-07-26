@@ -59,6 +59,8 @@ class WishlistController extends Controller
 		            $place_order->qty = 1;
 		            $place_order->amount = $total_price;
 		            $place_order->mode = '1';
+		            $place_order->ordertype = 'wishlist';
+		            $place_order->newstatus = '1';
 		            $place_order->save();
 				}				
 			}

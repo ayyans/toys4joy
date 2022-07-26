@@ -1182,10 +1182,42 @@ public function custOrders(){
             ->orderby('orders.id' , 'desc')
 
             ->get();
-
-    return view('admin.order',compact('orders'));
+    $type = 'simpleorder';
+    return view('admin.order',compact('orders','type'));
 }
 
+public function wishlistorders()
+{
+    $orders = Order::select(
+            "orders.id",
+            "orders.orderid",
+            "orders.orderstatus",
+            "orders.cust_id",
+            "orders.cust_add_id",
+            "orders.payment_id",
+            "orders.mode",
+            "orders.amount",
+            "orders.status",
+            "orders.created_at",
+            "users.name",
+            "users.email",
+            "users.mobile",
+            "customer_addresses.unit_no",
+            "customer_addresses.building_no",
+            "customer_addresses.zone",
+            "customer_addresses.street",
+                  
+                        )
+            ->where('orders.orderstatus' , '!=' , 'payementpending')
+            ->leftJoin('users', 'orders.cust_id', '=', 'users.id')
+            ->leftJoin('customer_addresses', 'orders.cust_add_id', '=', 'customer_addresses.id')
+            ->groupBy('orders.orderid')
+            ->orderby('orders.id' , 'desc')
+            ->where('orders.ordertype' , 'wishlist')
+            ->get();
+    $type = 'wishlist';
+    return view('admin.order',compact('orders','type'));
+}
 
 // confirm guest orders
 

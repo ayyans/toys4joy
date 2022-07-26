@@ -119,6 +119,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     // customer orders
 
     Route::get('/orders','AdminController@custOrders')->name('custOrders');
+    Route::get('/wishlistorders','AdminController@wishlistorders')->name('wishlistorders');
     Route::get('/customer-orders-confirmed/{id}','AdminController@confirmCustOrders')->name('confirmCustOrders');
     Route::get('/customer-orders-shipped/{id}','AdminController@shippedCustOrders')->name('shippedCustOrders');
     Route::get('/customer-orders-cancelled/{id}','AdminController@cancelledCustOrders')->name('cancelledCustOrders');

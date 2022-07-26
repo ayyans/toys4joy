@@ -47,6 +47,8 @@ class OrderController extends Controller
             $place_order->qty = $r->qty;
             $place_order->amount = $r->amount;
             $place_order->mode = '2';
+            $place_order->ordertype = 'simpleorder';
+            $place_order->newstatus = 1;
             $place_order->save();
         }
         return response()->json(["status"=>"200","msg"=>'test']);
@@ -65,6 +67,7 @@ class OrderController extends Controller
             $custDetails->cust_email=$request->email;
             $custDetails->cust_mobile=$request->mobilenumber;;
             $custDetails->mode=$request->mode; 
+            $custDetails->newstatus=1; 
             $custDetails->save();
         }
         DB::table('carts')->where('cust_id' , $ipaddres)->delete();
@@ -134,6 +137,7 @@ class OrderController extends Controller
             $custDetails->cust_email=$request->email;
             $custDetails->cust_mobile=$request->mobilenumber;;
             $custDetails->mode=$request->mode; 
+            $custDetails->newstatus=1; 
             $custDetails->save();
 
 

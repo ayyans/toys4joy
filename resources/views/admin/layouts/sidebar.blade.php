@@ -127,7 +127,7 @@
         <div class="bg-white py-2 collapse-inner rounded">           
             <a class="collapse-item" href="{{route('admin.guestOrders')}}">Guest Orders @if($guestorder > 0) <span style="padding: 4px 7px;margin-left: 30px;" class="badge badge-danger">{{ $guestorder }}</span>@endif</a>
             <a class="collapse-item" href="{{route('admin.custOrders')}}">Orders @if($order > 0) <span style="padding: 4px 7px;margin-left: 30px;" class="badge badge-danger">{{ $order }}</span>@endif</a>
-            <a class="collapse-item" href="{{route('admin.custOrders')}}">Wishlist Orders @if($wishlistorder > 0) <span style="padding: 4px 7px;margin-left: 30px;" class="badge badge-danger">{{ $wishlistorder }}</span>@endif</a>
+            <a class="collapse-item" href="{{route('admin.wishlistorders')}}">Wishlist Orders @if($wishlistorder > 0) <span style="padding: 4px 7px;margin-left: 30px;" class="badge badge-danger">{{ $wishlistorder }}</span>@endif</a>
         </div>
     </div>
 </li>
