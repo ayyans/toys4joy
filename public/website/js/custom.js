@@ -2075,15 +2075,13 @@ $(document).ready(function() {
   var owl_single = $(".owl-carousel-single-picture");
   owl_single.owlCarousel({
     items:1,
-    margin:30,
-    stagePadding:30,
     smartSpeed:450,
     loop: true,
-    dots:true,
+    dots:false,
     autoplay:true,
     navigation : true,
     slideSpeed : 300,
-    paginationSpeed : 400,
+    paginationSpeed : 200,
     animateOut: true,
     animateIn: true,
     lazyLoad:true,
@@ -2097,18 +2095,6 @@ $(document).ready(function() {
       1000:{
           items:1
       }
-  },
-  onChange: function (event) {
-    //$('.owl-carousel-single-picture').find('.img-widget').addClass('animate__animated animate__bounce')
-    //animateCSS('.owl-carousel-single-picture .img-widget', 'zoomIn');
-    
-setTimeout(function(){
-  animateCSS('.owl-carousel-single-picture .img-widget', 'zoomIn');
-  }, 500);
-  },
-  onChanged: function (event) {
-    //$('.owl-carousel-single-picture').find('.img-widget').addClass('animate__animated animate__bounce')
-    animateCSS('.owl-carousel-single-picture .img-widget', 'zoomIn');
   }
   });
   
