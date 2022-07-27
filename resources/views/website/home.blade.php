@@ -179,8 +179,11 @@
 <div class="col-sm-2 col-md-2 col-xl-2 mb-5">
 <div class="row">
 <div class="owl-carousel-single-picture owl-carousel owl-theme mt-3" style="height: fit-content;">
-<div class="item single"><img class="img-widget" src="{{asset('uploads/ad-1.png')}}"></div>
-<div class="item single"><img class="img-widget" src="{{asset('uploads/ad-2.png')}}"></div>
+<div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-1.png')}}"></div>
+<div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-2.png')}}"></div>
+<div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-3.png')}}"></div>
+<div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-4.png')}}"></div>
+<div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-5.png')}}"></div>
 </div>
 </div>
 </div>
