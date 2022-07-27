@@ -4466,3 +4466,27 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
     overflow: hidden;
   }
 }
+.img-animate{
+    object-fit: contain;
+}
+.owl-carousel-single-picture div.active img {
+    /*animation: zoom 3s linear infinite;*/
+    /*animation: zoom 3s linear infinite;
+    animation-delay: 0s;*/
+    animation: flipInX; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 3s; /* don't forget to set a duration! */
+}
+@keyframes zoom{
+    0%{
+        transform:scale(1.2);
+    }
+    15%{
+        transform:scale(1);
+    }
+    85%{
+        transform:scale(1);
+    }
+    100%{
+        transform:scale(1.2);
+    }
+}
