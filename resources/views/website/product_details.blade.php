@@ -1,5 +1,16 @@
 @extends('website.layouts.master')
 @section('content')
+<style>
+ .xzoom-source img, .xzoom-preview img, .xzoom-lens img {
+        display: block;
+        max-width: none;
+        max-height: none;
+        -webkit-transition: none;
+        -moz-transition: none;
+        -o-transition: none;
+        transition: none;
+      }
+</style>
 <main class="product-detail-page">
 <div class="container-fluid">
     <div class="row">
@@ -253,7 +264,7 @@
 <script id="rendered-js" >
 (function ($) {
   $(document).ready(function () {
-    $('.xzoom, .xzoom-gallery').xzoom({ zoomWidth: 400, title: true, tint: '#333', Xoffset: 15 });
+    $('.xzoom, .xzoom-gallery').xzoom({ zoomWidth: 400, title: true, tint: '#333', Xoffset: 15, lensShape: "circle",defaultScale:-1 });
     $('.xzoom2, .xzoom-gallery2').xzoom({ position: '#xzoom2-id', tint: '#ffa200' });
     $('.xzoom3, .xzoom-gallery3').xzoom({ position: 'lens', lensShape: 'circle', sourceClass: 'xzoom-hidden' });
     $('.xzoom4, .xzoom-gallery4').xzoom({ tint: '#006699', Xoffset: 15 });
