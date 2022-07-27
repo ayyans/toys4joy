@@ -16,8 +16,12 @@ class Order extends Model
         'qty',
         'amount',
         'payment_id',
-        'mode'        
+        'mode'
     ];
+
+    public static function getTotalAmount($order_id) {
+        return self::where('orderid', $order_id)->sum('amount');
+    }
 
     public function product() {
         return $this->belongsTo(Product::class, 'prod_id', 'id');

@@ -1322,7 +1322,9 @@ public function deliveredCustOrders(Request $request){
         'to' => $order->customer->name,
         'date' => $order->created_at->format('d/m/Y'),
         'status' => 'Delivered',
-        'email' => $order->customer->email
+        'email' => $order->customer->email,
+        'customer' => $order->customer,
+        'total' => Order::getTotalAmount($order->orderid)
     ];
     event(new OrderStatusChanged($data));
     if($update_orders==true){
