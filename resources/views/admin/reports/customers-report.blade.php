@@ -43,6 +43,10 @@
       <tr>
         <th>#</th>
         <th>Name</th>
+        <th>Mobile</th>
+        <th>Address</th>
+        <th>Siblings</th>
+        <th>Points</th>
         <th>Total Orders</th>
         <th>Total Spent</th>
       </tr>
@@ -53,12 +57,40 @@
         <tr>
           <td>{{ $count++ }}</td>
           <td>{{ $user['name'] }}</td>
+          <td>{{ $user['mobile'] }}</td>
+          <td><a href="#" class="text-decoration-none" data-title="Address" data-body="{{ $user['address'] }}" data-toggle="modal" data-target="#popupModal">view</a></td>
+          <td><a href="#" class="text-decoration-none" data-title="Siblings" data-body="{{ $user['siblings'] }}" data-toggle="modal" data-target="#popupModal">view</a></td>
+          {{-- <td>{{ $user['address'] }}</td> --}}
+          {{-- <td>{{ $user['siblings'] }}</td> --}}
+          <td>{{ $user['points'] }}</td>
           <td>{{ $user['total_orders'] }}</td>
           <td>{{ $user['total_amount'] }}</td>
         </tr>
       @endforeach
     </tbody>
   </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="popupModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="popupModalTitle">
+          <span id="title"></span>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="body"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -71,6 +103,34 @@ $(function () {
   // filters
   $('#filter-button').on('click', function() {
     $('#filter-container').slideToggle();
+  })
+
+  // popup modal
+  $('#popupModal').on('show.bs.modal', function (e) {
+    const button = $(e.relatedTarget);
+    const title = button.data('title');
+    const body = button.data('body');
+    const modal = $(this);
+    modal.find('#title').text(title);
+    if (title == 'Siblings') {
+      const genders = ['boy', 'girl'];
+      const numbers = ['one', 'two', 'three', 'four', 'five'];
+      let table = `<table style="width: 100%; text-align: center">`;
+      table += `<tr><th>Name</th><th>Gender</th><th>Date of birth</th></tr>`;
+      for (const gender of genders) {
+        for (const number of numbers) {
+          const name = body[`${gender}_${number}_name`];
+          const dob = body[`${gender}_${number}_dob`];
+          if (name) {
+            table += `<tr><td>${name}</td><td>${gender.toUpperCase()}</td><td>${dob}</td></tr>`;
+          }
+        }
+      }
+      table += `</table>`;
+      modal.find('#body').html(table);
+    } else {
+      modal.find('#body').text(body);
+    }
   })
 });
 </script>

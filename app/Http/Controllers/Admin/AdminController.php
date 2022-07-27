@@ -1604,7 +1604,7 @@ public function editProcess(Request $request){
             $query->when($applyFilter, function($query) use ($start_date, $end_date) {
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             });
-        }])
+        }, 'address', 'siblings'])
             ->withCount(['paid_orders' => function($query) use ($applyFilter, $start_date, $end_date) {
                 $query->when($applyFilter, function($query) use ($start_date, $end_date) {
                     $query->whereBetween('created_at', [$start_date, $end_date]);
@@ -1617,11 +1617,17 @@ public function editProcess(Request $request){
             }], 'amount')
             ->get()
             ->sortByDesc('paid_orders.*.created_at')
-            ->map(function ($user) {
+            ->map(function ($user) use ($request) {
                 return [
                     'name' => $user->name,
+                    'mobile' => $user->mobile,
+                    'address' => $this->formatAddress($user->address),
+                    'siblings' => $request->export == true
+                                    ? $this->formatSiblings($user->siblings)
+                                    : $user->siblings,
+                    'points' => $user->balance,
                     'total_orders' => $user->paid_orders_count,
-                    'total_amount' => $user->paid_orders_sum_amount ?? 0
+                    'total_amount' => $user->paid_orders_sum_amount ?? 0,
                 ];
             });
 
@@ -1695,5 +1701,36 @@ public function editProcess(Request $request){
             $product->update(['qty' => 0]);
         }
         return back()->with('success','Produts Updated Successfully');
+    }
+
+    private function formatAddress($address) {
+        $format = '';
+        if ($address) {
+            $format .= $address->unit_no ? "Unit No: {$address->unit_no}" : '';
+            $format .= $address->building_no ? ", Building No: {$address->building_no}" : '';
+            $format .= $address->zone ? ", Zone: {$address->zone}" : '';
+            $format .= $address->street ? ", Street: {$address->street}" : '';
+            $format .= $address->latitude ? ", Latitude: {$address->latitude}" : '';
+            $format .= $address->longitude ? ", Longitude: {$address->longitude}" : '';
+        }
+        return $format;
+    }
+
+    private function formatSiblings($siblings) {
+        $format = '';
+        $count = 1;
+        $genders = ['boy', 'girl'];
+        $numbers = ['one', 'two', 'three', 'four', 'five'];
+        if ($siblings) {
+            foreach ($genders as $gender) {
+                foreach ($numbers as $number) {
+                    $separator = $count !== 1 ? ', ': '';
+                    $format .= $siblings["{$gender}_{$number}_name"]
+                        ? sprintf("%s%d) Name: %s, Gender: Boy, Date of birth: %s", $separator, $count++, $siblings["{$gender}_{$number}_name"], $siblings["{$gender}_{$number}_dob"])
+                        : '';
+                }
+            }
+        }
+        return $format;
     }
 }

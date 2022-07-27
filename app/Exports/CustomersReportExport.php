@@ -33,6 +33,10 @@ class CustomersReportExport implements FromCollection, WithHeadings, ShouldAutoS
     {
         return [
             'Name',
+            'Mobile',
+            'Address',
+            'Siblings',
+            'Points',
             'Total Orders',
             'Total Spent'
         ];
