@@ -582,8 +582,8 @@ class WebsiteController extends Controller
                 $longitude =  $ipdata->longitude;
             }
         }else{
-            $lattitude =  $ipdata->longitude ?? 25.2806672;
-            $longitude =  $ipdata->latitude ?? 51.5030136;
+            $lattitude =  $ipdata->longitude;
+            $longitude =  $ipdata->latitude;
         }
         return view('website.add_address')->with(array('lattitude'=>$lattitude,'longitude'=>$longitude));
     }
