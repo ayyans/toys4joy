@@ -22,6 +22,6 @@ class SendOrderConfirmationMail
         $data = $event->user;
         $to = $data['email'] ?? auth()->user()->email;
         Mail::to($to)->send(new OrderConfirmationMail($data));
-        Mail::to(User::first()->email)->send(new OrderReceivedMailToAdmin($data));
+        Mail::to('toysforjoyorders@gmail.com')->send(new OrderReceivedMailToAdmin($data));
     }
 }
