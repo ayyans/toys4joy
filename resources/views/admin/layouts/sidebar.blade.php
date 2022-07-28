@@ -182,6 +182,24 @@
     </div>
 </li>
 <hr class="sidebar-divider">
+
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#points"
+        aria-expanded="true" aria-controls="points">
+        <i class="fas fa-fw fa-coins"></i>
+        <span>Points</span>
+    </a>
+    <div id="points" class="collapse" aria-labelledby="headingUtilities"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">           
+            <a class="collapse-item" href="{{route('admin.points')}}">Points List</a>
+           
+        </div>
+    </div>
+</li>
+
+<hr class="sidebar-divider">
+
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#sitesettigns"
         aria-expanded="true" aria-controls="sitesettigns">

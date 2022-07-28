@@ -28,6 +28,7 @@ use App\Models\Order;
 use App\Models\ReturnRequest;
 use App\Models\User;
 use App\Models\requiredproducts;
+use Bavix\Wallet\Models\Wallet;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use PDO;
@@ -1732,5 +1733,13 @@ public function editProcess(Request $request){
             }
         }
         return $format;
+    }
+
+    public function points(Request $request) {
+        $totalBalance = Wallet::sum('balance');
+        $eligibleUsers = User::with(['wallet', 'transactions' => fn ($q) => $q->orderBy('created_at', 'desc')])
+            ->whereHas('wallet', fn ($q) => $q->where('balance', '>=', 100))
+            ->get();
+        return view('admin.points', compact('totalBalance', 'eligibleUsers'));
     }
 }

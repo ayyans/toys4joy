@@ -163,6 +163,8 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('customers-report', 'AdminController@customersReport')->name('report.customers');
     Route::get('guests-report', 'AdminController@guestsReport')->name('report.guests');
 
+    // Points
+    Route::get('points', 'AdminController@points')->name('points');
 });
 
 

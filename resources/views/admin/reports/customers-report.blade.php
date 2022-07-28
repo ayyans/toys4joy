@@ -115,7 +115,7 @@ $(function () {
     if (title == 'Siblings') {
       const genders = ['boy', 'girl'];
       const numbers = ['one', 'two', 'three', 'four', 'five'];
-      let table = `<table style="width: 100%; text-align: center">`;
+      let table = `<table class="table table-hover table-bordered">`;
       table += `<tr><th>Name</th><th>Gender</th><th>Date of birth</th></tr>`;
       for (const gender of genders) {
         for (const number of numbers) {
