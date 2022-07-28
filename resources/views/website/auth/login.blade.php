@@ -3,7 +3,7 @@
 <main id="login-form" class="account main-bg">
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3 categories-col">
+        <div class="col-3 categories-col for-desktop">
             <div class="d-flex flex-column flex-shrink-0" > 
                 <div class="for-mobile mbl-banner">
                     {{-- <ul class="nav nav-pills nav-fill">
