@@ -2080,7 +2080,7 @@ $(document).ready(function() {
     dots:false,
     autoplay:true,
     navigation : true,
-    slideSpeed : 300,
+    slideSpeed : 1000,
     paginationSpeed : 200,
     animateOut: true,
     animateIn: true,

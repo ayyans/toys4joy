@@ -641,6 +641,10 @@ a.whatsapp-icon {
     align-items: center;
     column-gap: 20px;
 }
+.app-s-media img {
+    width: 130px;
+    height: auto;
+}
 .google-play {
     margin-right: 100px;
 }
@@ -4041,9 +4045,9 @@ img.why-logo {width: 55px;margin-left: 15px;}
     margin: 0;
 }
 .google-play a img {
-    width: 40px;
+    width: 95px;
     mix-blend-mode: darken;
-    margin: 5px 0 20px;
+    margin: 5px 4px 20px;
 } 
 .discount-block input{width: 79%;}
 .pay-as-member-page .code-block input {width: 75%;}
@@ -4469,11 +4473,8 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
     object-fit: contain;
 }
 .owl-carousel-single-picture div.active img {
-    /*animation: zoom 3s linear infinite;*/
-    /*animation: zoom 3s linear infinite;
-    animation-delay: 0s;*/
-    animation: flipInX; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 3s; /* don't forget to set a duration! */
+    animation: zoomIn; 
+  animation-duration: 10s;
 }
 @keyframes zoom{
     0%{
