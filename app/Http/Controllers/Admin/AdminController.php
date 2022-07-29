@@ -873,6 +873,7 @@ public function deleteprod(Request $request){
 public function guestOrders(){
     $orders = GuestOrder::leftJoin('products','products.id','=','guest_orders.prod_id')
               ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')  
+              ->groupby('guest_orders.order_id')
               ->orderBy('guest_orders.id','desc')->get();
     return view('admin.guest-order',compact('orders'));
 }
