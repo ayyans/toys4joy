@@ -233,12 +233,24 @@ $action_url = 'https://sadadqa.com/webpurchase';
                   }else{
                       $price = $wishlist->unit_price;
                   }
-
-
                   $total_price+=$price;
                 @endphp
 
+                @else
+
+
+                @php
+                if($wishlist->discount)
+                  {
+                      $price = $wishlist->discount;
+                  }else{
+                      $price = $wishlist->unit_price;
+                  }
+                @endphp
+
+
                 @endif
+
                 <tr>
                     <td class="qty">
                       <input style="height: 40px;width: 40px;" onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">

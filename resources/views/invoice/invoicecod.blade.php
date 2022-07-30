@@ -129,7 +129,7 @@
             <table>
               <tr>
                 <td class="title">
-                  <img src="https://www.toys4joy.com/website/img/logo-t4j.png" alt="Company logo" style="width: 100%; max-width: 80px" />
+                  <img src="{{ public_path('website/img/logo-t4j.jpg') }}" alt="toys4joy" style="width: 100%; max-width: 80px" />
                 </td>
 
                 <td>

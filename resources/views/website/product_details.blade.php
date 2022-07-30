@@ -1,5 +1,16 @@
 @extends('website.layouts.master')
 @section('content')
+<style>
+ .xzoom-source img, .xzoom-preview img, .xzoom-lens img {
+        display: block;
+        max-width: none;
+        max-height: none;
+        -webkit-transition: none;
+        -moz-transition: none;
+        -o-transition: none;
+        transition: none;
+      }
+</style>
 <main class="product-detail-page">
 <div class="container-fluid">
     <div class="row">
@@ -38,7 +49,7 @@
                 <div class="product-gallery">
                     <div class="images p-3">
                         <div class="text-center p-4">
-                            <img id="main-image" class="xzoom" src="{{asset('products/'.$products->featured_img)}}" xoriginal="{{asset('products/'.$products->featured_img)}}"/>
+                            <img id="main-image" class="" src="{{asset('products/'.$products->featured_img)}}" xoriginal="{{asset('products/'.$products->featured_img)}}"/>
                         </div>
                         <div class="thumbnail text-center xzoom-thumbs">
                             @foreach($gallery as $photos)
@@ -250,14 +261,14 @@
 })
 </script>
 
-<script id="rendered-js" >
+<script id="rendered-js">
 (function ($) {
   $(document).ready(function () {
-    $('.xzoom, .xzoom-gallery').xzoom({ zoomWidth: 400, title: true, tint: '#333', Xoffset: 15 });
-    $('.xzoom2, .xzoom-gallery2').xzoom({ position: '#xzoom2-id', tint: '#ffa200' });
+    $('.xzoom, .xzoom-gallery').xzoom({  title: true, tint: '#333', Xoffset: 15, lensShape: "circle",defaultScale:-1 });
+    /*$('.xzoom2, .xzoom-gallery2').xzoom({ position: '#xzoom2-id', tint: '#ffa200' });
     $('.xzoom3, .xzoom-gallery3').xzoom({ position: 'lens', lensShape: 'circle', sourceClass: 'xzoom-hidden' });
     $('.xzoom4, .xzoom-gallery4').xzoom({ tint: '#006699', Xoffset: 15 });
-    $('.xzoom5, .xzoom-gallery5').xzoom({ tint: '#006699', Xoffset: 15 });
+    $('.xzoom5, .xzoom-gallery5').xzoom({ tint: '#006699', Xoffset: 15 });*/
 
     //Integration with hammer.js
     var isTouchSupported = ('ontouchstart' in window);
@@ -356,7 +367,7 @@
               event.gesture.preventDefault();
             });
           };
-
+          
           function openmagnific() {
             if (counter == 2) {
               xzoom.closezoom();

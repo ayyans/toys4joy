@@ -641,6 +641,10 @@ a.whatsapp-icon {
     align-items: center;
     column-gap: 20px;
 }
+.app-s-media img {
+    width: 130px;
+    height: auto;
+}
 .google-play {
     margin-right: 100px;
 }
@@ -1181,6 +1185,7 @@ transition: all 0.2s ease-in-out;
     /* display: inline-flex; */
     align-items: stretch;
     flex-wrap: nowrap;
+    align-items: flex-end;
 }
 .products-list .single .content-block .fa {
     font-size: 24px;
@@ -1259,8 +1264,9 @@ transition: all 0.2s ease-in-out;
     align-items: center;*/
     justify-content: space-between;
     /* display: inline-flex; */
-    align-items: stretch;
+    /*align-items: stretch;*/
     flex-wrap: nowrap;
+    align-items: flex-end;
 }
 .owl-carousel-brands .single .img-block{height: 200px;overflow: hidden;}
 /*.owl-carousel-features .single .content-block .fa {
@@ -1960,7 +1966,6 @@ transition: all 0.2s ease-in-out;
     color: #fff;
     background-image: none;
     border-radius: 0;
-    padding: 30px;
     animation: vertical-shaking 2s infinite;
 }
 .btn.pinkbg-img a {
@@ -3647,7 +3652,7 @@ ul.nav-fill .nav-item a:hover {padding-top: 12px;margin-top: -4px;}
 .book-your-event .booking-cal .time h2 {margin-bottom: 20px;}  
 .book-now {width: 24%;margin-top: -70px;}
 .book-now a {font-size: 16px;line-height: 18px; bottom: 10px;}      
-.categories ul li {padding: 0 18px;}    
+.categories ul li {padding: 0 20px;}    
 .categories h2 {font-size: 18px;}   
 .categories li a img {height: 36px;}
 .menu .image {width: 35%;}     
@@ -3710,7 +3715,7 @@ ul.social-media img {width: 34px;}
 }
 
 
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 1080px) and (max-width: 1150px){
     
 .products-list .single .img-block {height: 100px;}  
 .company-policy a span {font-size: 14px;width: 80px;line-height: 18px;margin-left: 0;}  
@@ -3751,7 +3756,12 @@ input[type="radio"] {width: 1.8em;height: 1.8em;}
 #change-mob-num .col-6 {padding: 10px;}
 #my-siblings .col-10 {width: 100%;}    
 .categories li a {font-size: 16px;} 
-    
+.products-list .single .content-block .price-cart{
+    margin-top: 9px; 
+}
+.products-list .single .content-block h3{
+    font-size: 13px;
+}  
 }
 
 @media only screen and (max-width: 1024px) {
@@ -3768,7 +3778,13 @@ input[type="radio"] {width: 1.8em;height: 1.8em;}
 .input-security + button {padding: 18px 30px;font-size: 18px;} 
 .account .form-col .form-group .form-inner {width: 100%;} 
 #add-change-address {padding: 100px 30px;} 
-.categories li a {font-size: 16px;}    
+.categories li a {font-size: 16px;}  
+.products-list .single .content-block .price-cart{
+    margin-top: 11px; 
+}
+.products-list .single .content-block h3{
+    font-size: 12px;
+}  
 }
 
 
@@ -3781,7 +3797,7 @@ ul.social-media img {width: 25px;margin: 0 3px;}
 img.app-store {width: 90px;}    
 img.g-play-store {width: 82px;} 
 .toll-free span {padding: 6px 15px;} 
-.products-list .single .img-block {height: 80px;}
+.products-list .single .img-block {height: 114px; margin-bottom: 13px;}
 .products-list .single {width: 31%; margin: 5px 0;}    
 .categories li a {padding: 11px 0;}
 #company-policy .icon img {height: 60px;}  
@@ -3797,7 +3813,12 @@ img.g-play-store {width: 82px;}
 .want-to-return h3 {font-size: 24px;}
 #return-exchange .want-to-return label {font-size: 16px;}
 #return-exchange .want-to-return input[type="radio"] {width: 1.3em;height: 1.3em; margin-right: 10px;}    
-    
+.products-list .single .content-block .price-cart{
+    margin-top: 11px; 
+}
+.products-list .single .content-block h3{
+    font-size: 12px;
+}
 }
 
 
@@ -4024,9 +4045,9 @@ img.why-logo {width: 55px;margin-left: 15px;}
     margin: 0;
 }
 .google-play a img {
-    width: 40px;
+    width: 95px;
     mix-blend-mode: darken;
-    margin: 5px 0 20px;
+    margin: 5px 4px 20px;
 } 
 .discount-block input{width: 79%;}
 .pay-as-member-page .code-block input {width: 75%;}
@@ -4056,7 +4077,12 @@ img.why-logo {width: 55px;margin-left: 15px;}
 .my-profile .main-content-box .date-numbering .num span:after {top: 14px;}    
     
 .banner-desktop{display:none;}
-
+.products-list .single .content-block .price-cart{
+    margin-top: 11px; 
+}
+.products-list .single .content-block h3{
+    font-size: 12px;
+}
 }
 
 
@@ -4075,7 +4101,7 @@ img.why-logo {width: 55px;margin-left: 15px;}
 .menu > li > .megadrop {left: -220px;}     
 .cart-icon span {left: 4px;top: 0;font-size: 10px;}    
 .products-list .single, .home-prod.products-list .single {width: 46%;}
-.products-list .single .content-block h3, .products-list .single .content-block span {font-size: 14px;}
+.products-list .single .content-block h3, .products-list .single .content-block span {font-size: 13px;}
 .products-list .single .img-block {height: 110px;}    
 .categories h2.for-mobile {max-width: 180px;padding: 8px;font-size: 16px;}
 .book-your-event h1 {font-size: 15px;}    
@@ -4268,6 +4294,10 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
     height: 36px;
 } 
 .banner-desktop{display:none;} 
+.products-list .single .content-block .price-cart{
+    margin-top: 25px; 
+}
+
 }
 
 @media only screen and (max-width: 430px) {
@@ -4342,7 +4372,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
     height: 36px;
 }  
 .owl-carousel-features .single .content-block span{
-    font-size: 11px;
+    font-size: 14px;
 }
 .owl-carousel-features .single .content-block .fa{
       font-size: 14px;
@@ -4438,4 +4468,25 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
     height: 85px;
     overflow: hidden;
   }
+}
+.img-animate{
+    object-fit: contain;
+}
+.owl-carousel-single-picture div.active img {
+    animation: zoomIn; 
+  animation-duration: 10s;
+}
+@keyframes zoom{
+    0%{
+        transform:scale(1.2);
+    }
+    15%{
+        transform:scale(1);
+    }
+    85%{
+        transform:scale(1);
+    }
+    100%{
+        transform:scale(1.2);
+    }
 }

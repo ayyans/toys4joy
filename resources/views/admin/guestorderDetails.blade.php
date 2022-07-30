@@ -1,5 +1,14 @@
 @extends('admin.layouts.master')
 @section('content')
+
+
+@php
+    
+
+    DB::table('guest_orders')->where('order_id' , $orders->order_id)->update(['newstatus'=>0]);
+
+@endphp
+
 <div class="container-fluid">
    
 <div class="card shadow mb-4">
@@ -12,7 +21,6 @@
 <table style="width:100% ;margin-bottom:20px;">
                 <tr>
                     <td colspan="2"></td>
-                  
                     <td>
                         <input type="hidden" name="orderid" id="orderid" value="{{$orders->id}}" />
                         <label>Delivery Status</label>
@@ -33,11 +41,8 @@
                             <option value="5">Delivered</option>
                         </select>
                         @endif
-
-
                         <a href="{{ url('generateinvoice') }}/{{ $orders->order_id }}">Download Invoice</a>
                     </td>
-                  
                 </tr>
                 <tr>
                     <td colspan="2"><h1>toy4joy</h1><br/><br/></td>
@@ -75,14 +80,11 @@
                     <br/>
             </td>
                 </tr>
-               
-                
             </table>
     <div class="table-responsive">
         <table class="table table-bordered" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>sl.no</th>
                     <th>product</th>
                     <th>image</th>
                     <th>Qty</th> 
@@ -92,26 +94,49 @@
             </thead>
             
             <tbody>
-             
+                @php
+
+                  $totalammount = 0;
+
+                @endphp
+                @foreach(DB::table('guest_orders')->where('order_id' , $orders->order_id)->get() as $r)
+                @php
+                  $product = DB::table('products')->where('id' , $r->prod_id)->get()->first();
+
+                if($product->discount)
+                {
+                    $price = $product->discount;
+                }else{
+                    $price = $product->unit_price;
+                }
+                @endphp
                 <tr>
+                    <td>{{ $product->title }}</td>
+                    <td><img src="{{asset('products/'.$product->featured_img)}}" style="width:100px"/></td>
+                    <td>{{$r->qty}}</td>
+                    <td>QAR {{$price*$r->qty}}</td>
+                </tr>
+                @php
+                    $totalammount += $price*$r->qty;
+                @endphp
+                @endforeach
+
+
+                <!-- <tr>
                     <td>1</td>
                     <td>{{$orders->productName}}</td>
                     <td><img src="{{asset('products/'.$orders->featured_img)}}" style="width:100px"/></td>
                     <td>{{$orders->qty}}</td>
                     <td>{{$orders->prod_price*$orders->qty}}</td>
                    
-                </tr>
+                </tr> -->
               
              
             </tbody>
             <tfoot>
                         <tr>
-                            <td colspan="4" style="text-align:right"><strong>Subtotal</strong></td>
-                            <td>{{$orders->prod_price*$orders->qty}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="text-align:right"><strong>total</strong></td>
-                            <td>{{$orders->prod_price*$orders->qty}}</td>
+                            <td colspan="3" style="text-align:right"><strong>Total</strong></td>
+                            <td>QAR {{$totalammount}}</td>
                         </tr>
                     </tfoot>
         </table>

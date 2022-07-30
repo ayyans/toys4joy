@@ -1,5 +1,13 @@
 @extends('admin.layouts.master')
 @section('content')
+
+@php
+    
+
+    DB::table('orders')->where('orderid' , $orderdetail->orderid)->update(['newstatus'=>0]);
+
+@endphp
+
 <div class="container-fluid">
 <div class="card shadow mb-4">
 <div class="card-header py-3">
@@ -161,7 +169,7 @@
                         </tr> -->
                         <tr>
                             <td colspan="4" style="text-align:right"><strong>Total</strong></td>
-                            <td>QAR {{ DB::table('orders')->where('orderid' , $orderdetail->orderid)->sum('amount') }}</td>
+                            <td>QAR {{ DB::table('orders')->where('orderid' , $orderdetail->orderid)->get()->first()->amount }}</td>
                         </tr>
                     </tfoot>
         </table>
