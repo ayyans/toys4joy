@@ -77,6 +77,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src='https://unpkg.com/xzoom/dist/xzoom.min.js'></script>
 <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/foundation.min.js'></script>  
+<script type="text/javascript" src="{{asset('website/js/zoomsl/zoomsl.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('website/js/custom.js')}}"></script>   
         <script>
         $(document).ready(function() {

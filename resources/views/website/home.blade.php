@@ -5,58 +5,8 @@
     <div class="row">
         <div class="col-sm-2 col-md-2 col-xl-2 categories-col">
             <div class="d-flex flex-column flex-shrink-0" >
-                <div class="for-mobile mbl-banner">
-                    {{-- <ul class="nav nav-pills nav-fill">
-                      <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ route('website.bestsellers') }}">Best Offers</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Wish List</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">E-Gift Cards</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link">Your Points</a>
-                      </li>
-                    </ul>     --}}
-                    @include('website.layouts.user_menu')
-                    <div id="carouselExampleIndicators_mobile" class="carousel slide" data-bs-ride="carousel">
-                      <div class="carousel-indicators">
-                      @php
-                     $i = 0
-                     @endphp
-                      @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
-                      @if ($i==0)
-                      <button data-bs-target="#carouselExampleIndicators_mobile" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
-                      @else
-                      <button data-bs-target="#carouselExampleIndicators_mobile" data-bs-slide-to="{{$i}}" aria-label="Slide {{$i}}"></button>
-                      @endif 
-                      @php 
-                      $i++;
-                      @endphp
-                        @endforeach
-                      </div>
-                      <div class="carousel-inner">
-                        @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
-                        <a href="{{ url('') }}/{{ $r->url }}">
-                          <div class="carousel-item @if ($loop->first) active @endif">
-                            <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid" style="width: 100%;">
-                          </div>
-                        </a>
-                        @endforeach
-                      </div>
-                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators_mobile" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators_mobile" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                      </button>
-                    </div>
-                </div>
-                <div class="categories">
+             
+                <div class="categories for-desktop">
                     <h2 class="for-desktop">Categories</h2>
                     <h2 class="for-mobile">Select Category</h2>
                     <ul class="nav nav-pills flex-column mb-auto menu">
@@ -67,7 +17,7 @@
             </div>
         </div>
         <div class="col-md-8 middle-col">
-            <div class="for-desktop">
+            <div class="">
             @include('website.layouts.user_menu')  
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 
@@ -106,6 +56,14 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                   </button>
+                </div>
+                <div class="categories for-mobile">
+                    <h2 class="for-desktop">Categories</h2>
+                    <h2 class="for-mobile">Select Category</h2>
+                    <ul class="nav nav-pills flex-column mb-auto menu">
+                     @include('website.layouts.category_menu')
+                      
+                    </ul>
                 </div>
             </div>
             
@@ -180,7 +138,6 @@
 <div class="row">
 <div class="owl-carousel-single-picture owl-carousel owl-theme mt-3" style="height: fit-content;">
 <div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-1.png')}}"></div>
-<div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-2.png')}}"></div>
 <div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-3.png')}}"></div>
 <div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-4.png')}}"></div>
 <div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-5.png')}}"></div>

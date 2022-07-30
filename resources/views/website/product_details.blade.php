@@ -49,7 +49,7 @@
                 <div class="product-gallery">
                     <div class="images p-3">
                         <div class="text-center p-4">
-                            <img id="main-image" class="xzoom" src="{{asset('products/'.$products->featured_img)}}" xoriginal="{{asset('products/'.$products->featured_img)}}"/>
+                            <img id="main-image" class="" src="{{asset('products/'.$products->featured_img)}}" xoriginal="{{asset('products/'.$products->featured_img)}}"/>
                         </div>
                         <div class="thumbnail text-center xzoom-thumbs">
                             @foreach($gallery as $photos)
