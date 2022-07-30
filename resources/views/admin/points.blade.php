@@ -63,10 +63,8 @@
         <tr>
           <td>{{ $user->name }}</td>
           <td>{{ $user->balance }}</td>
-          <td><a href="#" class="text-decoration-none" data-transactions="{{ $user->transactions }}" data-toggle="modal" data-target="#transactionsModal">view</a></td>
-          <td>
-            <a href="#">Generate E-Gift Card</a>
-          </td>
+          <td><a href="#" class="text-decoration-none" data-type="transactions" data-title="Transactions" data-transactions="{{ $user->transactions }}" data-toggle="modal" data-target="#transactionsModal">view</a></td>
+          <td><a href="#" class="text-decoration-none" data-type="giftcard" data-title="E-Gift Card" data-toggle="modal" data-target="#transactionsModal">Generate E-Gift Card</a></td>
         </tr>
       @endforeach
     </tbody>
@@ -92,6 +90,9 @@
             <th>Date</th>
           </tr>
         </table>
+        <div id="giftcardInformation">
+          <h3 class="display-6 text-center text-dark">E-Gift Card Code is: <span class="text-primary">A1K2GAC</span></h3>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -111,20 +112,31 @@ $(function () {
 
   $('#transactionsModal').on('show.bs.modal', function (e) {
     const button = $(e.relatedTarget);
-    const transactions = button.data('transactions');
+    const type = button.data('type');
+    const title = button.data('title');
     const modal = $(this);
-    const table = modal.find('#transactionsTable');
-    for (const transaction of transactions) {
-      table.append(
-      `
-        <tr>
-          <td>${transaction.type}</td>
-          <td>${transaction.amount}</td>
-          <td>${transaction.meta ? transaction.meta.description : 'no description'}</td>
-          <td>${new Date(Date.parse(transaction.created_at)).toDateString()}</td>
-        </tr>
-      `
-      );
+    modal.find('#transactionsModalTitle').text(title);
+    if (type == 'transactions') {
+      modal.find('#giftcardInformation').hide(); // hide gift part section
+      modal.find('#transactionsTable').show(); // show transaction table if hidden
+      const transactions = button.data('transactions');
+      const table = modal.find('#transactionsTable');
+      table.empty(); // empty table if filled
+      for (const transaction of transactions) {
+        table.append(
+        `
+          <tr>
+            <td>${transaction.type}</td>
+            <td>${transaction.amount}</td>
+            <td>${transaction.meta ? transaction.meta.description : 'no description'}</td>
+            <td>${new Date(Date.parse(transaction.created_at)).toDateString()}</td>
+          </tr>
+        `
+        );
+      }
+    } else {
+      modal.find('#transactionsTable').hide(); // hide transactions table
+      modal.find('#giftcardInformation').show(); // show gift part if hidden
     }
   })
 });
