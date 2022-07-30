@@ -2097,16 +2097,17 @@ $(document).ready(function() {
       }
   }
   });
-  
-  owl_single.on('changed.owl.carousel', function(event) {
-    //animateCSS('.owl-carousel-single-picture .img-widget', 'zoomOut');
-   /*$('.owl-carousel-single-picture').find('.img-widget').removeClass('animate__animated animate__bounce')
-    $('.owl-carousel-single-picture').find('.img-widget').addClass('animate__animated animate__bounce')*/
-})
+    
+  $("#main-image").imagezoomsl({
+    zoomrange: [1.12, 12],
+    zoomstart: 5,
+	  magnifiersize: [530, 340],
+	  scrollspeedanimate: 10,
+	  loopspeedanimate: 5,
+	  magnifiereffectanimate: "slideIn",
+    loadinggif:'loading.gif',	
+    });
 
-$('.carousel').carousel({
-  interval: 2000
-})
 });    
  
 //$('.categories li ul li a').each(function() {
