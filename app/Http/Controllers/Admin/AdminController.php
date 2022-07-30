@@ -1177,6 +1177,7 @@ public function custOrders(){
                   
                         )
             ->where('orders.orderstatus' , '!=' , 'payementpending')
+            ->where('orders.ordertype' , '!=' , 'wishlist')
             ->leftJoin('users', 'orders.cust_id', '=', 'users.id')
             ->leftJoin('customer_addresses', 'orders.cust_add_id', '=', 'customer_addresses.id')
             ->groupBy('orders.orderid')
