@@ -143,12 +143,23 @@ class AdminController extends Controller
     public function addgiftcardsubmit(Request $request)
     {
         $card = new giftcards();
+        $card->user_id = $request->user_id;
         $card->name = $request->coupon_title;
         $card->price = $request->price;
         $card->code = $request->coupon_code;
-        $card->status = 1;
+        $card->status = $request->status ?? 1;
         $card->save();
-         return back()->with('success','Gift Card Added SuccessFull!');
+        // withdraw 100 points if it's reward
+        if ($request->type == 'reward') {
+            User::find($request->user_id)->withdraw(100, ["description" => "100 Points Gift Card Generated"]);
+        }
+        // if it's ajax request
+        if ($request->ajax()) {
+            return response()->json([
+                'status' => true
+            ]);
+        }
+        return back()->with('success','Gift Card Added SuccessFull!');
 
     }
     public function activategiftcards(Request $request){
