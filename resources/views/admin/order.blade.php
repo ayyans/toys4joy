@@ -46,7 +46,22 @@
                         @endif
                     </td>
                     <td>{{$order->payment_id}}</td>
-                    <td>QAR {{ DB::table('orders')->where('orderid' , $order->orderid)->get()->first()->amount }}</td>
+                    <?php $total_price = 0; ?>
+                    @foreach(DB::table('orders')->where('orderid' , $order->orderid)->get() as $r)
+                    @php
+                      $product = DB::table('products')->where('id' , $r->prod_id)->get()->first();
+                      if($product->discount)
+                      {
+                          $price = $product->discount;
+                      }else{
+                          $price = $product->unit_price;
+                      }
+
+                    @endphp
+
+                    <?php $total_price+=$price*$r->qty; ?>
+                    @endforeach
+                    <td>QAR {{ $total_price }}</td>
                     <td>
                         @if($order->status==1)
                         <div class="badge badge-danger">Pending</div>
