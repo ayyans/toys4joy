@@ -167,9 +167,23 @@
                             </td>
                             
                         </tr> -->
+                        <?php $total_price = 0; ?>
+                        @foreach(DB::table('orders')->where('orderid' , $orderdetail->orderid)->get() as $r)
+                        @php
+                          $product = DB::table('products')->where('id' , $r->prod_id)->get()->first();
+                          if($product->discount)
+                          {
+                              $price = $product->discount;
+                          }else{
+                              $price = $product->unit_price;
+                          }
+
+                        @endphp
+
+                        <?php $total_price+=$price*$r->qty; ?>
                         <tr>
                             <td colspan="4" style="text-align:right"><strong>Total</strong></td>
-                            <td>QAR {{ DB::table('orders')->where('orderid' , $orderdetail->orderid)->get()->first()->amount }}</td>
+                            <td>QAR {{ $total_price }}</td>
                         </tr>
                     </tfoot>
         </table>
