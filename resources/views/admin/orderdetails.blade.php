@@ -179,8 +179,9 @@
                           }
 
                         @endphp
-                        @endforeach
                         <?php $total_price+=$price*$r->qty; ?>
+                        @endforeach
+                        
                         <tr>
                             <td colspan="4" style="text-align:right"><strong>Total</strong></td>
                             <td>QAR {{ $total_price }}</td>
