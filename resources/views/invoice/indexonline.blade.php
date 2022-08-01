@@ -179,6 +179,7 @@
           <td style="text-align:center">Quatity</td>
           <td style="text-align:right">Subtotal</td>
         </tr>
+        <?php $total_price = 0; ?>
         @foreach($order as $r)
         @php
           $product = DB::table('products')->where('id' , $r->prod_id)->get()->first();
@@ -188,7 +189,9 @@
           }else{
               $price = $product->unit_price;
           }
+
         @endphp
+        <?php $total_price+=$price*$r->qty; ?>
         <tr class="item">
           <td>{{ $product->title }}</td>
           <td style="text-align:center">{{ $product->sku }}</td>
@@ -200,7 +203,7 @@
 
         <tr class="total">
           <td colspan="2"></td>
-          <td colspan="3">Total: QAR {{ $order->first()->amount }}</td>
+          <td colspan="3">Total: QAR {{ $total_price }}</td>
         </tr>
       </table> 
         <br><br>
