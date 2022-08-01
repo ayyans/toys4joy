@@ -179,7 +179,7 @@
                           }
 
                         @endphp
-
+                        @endforeach
                         <?php $total_price+=$price*$r->qty; ?>
                         <tr>
                             <td colspan="4" style="text-align:right"><strong>Total</strong></td>
