@@ -8,19 +8,35 @@
 <main  id="pay-as-guest" class="p-2 p-md-5">
 <div class="container-fluid">
     <div class="row">
-        <div class="text-center green-text title"><h2>Buy E-Gift Cards to the ones you loved.</h2></div>
-    	{{-- <div class="col-4">
-            <div class="img-box">
-                <img src="{{asset('website/img/toy-gift-box.png')}}"/>
-            </div>
-        </div> --}}
-        
+        <div class="text-center green-text title"><h2>Buy E-Gift Cards to the ones you loved.</h2></div>    
         <div class="col-12 text-center">
             <div class="row align-items-center gy-4">
                 <div class="col-xl-4">
                     <div class="img-box">
                         <img src="{{asset('website/img/toy-gift-box.png')}}" style="max-width: 200px"/>
                     </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Gift Card Name</th>
+                                <th>Gift Card Code</th>
+                                <th>Remainig Balance</th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            @foreach(DB::table('usergiftcards')->where('payement' , 'completed')->where('user_id' , Auth::user()->id)->get() as $r)
+                            <tr>
+                                @php
+                                    $giftcard = DB::table('giftcards')->where('id' , $r->gift_card_id)->get()->first();
+                                @endphp
+                                <td>E-Gift Card ({{ $giftcard->price }})</td>
+                                <td>{{ $giftcard->code }}</td>
+                                <td>{{ $r->remaining_ammount }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-xl-4">
                     <form method="get" id="giftcardsformforslection" class="qr-price-select">
@@ -144,7 +160,7 @@ $sadad_checksum_array['productdetail'] =
  array( 
  array( 
  'order_id'=> $orderid,
- 'itemname'=>  $giftcard->name,
+ 'itemname'=>  'E-Gift Card ('.$giftcard->price.')',
  'amount'=>$giftcard->price, 
  'quantity'=>1,
 ) 
