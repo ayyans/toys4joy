@@ -126,8 +126,7 @@ if(Auth::check())
  $orderid = rand('123456798' , '987654321');
  $sadad_checksum_array['ORDER_ID'] = $orderid; 
  $sadad_checksum_array['WEBSITE'] = url('');  
- $sadad_checksum_array['TXN_AMOUNT'] = '50.00';
- $sadad_checksum_array['VERSION'] = '1.1'; 
+ $sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
  $sadad_checksum_array['CUST_ID'] = $email; 
  $sadad_checksum_array['EMAIL'] = $email; 
  $sadad_checksum_array['MOBILE_NO'] = '999999999';  
@@ -301,8 +300,9 @@ $action_url = 'https://sadadqa.com/webpurchase';
                             $("#total_amt").val(total_amt_with_dis);
 
                         }else{
-                            toastr.options.timeOut = 10000;
-                            toastr.error(js_data.msg);
+                            var total_amt = $("#prev_amt").val();
+                           $("#total_offer_amt").text(total_amt);
+                           $("#total_amt").val(total_amt);     
                         }
 
                     }

@@ -692,7 +692,18 @@ class WebsiteController extends Controller
         }
     }
 
-    
+    // gift card coupon 
+
+    public function giftcard_coupon(Request $request){
+        $getcoupon = Coupon::where('coupon_code','=',$request->discount_coupon)->where('coupontype','=','2')->first();
+        if($getcoupon){
+            return response()->json(["status"=>"200","msg"=>$getcoupon]);
+            exit();
+        }else{
+            return response()->json(["status"=>"400","msg"=>"2"]);
+            exit();
+        }
+    }
 
     // corporate coupon 
 

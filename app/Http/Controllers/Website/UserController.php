@@ -32,37 +32,6 @@ use DB;
 
 class UserController extends Controller
 {
-	// gift card coupon 
-
-    public function giftcard_coupon(Request $request){
-
-    	$check = giftcards::where('code' , $request->discount_coupon)->count();
-    	if($check > 0)
-    	{
-    		
-    	}
-    	else
-    	{
-    		return response()->json(["status"=>"400","msg"=>"Enter Valid Gift Card Code"]);
-            exit();
-    	}
-
-
-
-        // $getcoupon = Coupon::where('coupon_code','=',$request->discount_coupon)->where('coupontype','=','2')->first();
-        // if($getcoupon){
-        //     return response()->json(["status"=>"200","msg"=>$getcoupon]);
-        //     exit();
-        // }else{
-        //     return response()->json(["status"=>"400","msg"=>"2"]);
-        //     exit();
-        // }
-    }
-	public function mygiftcard()
-	{
-		$data = DB::table('usergiftcards')->where('payement' , 'completed')->where('user_id' , Auth::user()->id)->get();
-		return view('website.user.mygiftcard',compact('data'));
-	}
 	public function myprofile(Request $request)
 	{
 	    return view('website.user.myprofile');

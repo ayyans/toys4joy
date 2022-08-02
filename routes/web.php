@@ -80,7 +80,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::post('/remove-cart','WebsiteController@removedcartProd')->name('removedcartProd');
     Route::post('/update-cart','WebsiteController@updateQTY')->name('updateQTY');
     Route::post('/discount-coupon','WebsiteController@discount_coupon')->name('discount_coupon');
-    Route::post('/giftcard-coupon','UserController@giftcard_coupon')->name('giftcard_coupon');
+    Route::post('/giftcard-coupon','WebsiteController@giftcard_coupon')->name('giftcard_coupon');
     Route::get('/placeorderwishlist/{id}/{orderid}','WishlistController@placeorderwishlist');
     Route::post('/wishlistorderconferm','WishlistController@wishlistorderconferm');
 });
@@ -90,7 +90,6 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     Route::get('/my-account','WebsiteController@myaccount')->name('myaccount');
     Route::get('/add-card','WebsiteController@addCardInfo')->name('addCardInfo');
     Route::get('/add-address-info','WebsiteController@addAddressInfo')->name('addAddressInfo');
-    Route::get('/mygiftcard','UserController@mygiftcard')->name('mygiftcard');
     Route::post('/add-wishlist','WebsiteController@addWishlist')->name('addWishlist');  
     Route::get('/my-wishlist/{cust_id}','WebsiteController@mywishlist')->name('mywishlist');    
     Route::get('/remove-wishlist/{id}','WebsiteController@removeWishlist')->name('removeWishlist');

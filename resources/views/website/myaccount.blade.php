@@ -14,7 +14,7 @@
                 <div class="ac-btn row">
                     <div class="col-4">
                         <div class="ac-button"><a href="{{route('website.addAddressInfo')}}">Add/Change Address</a></div>
-                        <div class="ac-button"><a href="{{route('website.mygiftcard')}}">My Gift Cards</a></div>
+                        <!-- <div class="ac-button"><a href="{{route('website.addCardInfo')}}">Add/Change Credit Card Information</a></div> -->
                         
                         <div class="ac-button"><a href="{{route('website.changepassword')}}">Change Password</a></div>
                         <div class="ac-button"><a href="{{ route('website.changemobilenumber') }}">Change Mobile Number</a></div>
