@@ -129,7 +129,7 @@ if(Auth::check())
  $secretKey = 'ewHgg8NgyY5zo59M'; 
  $merchantID = '7288803'; 
  $sadad_checksum_array['merchant_id'] = $merchantID;  
- $giftcard = DB::table('giftcards')->where('status' , 2)->where('id' , $_GET['card'])->get()->first();
+$giftcard = DB::table('giftcards')->where('status' , 2)->where('id' , $_GET['card'])->get()->first();
  $sadad_checksum_array['ORDER_ID'] = $orderid; 
  $sadad_checksum_array['WEBSITE'] = 'https://toys4joy.com/';  
  $sadad_checksum_array['VERSION'] = '1.1';
@@ -141,6 +141,16 @@ if(Auth::check())
  $sadad_checksum_array['CALLBACK_URL'] = 'https://toys4joy.com/giftcardconfermorder'; 
  $sadad_checksum_array['txnDate'] = $txnDate; 
  
+$sadad_checksum_array['productdetail'] = 
+ array( 
+ array( 
+ 'order_id'=> $orderid,
+ 'itemname'=>  'E-Gift Card ('.$giftcard->price.')',
+ 'amount'=>$giftcard->price, 
+ 'quantity'=>1,
+) 
+); 
+
 
   
         $sadad__checksum_data['postData'] = $sadad_checksum_array;  
