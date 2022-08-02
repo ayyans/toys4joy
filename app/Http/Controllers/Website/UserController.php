@@ -103,13 +103,22 @@ class UserController extends Controller
 
 		return view('website.user.return-request-thankyou');
 	}
+	function generateRandomString($length = 10) {
+	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $charactersLength = strlen($characters);
+	    $randomString = '';
+	    for ($i = 0; $i < $length; $i++) {
+	        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	    }
+	    return $randomString;
+	}
 	public function addgiftcard($id , $orderid)
 	{
 		$giftcard = giftcards::where('id' , $id)->get()->first();
 		$card = new usergiftcards();
 		$card->user_id = Auth::user()->id;
 		$card->gift_card_id = $id;
-		$card->remaining_ammount = $giftcard->price;
+		$card->code = $this->generateRandomString();
 		$card->orderid = $orderid;
 		$card->status = 1;
 		$card->payement = 'pending';
@@ -132,6 +141,14 @@ class UserController extends Controller
 			$card->status = 2;
 			$card->payement = 'completed';
 			$card->save();
+
+			Mail::send('emails.giftcard', ['card' => $card], function($message) use($request){
+	              $message->to(Auth::user()->id);
+	              $message->subject('Purchase Gift Card');
+	        });
+
+
+
 			return view('website.guestthanks');
         }else{
         	return redirect()->route('website.giftcard')->with('error','Payement Failed');

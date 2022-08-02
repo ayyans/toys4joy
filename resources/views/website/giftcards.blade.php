@@ -1,7 +1,6 @@
 @extends('website.layouts.master')
 @section('content')
 @php
-
  $orderid = rand('123456798' , '987654321');
 @endphp
 <div class="egift-card-guest-page egift-card-member-page">
