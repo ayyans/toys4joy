@@ -2,6 +2,7 @@
   $usergiftcard = DB::table('usergiftcards')->where('orderid' , $cardid)->get()->first();
   $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
   $customer = DB::table('users')->where('id' , $usergiftcard->user_id)->get()->first();
+  $customer_addresses = DB::table('customer_addresses')->where('cust_id' , $customer->id)->get()->first();
 @endphp
 <!DOCTYPE html>
 <html lang="en">

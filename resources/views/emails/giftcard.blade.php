@@ -137,7 +137,7 @@
                                       your account and update your profile.<br>
                                       <br>
                                       <span style="font-weight:bold;">Code: &nbsp;</span><span
-                                        style="font-weight:lighter;" class="">{{ $card->code }}</span>
+                                        style="font-size:25px;color:red;" class="">{{ $card->code }}</span>
                                       <br>
                                       <br><br>
                                       <br>
