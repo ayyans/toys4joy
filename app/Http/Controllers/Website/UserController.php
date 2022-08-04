@@ -141,9 +141,7 @@ class UserController extends Controller
 			$card->status = 2;
 			$card->payement = 'completed';
 			$card->save();
-
-			print_r($card);exit;
-			$customer = DB::table('users')->where('id' , $card->cust_id)->get()->first();
+			$customer = DB::table('users')->where('id' , $card->user_id)->get()->first();
         	auth()->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
 			Mail::send('emails.giftcard', ['card' => $card], function($message) use($request){
 	              $message->to(Auth::user()->id);
