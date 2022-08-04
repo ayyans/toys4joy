@@ -29,7 +29,7 @@ use Stripe;
 use Session;
 use Auth;
 use DB;
-
+use Mail;
 class UserController extends Controller
 {
 	public function myprofile(Request $request)
