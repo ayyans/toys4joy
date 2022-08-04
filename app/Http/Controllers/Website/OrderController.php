@@ -47,6 +47,7 @@ class OrderController extends Controller
             $place_order->qty = $r->qty;
             $place_order->amount = $r->amount;
             $place_order->mode = '2';
+            $place_order->giftcode = $r->giftcode;
             $place_order->ordertype = 'simpleorder';
             $place_order->newstatus = 1;
             $place_order->save();
