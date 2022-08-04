@@ -83,6 +83,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::post('/giftcard-coupon','WebsiteController@giftcard_coupon')->name('giftcard_coupon');
     Route::get('/placeorderwishlist/{id}/{orderid}','WishlistController@placeorderwishlist');
     Route::post('/wishlistorderconferm','WishlistController@wishlistorderconferm');
+    Route::post('/giftcardconfermorder','UserController@giftcardconfermorder')->name('giftcardconfermorder');
 });
 Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth'])->group(function(){
     Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
@@ -99,7 +100,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
 
     Route::post('/submituserprofile','UserController@submituserprofile')->name('submituserprofile');
     Route::get('/addgiftcard/{id}/{orderid}','UserController@addgiftcard');
-    Route::post('/giftcardconfermorder','UserController@giftcardconfermorder')->name('giftcardconfermorder');
+    
 
     Route::post('/customer-address-process','UserController@addAddressProcess')->name('addAddressProcess');
     Route::post('/corporate-coupon','WebsiteController@corporate_coupon')->name('corporate_coupon');

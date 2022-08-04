@@ -141,14 +141,12 @@ class UserController extends Controller
 			$card->status = 2;
 			$card->payement = 'completed';
 			$card->save();
-
+			$customer = DB::table('users')->where('id' , $card->cust_id)->get()->first();
+        	auth()->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
 			Mail::send('emails.giftcard', ['card' => $card], function($message) use($request){
 	              $message->to(Auth::user()->id);
 	              $message->subject('Purchase Gift Card');
 	        });
-
-
-
 			return view('website.guestthanks');
         }else{
         	return redirect()->route('website.giftcard')->with('error','Payement Failed');
