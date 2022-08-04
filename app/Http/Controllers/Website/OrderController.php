@@ -187,6 +187,14 @@ class OrderController extends Controller
 
         return response()->json(["status"=>"200","msg"=>'conferm',"orderid"=>$request->order_id]);
     }
+    public function generateinvoicegiftcard($id)
+    {
+        $data = [
+            'cardid' => $id,
+        ];
+        $pdf = PDF::loadView('invoice.giftcard', $data);
+        return $pdf->download('Gift Card Invoice - '.$id.'.pdf');
+    }
     public function generatepdf($id)
     {
         $checkorder = order::where('orderid' , $id)->get()->count();
@@ -205,11 +213,7 @@ class OrderController extends Controller
             ];
             $pdf = PDF::loadView('invoice.invoicecod', $data);
             return $pdf->download('Order Invoice - '.$id.'.pdf');
-        }
-
-        
-          
-        
+        }        
     }
      // pay as guest checkout 
 

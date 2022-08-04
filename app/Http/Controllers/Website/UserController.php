@@ -147,10 +147,15 @@ class UserController extends Controller
 	              $message->to(Auth::user()->email);
 	              $message->subject('Purchase Gift Card');
 	        });
-			return view('website.guestthanks');
+	        $orderid = $allparms['ORDERID'];
+			return view('website.guestthanksgiftcard',compact('orderid'));
         }else{
         	return redirect()->route('website.giftcard')->with('error','Payement Failed');
         }
+	}
+	public function generateinvoicegiftcard()
+	{
+		
 	}
 	public function submituserprofile(Request $request)
 	{

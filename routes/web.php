@@ -46,6 +46,8 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/delivery-policy','WebsiteController@deliverypolicy');
     Route::get('/privacy-policy','WebsiteController@privacypolicy');
     Route::get('generateinvoice/{id}','OrderController@generatepdf');
+    Route::get('generateinvoicegiftcard/{id}','OrderController@generateinvoicegiftcard');
+    
     Route::get('/terms-and-conditions','WebsiteController@termsandconditions')->name('termsandconditions');
     Route::get('/contact-us','WebsiteController@contact')->name('contact');
     Route::get('/newarrivals','WebsiteController@newarrivals')->name('newarrivals');
