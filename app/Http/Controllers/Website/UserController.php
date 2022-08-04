@@ -144,7 +144,7 @@ class UserController extends Controller
 			$customer = DB::table('users')->where('id' , $card->user_id)->get()->first();
         	auth()->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
 			Mail::send('emails.giftcard', ['card' => $card], function($message) use($request){
-	              $message->to(Auth::user()->id);
+	              $message->to(Auth::user()->email);
 	              $message->subject('Purchase Gift Card');
 	        });
 			return view('website.guestthanks');
