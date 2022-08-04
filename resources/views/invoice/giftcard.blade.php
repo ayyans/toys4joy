@@ -183,7 +183,7 @@
         <br><br>
         <p>Thank you again, it is really awesome to have you as one of our paid users. We hope that you will be happy with toys4joy, if you ever have any questions, suggestions or concerns please do not hesitate to contact us.</p>
         <br><br>
-        <p style="color:red;font-size: 25px;">This Gift Card Is Used One Time Only</p>
+        <p style="color:red;font-size: 25px;">You can redeemed this Gift Card Only one time in full amount</p>
         <br>
        <b> Email: info@toys4joy.com | Website: toys4joy.com.</b>
         <br>

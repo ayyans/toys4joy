@@ -136,7 +136,7 @@
                                       Thank you for Purchasing Gift Card! We hope you enjoy your time with us. Check
                                       your account and update your profile.<br>
                                       <br>
-                                        <p style="color:red;font-size: 25px;">This Gift Card Is Used One Time Only</p>
+                                        <p style="color:red;font-size: 25px;">You can redeemed this Gift Card Only one time in full amount</p>
                                         <br><br>
                                       <span style="font-weight:bold;">Code: &nbsp;</span><span
                                         style="font-size:25px;color:red;" class="">{{ $card->code }}</span>
