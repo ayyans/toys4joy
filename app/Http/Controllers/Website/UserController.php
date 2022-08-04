@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Website;
-
+use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -32,6 +32,39 @@ use DB;
 use Mail;
 class UserController extends Controller
 {
+	// gift card coupon 
+	public function removegiftcard()
+	{
+		$cartid = Cmf::ipaddress();
+		$getcode = Cart::where('cust_id','=',$cartid)->get()->first()->giftcode;
+		usergiftcards::where('code' , $getcode)->update(['isused'=>' ']);
+		Cart::where('cust_id','=',$cartid)->update(['giftcode'=>' ']);
+		return back()->with('success','Gift Card Remove Successfully');
+	}
+    public function giftcard_coupon(Request $request){
+
+    	$checkcode = usergiftcards::where('code' , $request->discount_coupon)->get();
+
+    	if($checkcode->count() > 0)
+    	{
+    		if($checkcode->first()->isused == 'yes')
+    		{
+    			return response()->json(["status"=>"400","msg"=>"Code is Already Used."]);
+            	exit();
+    		}else
+    		{
+    			$cartid = Cmf::ipaddress();
+    			Cart::where('cust_id','=',$cartid)->update(['giftcode'=>$request->discount_coupon]);
+    			usergiftcards::where('code' , $request->discount_coupon)->update(['isused'=>'yes']);
+    			return response()->json(["status"=>"200","msg"=>'1']);
+            	exit();
+    		}
+    	}else
+    	{
+    		return response()->json(["status"=>"400","msg"=>"Code is Invalid."]);
+            exit();
+    	}
+    }
 	public function myprofile(Request $request)
 	{
 	    return view('website.user.myprofile');
