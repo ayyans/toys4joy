@@ -9,7 +9,6 @@
         <form action="{{ url('place-order-process') }}" method="POST" id="checkoutFrm">
             <?php $total_price = 0; ?>
             @foreach($products as $product)
-
             @php
               if($product->discount)
               {
@@ -36,9 +35,8 @@
             </div>
             @endforeach
             </form>
-            
-            
         </div>
+
 
 <div class="col-6 member-col right text-center">
     <div style="margin-top: 0px;" class="discount-block">
@@ -47,11 +45,24 @@
             <input type="text" id="discount_coupon">
             <button class="btn btn-primary discountBtn">Enter</button>
         </div>
+        @if($giftcoupencode > 0)
+            @php
+                $usergiftcard = DB::Table('usergiftcards')->where('code' , $products->first()->giftcode)->get()->first();
+                $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
+                $total_price = $total_price-$giftcard->price;
+            @endphp
+            <div class="mb-3">
+                <label>Gift-Card Redeemed</label>
+                <input style="background-color: #ddd" readonly value="Congratulations! You have redeemed ({{ $giftcard->price }})" type="text" id="giftcard_coupon">
+                <a href="{{ url('removegiftcard') }}" class="btn btn-primary giftBtn">Remove</a>
+            </div>
+        @else
         <div class="mb-3">
             <label>Gift-Card Code</label>
             <input type="text" id="giftcard_coupon">
             <button class="btn btn-primary giftBtn">Enter</button>
         </div>
+        @endif
     </div>
     <div class="code-block">
         <div class="mb-3">
@@ -126,7 +137,8 @@ if(Auth::check())
  $orderid = rand('123456798' , '987654321');
  $sadad_checksum_array['ORDER_ID'] = $orderid; 
  $sadad_checksum_array['WEBSITE'] = url('');  
- $sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
+ $sadad_checksum_array['VERSION'] = '1.1';
+ $sadad_checksum_array['TXN_AMOUNT'] = $total_price; 
  $sadad_checksum_array['CUST_ID'] = $email; 
  $sadad_checksum_array['EMAIL'] = $email; 
  $sadad_checksum_array['MOBILE_NO'] = '999999999';  
@@ -292,17 +304,14 @@ $action_url = 'https://sadadqa.com/webpurchase';
                         $("#cover-spin").hide();
                         var js_data = JSON.parse(JSON.stringify(res));
                         if(js_data.status==200){
-                            var total_amt = $("#total_amt").val();
-                            var total_amt2 = parseInt(total_amt);
-                            var discount_offer = total_amt2*parseInt(js_data.msg.offer)/100;
-                            var total_amt_with_dis = total_amt2-parseInt(discount_offer);
-                            $("#total_offer_amt").text(total_amt_with_dis);
-                            $("#total_amt").val(total_amt_with_dis);
 
+                            location.reload();
+                            
                         }else{
-                            var total_amt = $("#prev_amt").val();
-                           $("#total_offer_amt").text(total_amt);
-                           $("#total_amt").val(total_amt);     
+
+                            toastr.options.timeOut = 10000;
+                            toastr.error(res.msg);
+                              
                         }
 
                     }

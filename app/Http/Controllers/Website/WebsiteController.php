@@ -523,16 +523,20 @@ class WebsiteController extends Controller
         DB::table('carts')->where('cust_id' , $cust_id)->update($data);
         $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
                     ->leftJoin('brands','brands.id','=','products.brand_id')                    
-                    ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty')
+                    ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty','carts.giftcode as giftcode')
                     ->where('carts.cust_id','=',$cust_id)
                     ->get();
+
+        
+        $giftcoupencode = Cart::where('cust_id' , $cust_id)->where('giftcode' , '!=' , '')->count();
+
 
         if($products->count()>0)
         {
             $checkaddres = CustomerAddress::where('cust_id' , Auth::user()->id)->count();
             if($checkaddres > 0)
             {
-                return view('website.payasmember',compact('products'));
+                return view('website.payasmember',compact('products','giftcoupencode'));
             }else{
                 
                 return redirect()->route('website.addAddressInfo')->with('error','Add Address First');
@@ -692,18 +696,7 @@ class WebsiteController extends Controller
         }
     }
 
-    // gift card coupon 
-
-    public function giftcard_coupon(Request $request){
-        $getcoupon = Coupon::where('coupon_code','=',$request->discount_coupon)->where('coupontype','=','2')->first();
-        if($getcoupon){
-            return response()->json(["status"=>"200","msg"=>$getcoupon]);
-            exit();
-        }else{
-            return response()->json(["status"=>"400","msg"=>"2"]);
-            exit();
-        }
-    }
+    
 
     // corporate coupon 
 
