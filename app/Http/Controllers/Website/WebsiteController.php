@@ -770,6 +770,11 @@ class WebsiteController extends Controller
             $qty = $request->cartQty;
             $total_amount = $request->amount;
             $total_prod_id = count($prod_id);
+
+            $cartid = Cmf::ipaddress();
+            $cartproducts = Cart::where('cust_id','=',$cartid)->get()->first();
+
+
             if($request->mode==1){
                 for($i=0;$i<$total_prod_id;$i++){
                     $place_order = new Order;
@@ -782,6 +787,7 @@ class WebsiteController extends Controller
                     $place_order->amount = $total_amount;
                     $place_order->ordertype = 'membercashondelivery';
                     $place_order->newstatus = 1;
+                    $place_order->giftcode = $cartproducts->giftcode;
                     $place_order->mode = '1';
                     $place_order->save();
 
@@ -790,9 +796,7 @@ class WebsiteController extends Controller
                     $cartid = Cmf::ipaddress();
                     $update_cart = Cart::where('cust_id','=',$cartid)->delete();
                     event(new OrderPlaced($order_details));
-
                     Cmf::sendordersms($order_number);
-
                     return response()->json(["status"=>"200","msg"=>"1","orderid"=>$order_number]);
                     exit();
                 }else{
