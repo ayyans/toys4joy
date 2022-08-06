@@ -50,6 +50,11 @@
                 $usergiftcard = DB::Table('usergiftcards')->where('code' , $products->first()->giftcode)->get()->first();
                 $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
                 $total_price = $total_price-$giftcard->price;
+
+                if($total_price < 0)
+                {
+                    $total_price = 0;
+                }
             @endphp
             <div class="mb-3">
                 <label>Gift-Card Redeemed</label>
@@ -79,6 +84,13 @@
     <input type="hidden" id="total_amt" value="{{$total_price}}" />
     <input type="hidden" id="prev_amt" value="{{$total_price}}"/>
             <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
+            @if($total_price == 0)
+            <div class="yellowbg-img cash-on-delivery">
+                <img src="{{asset('website/img/cash-on-delievery.png')}}"/>
+                <a id="cashondelivery" href="javascript:void(0)">Complete Your<br>Order</a>
+            </div>
+
+            @else
             <div class="yellowbg-img cash-on-delivery">
                 <div class="member">
                     <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD" class="pay-btn">Pay</a>
@@ -86,6 +98,7 @@
                 <img src="{{asset('website/img/cash-on-delievery.png')}}"/>
                     <a id="cashondelivery" href="javascript:void(0)">Cash or Credit<br>on Delivery</a>
             </div>
+            @endif
         </div>
     </div>
 </div>
