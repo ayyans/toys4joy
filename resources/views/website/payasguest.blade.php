@@ -1,5 +1,6 @@
 @extends('website.layouts.master')
 @section('content')
+@php \Cart::clearCartConditions() @endphp
 <?php 
 function getChecksumFromString($str, $key) { 
 
@@ -55,18 +56,18 @@ if(Auth::check())
  $sadad_checksum_array['txnDate'] = $txnDate; 
            
 
-foreach ($products as $product) {
+foreach ($items as $item) {
 
-    if($product->discount)
-      {
-          $price = $product->discount;
-      }else{
-          $price = $product->unit_price;
-      }
+    // if($product->discount)
+    //   {
+    //       $price = $product->discount;
+    //   }else{
+    //       $price = $product->unit_price;
+    //   }
 
     
-    $json_decoded = json_decode($product);
-    $allproducts[] = array('order_id' => $orderid, 'itemname' => $product->title, 'amount' =>$price, 'quantity' => $product->cartQty);
+    $json_decoded = json_decode($item);
+    $allproducts[] = array('order_id' => $orderid, 'itemname' => $item->name, 'amount' => $item->price, 'quantity' => $item->quantity);
 }
 $sadad_checksum_array['productdetail'] = $allproducts;
 
@@ -120,29 +121,29 @@ $action_url = 'https://sadadqa.com/webpurchase';
 <div class="container-fluid">
     <div class="row">
     	<div class="col-6">
-            <?php $total_price = 0; ?>
-            @foreach($products as $product)
+            @php $total_price = \Cart::getTotal() @endphp
+            @foreach($items as $item)
 
-            @php
+            {{-- @php
               if($product->discount)
               {
                   $price = $product->discount;
               }else{
                   $price = $product->unit_price;
               }
-            @endphp
-            <?php $total_price+=$price*$product->cartQty; ?>
-            <input type="hidden" id="prod_id" value="{{$product->id}}" name="prodid[]" />
-            <input type="hidden" id="cart_qty" value="{{$product->cartQty}}" name="cartQty[]" />
-            <input type="hidden" id="cart_amount" value="{{$price}}" name="cart_amount[]" />
+            @endphp --}}
+            <?php //$total_price+=$price*$product->cartQty; ?>
+            <input type="hidden" id="prod_id" value="{{$item->id}}" name="prodid[]" />
+            <input type="hidden" id="cart_qty" value="{{$item->quantity}}" name="cartQty[]" />
+            <input type="hidden" id="cart_amount" value="{{$item->price}}" name="cart_amount[]" />
             <div class="d-flex cart-products">
-                <div class="cart-image"><img src="{{asset('products/'.$product->featured_img)}}"/></div>
+                <div class="cart-image"><img src="{{asset('products/'.$item->associatedModel->featured_img)}}"/></div>
                 <div class="product-detail">
-                    <h2 class="title">{{$product->title}}</h2>
-                    <h4 class="price">QAR {{$price}}</h4>
-                    <div class="qty">Quantity : {{$product->cartQty}}</div>
+                    <h2 class="title">{{$item->name}}</h2>
+                    <h4 class="price">QAR {{$item->price}}</h4>
+                    <div class="qty">Quantity : {{$item->quantity}}</div>
                     <div class="d-flex rmv-or-edit">
-                        <div class="remove icon"><a href="javascript:void(0)" onclick="removecart({{$product->crtid}})"><img src="{{asset('website/img/delete.png')}}"/></a></div>
+                        <div class="remove icon"><a href="javascript:void(0)" onclick="removecart({{$item->id}})"><img src="{{asset('website/img/delete.png')}}"/></a></div>
                         <!-- <div class="edit icon"><a href="#"><img src="{{asset('website/img/edit.png')}}"/></a></div> -->
                     </div>
                 </div>

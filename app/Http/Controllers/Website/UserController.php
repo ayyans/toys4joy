@@ -28,6 +28,7 @@ use Illuminate\Http\Response;
 use Stripe;
 use Session;
 use Auth;
+use Darryldecode\Cart\CartCondition;
 use DB;
 use Mail;
 class UserController extends Controller
@@ -35,10 +36,11 @@ class UserController extends Controller
 	// gift card coupon 
 	public function removegiftcard()
 	{
-		$cartid = Cmf::ipaddress();
-		$getcode = Cart::where('cust_id','=',$cartid)->get()->first()->giftcode;
-		usergiftcards::where('code' , $getcode)->update(['isused'=>' ']);
-		Cart::where('cust_id','=',$cartid)->update(['giftcode'=>' ']);
+		// $cartid = Cmf::ipaddress();
+		// $getcode = Cart::where('cust_id','=',$cartid)->get()->first()->giftcode;
+		// usergiftcards::where('code' , $getcode)->update(['isused'=>' ']);
+		// Cart::where('cust_id','=',$cartid)->update(['giftcode'=>' ']);
+		\Cart::removeCartCondition('Gift Card');
 		return back()->with('success','Gift Card Remove Successfully');
 	}
     public function giftcard_coupon(Request $request){
@@ -53,9 +55,21 @@ class UserController extends Controller
             	exit();
     		}else
     		{
-    			$cartid = Cmf::ipaddress();
-    			Cart::where('cust_id','=',$cartid)->update(['giftcode'=>$request->discount_coupon]);
-    			usergiftcards::where('code' , $request->discount_coupon)->update(['isused'=>'yes']);
+    			// $cartid = Cmf::ipaddress();
+    			// Cart::where('cust_id','=',$cartid)->update(['giftcode'=>$request->discount_coupon]);
+					$giftcardCondition = new CartCondition([
+						'name' => 'Gift Card',
+						'type' => 'giftcard',
+						'target' => 'total',
+						'value' => -300,
+						'attributes' => [
+							'code' => $request->discount_coupon
+						]
+					]);
+
+					\Cart::condition($giftcardCondition);
+					usergiftcards::where('code' , $request->discount_coupon)->update(['isused'=>'yes']);
+
     			return response()->json(["status"=>"200","msg"=>'1']);
             	exit();
     		}

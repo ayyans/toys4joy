@@ -228,7 +228,7 @@
             success:function(res){
                 var js_data = JSON.parse(JSON.stringify(res));
                 if(js_data.status==200){
-                    var cartsize = js_data.msg.length;
+                    var cartsize = js_data.count;
                     $("#cartno").text(cartsize);
                 }else{
                     $("#cartdetailsheader").append('<p>No products in cart</p>') 
@@ -258,6 +258,7 @@
                 $("#cover-spin").hide();
                 if(js_data.status==200){
                     toastr.success('Product removed from cart');
+                    headercart();
                     showcart();
                 }else{
                     toastr.error('something went wrong');

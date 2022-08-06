@@ -16,7 +16,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProdAttr;
 use App\Models\GuestOrder;
-use App\Models\Cart;
+// use App\Models\Cart;
 use App\Models\Wishlist;
 use App\Models\CustomerAddress;
 use App\Models\CardInfo;
@@ -267,7 +267,8 @@ class WebsiteController extends Controller
                     ];
                     event(new OrderPlaced($order_details));
                     Cmf::sendordersms($allparms['ORDERID']);
-                    $update_cart = Cart::where('cust_id','=',$ipaddres)->delete();
+                    // $update_cart = Cart::where('cust_id','=',$ipaddres)->delete();
+                    \Cart::clear();
                     $orderid = $allparms['ORDERID'];
                     return view('website.guestthanks',compact('orderid'));
                 }else{
@@ -287,104 +288,133 @@ class WebsiteController extends Controller
 
     // add to cart
 
-    
-    
-    public function addTocart(Request $request){
-        $cust = Cmf::ipaddress();
+
+
+    public function addTocart(Request $request)
+    {
+        // $cust = Cmf::ipaddress();
         $prod_id = $request->prod_id;
         $qty = $request->quantity;
 
-        $product = Product::where('id','=',$prod_id)->first();
+        $product = Product::where('id', '=', $prod_id)->first();
 
-        if($product->discount)
-        {
+        if ($product->discount) {
             $price = $product->discount;
-        }else{
+        } else {
             $price = $product->unit_price;
         }
 
-        $existcart = Cart::where('cust_id','=',$cust)->where('prod_id','=',$prod_id)->count();        
-        if($existcart>0){
-            $existqty = Cart::where('cust_id','=',$cust)->where('prod_id','=',$prod_id)->first();
-            $updateqty = $existqty['qty']+$qty;
-            $qtyupdate = Cart::where('cust_id','=',$cust)->where('prod_id','=',$prod_id)->update(['qty'=>$updateqty]);
-            if($qtyupdate==true){
-                return response()->json(["status"=>"200","msg"=>"1"]);
-            }else{
-                return response()->json(["status"=>"400","msg"=>"2"]); 
-            }
-        }else
-        {
-            $getproduct = Product::where('id','=',$prod_id)->first();
-            if($qty<=$getproduct['qty']){
-                $addTo = new Cart;
-                $addTo->cust_id=$cust;
-                $addTo->prod_id=$prod_id;
-                $addTo->qty = $qty;
-                $addTo->amount=$price;
-                $addTo->save();
-                if($addTo==true){
-                    return response()->json(["status"=>"200","msg"=>"1"]);
-                }else{
-                    return response()->json(["status"=>"400","msg"=>"2"]); 
-                }
-        }
-        else{
-            return response()->json(["status"=>"400","msg"=>"3"]);
-        }
-    }
+        \Cart::add([
+            'id' => $product->id,
+            'name' => $product->title,
+            'price' => $price,
+            'quantity' => $qty,
+            'attributes' => [],
+            'associatedModel' => $product
+        ]);
 
+        return response()->json([
+            'status' => 200,
+            'msg' => 1
+        ]);
+
+        // $existcart = Cart::where('cust_id', '=', $cust)->where('prod_id', '=', $prod_id)->count();
+        // if ($existcart > 0) {
+        //     $existqty = Cart::where('cust_id', '=', $cust)->where('prod_id', '=', $prod_id)->first();
+        //     $updateqty = $existqty['qty'] + $qty;
+        //     $qtyupdate = Cart::where('cust_id', '=', $cust)->where('prod_id', '=', $prod_id)->update(['qty' => $updateqty]);
+        //     if ($qtyupdate == true) {
+        //         return response()->json(["status" => "200", "msg" => "1"]);
+        //     } else {
+        //         return response()->json(["status" => "400", "msg" => "2"]);
+        //     }
+        // } else {
+        //     $getproduct = Product::where('id', '=', $prod_id)->first();
+        //     if ($qty <= $getproduct['qty']) {
+        //         $addTo = new Cart;
+        //         $addTo->cust_id = $cust;
+        //         $addTo->prod_id = $prod_id;
+        //         $addTo->qty = $qty;
+        //         $addTo->amount = $price;
+        //         $addTo->save();
+        //         if ($addTo == true) {
+        //             return response()->json(["status" => "200", "msg" => "1"]);
+        //         } else {
+        //             return response()->json(["status" => "400", "msg" => "2"]);
+        //         }
+        //     } else {
+        //         return response()->json(["status" => "400", "msg" => "3"]);
+        //     }
+        // }
     }
 
     public function cartPageContent()
     {
-        $cust_id = Cmf::ipaddress();
-        $data = Cart::leftJoin('products','products.id','=','carts.prod_id')
+        // $cust_id = Cmf::ipaddress();
+        // $data = Cart::leftJoin('products','products.id','=','carts.prod_id')
                 
-        ->select('carts.id as crtid','carts.qty as cartQty','products.*')
-        ->where('carts.cust_id','=',$cust_id)       
-        ->orderBy('carts.id','desc')
-        ->get();
+        // ->select('carts.id as crtid','carts.qty as cartQty','products.*')
+        // ->where('carts.cust_id','=',$cust_id)       
+        // ->orderBy('carts.id','desc')
+        // ->get();
 
-        $totalPrice = $data->sum(function ($cart) {
-            if($cart->discount)
-            {
-                $price = $cart->discount;
-            }else{
-                $price = $cart->unit_price;
-            }
-            return $price * $cart->cartQty;
-        });
+        $items = \Cart::getContent();
+        $totalPrice = \Cart::getSubTotal();
+
+        // $totalPrice = $data->sum(function ($cart) {
+        //     if($cart->discount)
+        //     {
+        //         $price = $cart->discount;
+        //     }else{
+        //         $price = $cart->unit_price;
+        //     }
+        //     return $price * $cart->cartQty;
+        // });
 
         $body = '';
 
-        if($data->count() > 0) {
-            $total_price = 0;
-            foreach($data as $cart) {
-
-                if($cart->discount)
-                {
-                    $price = $cart->discount;
-                }else{
-                    $price = $cart->unit_price;
-                }
-
-                
-                $total_price+=$price*$cart->cartQty;
-                $body .= '
+        foreach ($items as $item) {
+            $body .= '
                 <tr>
-                    <td class="qty"><input type="number" value="'.$cart->cartQty.'" id="quantity" name="quantity" min="1" max="'.$cart->qty.'" onchange="updatecartQty('.$cart->crtid.',this.value)"></td>
+                    <td class="qty"><input type="number" value="'.$item->quantity.'" id="quantity" name="quantity" min="1" max="'.$item->associatedModel->qty.'" onchange="updatecartQty('.$item->id.',this.value)"></td>
                     <td class="title">
                     <div class="d-flex product-rank">
-                        <div class="detail"><p>'.$cart->title.'</p></div>
+                        <div class="detail"><p>'.$item->name.'</p></div>
                     </div>
                     </td>
-                    <td><div class="img-box"><img src="'.asset('products/'.$cart->featured_img).'"/></div></td>
-                    <td class="price"><span>QAR '.$price.'</span></td>
-                    <td class="delete"><div class="rmv-icon"><a href="javascript:void(0)" onclick="removeCartContent('.$cart->crtid.')"><img src="'.asset('website/img/delete-product.png').'"/></a></div></td>
+                    <td><div class="img-box"><img src="'.asset('products/'.$item->associatedModel->featured_img).'"/></div></td>
+                    <td class="price"><span>QAR '.$item->price.'</span></td>
+                    <td class="delete"><div class="rmv-icon"><a href="javascript:void(0)" onclick="removeCartContent('.$item->id.')"><img src="'.asset('website/img/delete-product.png').'"/></a></div></td>
                 </tr>';
-            }
         }
+
+        // if($data->count() > 0) {
+        //     $total_price = 0;
+        //     foreach($data as $cart) {
+
+        //         if($cart->discount)
+        //         {
+        //             $price = $cart->discount;
+        //         }else{
+        //             $price = $cart->unit_price;
+        //         }
+
+                
+        //         $total_price+=$price*$cart->cartQty;
+        //         $body .= '
+        //         <tr>
+        //             <td class="qty"><input type="number" value="'.$cart->cartQty.'" id="quantity" name="quantity" min="1" max="'.$cart->qty.'" onchange="updatecartQty('.$cart->crtid.',this.value)"></td>
+        //             <td class="title">
+        //             <div class="d-flex product-rank">
+        //                 <div class="detail"><p>'.$cart->title.'</p></div>
+        //             </div>
+        //             </td>
+        //             <td><div class="img-box"><img src="'.asset('products/'.$cart->featured_img).'"/></div></td>
+        //             <td class="price"><span>QAR '.$price.'</span></td>
+        //             <td class="delete"><div class="rmv-icon"><a href="javascript:void(0)" onclick="removeCartContent('.$cart->crtid.')"><img src="'.asset('website/img/delete-product.png').'"/></a></div></td>
+        //         </tr>';
+        //     }
+        // }
 
         return [
             'body' => $body,
@@ -395,82 +425,122 @@ class WebsiteController extends Controller
     // view cart 
     public function showcart()
     {
-        $cust_id = Cmf::ipaddress();
-        $data = Cart::leftJoin('products','products.id','=','carts.prod_id')
-                
-        ->select('carts.id as crtid','carts.qty as cartQty','products.*')
-        ->where('carts.cust_id','=',$cust_id)       
-        ->orderBy('carts.id','desc')
-        ->get();
+        // $cust_id = Cmf::ipaddress();
+        // $data = Cart::leftJoin('products', 'products.id', '=', 'carts.prod_id')
 
-        if($data->count() > 0)
-        {
-            echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Basket</h5></div>       
-            <div id="cartdetailsheader">';
-            $total_price = 0;
-            foreach ($data as $r) {
-            if($r->discount)
-            {
-                $price = $r->discount;
-            }else{
-                $price = $r->unit_price;
-            }
+        // ->select('carts.id as crtid', 'carts.qty as cartQty', 'products.*')
+        // ->where('carts.cust_id', '=', $cust_id)
+        // ->orderBy('carts.id', 'desc')
+        // ->get();
 
-            $total_price += $r->cartQty*$price;
-            echo '<div class="d-flex added-products"> 
-                <div class="pro-image">
-                <img src="'.asset("products").'/'.$r->featured_img.'">
-                </div><div class="product-detail"> 
-                <h2 class="title">'.$r->title.'</h2> 
-                <h4 class="price">QAR '.$price.'</h4> 
-                <div class="d-flex rmv-or-edit"> 
-                <div class="qty">
-                <input type="number" value="'.$r->cartQty.'" id="quantity" name="quantity" min="1" max="2" onchange="updateQty('.$r->crtid.',this.value)">
-                </div>
-                <div class="remove icon">
-                <a href="javascript:void(0)" onclick="removecart('.$r->crtid.')">
-                <img src="'.asset('website/img/delete.png').'">
-                </a>
-                </div>
-                </div>
-                </div>
-                </div>';
-            }
-
-            echo '</div>
-             <hr>
-            <div class="d-flex total-n-shipping">
-                <div class="d-flex subtotal">
-                    <h4>Subtotal:</h4>
-                    <h5 class="price" id="subtotal_price">QAR '.$total_price.'</h5>
-                </div>
-            </div>
-            <div class="d-flex btn-area">
-                <div class="checkout btn"><a href="'.route('website.cartpage').'">Checkout</a></div>
-            </div>';
-
-        }else{
+        $items = \Cart::getContent();
+        $total_price = \Cart::getSubTotal();
+        if (\Cart::isEmpty()) {
             echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Bag</h5></div>       
             <div id="cartdetailsheader">
                 <p>No products in cart</p>
             </div>
             ';
+        } else {
+            foreach ($items as $item) {
+                echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Basket</h5></div>       
+                <div id="cartdetailsheader">';
+                echo '<div class="d-flex added-products"> 
+                    <div class="pro-image">
+                    <img src="' . asset("products") . '/' . $item->associatedModel->featured_img . '">
+                    </div><div class="product-detail"> 
+                    <h2 class="title">' . $item->name . '</h2> 
+                    <h4 class="price">QAR ' . $item->price . '</h4> 
+                    <div class="d-flex rmv-or-edit"> 
+                    <div class="qty">
+                    <input type="number" value="' . $item->quantity . '" id="quantity" name="quantity" min="1" max="2" onchange="updateQty(' . $item->id . ',this.value)">
+                    </div>
+                    <div class="remove icon">
+                    <a href="javascript:void(0)" onclick="removecart(' . $item->id . ')">
+                    <img src="' . asset('website/img/delete.png') . '">
+                    </a>
+                    </div>
+                    </div>
+                    </div>
+                    </div>';
+            }
+            echo '</div>
+            <hr>
+            <div class="d-flex total-n-shipping">
+                <div class="d-flex subtotal">
+                    <h4>Subtotal:</h4>
+                    <h5 class="price" id="subtotal_price">QAR ' . $total_price . '</h5>
+                </div>
+            </div>
+            <div class="d-flex btn-area">
+                <div class="checkout btn"><a href="' . route('website.cartpage') . '">Checkout</a></div>
+            </div>';
         }
 
-        
+        // if ($data->count() > 0
+        // ) {
+        //     echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Basket</h5></div>       
+        //     <div id="cartdetailsheader">';
+        //     $total_price = 0;
+        //     foreach ($data as $r) {
+        //         if ($r->discount) {
+        //             $price = $r->discount;
+        //         } else {
+        //             $price = $r->unit_price;
+        //         }
 
-        
+        //         $total_price += $r->cartQty * $price;
+        //         echo '<div class="d-flex added-products"> 
+        //         <div class="pro-image">
+        //         <img src="' . asset("products") . '/' . $r->featured_img . '">
+        //         </div><div class="product-detail"> 
+        //         <h2 class="title">' . $r->title . '</h2> 
+        //         <h4 class="price">QAR ' . $price . '</h4> 
+        //         <div class="d-flex rmv-or-edit"> 
+        //         <div class="qty">
+        //         <input type="number" value="' . $r->cartQty . '" id="quantity" name="quantity" min="1" max="2" onchange="updateQty(' . $r->crtid . ',this.value)">
+        //         </div>
+        //         <div class="remove icon">
+        //         <a href="javascript:void(0)" onclick="removecart(' . $r->crtid . ')">
+        //         <img src="' . asset('website/img/delete.png') . '">
+        //         </a>
+        //         </div>
+        //         </div>
+        //         </div>
+        //         </div>';
+        //     }
+
+        //     echo '</div>
+        //      <hr>
+        //     <div class="d-flex total-n-shipping">
+        //         <div class="d-flex subtotal">
+        //             <h4>Subtotal:</h4>
+        //             <h5 class="price" id="subtotal_price">QAR ' . $total_price . '</h5>
+        //         </div>
+        //     </div>
+        //     <div class="d-flex btn-area">
+        //         <div class="checkout btn"><a href="' . route('website.cartpage') . '">Checkout</a></div>
+        //     </div>';
+        // } else {
+        //     echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Bag</h5></div>       
+        //     <div id="cartdetailsheader">
+        //         <p>No products in cart</p>
+        //     </div>
+        //     ';
+        // }
     }
+
     public function headerCart(Request $request){
-        $cust_id = $request->cust_id;
-        $data = Cart::leftJoin('products','products.id','=','carts.prod_id')
+        // $cust_id = $request->cust_id;
+        // $data = Cart::leftJoin('products','products.id','=','carts.prod_id')
                 
-        ->select('carts.id as crtid','carts.qty as cartQty','products.*')
-        ->where('carts.cust_id','=',$cust_id)       
-        ->orderBy('carts.id','desc')
-        ->get();
-        if(count($data)!=0){
-            return response()->json(["status"=>"200","msg"=>$data]);
+        // ->select('carts.id as crtid','carts.qty as cartQty','products.*')
+        // ->where('carts.cust_id','=',$cust_id)       
+        // ->orderBy('carts.id','desc')
+        // ->get();
+        $count = \Cart::getContent()->count();
+        if($count!=0){
+            return response()->json(["status"=>"200","count"=>$count]);
         }else{
             return response()->json(["status"=>"400","msg"=>"1"]);
         } 
@@ -479,39 +549,54 @@ class WebsiteController extends Controller
     // cart page
 
     public function cartpage(){
-        $cust_id = Cmf::ipaddress();
-        $carts = Cart::leftJoin('products','products.id','=','carts.prod_id')                
-        ->select('carts.id as crtid','carts.qty as cartQty','products.*')
-        ->where('carts.cust_id','=',$cust_id)       
-        ->orderBy('carts.id','desc')
-        ->get();
+        // $cust_id = Cmf::ipaddress();
+        // $carts = Cart::leftJoin('products','products.id','=','carts.prod_id')                
+        // ->select('carts.id as crtid','carts.qty as cartQty','products.*')
+        // ->where('carts.cust_id','=',$cust_id)       
+        // ->orderBy('carts.id','desc')
+        // ->get();
 
-        return view('website.cartpage',compact('carts'));
+        return view('website.cartpage');
     }
 
     // remove product from cart
 
     public function removedcartProd(Request $request){
-        $removed = Cart::where('id','=',$request->cartid)->delete();
-        if($removed==true){
-            return response()->json(["status"=>"200","msg"=>"1"]);
-        }else{
-            return response()->json(["status"=>"400","msg"=>"2"]); 
-        }
+        \Cart::remove($request->cartid);
+        return response()->json([
+            'status' => 200,
+            'msg' => 1
+        ]);
+        // $removed = Cart::where('id','=',$request->cartid)->delete();
+        // if($removed==true){
+        //     return response()->json(["status"=>"200","msg"=>"1"]);
+        // }else{
+        //     return response()->json(["status"=>"400","msg"=>"2"]); 
+        // }
 
     }
 
     // update cart
 
     public function updateQTY(Request $request){
-        $updateQty = Cart::where('id','=',$request->cartid)->update([
-            'qty'=>$request->qty
+        \Cart::update($request->cartid, [
+            'quantity' => [
+                'relative' => false,
+                'value' => $request->qty
+            ]
         ]);
-        if($updateQty == true){
-            return response()->json(["status"=>"200","msg"=>"1"]);
-        }else{
-            return response()->json(["status"=>"200","msg"=>"1"]);
-        }
+        return response()->json([
+            'status' => 200,
+            'msg' => 1
+        ]);
+        // $updateQty = Cart::where('id','=',$request->cartid)->update([
+        //     'qty'=>$request->qty
+        // ]);
+        // if($updateQty == true){
+        //     return response()->json(["status"=>"200","msg"=>"1"]);
+        // }else{
+        //     return response()->json(["status"=>"200","msg"=>"1"]);
+        // }
     }
 
 
@@ -519,24 +604,27 @@ class WebsiteController extends Controller
 
     public function payasmember(Request $request){
         $cust_id = Cmf::ipaddress();
-        $data = array('customer_id' => Auth::user()->id);
-        DB::table('carts')->where('cust_id' , $cust_id)->update($data);
-        $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
-                    ->leftJoin('brands','brands.id','=','products.brand_id')                    
-                    ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty','carts.giftcode as giftcode')
-                    ->where('carts.cust_id','=',$cust_id)
-                    ->get();
+        // $data = array('customer_id' => Auth::user()->id);
+        // DB::table('carts')->where('cust_id' , $cust_id)->update($data);
+        // $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
+        //             ->leftJoin('brands','brands.id','=','products.brand_id')                    
+        //             ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty','carts.giftcode as giftcode')
+        //             ->where('carts.cust_id','=',$cust_id)
+        //             ->get();
+        $items = \Cart::getContent();
 
         
-        $giftcoupencode = Cart::where('cust_id' , $cust_id)->where('giftcode' , '!=' , '')->count();
+        // $giftcoupencode = Cart::where('cust_id' , $cust_id)->where('giftcode' , '!=' , '')->count();
 
 
-        if($products->count()>0)
+        // if($products->count()>0)
+        if(! \Cart::isEmpty())
         {
             $checkaddres = CustomerAddress::where('cust_id' , Auth::user()->id)->count();
             if($checkaddres > 0)
             {
-                return view('website.payasmember',compact('products','giftcoupencode'));
+                // return view('website.payasmember',compact('products','giftcoupencode'));
+                return view('website.payasmember',compact('items'));
             }else{
                 
                 return redirect()->route('website.addAddressInfo')->with('error','Add Address First');
@@ -582,12 +670,12 @@ class WebsiteController extends Controller
         {
             if($address->get()->first()->latitude)
             {
-                $lattitude =  $ipdata->latitude;
-                $longitude =  $ipdata->longitude;
+                $lattitude =  $ipdata->latitude ?? 25.281639;
+                $longitude =  $ipdata->longitude ?? 51.524300;
             }
         }else{
-            $lattitude =  $ipdata->longitude;
-            $longitude =  $ipdata->latitude;
+            $lattitude =  $ipdata->longitude ?? 25.281639;
+            $longitude =  $ipdata->latitude ?? 51.524300;
         }
         return view('website.add_address')->with(array('lattitude'=>$lattitude,'longitude'=>$longitude));
     }
@@ -787,8 +875,9 @@ class WebsiteController extends Controller
 
                 }
                 if($place_order==true){
-                    $cartid = Cmf::ipaddress();
-                    $update_cart = Cart::where('cust_id','=',$cartid)->delete();
+                    // $cartid = Cmf::ipaddress();
+                    // $update_cart = Cart::where('cust_id','=',$cartid)->delete();
+                    \Cart::clear();
                     event(new OrderPlaced($order_details));
 
                     Cmf::sendordersms($order_number);
