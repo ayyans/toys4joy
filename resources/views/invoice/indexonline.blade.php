@@ -203,6 +203,32 @@
 
         <tr class="total">
           <td colspan="2"></td>
+          <td colspan="3">Sub Total: QAR {{ $total_price }}</td>
+        </tr>
+        @if($order->first()->giftcode)
+        <tr class="total">
+          <td colspan="2"></td>
+          <td colspan="3">Discount Gift Card: QAR {{ $total_price }}</td>
+        </tr>
+        @php
+          $usergiftcard = DB::table('usergiftcards')->where('code' , $order->first()->giftcode)->get()->first();
+          $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
+
+          $giftcardprice = $total_price-$giftcard->price;
+
+          if($giftcardprice < 0)
+          {
+            $total_price = 0;
+          }else{
+            $total_price = $giftcardprice;
+          }
+
+        @endphp
+
+        @endif
+
+        <tr class="total">
+          <td colspan="2"></td>
           <td colspan="3">Total: QAR {{ $total_price }}</td>
         </tr>
       </table> 
