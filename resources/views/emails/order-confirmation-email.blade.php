@@ -201,11 +201,10 @@
                                             <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:22px;text-align:left;color:#525252;">
                                                 <p>Your Order Number <b>{{ $data['order_number'] }}</b>,</p>
                                                 <br>
-                                                <p>Delivery Address</p>
-                                                <br>
+                                                <p><b>Delivery Address</b></p>
                                                 <p>{{ $data['address'] }}</p>
                                                 <br>
-                                                <p>Your order has
+                                                <p style="text-align: center;">Your order has
                       been received and is now being processed. Your order details are shown below for your reference:</p>
                                             </div>
 
@@ -236,11 +235,55 @@
                                                     <td style="padding: 0 15px;">{{ $data['quantity'][$index] }}</td>
                                                     <td style="padding: 0 0 0 15px;" align="right">{{ 'QAR ' . $data['amount'][$index] }}</td>
                                                 </tr>
+
                                                 @endforeach
+
+                                                @php
+
+                                                $total_price = $data['total'];
+
+                                                $orderemail = DB::table('orders')->where('orderid' , $data['order_number'])->get()->first();
+
+                                                @endphp
+
+
+                                                @if($orderemail->giftcode)
+        
+                                                @php
+                                                  $usergiftcard = DB::table('usergiftcards')->where('code' , $orderemail->giftcode)->get()->first();
+                                                  $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
+
+                                                  $giftcardprice = $total_price-$giftcard->price;
+
+                                                  if($giftcardprice < 0)
+                                                  {
+                                                    $total_price = 0;
+                                                  }else{
+                                                    $total_price = $giftcardprice;
+                                                  }
+
+                                                @endphp
+                                                <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">SUB TOTAL</td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">{{ 'QAR ' . number_format($total_price, 2) }} </td>
+                                                </tr>
+                                                <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">Discount Gift Card</td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">{{ 'QAR ' . number_format($giftcard->price, 2) }} </td>
+                                                </tr>
+                                                @endif
+
+
+                                                
                                                 <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
                                                     <td style="padding: 5px 15px 5px 0; font-weight:bold">TOTAL</td>
                                                     <td style="padding: 0 15px;"></td>
-                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">{{ 'QAR ' . number_format($data['total'], 2) }} </td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">{{ 'QAR ' . number_format($total_price, 2) }} </td>
                                                 </tr>
                                             </table>
 
@@ -271,110 +314,12 @@
 
                             </div>
 
-                            <!--[if mso | IE]>
-            </td>
-          
-        </tr>
-      
-                  </table>
-                <![endif]-->
                         </td>
                     </tr>
                 </tbody>
             </table>
 
         </div>
-
-
-        <!--[if mso | IE]>
-          </td>
-        </tr>
-      </table>
-      
-      <table
-         align="center" border="0" cellpadding="0" cellspacing="0" style="width:600px;" width="600"
-      >
-        <tr>
-          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
-      <![endif]-->
-
-
-        <div style="Margin:0px auto;max-width:600px;">
-
-            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-                <tbody>
-                    <tr>
-                        <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
-                            <!--[if mso | IE]>
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                
-        <tr>
-      
-            <td
-               style="vertical-align:bottom;width:600px;"
-            >
-          <![endif]-->
-
-                            <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;">
-
-                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
-                                    <tbody>
-                                        <tr>
-                                            <td style="vertical-align:bottom;padding:0;">
-
-                                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
-
-                                                    <tr>
-                                                        <td align="center" style="font-size:0px;padding:0;word-break:break-word;">
-
-                                                            <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:300;line-height:1;text-align:center;color:#575757;">
-                                                                Some Firm Ltd, 35 Avenue. City 10115, USA
-                                                            </div>
-
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td align="center" style="font-size:0px;padding:10;word-break:break-word;">
-
-                                                            <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:300;line-height:1;text-align:center;color:#575757;">
-                                                                <a href="" style="color:#575757">Unsubscribe</a> from our emails
-                                                            </div>
-
-                                                        </td>
-                                                    </tr>
-
-                                                </table>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
-
-                            <!--[if mso | IE]>
-            </td>
-          
-        </tr>
-      
-                  </table>
-                <![endif]-->
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-
-
-        <!--[if mso | IE]>
-          </td>
-        </tr>
-      </table>
-      <![endif]-->
-
-
     </div>
 
 </body>
