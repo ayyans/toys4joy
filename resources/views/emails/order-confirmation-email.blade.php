@@ -1,217 +1,382 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
-  <title></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <style type="text/css">
-    body,
-    table,
-    td,
-    a {
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-    }
+    <title>
 
-    table,
-    td {
-      mso-table-lspace: 0pt;
-      mso-table-rspace: 0pt;
-    }
+    </title>
+    <!--[if !mso]><!-- -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        #outlook a {
+            padding: 0;
+        }
 
-    img {
-      -ms-interpolation-mode: bicubic;
-    }
+        .ReadMsgBody {
+            width: 100%;
+        }
 
-    img {
-      border: 0;
-      height: auto;
-      line-height: 100%;
-      outline: none;
-      text-decoration: none;
-    }
+        .ExternalClass {
+            width: 100%;
+        }
 
-    table {
-      border-collapse: collapse !important;
-    }
+        .ExternalClass * {
+            line-height: 100%;
+        }
 
-    body {
-      height: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      width: 100% !important;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
 
-    a[x-apple-data-detectors] {
-      color: inherit !important;
-      text-decoration: none !important;
-      font-size: inherit !important;
-      font-family: 'Nunito', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
-      font-weight: inherit !important;
-      line-height: inherit !important;
-    }
+        table,
+        td {
+            border-collapse: collapse;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
 
-    @media screen and (max-width: 480px) {
-      .mobile-hide {
-        display: none !important;
-      }
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+        }
 
-      .mobile-center {
-        text-align: center !important;
-      }
-    }
+        p {
+            display: block;
+            margin: 13px 0;
+        }
+    </style>
+    <!--[if !mso]><!-->
+    <style type="text/css">
+        @media only screen and (max-width:480px) {
+            @-ms-viewport {
+                width: 320px;
+            }
+            @viewport {
+                width: 320px;
+            }
+        }
+    </style>
+    <!--<![endif]-->
+    <!--[if mso]>
+        <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG/>
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+        </xml>
+        <![endif]-->
+    <!--[if lte mso 11]>
+        <style type="text/css">
+          .outlook-group-fix { width:100% !important; }
+        </style>
+        <![endif]-->
 
-    div[style*="margin: 16px 0;"] {
-      margin: 0 !important;
-    }
-  </style>
 
-<body style="margin: 0 !important; padding: 0 !important; background-color: #fff;" bgcolor="#fff">
-  <table border="0" cellpadding="0" cellspacing="0" width="100%">
-    <tr>
-      <td align="center" style="background-color: #fff;" bgcolor="#fff">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-          style="max-width:600px;box-shadow: 0 0 20px rgb(0 0 0 / 10%);">
-          <tr>
-            <td align="center" style="padding: 35px 35px 20px 35px; background-color: #ffffff;" bgcolor="#ffffff">
-              <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
-                <tr class="logo" style="text-align:center;">
-                  <td class="">
-                    <img alt="robot picture" class="" height="auto"
-                      src="http://phplaravel-788354-2698725.cloudwaysapps.com/website/img/logo-t4j.png" width="100">
-                  </td>
-                </tr>
-                <tr>
-                  <td align="center"
-                    style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;">
-                    <br>
-                    <h2 style="font-size: 30px; font-weight: 800; line-height: 36px; color: #333333; margin: 0;"> Thank
-                      You For Your Order! </h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td align="left"
-                    style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 10px;">
-                    <p style="font-size: 16px; font-weight: 400; line-height: 24px; color: #777777;"> Your order has
-                      been received and is now being processed. Your order details are shown below for your reference:
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td align="left" style="padding-top: 20px;">
-                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                      <tr>
-                        <td width="75%" align="left" bgcolor="#eeeeee"
-                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
-                          Order Confirmation # </td>
-                        <td width="25%" align="left" bgcolor="#eeeeee"
-                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
-                          {{ $data['order_number'] }} </td>
-                      </tr>
-                      @foreach ($data['products'] as $index => $name )
+    <style type="text/css">
+        @media only screen and (min-width:480px) {
+            .mj-column-per-100 {
+                width: 100% !important;
+            }
+        }
+    </style>
 
-                      @php
 
-                        $product = DB::table('products')->where('title' , $name)->get()->first();
+    <style type="text/css">
+    </style>
 
-                      @endphp
-                      <tr> 
-                        <td width="65%" align="left"
-                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                          {{ $name }} ({{ $data['quantity'][$index] }}) </td>
-                          <td width="75%" align="left"
-                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                          {{ $product->sku }}</td>
-                        <td width="25%" align="left"
-                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                          {{ 'QAR ' . $data['amount'][$index] }} </td>
-                      </tr>
-                      @endforeach
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td align="left" style="padding-top: 20px;">
-                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                      <tr>
-                        <td width="75%" align="left"
-                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
-                          TOTAL </td>
-                        <td width="25%" align="left"
-                          style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
-                          {{ 'QAR ' . number_format($data['total'], 2) }} </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
+</head>
+
+<body style="background-color:#f9f9f9;">
+
+
+    <div style="background-color:#f9f9f9;">
+
+
+        <!--[if mso | IE]>
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+
+
+        <div style="background:#f9f9f9;background-color:#f9f9f9;Margin:0px auto;max-width:600px;">
+
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#f9f9f9;background-color:#f9f9f9;width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="border-bottom:#333957 solid 5px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+        </tr>
+      
+                  </table>
+                <![endif]-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+
+
+        <div style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;">
+
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               style="vertical-align:bottom;width:600px;"
+            >
+          <![endif]-->
+
+                            <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;">
+
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:bottom;" width="100%">
+
+                                    <tr>
+                                        <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width:64px;">
+
+                                                            <img height="auto" src="http://phplaravel-788354-2698725.cloudwaysapps.com/website/img/logo-t4j.png" style="border:0;display:block;outline:none;text-decoration:none;width:100%;" width="64" />
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+
+                                            <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:24px;font-weight:bold;line-height:22px;text-align:center;color:#525252;">
+                                                Thank you for your order
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+
+                                            <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:22px;text-align:left;color:#525252;">
+                                                <p>Your Order Number <b>{{ $data['order_number'] }}</b>,</p>
+                                                <br>
+                                                <p>Delivery Address</p>
+                                                <br>
+                                                <p>{{ $data['address'] }}</p>
+                                                <br>
+                                                <p>Your order has
+                      been received and is now being processed. Your order details are shown below for your reference:</p>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+
+                                            <table 0="[object Object]" 1="[object Object]" 2="[object Object]" border="0" style="cellspacing:0;color:#000;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
+                                                <tr style="border-bottom:1px solid #ecedee;text-align:left;">
+                                                    <th style="padding: 0 15px 10px 0;">Item</th>
+                                                    <th style="padding: 0 15px;">Product SKU.</th>
+                                                    <th style="padding: 0 15px;">Qt.</th>
+                                                    <th style="padding: 0 0 0 15px;" align="right">Price</th>
+                                                </tr>
+                                                @foreach ($data['products'] as $index => $name )
+
+                                                @php
+
+                                                  $product = DB::table('products')->where('title' , $name)->get()->first();
+
+                                                @endphp
+                                                <tr>
+                                                    <td style="padding: 5px 15px 5px 0;">{{ $name }}</td>
+                                                    <td style="padding: 0 15px;">{{ $product->sku }}</td>
+                                                    
+                                                    <td style="padding: 0 15px;">{{ $data['quantity'][$index] }}</td>
+                                                    <td style="padding: 0 0 0 15px;" align="right">{{ 'QAR ' . $data['amount'][$index] }}</td>
+                                                </tr>
+                                                @endforeach
+                                                <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">TOTAL</td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">{{ 'QAR ' . number_format($data['total'], 2) }} </td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <td align="center" style="font-size:0px;padding:10px 25px;padding-top:30px;padding-bottom:50px;word-break:break-word;">
+
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
+                                                <tr>
+                                                    <td align="center" bgcolor="#2F67F6" role="presentation" style="border:none;border-radius:3px;color:#ffffff;cursor:auto;padding:15px 25px;" valign="middle">
+                                                        <p style="background:#2F67F6;color:#ffffff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;">
+                                                            <a href="{{ route('website.home') }}" style="color:#fff; text-decoration:none">
+          Shop
+                            Again</a>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </div>
+
+                            <!--[if mso | IE]>
             </td>
-          </tr>
-          <tr>
-            <td align="center" height="100%" valign="top" width="100%"
-              style="padding: 0 35px 35px 35px; background-color: #ffffff;" bgcolor="#ffffff">
-              <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:660px;">
-                <tr>
-                  <td align="center" valign="top" style="font-size:0;">
-                    <div style="display:inline-block; max-width:50%; min-width:240px; vertical-align:top; width:100%;">
-                      <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%"
-                        style="max-width:300px;">
-                        <tr>
-                          <td align="left" valign="top"
-                            style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
-                            <p style="font-weight: 800;">Delivery Address</p>
-                            <p>{{ $data['address'] }}</p>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                    <div style="display:inline-block; max-width:50%; min-width:240px; vertical-align:top; width:100%;">
-                      <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%"
-                        style="max-width:300px;">
-                        <tr>
-                          <td align="left" valign="top"
-                            style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
-                            <p style="font-weight: 800;">Estimated Delivery Time</p>
-                            <p>3 to 5 working days</p>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                  </td>
-                </tr>
-              </table>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+
+
+        <div style="Margin:0px auto;max-width:600px;">
+
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               style="vertical-align:bottom;width:600px;"
+            >
+          <![endif]-->
+
+                            <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;">
+
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td style="vertical-align:bottom;padding:0;">
+
+                                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+
+                                                    <tr>
+                                                        <td align="center" style="font-size:0px;padding:0;word-break:break-word;">
+
+                                                            <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:300;line-height:1;text-align:center;color:#575757;">
+                                                                Some Firm Ltd, 35 Avenue. City 10115, USA
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td align="center" style="font-size:0px;padding:10;word-break:break-word;">
+
+                                                            <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:300;line-height:1;text-align:center;color:#575757;">
+                                                                <a href="" style="color:#575757">Unsubscribe</a> from our emails
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            <!--[if mso | IE]>
             </td>
-          </tr>
-          <tr>
-            <td align="center" style=" padding: 10px; background-color: #2972bc;" bgcolor="#2972bc">
-              <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
-                <tr>
-                  <td align="center"
-                    style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;">
-                    <h2 style="font-size: 24px; font-weight: 800; line-height: 30px; color: #ffffff; margin: 0;"> Get
-                      30% off your next order. </h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td align="center" style="padding: 25px 0 15px 0;">
-                    <table border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td align="center" style="border-radius: 5px;" bgcolor="#2972bc"> <a href="{{ route('website.home') }}" target="_blank"
-                            style="font-size: 18px; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 5px; background-color: #26a557; padding: 15px 30px; border: 1px solid #26a557; display: block;">Shop
-                            Again</a> </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      <![endif]-->
+
+
+    </div>
+
 </body>
 
 </html>
