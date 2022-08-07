@@ -34,8 +34,8 @@ class OrderController extends Controller
     {
         // $ipaddres = Cmf::ipaddress();
         // $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
-        $items = \Cart::getContent();
-        $giftCardCondition = \Cart::getCondition('Gift Card');
+        $items = cart()->getContent();
+        $giftCardCondition = cart()->getCondition('Gift Card');
         $cust_id = Auth::user()->id;
         $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
         $cust_add_id = $cust_Add['id'];
@@ -60,7 +60,7 @@ class OrderController extends Controller
     {
         // $ipaddres = Cmf::ipaddress();
         // $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
-        $items = \Cart::getContent();
+        $items = cart()->getContent();
         foreach ($items as $item) {
             $custDetails = new GuestOrder;
             $custDetails->order_id = $request->order_id;
@@ -75,7 +75,7 @@ class OrderController extends Controller
             $custDetails->save();
         }
         // DB::table('carts')->where('cust_id' , $ipaddres)->delete();
-        \Cart::clear();
+        cart()->clear();
         return response()->json(["status"=>"200","msg"=>'test']);    
     }
     public function orderconfermasguest(Request $request)
@@ -128,7 +128,7 @@ class OrderController extends Controller
     public function saveCustDetails(Request $request){
         // $ipaddres = Cmf::ipaddress();
         // $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
-        $items = \Cart::getContent();
+        $items = cart()->getContent();
         foreach ($items as $item) {
             $custDetails = new GuestOrder;
             $custDetails->order_id = $request->order_id;
@@ -151,7 +151,7 @@ class OrderController extends Controller
             ]);
         }
         // DB::table('carts')->where('cust_id' , $ipaddres)->delete();
-        \Cart::clear();
+        cart()->clear();
         // if($getproduct->discount)
         // {
         //     $price = $getproduct->discount;
@@ -227,8 +227,8 @@ class OrderController extends Controller
         //             ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty')
         //             ->where('carts.cust_id','=',$cust_id)
         //             ->get();
-        $items = \Cart::getContent();
-        if(! \Cart::isEmpty())
+        $items = cart()->getContent();
+        if(! cart()->isEmpty())
         {
             return view('website.payasguest',compact('items'));
         }else{

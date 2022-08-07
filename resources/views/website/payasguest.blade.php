@@ -137,7 +137,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
             <input type="hidden" id="cart_qty" value="{{$item->quantity}}" name="cartQty[]" />
             <input type="hidden" id="cart_amount" value="{{$item->price}}" name="cart_amount[]" />
             <div class="d-flex cart-products">
-                <div class="cart-image"><img src="{{asset('products/'.$item->associatedModel->featured_img)}}"/></div>
+                <div class="cart-image"><img src="{{asset('products/'.$item->associatedModel['featured_img'])}}"/></div>
                 <div class="product-detail">
                     <h2 class="title">{{$item->name}}</h2>
                     <h4 class="price">QAR {{$item->price}}</h4>

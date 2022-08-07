@@ -1,5 +1,7 @@
 <?php
 
+use App\Services\CartStorage;
+
 return [
     /*
      * ---------------------------------------------------------------
@@ -23,7 +25,7 @@ return [
      *
      * the configuration for persisting cart
      */
-    'storage' => null,
+    'storage' => CartStorage::class,
 
     /*
      * ---------------------------------------------------------------

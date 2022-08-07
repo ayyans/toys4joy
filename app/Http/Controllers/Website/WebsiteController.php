@@ -268,7 +268,7 @@ class WebsiteController extends Controller
                     event(new OrderPlaced($order_details));
                     Cmf::sendordersms($allparms['ORDERID']);
                     // $update_cart = Cart::where('cust_id','=',$ipaddres)->delete();
-                    \Cart::clear();
+                    cart()->clear();
                     $orderid = $allparms['ORDERID'];
                     return view('website.guestthanks',compact('orderid'));
                 }else{
@@ -304,7 +304,7 @@ class WebsiteController extends Controller
             $price = $product->unit_price;
         }
 
-        \Cart::add([
+        cart()->add([
             'id' => $product->id,
             'name' => $product->title,
             'price' => $price,
@@ -358,8 +358,8 @@ class WebsiteController extends Controller
         // ->orderBy('carts.id','desc')
         // ->get();
 
-        $items = \Cart::getContent();
-        $totalPrice = \Cart::getSubTotal();
+        $items = cart()->getContent();
+        $totalPrice = cart()->getSubTotal();
 
         // $totalPrice = $data->sum(function ($cart) {
         //     if($cart->discount)
@@ -376,13 +376,13 @@ class WebsiteController extends Controller
         foreach ($items as $item) {
             $body .= '
                 <tr>
-                    <td class="qty"><input type="number" value="'.$item->quantity.'" id="quantity" name="quantity" min="1" max="'.$item->associatedModel->qty.'" onchange="updatecartQty('.$item->id.',this.value)"></td>
+                    <td class="qty"><input type="number" value="'.$item->quantity.'" id="quantity" name="quantity" min="1" max="'.$item->associatedModel['qty'].'" onchange="updatecartQty('.$item->id.',this.value)"></td>
                     <td class="title">
                     <div class="d-flex product-rank">
                         <div class="detail"><p>'.$item->name.'</p></div>
                     </div>
                     </td>
-                    <td><div class="img-box"><img src="'.asset('products/'.$item->associatedModel->featured_img).'"/></div></td>
+                    <td><div class="img-box"><img src="'.asset('products/'.$item->associatedModel['featured_img']).'"/></div></td>
                     <td class="price"><span>QAR '.$item->price.'</span></td>
                     <td class="delete"><div class="rmv-icon"><a href="javascript:void(0)" onclick="removeCartContent('.$item->id.')"><img src="'.asset('website/img/delete-product.png').'"/></a></div></td>
                 </tr>';
@@ -433,9 +433,9 @@ class WebsiteController extends Controller
         // ->orderBy('carts.id', 'desc')
         // ->get();
 
-        $items = \Cart::getContent();
-        $total_price = \Cart::getSubTotal();
-        if (\Cart::isEmpty()) {
+        $items = cart()->getContent();
+        $total_price = cart()->getSubTotal();
+        if (cart()->isEmpty()) {
             echo '<div class="cart-main-title"><h5 id="offcanvasRightLabel">My Bag</h5></div>       
             <div id="cartdetailsheader">
                 <p>No products in cart</p>
@@ -447,7 +447,7 @@ class WebsiteController extends Controller
                 <div id="cartdetailsheader">';
                 echo '<div class="d-flex added-products"> 
                     <div class="pro-image">
-                    <img src="' . asset("products") . '/' . $item->associatedModel->featured_img . '">
+                    <img src="' . asset("products") . '/' . $item->associatedModel['featured_img'] . '">
                     </div><div class="product-detail"> 
                     <h2 class="title">' . $item->name . '</h2> 
                     <h4 class="price">QAR ' . $item->price . '</h4> 
@@ -538,7 +538,7 @@ class WebsiteController extends Controller
         // ->where('carts.cust_id','=',$cust_id)       
         // ->orderBy('carts.id','desc')
         // ->get();
-        $count = \Cart::getContent()->count();
+        $count = cart()->getContent()->count();
         if($count!=0){
             return response()->json(["status"=>"200","count"=>$count]);
         }else{
@@ -562,7 +562,7 @@ class WebsiteController extends Controller
     // remove product from cart
 
     public function removedcartProd(Request $request){
-        \Cart::remove($request->cartid);
+        cart()->remove($request->cartid);
         return response()->json([
             'status' => 200,
             'msg' => 1
@@ -579,7 +579,7 @@ class WebsiteController extends Controller
     // update cart
 
     public function updateQTY(Request $request){
-        \Cart::update($request->cartid, [
+        cart()->update($request->cartid, [
             'quantity' => [
                 'relative' => false,
                 'value' => $request->qty
@@ -611,14 +611,14 @@ class WebsiteController extends Controller
         //             ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty','carts.giftcode as giftcode')
         //             ->where('carts.cust_id','=',$cust_id)
         //             ->get();
-        $items = \Cart::getContent();
+        $items = cart()->getContent();
 
         
         // $giftcoupencode = Cart::where('cust_id' , $cust_id)->where('giftcode' , '!=' , '')->count();
 
 
         // if($products->count()>0)
-        if(! \Cart::isEmpty())
+        if(! cart()->isEmpty())
         {
             $checkaddres = CustomerAddress::where('cust_id' , Auth::user()->id)->count();
             if($checkaddres > 0)
@@ -877,7 +877,7 @@ class WebsiteController extends Controller
                 if($place_order==true){
                     // $cartid = Cmf::ipaddress();
                     // $update_cart = Cart::where('cust_id','=',$cartid)->delete();
-                    \Cart::clear();
+                    cart()->clear();
                     event(new OrderPlaced($order_details));
 
                     Cmf::sendordersms($order_number);

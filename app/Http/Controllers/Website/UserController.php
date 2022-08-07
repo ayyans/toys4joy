@@ -40,7 +40,7 @@ class UserController extends Controller
 		// $getcode = Cart::where('cust_id','=',$cartid)->get()->first()->giftcode;
 		// usergiftcards::where('code' , $getcode)->update(['isused'=>' ']);
 		// Cart::where('cust_id','=',$cartid)->update(['giftcode'=>' ']);
-		\Cart::removeCartCondition('Gift Card');
+		cart()->removeCartCondition('Gift Card');
 		return back()->with('success','Gift Card Remove Successfully');
 	}
     public function giftcard_coupon(Request $request){
@@ -67,7 +67,7 @@ class UserController extends Controller
 						]
 					]);
 
-					\Cart::condition($giftcardCondition);
+					cart()->condition($giftcardCondition);
 					usergiftcards::where('code' , $request->discount_coupon)->update(['isused'=>'yes']);
 
     			return response()->json(["status"=>"200","msg"=>'1']);

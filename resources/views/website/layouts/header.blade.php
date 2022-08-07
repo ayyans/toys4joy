@@ -51,7 +51,7 @@
             </a>
             <div class="cart-icon">
                 {{-- <button onclick="showcart()" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span id="cartno">{{ DB::table('carts')->where('cust_id' , Cmf::ipaddress())->count() }}</span><img src="{{asset('website/img/cart.png')}}" class="cart"></button> --}}
-                <button onclick="showcart()" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span id="cartno">{{ \Cart::getContent()->count() }}</span><img src="{{asset('website/img/cart.png')}}" class="cart"></button>
+                <button onclick="showcart()" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span id="cartno">{{ cart()->getContent()->count() }}</span><img src="{{asset('website/img/cart.png')}}" class="cart"></button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close">Close</button>
