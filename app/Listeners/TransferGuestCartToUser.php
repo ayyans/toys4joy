@@ -23,7 +23,7 @@ class TransferGuestCartToUser
         $guestCartItems = $guestCart->toArray();
 
         $userCartItems = array_merge($userCartItems, $guestCartItems);
-        $userCart->add($userCartItems);
+        if ($guestCart->isNotEmpty()) $userCart->add($userCartItems);
 
         $dbCart = CartStorage::find(session('guest_cart.session') . '_cart_items');
 
