@@ -1,194 +1,254 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <meta content="width=device-width, initial-scale=1" name="viewport">
-  <title>Toys4joy Gift Card Purchase</title><!-- Designed by https://github.com/kaytcat -->
-  <!-- Robot header image designed by Freepik.com -->
-  <style type="text/css">
-    @import url(https://fonts.googleapis.com/css?family=Nunito);
+    <title>
 
-    /* Take care of image borders and formatting */
+    </title>
+    <!--[if !mso]><!-- -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        #outlook a {
+            padding: 0;
+        }
 
-    img {
-      max-width: 600px;
-      outline: none;
-      text-decoration: none;
-      -ms-interpolation-mode: bicubic;
-    }
+        .ReadMsgBody {
+            width: 100%;
+        }
 
-    html {
-      margin: 0;
-      padding: 0;
-    }
+        .ExternalClass {
+            width: 100%;
+        }
 
-    a {
-      text-decoration: none;
-      border: 0;
-      outline: none;
-      color: #bbbbbb;
-    }
+        .ExternalClass * {
+            line-height: 100%;
+        }
 
-    a img {
-      border: none;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
 
-    /* General styling */
+        table,
+        td {
+            border-collapse: collapse;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
 
-    td,
-    h1,
-    h2,
-    h3 {
-      font-family: Helvetica, Arial, sans-serif;
-      font-weight: 400;
-    }
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+        }
 
-    td {
-      text-align: center;
-    }
+        p {
+            display: block;
+            margin: 13px 0;
+        }
+    </style>
+    <!--[if !mso]><!-->
+    <style type="text/css">
+        @media only screen and (max-width:480px) {
+            @-ms-viewport {
+                width: 320px;
+            }
+            @viewport {
+                width: 320px;
+            }
+        }
+    </style>
+    <!--<![endif]-->
+    <!--[if mso]>
+        <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG/>
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+        </xml>
+        <![endif]-->
+    <!--[if lte mso 11]>
+        <style type="text/css">
+          .outlook-group-fix { width:100% !important; }
+        </style>
+        <![endif]-->
 
-    body {
-      -webkit-font-smoothing: antialiased;
-      -webkit-text-size-adjust: none;
-      width: 100%;
-      height: 100%;
-      color: #666;
-      background: #fff;
-      font-size: 16px;
-      height: 100vh;
-      width: 100%;
-      padding: 0px;
-      margin: 0px;
-    }
 
-    table {
-      border-collapse: collapse !important;
-    }
+    <style type="text/css">
+        @media only screen and (min-width:480px) {
+            .mj-column-per-100 {
+                width: 100% !important;
+            }
+        }
+    </style>
 
-    .headline {
-      color: #444;
-      font-size: 36px;
-    }
 
-    .force-full-width {
-      width: 100% !important;
-    }
-  </style>
-  <style media="screen" type="text/css">
-    @media screen {
-
-      td,
-      h1,
-      h2,
-      h3 {
-        font-family: 'Nunito', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
-      }
-    }
-  </style>
-  <style media="only screen and (max-width: 480px)" type="text/css">
-    /* Mobile styles */
-    @media only screen and (max-width: 480px) {
-
-      table[class="w320"] {
-        width: 320px !important;
-      }
-    }
-  </style>
-  <style type="text/css"></style>
+    <style type="text/css">
+    </style>
 
 </head>
 
-<body bgcolor="#fff" class="body" style="margin:0; display:block; background:#ffffff; -webkit-text-size-adjust:none">
-  <table align="center" cellpadding="0" cellspacing="0" height="100%" width="100%">
-    <tbody>
-      <tr>
-        <td align="center" bgcolor="#fff" class="" valign="top" width="100%">
-          <center class="">
-            <table cellpadding="0" cellspacing="0" class="w320"
-              style="margin: 50px auto 0; box-shadow: 0 0 20px rgb(0 0 0 / 10%);" width="600">
-              <tbody>
-                <tr>
-                  <td align="center" class="" valign="top">
-                    <table cellpadding="0" cellspacing="0" style="margin: 0 auto;" width="100%">
-                    </table>
-                    <table bgcolor="#fff" cellpadding="0" cellspacing="0" class=""
-                      style="margin: 10px auto; width: 100%; margin-top: 50px;">
-                      <tbody style="margin-top: 15px;">
-                        <tr class="">
-                          <td class="">
-                            <img alt="robot picture" class="" height="auto"
-                              src="http://phplaravel-788354-2698725.cloudwaysapps.com/website/img/logo-t4j.png"
-                              width="100">
-                          </td>
-                        </tr>
-                        <tr class="">
-                          <td class="headline">Purchase New Gift Card</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <center class="">
-                              <table cellpadding="0" cellspacing="0" class="" style="margin: 0 auto;" width="75%">
-                                <tbody class="">
-                                  <tr class="">
-                                    <td class="" style="color:#444; font-weight: 400;"><br><br>
-                                      Thank you for Purchasing Gift Card! We hope you enjoy your time with us. Check
-                                      your account and update your profile.<br>
-                                      <br>
-                                        <p style="color:red;font-size: 25px;">You can redeemed this Gift Card Only one time in full amount</p>
-                                        <br><br>
-                                      <span style="font-weight:bold;">Code: &nbsp;</span><span
-                                        style="font-size:25px;color:red;" class="">{{ $card->code }}</span>
-                                      <br>
-                                      <br><br>
-                                      <br>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </center>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="">
-                            <div class="">
-                              <a style="background-color:#2972bc;border-radius:4px;color:#fff;display:inline-block;font-family:Helvetica, Arial, sans-serif;font-size:18px;font-weight:normal;line-height:50px;text-align:center;text-decoration:none;width:350px;-webkit-text-size-adjust:none;"
-                                href="{{ route('website.myaccount') }}">Visit Account and Start Managing</a>
-                            </div>
-                            <br>
-                          </td>
-                        </tr>
-                      </tbody>
+<body style="background-color:#f9f9f9;">
 
-                    </table>
 
-                    <table bgcolor="#fff" cellpadding="0" cellspacing="0" class="force-full-width"
-                      style="margin: 0 auto; margin-bottom: 20px;">
-                      <tbody>
-                        <tr>
-                          <td class="" style="color:#444;
-                    ">
-                            <p>If you have any question, just reply to this email.<br>
-                              We're always happy to help out.
+    <div style="background-color:#f9f9f9;">
 
-                              <a href="{{ route('website.home') }}" style="text-decoration: underline;">
-                                need more help?</a>
 
-                            </p>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
+        <!--[if mso | IE]>
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+
+
+        <div style="background:#f9f9f9;background-color:#f9f9f9;Margin:0px auto;max-width:600px;">
+
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#f9f9f9;background-color:#f9f9f9;width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="border-bottom:#F08089 solid 5px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+        </tr>
+      
+                  </table>
+                <![endif]-->
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-          </center>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+
+        </div>
+
+
+        <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+
+
+        <div style="background: #13151b;background-color: #13151b;Margin:0px auto;max-width:600px;">
+
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#13151b;background-color:#13151b;width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               style="vertical-align:bottom;width:600px;"
+            >
+          <![endif]-->
+
+                            <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;">
+
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:bottom;" width="100%">
+
+                                    <tr>
+                                        <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width:200px;">
+
+                                                            <img height="auto" src="https://www.toys4joy.com/website/img/logo-t4j.png" style="border:0;display:block;outline:none;text-decoration:none;width:100%;" width="64" />
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+    <td align="center" style="font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;">
+
+        <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:white;">
+            Purchase New Gift Card
+        </div>
+
+    </td>
+</tr>
+
+<tr>
+    <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+
+        <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:22px;text-align:left;color:white;">
+            Hello!<br></br>
+            You can redeemed this Gift Card Only one time in full amount
+        </div>
+
+    </td>
+</tr>
+
+<tr>
+    <td align="center" style="font-size:0px;padding:10px 25px;padding-top:30px;padding-bottom:50px;word-break:break-word;">
+
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
+            <tr>
+                <td align="center" bgcolor="#2F67F6" role="presentation" style="border:none;border-radius:3px;color:#ffffff;cursor:auto;padding:15px 85px;" valign="middle">
+
+
+                    <p style="background:#2F67F6;color:#ffffff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;">
+                        GIFT CODE <br><br>
+                        <p style="font-size:22px;color: red;">{{ $card->code }}</p>
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+        <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:white;">
+            Best regards
+            
+        </div>
+    </td>
+</tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+<div style="Margin:0px auto;max-width:600px;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+        <tbody>
+            <tr>
+                <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    </div>
 </body>
 
 </html>
