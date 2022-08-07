@@ -199,7 +199,7 @@
 
         <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:22px;text-align:left;color:white;">
             Hello!<br></br>
-            You can redeemed this Gift Card Only one time in full amount
+           <p style="font-size:19px;color:white;"> You can redeemed this Gift Card Only one time in full amount</p>
         </div>
 
     </td>
