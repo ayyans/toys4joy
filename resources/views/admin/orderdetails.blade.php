@@ -142,7 +142,7 @@
                     <td>1</td>
                     <td>{{ $product->title }}</td>
                     <td><img src="{{asset('products/'.$product->featured_img)}}" style="width:100px"/></td>
-                    <td>{{$orderdetail->qty}}</td>
+                    <td>{{$r->qty}}</td>
                     <td>QAR {{$r->prod_price*$r->qty}}</td>
                    
                 </tr>
