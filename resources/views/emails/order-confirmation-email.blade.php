@@ -247,7 +247,7 @@
                                                 @endphp
 
 
-                                                @if($orderemail->giftcode)
+                                                @if(!empty($orderemail->giftcode))
         
                                                 @php
                                                   $usergiftcard = DB::table('usergiftcards')->where('code' , $orderemail->giftcode)->get()->first();
