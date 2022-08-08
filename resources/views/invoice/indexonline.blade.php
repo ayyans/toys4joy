@@ -133,16 +133,55 @@
                 <td class="title">
                   <img src="{{ public_path('website/img/logo-t4j.jpg') }}" alt="toys4joy" style="width: 100%; max-width: 80px" />
                 </td>
+                <?php $total_price = 0; ?>
+                @foreach($order as $r)
+                @php
+                  $product = DB::table('products')->where('id' , $r->prod_id)->get()->first();
+                  if($product->discount)
+                  {
+                      $price = $product->discount;
+                  }else{
+                      $price = $product->unit_price;
+                  }
+
+                @endphp
+                <?php $total_price+=$price*$r->qty; ?>
+                @endforeach
+                @if($order->first()->giftcode)
+                @php
+                  $usergiftcard = DB::table('usergiftcards')->where('code' , $order->first()->giftcode)->get()->first();
+                  $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
+
+                  $giftcardprice = $total_price-$giftcard->price;
+
+                  if($giftcardprice < 0)
+                  {
+                    $total_price = 0;
+                  }else{
+                    $total_price = $giftcardprice;
+                  }
+
+                @endphp
+                
+                @endif
 
                 <td>
                   Order ID #: {{ $ordernumber }}<br />
                   Order Date: {{ date('M d, Y', strtotime($order->first()->created_at)) }}<br />
                   Invoice Status: <b style="color: green;">
+                    @if($total_price == 0)
+
+                    PAID
+
+                    @else
+
                     @if($order->first()->mode == 2)
                   PAID
                   @else 
 
                   COD
+
+                  @endif
 
                   @endif
                 </b>
