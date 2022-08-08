@@ -32,22 +32,24 @@ class OrderController extends Controller
 {
     public function orderplacepayasmember(Request $request)
     {
-        $ipaddres = Cmf::ipaddress();
-        $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
+        // $ipaddres = Cmf::ipaddress();
+        // $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
+        $items = cart()->getContent();
+        $giftCardCondition = cart()->getCondition('Gift Card');
         $cust_id = Auth::user()->id;
         $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
         $cust_add_id = $cust_Add['id'];
-        foreach ($cart as $r) {
+        foreach ($items as $item) {
             $place_order = new Order;
             $place_order->orderid=$request->order_id;
             $place_order->orderstatus='payementpending';
             $place_order->cust_id=$cust_id;
             $place_order->cust_add_id=$cust_add_id;
-            $place_order->prod_id=$r->prod_id;
-            $place_order->qty = $r->qty;
-            $place_order->amount = $r->amount;
+            $place_order->prod_id=$item->id;
+            $place_order->qty = $item->quantity;
+            $place_order->amount = $item->price;
             $place_order->mode = '2';
-            $place_order->giftcode = $r->giftcode;
+            $place_order->giftcode = $giftCardCondition->getAttributes()['code'];
             $place_order->ordertype = 'simpleorder';
             $place_order->newstatus = 1;
             $place_order->save();
@@ -56,22 +58,24 @@ class OrderController extends Controller
     }
     public function payasguestordergenerate(Request $request)
     {
-        $ipaddres = Cmf::ipaddress();
-        $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
-        foreach ($cart as $r) {
+        // $ipaddres = Cmf::ipaddress();
+        // $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
+        $items = cart()->getContent();
+        foreach ($items as $item) {
             $custDetails = new GuestOrder;
             $custDetails->order_id = $request->order_id;
             $custDetails->orderstatus = 'payementpending';
-            $custDetails->prod_id=$r->prod_id;
-            $custDetails->qty=$r->qty;
+            $custDetails->prod_id=$item->id;
+            $custDetails->qty=$item->quantity;
             $custDetails->cust_name=$request->custname;
             $custDetails->cust_email=$request->email;
-            $custDetails->cust_mobile=$request->mobilenumber;;
-            $custDetails->mode=$request->mode; 
-            $custDetails->newstatus=1; 
+            $custDetails->cust_mobile=$request->mobilenumber;
+            $custDetails->mode=$request->mode;
+            $custDetails->newstatus=1;
             $custDetails->save();
         }
-        DB::table('carts')->where('cust_id' , $ipaddres)->delete();
+        // DB::table('carts')->where('cust_id' , $ipaddres)->delete();
+        cart()->clear();
         return response()->json(["status"=>"200","msg"=>'test']);    
     }
     public function orderconfermasguest(Request $request)
@@ -122,18 +126,15 @@ class OrderController extends Controller
         }
     }
     public function saveCustDetails(Request $request){
-
-
-
-
-        $ipaddres = Cmf::ipaddress();
-        $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
-        foreach ($cart as $r) {
+        // $ipaddres = Cmf::ipaddress();
+        // $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
+        $items = cart()->getContent();
+        foreach ($items as $item) {
             $custDetails = new GuestOrder;
             $custDetails->order_id = $request->order_id;
             $custDetails->orderstatus = 'cod';
-            $custDetails->prod_id=$r->prod_id;
-            $custDetails->qty=$r->qty;
+            $custDetails->prod_id=$item->id;
+            $custDetails->qty=$item->quantity;
             $custDetails->cust_name=$request->custname;
             $custDetails->cust_email=$request->email;
             $custDetails->cust_mobile=$request->mobilenumber;;
@@ -143,13 +144,14 @@ class OrderController extends Controller
 
 
 
-            $getproduct = Product::where('id','=',$r->prod_id)->first();
+            $getproduct = Product::where('id','=',$item->id)->first();
             $qty_dec = $getproduct['qty']-$request->prod_qty;
-            $update_qty = Product::where('id','=',$r->prod_id)->update([
+            $update_qty = Product::where('id','=',$item->id)->update([
                 'qty'=>$qty_dec
             ]);
         }
-        DB::table('carts')->where('cust_id' , $ipaddres)->delete();
+        // DB::table('carts')->where('cust_id' , $ipaddres)->delete();
+        cart()->clear();
         // if($getproduct->discount)
         // {
         //     $price = $getproduct->discount;
@@ -219,15 +221,16 @@ class OrderController extends Controller
      // pay as guest checkout 
 
     public function payasguest(Request $request){
-        $cust_id = Cmf::ipaddress();
-        $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
-                    ->leftJoin('brands','brands.id','=','products.brand_id')                    
-                    ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty')
-                    ->where('carts.cust_id','=',$cust_id)
-                    ->get();
-        if($products->count()>0)
+        // $cust_id = Cmf::ipaddress();
+        // $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
+        //             ->leftJoin('brands','brands.id','=','products.brand_id')                    
+        //             ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty')
+        //             ->where('carts.cust_id','=',$cust_id)
+        //             ->get();
+        $items = cart()->getContent();
+        if(! cart()->isEmpty())
         {
-            return view('website.payasguest',compact('products'));
+            return view('website.payasguest',compact('items'));
         }else{
             return redirect()->route('website.home')->with('error','Cart Is Empty!');
         }        
