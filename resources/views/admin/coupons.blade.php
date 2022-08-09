@@ -24,7 +24,7 @@
                           <select type="text" class="form-control categoriesfrm"  name="coupon_type" id="coupon_type">
                                 <option value="0">-select coupon type-</option>
                                 <option value="1">Discount</option>
-                                <option value="2">Gift Card</option>
+                                {{-- <option value="2">Gift Card</option> --}}
                                 <option value="3">Corporate</option>
                           </select>
                      
