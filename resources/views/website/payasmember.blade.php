@@ -52,7 +52,7 @@
                 <a href="{{ route('website.removeDiscountCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}" class="btn btn-primary discountBtn">Remove</a>
             @else
                 <input type="text" id="discount_coupon" @if ($coupon) disabled @endif>
-                <button class="btn btn-primary discountBtn">Enter</button>
+                <button class="btn btn-primary discountBtn" @if ($coupon) disabled @endif>Enter</button>
             @endif
         </div>
         {{-- @php $giftCardCondition = \Cart::getCondition('Gift Card') @endphp
@@ -90,7 +90,7 @@
                 <a href="{{ route('website.removeCorporateCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}" class="btn btn-primary corporateBtn">Remove</a>
             @else
                 <input type="text" id="corporate_code" @if ($coupon) disabled @endif>
-                <button class="btn btn-primary corporateBtn">Enter</button>
+                <button class="btn btn-primary corporateBtn" @if ($coupon) disabled @endif>Enter</button>
             @endif
         </div>
         <div class="mb-3">
