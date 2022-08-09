@@ -227,7 +227,7 @@ class OrderController extends Controller
             'user_id' => null,
             'order_number' => $order_number,
             'address_id' => null,
-            'order_type' => 'cc',
+            'order_type' => 'cod',
             'subtotal' => cart()->getSubTotal(),
             'discount' => 0,
             'total_amount' => cart()->getTotal(),

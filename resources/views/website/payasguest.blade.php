@@ -248,7 +248,7 @@ if(isValid!=true){
         success:function(res){
             var js_data = JSON.parse(JSON.stringify(res));
             $("#cover-spin").hide();
-            if(js_data.status==200){
+            if(js_data.status){
                  $('#paymentform').submit();
             }
         }
