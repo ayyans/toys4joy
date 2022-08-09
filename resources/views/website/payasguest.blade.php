@@ -317,9 +317,9 @@ if(isValid!=true){
         success:function(res){
             var js_data = JSON.parse(JSON.stringify(res));
             $("#cover-spin").hide();
-            if(js_data.status==200){
+            if(js_data.status){
                 var url = "{{ url('guestthankorder') }}";
-                window.location.href=url+'/'+js_data.orderid;
+                window.location.href=url+'/'+js_data.order_number;
             }
         }
     })

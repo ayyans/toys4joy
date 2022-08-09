@@ -221,7 +221,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
             success:function(res){
                 var js_data = JSON.parse(JSON.stringify(res));
                 $("#cover-spin").hide();
-                if(js_data.status==200){
+                if(js_data.status){
                     $('#paymentform').submit();
                 }
             }
@@ -463,15 +463,9 @@ $action_url = 'https://sadadqa.com/webpurchase';
             success:function(res){
                 $("#cover-spin").hide();
                 var js_data = JSON.parse(JSON.stringify(res));
-                if(js_data.status==200){
+                if(js_data.status){
                     var url = "{{ url('confermordercod') }}";
-                    window.location.href=url+'/'+js_data.orderid;
-                }else if(js_data.status==300){
-                    toastr.options.timeOut = 10000;
-                    toastr.error('Please add Address');
-                    window.location.href="{{route('website.addAddressInfo')}}"
-                }else{
-                    return false;
+                    window.location.href=url+'/'+js_data.order_number;
                 }
             }
         })

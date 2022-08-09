@@ -23,6 +23,7 @@ use App\Models\CardInfo;
 use App\Models\Coupon;
 use App\Models\giftcards;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\requiredproducts;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Response;
@@ -235,62 +236,87 @@ class WebsiteController extends Controller
 
     // guest thanks page
 
-    public function guestthank(Request $request){
-        $ipaddres = Cmf::ipaddress();
-        $allparms =  $request->all();
-        $getorder = Order::where('orderid' , $allparms['ORDERID'])->get()->first();
-        $customer = DB::table('users')->where('id' , $getorder->cust_id)->get()->first();
-        auth()->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
-        if(Auth::check()){
-            if($allparms['STATUS'] == 'TXN_SUCCESS')
-            {
-                $data = Order::where('orderid' , $allparms['ORDERID'])->get();
-                foreach ($data as $r) {
-                    $updateorder = Order::find($r->id);
-                    $updateorder->orderstatus = 'sadadpayement';
-                    $updateorder->payment_id = $allparms['transaction_number'];
-                    $updateorder->save();
-                }
-                $cust_id = Auth::user()->id;
-                $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
-                $cust_card = CardInfo::where('cust_id','=',$cust_id)->first();
-                $cust_add_id = $cust_Add['id'];
-                if($updateorder==true){
-                    $products = $updateorder->pluck('prod_id')->map(fn($i) => Product::find($i))->pluck('title');
-                    $quantity = $updateorder->pluck('qty');
-                    $amount = $updateorder->pluck('amount');
-                    $address = "Unit No: $cust_Add->unit_no, Building No: $cust_Add->building_no, Zone: $cust_Add->zone, Street: $cust_Add->street";
-                    $order_details = [
-                        'order_number' => $allparms['ORDERID'],
-                        'total' => $allparms['TXNAMOUNT'],
-                        'quantity' => $quantity,
-                        'amount' => $amount,
-                        'address' => $address,
-                        'products' => $products,
-                    ];
-                    event(new OrderPlaced($order_details));
-                    Cmf::sendordersms($allparms['ORDERID']);
-                    // $update_cart = Cart::where('cust_id','=',$ipaddres)->delete();
-                    // update gift card uses
-                    $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
-                        return $g->getAttributes()['id'];
-                    })->values();
-                    giftcards::whereIn('id', $giftCardIds)->update([ 'user_id' => auth()->id() ]);
-                    cart()->clear();
-                    $orderid = $allparms['ORDERID'];
-                    return view('website.guestthanks',compact('orderid'));
-                }else{
-                   return redirect()->route('website.payasmember')->with('error','Order Not Placed!');
-                }
-            }else{
-                return redirect()->route('website.payasmember')->with('error','Payement Failed!');
-            }
-        }else{
-            return redirect()->route('website.login')->with('error','Please Login!');
+    public function guestthank(Request $request) {
+        $data =  $request->all();
+
+        $status = $data['STATUS'];
+
+        // check for successful transaction
+        if ($status != 'TXN_SUCCESS') {
+            return redirect()->route('website.payasmember')->with('error','Payment failed!');
         }
 
-        
-        
+        $order_number = $data['ORDERID'];
+        $transaction_number = $data['transaction_number'];
+
+        $order = Order::where('order_number', $order_number)->first();
+        $order->update([
+            'payment_status' => 'paid',
+            'transaction_number' => $transaction_number
+        ]);
+
+        $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
+            return $g->getAttributes()['id'];
+        })->values();
+
+        giftcards::whereIn('id', $giftCardIds)->update([ 'user_id' => auth()->id() ]);
+
+        cart()->clear();
+
+        return view('website.guestthanks', compact('order_number'));
+
+        // $ipaddres = Cmf::ipaddress();
+        // $allparms =  $request->all();
+        // $getorder = Order::where('orderid' , $allparms['ORDERID'])->get()->first();
+        // $customer = DB::table('users')->where('id' , $getorder->cust_id)->get()->first();
+        // auth()->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
+        // if(Auth::check()){
+        //     if($allparms['STATUS'] == 'TXN_SUCCESS')
+        //     {
+        //         $data = Order::where('orderid' , $allparms['ORDERID'])->get();
+        //         foreach ($data as $r) {
+        //             $updateorder = Order::find($r->id);
+        //             $updateorder->orderstatus = 'sadadpayement';
+        //             $updateorder->payment_id = $allparms['transaction_number'];
+        //             $updateorder->save();
+        //         }
+        //         $cust_id = Auth::user()->id;
+        //         $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
+        //         $cust_card = CardInfo::where('cust_id','=',$cust_id)->first();
+        //         $cust_add_id = $cust_Add['id'];
+        //         if($updateorder==true){
+        //             $products = $updateorder->pluck('prod_id')->map(fn($i) => Product::find($i))->pluck('title');
+        //             $quantity = $updateorder->pluck('qty');
+        //             $amount = $updateorder->pluck('amount');
+        //             $address = "Unit No: $cust_Add->unit_no, Building No: $cust_Add->building_no, Zone: $cust_Add->zone, Street: $cust_Add->street";
+        //             $order_details = [
+        //                 'order_number' => $allparms['ORDERID'],
+        //                 'total' => $allparms['TXNAMOUNT'],
+        //                 'quantity' => $quantity,
+        //                 'amount' => $amount,
+        //                 'address' => $address,
+        //                 'products' => $products,
+        //             ];
+        //             event(new OrderPlaced($order_details));
+        //             Cmf::sendordersms($allparms['ORDERID']);
+        //             // $update_cart = Cart::where('cust_id','=',$ipaddres)->delete();
+        //             // update gift card uses
+        //             $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
+        //                 return $g->getAttributes()['id'];
+        //             })->values();
+        //             giftcards::whereIn('id', $giftCardIds)->update([ 'user_id' => auth()->id() ]);
+        //             cart()->clear();
+        //             $orderid = $allparms['ORDERID'];
+        //             return view('website.guestthanks',compact('orderid'));
+        //         }else{
+        //            return redirect()->route('website.payasmember')->with('error','Order Not Placed!');
+        //         }
+        //     }else{
+        //         return redirect()->route('website.payasmember')->with('error','Payement Failed!');
+        //     }
+        // }else{
+        //     return redirect()->route('website.login')->with('error','Please Login!');
+        // }
     }
 
 
@@ -958,81 +984,120 @@ class WebsiteController extends Controller
 
     // logged in user orders
 
-    public function placeorder(Request $request){
-        $cust_id = Auth::user()->id;
-        $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
-
-        $address = "Unit No: $cust_Add->unit_no, Building No: $cust_Add->building_no, Zone: $cust_Add->zone, Street: $cust_Add->street";
-
-        $products = array_map(function($n) {
-            return Product::find($n)->title;
-        }, $request->prodid);
-
-
+    public function placeorder(Request $request)
+    {
+        $items = cart()->getContent();
+        $user = auth()->user()->load('address');
         $order_number = mt_rand(100000000, 999999999);
-        $order_details = [
+        // creating order
+        $order = Order::create([
+            'user_id' => $user->id,
             'order_number' => $order_number,
-            'total' => $request->amount,
-            'quantity' => $request->cartQty,
-            'amount' => $request->cart_amount,
-            'address' => $address,
-            'products' => $products,
-        ];
-
-        if($cust_Add)
-        {
-            $cust_add_id = $cust_Add['id'];
-            $prod_id = $request->prodid;
-            $qty = $request->cartQty;
-            $total_amount = $request->amount;
-            $total_prod_id = count($prod_id);
-
-            // $cartid = Cmf::ipaddress();
-            // $cartproducts = Cart::where('cust_id','=',$cartid)->get()->first();
-
-            $giftCardCodes = cart()->getConditionsByType('giftcard')->map(function($g) {
-                return $g->getAttributes()['code'];
-            })->values()->implode(', ');
-
-
-            if($request->mode==1){
-                for($i=0;$i<$total_prod_id;$i++){
-                    $place_order = new Order;
-                    $place_order->orderid=$order_number;
-                    $place_order->orderstatus='simpleorder';
-                    $place_order->cust_id=$cust_id;
-                    $place_order->cust_add_id=$cust_add_id;
-                    $place_order->prod_id=$prod_id[$i];
-                    $place_order->qty = $qty[$i];
-                    $place_order->amount = $total_amount;
-                    $place_order->ordertype = 'membercashondelivery';
-                    $place_order->newstatus = 1;
-                    $place_order->giftcode = $giftCardCodes;
-                    $place_order->mode = '1';
-                    $place_order->save();
-
-                }
-                if($place_order==true){
-                    // $cartid = Cmf::ipaddress();
-                    // $update_cart = Cart::where('cust_id','=',$cartid)->delete();
-                    cart()->clear();
-                    event(new OrderPlaced($order_details));
-                    Cmf::sendordersms($order_number);
-                    return response()->json(["status"=>"200","msg"=>"1","orderid"=>$order_number]);
-                    exit();
-                }else{
-                    return response()->json(["status"=>"400","msg"=>"2"]);
-                    exit();
-                }
-            }
-        }else{
-            return response()->json(["status"=>"300","msg"=>"3"]);
-            exit();
+            'address_id' => $user->address->id,
+            'order_type' => 'cod',
+            'subtotal' => cart()->getSubTotal(),
+            'discount' => cart()->getSubTotal() - cart()->getTotal(),
+            'total_amount' => cart()->getTotal(),
+            'payment_status' => 'unpaid',
+            'order_status' => 'placed',
+            'transaction_number' => null,
+        ]);
+        // creating order items
+        foreach ($items as $item) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $item->id,
+                'price' => $item->model->unit_price,
+                'quantity' => $item->quantity,
+                'discount' => $item->model->unit_price - $item->price,
+                'total_amount' => $item->getPriceSum()
+            ]);
         }
 
-        
-        
+        $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
+            return $g->getAttributes()['id'];
+        })->values();
 
+        giftcards::whereIn('id', $giftCardIds)->update([ 'user_id' => auth()->id() ]);
+
+        // clearing cart
+        cart()->clear();
+
+        return response()->json([
+            'status' => true,
+            'order_number' => $order_number
+        ]);
+
+        // $cust_id = Auth::user()->id;
+        // $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
+
+        // $address = "Unit No: $cust_Add->unit_no, Building No: $cust_Add->building_no, Zone: $cust_Add->zone, Street: $cust_Add->street";
+
+        // $products = array_map(function($n) {
+        //     return Product::find($n)->title;
+        // }, $request->prodid);
+
+
+        // $order_number = mt_rand(100000000, 999999999);
+        // $order_details = [
+        //     'order_number' => $order_number,
+        //     'total' => $request->amount,
+        //     'quantity' => $request->cartQty,
+        //     'amount' => $request->cart_amount,
+        //     'address' => $address,
+        //     'products' => $products,
+        // ];
+
+        // if($cust_Add)
+        // {
+        //     $cust_add_id = $cust_Add['id'];
+        //     $prod_id = $request->prodid;
+        //     $qty = $request->cartQty;
+        //     $total_amount = $request->amount;
+        //     $total_prod_id = count($prod_id);
+
+        //     // $cartid = Cmf::ipaddress();
+        //     // $cartproducts = Cart::where('cust_id','=',$cartid)->get()->first();
+
+        //     $giftCardCodes = cart()->getConditionsByType('giftcard')->map(function($g) {
+        //         return $g->getAttributes()['code'];
+        //     })->values()->implode(', ');
+
+
+        //     if($request->mode==1){
+        //         for($i=0;$i<$total_prod_id;$i++){
+        //             $place_order = new Order;
+        //             $place_order->orderid=$order_number;
+        //             $place_order->orderstatus='simpleorder';
+        //             $place_order->cust_id=$cust_id;
+        //             $place_order->cust_add_id=$cust_add_id;
+        //             $place_order->prod_id=$prod_id[$i];
+        //             $place_order->qty = $qty[$i];
+        //             $place_order->amount = $total_amount;
+        //             $place_order->ordertype = 'membercashondelivery';
+        //             $place_order->newstatus = 1;
+        //             $place_order->giftcode = $giftCardCodes;
+        //             $place_order->mode = '1';
+        //             $place_order->save();
+
+        //         }
+        //         if($place_order==true){
+        //             // $cartid = Cmf::ipaddress();
+        //             // $update_cart = Cart::where('cust_id','=',$cartid)->delete();
+        //             cart()->clear();
+        //             event(new OrderPlaced($order_details));
+        //             Cmf::sendordersms($order_number);
+        //             return response()->json(["status"=>"200","msg"=>"1","orderid"=>$order_number]);
+        //             exit();
+        //         }else{
+        //             return response()->json(["status"=>"400","msg"=>"2"]);
+        //             exit();
+        //         }
+        //     }
+        // }else{
+        //     return response()->json(["status"=>"300","msg"=>"3"]);
+        //     exit();
+        // }
     }
 
 
