@@ -46,9 +46,9 @@
             <input type="text" id="discount_coupon">
             <button class="btn btn-primary discountBtn">Enter</button>
         </div>
-        @php $giftCardCondition = \Cart::getCondition('Gift Card') @endphp
+        {{-- @php $giftCardCondition = \Cart::getCondition('Gift Card') @endphp
         @if($giftCardCondition)
-            {{-- @php
+            @php
                 $usergiftcard = DB::Table('usergiftcards')->where('code' , $products->first()->giftcode)->get()->first();
                 $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
                 $total_price = $total_price-$giftcard->price;
@@ -58,13 +58,20 @@
                 <input style="background-color: #ddd" readonly value="Congratulations! You have redeemed ({{ abs($giftCardCondition->getValue()) }})" type="text" id="giftcard_coupon">
                 <a href="{{ url('removegiftcard') }}" class="btn btn-primary giftBtn">Remove</a>
             </div>
-        @else
+        @else --}}
         <div class="mb-3">
             <label>Gift-Card Code</label>
             <input type="text" id="giftcard_coupon">
             <button class="btn btn-primary giftBtn">Enter</button>
         </div>
-        @endif
+        @php $giftCards = cart()->getConditionsByType('giftcard') @endphp
+        @foreach ($giftCards as $giftCard)
+        <div class="alert alert-success d-flex justify-content-between px-2 py-1 text-start" role="alert">
+            <span>You have redeemed {{ abs($giftCard->getValue()) }} QAR</span>
+            <a href="{{ route('website.removegiftcard', ['id' => $giftCard->getAttributes()['id'], 'name' => $giftCard->getName()]) }}" class="alert-link">remove</a>
+        </div>
+        @endforeach
+        {{-- @endif --}}
     </div>
     <div class="code-block">
         <div class="mb-3">
@@ -291,43 +298,66 @@ $action_url = 'https://sadadqa.com/webpurchase';
         // gift card counpon 
 
 
-        $("button.giftBtn").click(function(e){
-            e.preventDefault();
-            var total_amt3 = $("#prev_amt").val();
-            $("#total_offer_amt").text(total_amt3);
-            $("#total_amt").val(total_amt3);  
-            var discount_coupon = $("#giftcard_coupon").val();
-            if(discount_coupon==''){
-                return false;
-            }else{
-                $("#cover-spin").show();
-                var form = new FormData();
-                form.append('discount_coupon',discount_coupon);
-                $.ajax({
-                    url:"{{route('website.giftcard_coupon')}}",
-                    type:"POST",
-                    data:form,
-                    cache:false,
-                    contentType:false,
-                    processData:false,
-                    success:function(res){
-                        $("#cover-spin").hide();
-                        var js_data = JSON.parse(JSON.stringify(res));
-                        if(js_data.status==200){
+        $("button.giftBtn").click(function() {
+            const url = "{{ route('website.giftcard_coupon') }}";
+            const _token = $('meta[name="csrf-token"]').attr('content');
+            const giftCard = $("#giftcard_coupon").val();
 
-                            location.reload();
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({ _token, giftCard })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status) {
+                    toastr.success(data.message);
+                    location.reload();
+                } else {
+                    toastr.error(data.message);
+                }
+                
+            })
+            .catch(err => console.log(err));
+            // e.preventDefault();
+            // var total_amt3 = $("#prev_amt").val();
+            // $("#total_offer_amt").text(total_amt3);
+            // $("#total_amt").val(total_amt3);  
+            // var discount_coupon = $("#giftcard_coupon").val();
+            // if(discount_coupon==''){
+            //     return false;
+            // }else{
+            //     $("#cover-spin").show();
+            //     var form = new FormData();
+            //     form.append('discount_coupon',discount_coupon);
+            //     $.ajax({
+            //         url:"{{route('website.giftcard_coupon')}}",
+            //         type:"POST",
+            //         data:form,
+            //         cache:false,
+            //         contentType:false,
+            //         processData:false,
+            //         success:function(res){
+            //             $("#cover-spin").hide();
+            //             var js_data = JSON.parse(JSON.stringify(res));
+            //             if(js_data.status==200){
+
+            //                 location.reload();
                             
-                        }else{
+            //             }else{
 
-                            toastr.options.timeOut = 10000;
-                            toastr.error(res.msg);
+            //                 toastr.options.timeOut = 10000;
+            //                 toastr.error(res.msg);
                               
-                        }
+            //             }
 
-                    }
-                })
-            }
-        })
+            //         }
+            //     })
+            // }
+        });
 
         // corporate coupon code
 

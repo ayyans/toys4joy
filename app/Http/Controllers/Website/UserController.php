@@ -34,50 +34,101 @@ use Mail;
 class UserController extends Controller
 {
 	// gift card coupon 
-	public function removegiftcard()
+	public function removegiftcard(Request $request)
 	{
 		// $cartid = Cmf::ipaddress();
 		// $getcode = Cart::where('cust_id','=',$cartid)->get()->first()->giftcode;
 		// usergiftcards::where('code' , $getcode)->update(['isused'=>' ']);
 		// Cart::where('cust_id','=',$cartid)->update(['giftcode'=>' ']);
-		cart()->removeCartCondition('Gift Card');
+		cart()->removeCartCondition($request->name);
+		giftcards::find($request->id)->update([ 'engaged' => false ]);
 		return back()->with('success','Gift Card Remove Successfully');
 	}
     public function giftcard_coupon(Request $request){
 
-    	$checkcode = usergiftcards::where('code' , $request->discount_coupon)->get();
+    	$giftCard = giftcards::firstWhere('code', $request->giftCard);
 
-    	if($checkcode->count() > 0)
-    	{
-    		if($checkcode->first()->isused == 'yes')
-    		{
-    			return response()->json(["status"=>"400","msg"=>"Code is Already Used."]);
-            	exit();
-    		}else
-    		{
+			// check availability
+			if (!$giftCard) {
+				return response()->json([
+					'status' => false,
+					'message' => 'Code is invalid.'
+				]);
+			}
+			// check status
+			if ($giftCard->status == 0) {
+				return response()->json([
+					'status' => false,
+					'message' => 'Gift Card is blocked.'
+				]);
+			}
+			// check engaged
+			if ($giftCard->engaged) {
+				return response()->json([
+					'status' => false,
+					'message' => 'Gift Card is engaged.'
+				]);
+			}
+			// check already used
+			if ($giftCard->user_id) {
+				return response()->json([
+					'status' => false,
+					'message' => 'Code is already used.'
+				]);
+			}
+
+
+			$giftCardCondition = new CartCondition([
+				'name' => 'Gift Card ' . $giftCard->id,
+				'type' => 'giftcard',
+				'target' => 'total',
+				'value' => -$giftCard->price,
+				'attributes' => [
+					'id' => $giftCard->id,
+					'code' => $giftCard->code
+				]
+			]);
+
+			cart()->condition($giftCardCondition);
+
+			$giftCard->update([ 'engaged' => 1 ]);
+
+			return response()->json([
+				'status' => true,
+				'message' => 'Gift Card added.'
+			]);
+
+    	// if($checkcode->count() > 0)
+    	// {
+    	// 	if($checkcode->first()->isused == 'yes')
+    	// 	{
+    	// 		return response()->json(["status"=>"400","msg"=>"Code is Already Used."]);
+      //       	exit();
+    	// 	}else
+    	// 	{
     			// $cartid = Cmf::ipaddress();
     			// Cart::where('cust_id','=',$cartid)->update(['giftcode'=>$request->discount_coupon]);
-					$giftcardCondition = new CartCondition([
-						'name' => 'Gift Card',
-						'type' => 'giftcard',
-						'target' => 'total',
-						'value' => -300,
-						'attributes' => [
-							'code' => $request->discount_coupon
-						]
-					]);
+			// 		$giftcardCondition = new CartCondition([
+			// 			'name' => 'Gift Card',
+			// 			'type' => 'giftcard',
+			// 			'target' => 'total',
+			// 			'value' => -300,
+			// 			'attributes' => [
+			// 				'code' => $request->discount_coupon
+			// 			]
+			// 		]);
 
-					cart()->condition($giftcardCondition);
-					usergiftcards::where('code' , $request->discount_coupon)->update(['isused'=>'yes']);
+			// 		cart()->condition($giftcardCondition);
+			// 		usergiftcards::where('code' , $request->discount_coupon)->update(['isused'=>'yes']);
 
-    			return response()->json(["status"=>"200","msg"=>'1']);
-            	exit();
-    		}
-    	}else
-    	{
-    		return response()->json(["status"=>"400","msg"=>"Code is Invalid."]);
-            exit();
-    	}
+    	// 		return response()->json(["status"=>"200","msg"=>'1']);
+      //       	exit();
+    	// 	}
+    	// }else
+    	// {
+    	// 	return response()->json(["status"=>"400","msg"=>"Code is Invalid."]);
+      //       exit();
+    	// }
     }
 	public function myprofile(Request $request)
 	{

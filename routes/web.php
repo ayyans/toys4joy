@@ -83,7 +83,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::post('/update-cart','WebsiteController@updateQTY')->name('updateQTY');
     Route::post('/discount-coupon','WebsiteController@discount_coupon')->name('discount_coupon');
     Route::post('/giftcard-coupon','UserController@giftcard_coupon')->name('giftcard_coupon');
-    Route::get('/removegiftcard','UserController@removegiftcard');
+    Route::get('/removegiftcard','UserController@removegiftcard')->name('removegiftcard');
 
 
     Route::get('/placeorderwishlist/{id}/{orderid}','WishlistController@placeorderwishlist');

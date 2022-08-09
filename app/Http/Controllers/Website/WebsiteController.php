@@ -21,6 +21,7 @@ use App\Models\Wishlist;
 use App\Models\CustomerAddress;
 use App\Models\CardInfo;
 use App\Models\Coupon;
+use App\Models\giftcards;
 use App\Models\Order;
 use App\Models\requiredproducts;
 use Illuminate\Support\Facades\View;
@@ -268,6 +269,11 @@ class WebsiteController extends Controller
                     event(new OrderPlaced($order_details));
                     Cmf::sendordersms($allparms['ORDERID']);
                     // $update_cart = Cart::where('cust_id','=',$ipaddres)->delete();
+                    // update gift card uses
+                    $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
+                        return $g->getAttributes()['id'];
+                    })->values();
+                    giftcards::whereIn('id', $giftCardIds)->update([ 'user_id' => auth()->id() ]);
                     cart()->clear();
                     $orderid = $allparms['ORDERID'];
                     return view('website.guestthanks',compact('orderid'));
