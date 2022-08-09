@@ -85,9 +85,9 @@ class OrderController extends Controller
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $item->id,
-                'price' => $item->model->unit_price,
+                'price' => $item->associatedModel->unit_price,
                 'quantity' => $item->quantity,
-                'discount' => $item->model->unit_price - $item->price,
+                'discount' => $item->associatedModel->unit_price - $item->price,
                 'total_amount' => $item->getPriceSum()
             ]);
         }
@@ -119,9 +119,9 @@ class OrderController extends Controller
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $item->id,
-                'price' => $item->model->unit_price,
+                'price' => $item->associatedModel->unit_price,
                 'quantity' => $item->quantity,
-                'discount' => $item->model->unit_price - $item->price,
+                'discount' => $item->associatedModel->unit_price - $item->price,
                 'total_amount' => $item->getPriceSum()
             ]);
         }
@@ -241,9 +241,9 @@ class OrderController extends Controller
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $item->id,
-                'price' => $item->model->unit_price,
+                'price' => $item->associatedModel->unit_price,
                 'quantity' => $item->quantity,
-                'discount' => $item->model->unit_price - $item->price,
+                'discount' => $item->associatedModel->unit_price - $item->price,
                 'total_amount' => $item->getPriceSum()
             ]);
         }
