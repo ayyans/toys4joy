@@ -35,7 +35,9 @@ class OrderController extends Controller
         // $ipaddres = Cmf::ipaddress();
         // $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
         $items = cart()->getContent();
-        $giftCardCondition = cart()->getCondition('Gift Card');
+        $giftCardCodes = cart()->getConditionsByType('giftcard')->map(function($g) {
+            return $g->getAttributes()['code'];
+        })->values()->implode(', ');
         $cust_id = Auth::user()->id;
         $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
         $cust_add_id = $cust_Add['id'];
@@ -49,7 +51,7 @@ class OrderController extends Controller
             $place_order->qty = $item->quantity;
             $place_order->amount = $item->price;
             $place_order->mode = '2';
-            $place_order->giftcode = $giftCardCondition->getAttributes()['code'];
+            $place_order->giftcode = $giftCardCodes;
             $place_order->ordertype = 'simpleorder';
             $place_order->newstatus = 1;
             $place_order->save();
