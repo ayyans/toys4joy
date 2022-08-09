@@ -147,8 +147,9 @@ class AdminController extends Controller
         $card->name = $request->coupon_title;
         $card->price = $request->price;
         $card->code = $request->coupon_code;
-        $card->status = $request->status ?? 1;
+        $card->status = $request->status ?? 0;
         $card->save();
+        // giftcard 100 points reward functionality
         // withdraw 100 points if it's reward
         if ($request->type == 'reward') {
             User::find($request->user_id)->withdraw(100, ["description" => "100 Points Gift Card Generated"]);
@@ -164,15 +165,13 @@ class AdminController extends Controller
     }
     public function activategiftcards(Request $request){
         $id = decrypt($request->id);
-        $activate = giftcards::where('id','=',$id)->update([
-            'status'=>'2'
+        $activate = giftcards::where('id', $id)->update([
+            'status' => 1
         ]);
-        if($activate==true){
+        if($activate){
             return back()->with('success','Gift Card activated successfull');
-            exit();
         }else{
             return back()->with('error','something went wrong');
-            exit();
         }
     }
 
@@ -181,17 +180,15 @@ class AdminController extends Controller
     public function deactivategiftcards(Request $request){
         $id = decrypt($request->id);
         $deactivate = giftcards::where('id','=',$id)->update([
-            'status'=>'1'
+            'status' => 0
         ]);
-        if($deactivate==true){
+        if($deactivate){
             return back()->with('success','Gift Card  deactivated successfull');
-            exit();
         }else{
             return back()->with('error','something went wrong');
-            exit();
         }
     }
-    // customer details 
+    // customer details
 
     public function customer(){
         $customers = DB::table('users')->where('type' , 'customer')->orderBy('id','desc')->get();
