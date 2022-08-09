@@ -42,7 +42,7 @@ class UserController extends Controller
 		// Cart::where('cust_id','=',$cartid)->update(['giftcode'=>' ']);
 		cart()->removeCartCondition($request->name);
 		giftcards::find($request->id)->update([ 'engaged' => false ]);
-		return back()->with('success','Gift Card Remove Successfully');
+		return back()->with('success','Gift card removed.');
 	}
     public function giftcard_coupon(Request $request){
 

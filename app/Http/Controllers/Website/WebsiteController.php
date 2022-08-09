@@ -29,6 +29,8 @@ use Illuminate\Http\Response;
 use Stripe;
 use Session;
 use Auth;
+use Carbon\Carbon;
+use Darryldecode\Cart\CartCondition;
 use DB;
 
 class WebsiteController extends Controller
@@ -780,29 +782,149 @@ class WebsiteController extends Controller
     // coupons at checkout
 
     public function discount_coupon(Request $request){
-        $getcoupon = Coupon::where('coupon_code','=',$request->discount_coupon)->where('coupontype','=','1')->first();
-        if($getcoupon){
-            return response()->json(["status"=>"200","msg"=>$getcoupon]);
-            exit();
-        }else{
-            return response()->json(["status"=>"400","msg"=>"2"]);
-            exit();
+        // Check if any type of coupon already in use
+        $coupon = cart()->getConditionsByType('coupon');
+        if ($coupon->count() > 0) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You can\'t use more than 1 coupon at a time.'
+            ]);
         }
+
+        $discountCoupon = Coupon::where([
+            'coupon_code' => $request->discount,
+            'coupontype' => 1 // discount coupon
+        ])->first();
+
+        // check availability
+        if (!$discountCoupon) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Code is invalid.'
+            ]);
+        }
+        // check status
+        if ($discountCoupon->status == 0) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Coupon is blocked.'
+            ]);
+        }
+
+        $expire_date = Carbon::parse($discountCoupon->exp_date)->endOfDay();
+        if (now()->greaterThan($expire_date)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Coupon is expired.'
+            ]);
+        }
+
+        $couponCondition = new CartCondition([
+            'name' => 'Discount Coupon',
+            'type' => 'coupon',
+            'target' => 'total',
+            'value' => -$discountCoupon->offer.'%',
+            'attributes' => [
+                'id' => $discountCoupon->id,
+                'code' => $discountCoupon->coupon_code
+            ]
+        ]);
+
+        cart()->condition($couponCondition);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Discount coupon added.'
+        ]);
+
+        // $getcoupon = Coupon::where('coupon_code','=',$request->discount_coupon)->where('coupontype','=','1')->first();
+        // if($getcoupon){
+        //     return response()->json(["status"=>"200","msg"=>$getcoupon]);
+        //     exit();
+        // }else{
+        //     return response()->json(["status"=>"400","msg"=>"2"]);
+        //     exit();
+        // }
     }
 
-    
+    // remove discount coupon
+    public function removeDiscountCoupon(Request $request) {
+        cart()->removeCartCondition($request->name);
+		return back()->with('success','Discount coupon removed.');
+    }
 
     // corporate coupon 
 
     public function corporate_coupon(Request $request){
-        $getcoupon = Coupon::where('coupon_code','=',$request->discount_coupon)->where('coupontype','=','3')->first();
-        if($getcoupon){
-            return response()->json(["status"=>"200","msg"=>$getcoupon]);
-            exit();
-        }else{
-            return response()->json(["status"=>"400","msg"=>"2"]);
-            exit();
+        // $getcoupon = Coupon::where('coupon_code','=',$request->discount_coupon)->where('coupontype','=','3')->first();
+        // if($getcoupon){
+        //     return response()->json(["status"=>"200","msg"=>$getcoupon]);
+        //     exit();
+        // }else{
+        //     return response()->json(["status"=>"400","msg"=>"2"]);
+        //     exit();
+        // }
+
+        // Check if any type of coupon already in use
+        $coupon = cart()->getConditionsByType('coupon');
+        if ($coupon->count() > 0) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You can\'t use more than 1 coupon at a time.'
+            ]);
         }
+
+        $corporateCoupon = Coupon::where([
+            'coupon_code' => $request->corporate,
+            'coupontype' => 3 // corporate coupon
+        ])->first();
+
+        // check availability
+        if (!$corporateCoupon) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Code is invalid.'
+            ]);
+        }
+        // check status
+        if ($corporateCoupon->status == 0) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Coupon is blocked.'
+            ]);
+        }
+
+        $expire_date = Carbon::parse($corporateCoupon->exp_date)->endOfDay();
+        if (now()->greaterThan($expire_date)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Coupon is expired.'
+            ]);
+        }
+
+        $couponCondition = new CartCondition([
+            'name' => 'Corporate Coupon',
+            'type' => 'coupon',
+            'target' => 'total',
+            'value' => -$corporateCoupon->offer.'%',
+            'attributes' => [
+                'id' => $corporateCoupon->id,
+                'code' => $corporateCoupon->coupon_code
+            ]
+        ]);
+
+        cart()->condition($couponCondition);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Corporate coupon added.'
+        ]);
+    }
+
+    // remove discount coupon
+    public function removeCorporateCoupon(Request $request) {
+        cart()->removeCartCondition($request->name);
+		return back()->with('success','Corporate coupon removed.');
     }
 
     // card info save
@@ -865,8 +987,12 @@ class WebsiteController extends Controller
             $total_amount = $request->amount;
             $total_prod_id = count($prod_id);
 
-            $cartid = Cmf::ipaddress();
-            $cartproducts = Cart::where('cust_id','=',$cartid)->get()->first();
+            // $cartid = Cmf::ipaddress();
+            // $cartproducts = Cart::where('cust_id','=',$cartid)->get()->first();
+
+            $giftCardCodes = cart()->getConditionsByType('giftcard')->map(function($g) {
+                return $g->getAttributes()['code'];
+            })->values()->implode(', ');
 
 
             if($request->mode==1){
@@ -881,7 +1007,7 @@ class WebsiteController extends Controller
                     $place_order->amount = $total_amount;
                     $place_order->ordertype = 'membercashondelivery';
                     $place_order->newstatus = 1;
-                    $place_order->giftcode = $cartproducts->giftcode;
+                    $place_order->giftcode = $giftCardCodes;
                     $place_order->mode = '1';
                     $place_order->save();
 

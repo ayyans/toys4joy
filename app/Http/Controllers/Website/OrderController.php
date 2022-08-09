@@ -20,6 +20,7 @@ use App\Models\Wishlist;
 use App\Models\CustomerAddress;
 use App\Models\CardInfo;
 use App\Models\Coupon;
+use App\Models\giftcards;
 use App\Models\Order;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Response;
@@ -35,9 +36,13 @@ class OrderController extends Controller
         // $ipaddres = Cmf::ipaddress();
         // $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
         $items = cart()->getContent();
-        $giftCardCodes = cart()->getConditionsByType('giftcard')->map(function($g) {
-            return $g->getAttributes()['code'];
-        })->values()->implode(', ');
+        $giftCardIds = [];
+        $giftCardCodes = [];
+        cart()->getConditionsByType('giftcard')->each(function($g) {
+            array_push($g->getAttributes()['id']);
+            array_push($g->getAttributes()['code']);
+        });
+        $giftCardCodes = implode(', ', $giftCardCodes);
         $cust_id = Auth::user()->id;
         $cust_Add = CustomerAddress::where('cust_id','=',$cust_id)->first();
         $cust_add_id = $cust_Add['id'];
@@ -56,6 +61,7 @@ class OrderController extends Controller
             $place_order->newstatus = 1;
             $place_order->save();
         }
+        giftcards::whereIn('id', $giftCardIds)->update([ 'user_id' => auth()->id() ]);
         return response()->json(["status"=>"200","msg"=>'test']);
     }
     public function payasguestordergenerate(Request $request)

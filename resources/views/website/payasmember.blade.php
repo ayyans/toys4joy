@@ -1,6 +1,9 @@
 @extends('website.layouts.master')
 @section('content')
 
+{{-- check if attached gift card or coupon expired --}}
+{{-- if expired please detach --}}
+
 <main id="pay-as-member" class="pay-as-member-page">
 <div class="container-fluid">
     <div class="row">
@@ -40,11 +43,17 @@
 
 
 <div class="col-6 member-col right text-center">
+    @php $coupon = cart()->getConditionsByType('coupon')->first() @endphp
     <div style="margin-top: 0px;" class="discount-block">
         <div class="mb-3">
             <label>Discount Code</label>
-            <input type="text" id="discount_coupon">
-            <button class="btn btn-primary discountBtn">Enter</button>
+            @if ($coupon && $coupon->getName() == 'Discount Coupon')
+                <input style="background-color: #ddd" readonly value="Congratulations! You have redeemed {{ abs($coupon->getValue()) }}% discount coupon" type="text">
+                <a href="{{ route('website.removeDiscountCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}" class="btn btn-primary discountBtn">Remove</a>
+            @else
+                <input type="text" id="discount_coupon" @if ($coupon) disabled @endif>
+                <button class="btn btn-primary discountBtn">Enter</button>
+            @endif
         </div>
         {{-- @php $giftCardCondition = \Cart::getCondition('Gift Card') @endphp
         @if($giftCardCondition)
@@ -76,8 +85,13 @@
     <div class="code-block">
         <div class="mb-3">
             <label>Corporate Code</label>
-            <input type="text" id="corporate_code">
-            <button class="btn btn-primary corporateBtn">Enter</button>
+            @if ($coupon && $coupon->getName() == 'Corporate Coupon')
+                <input style="background-color: #ddd" readonly value="Congratulations! You have redeemed {{ abs($coupon->getValue()) }}% corporate coupon" type="text">
+                <a href="{{ route('website.removeCorporateCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}" class="btn btn-primary corporateBtn">Remove</a>
+            @else
+                <input type="text" id="corporate_code" @if ($coupon) disabled @endif>
+                <button class="btn btn-primary corporateBtn">Enter</button>
+            @endif
         </div>
         <div class="mb-3">
             <label>Verify the OTP Code</label>
@@ -254,45 +268,70 @@ $action_url = 'https://sadadqa.com/webpurchase';
 @push('otherscript')
 <script>
     $(function(){
-        $("button.discountBtn").click(function(e){
-            e.preventDefault();
-            var total_amt3 = $("#prev_amt").val();
-            $("#total_offer_amt").text(total_amt3);
-            $("#total_amt").val(total_amt3);  
-            var discount_coupon = $("#discount_coupon").val();
-            if(discount_coupon==''){
-                return false;
-            }else{
-                $("#cover-spin").show();
-                var form = new FormData();
-                form.append('discount_coupon',discount_coupon);
-                $.ajax({
-                    url:"{{route('website.discount_coupon')}}",
-                    type:"POST",
-                    data:form,
-                    cache:false,
-                    contentType:false,
-                    processData:false,
-                    success:function(res){
-                        $("#cover-spin").hide();
-                        var js_data = JSON.parse(JSON.stringify(res));
-                        if(js_data.status==200){
-                            var total_amt = $("#total_amt").val();
-                            var total_amt2 = parseInt(total_amt);
-                            var discount_offer = total_amt2*parseInt(js_data.msg.offer)/100;
-                            var total_amt_with_dis = total_amt2-parseInt(discount_offer);
-                            $("#total_offer_amt").text(total_amt_with_dis);
-                            $("#total_amt").val(total_amt_with_dis);
+        $("button.discountBtn").click(function() {
+            const url = "{{ route('website.discount_coupon') }}";
+            const _token = $('meta[name="csrf-token"]').attr('content');
+            const discount = $("#discount_coupon").val();
 
-                        }else{
-                            var total_amt = $("#prev_amt").val();
-                           $("#total_offer_amt").text(total_amt);
-                           $("#total_amt").val(total_amt);     
-                        }
+            $("#cover-spin").show();
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({ _token, discount })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status) {
+                    toastr.success(data.message);
+                    location.reload();
+                } else {
+                    toastr.error(data.message);
+                    $("#cover-spin").hide();
+                }
+                
+            })
+            .catch(err => console.log(err));
+            // e.preventDefault();
+            // var total_amt3 = $("#prev_amt").val();
+            // $("#total_offer_amt").text(total_amt3);
+            // $("#total_amt").val(total_amt3);  
+            // var discount_coupon = $("#discount_coupon").val();
+            // if(discount_coupon==''){
+            //     return false;
+            // }else{
+            //     $("#cover-spin").show();
+            //     var form = new FormData();
+            //     form.append('discount_coupon',discount_coupon);
+            //     $.ajax({
+            //         url:"{{route('website.discount_coupon')}}",
+            //         type:"POST",
+            //         data:form,
+            //         cache:false,
+            //         contentType:false,
+            //         processData:false,
+            //         success:function(res){
+            //             $("#cover-spin").hide();
+            //             var js_data = JSON.parse(JSON.stringify(res));
+            //             if(js_data.status==200){
+            //                 var total_amt = $("#total_amt").val();
+            //                 var total_amt2 = parseInt(total_amt);
+            //                 var discount_offer = total_amt2*parseInt(js_data.msg.offer)/100;
+            //                 var total_amt_with_dis = total_amt2-parseInt(discount_offer);
+            //                 $("#total_offer_amt").text(total_amt_with_dis);
+            //                 $("#total_amt").val(total_amt_with_dis);
 
-                    }
-                })
-            }
+            //             }else{
+            //                 var total_amt = $("#prev_amt").val();
+            //                $("#total_offer_amt").text(total_amt);
+            //                $("#total_amt").val(total_amt);     
+            //             }
+
+            //         }
+            //     })
+            // }
         });
 
         // gift card counpon 
@@ -303,6 +342,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
             const _token = $('meta[name="csrf-token"]').attr('content');
             const giftCard = $("#giftcard_coupon").val();
 
+            $("#cover-spin").show();
             fetch(url, {
                 method: 'POST',
                 headers: {
@@ -318,6 +358,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
                     location.reload();
                 } else {
                     toastr.error(data.message);
+                    $("#cover-spin").hide();
                 }
                 
             })
@@ -363,50 +404,73 @@ $action_url = 'https://sadadqa.com/webpurchase';
 
         
 
-        $("button.corporateBtn").click(function(e){
-            e.preventDefault();
-            var total_amt3 = $("#prev_amt").val();
-            $("#total_offer_amt").text(total_amt3);
-            $("#total_amt").val(total_amt3);  
-            var discount_coupon = $("#corporate_code").val();
-            if(discount_coupon==''){
-                return false;
-            }else{
-                $("#cover-spin").show();
-                var form = new FormData();
-                form.append('discount_coupon',discount_coupon);
-                $.ajax({
-                    url:"{{route('website.corporate_coupon')}}",
-                    type:"POST",
-                    data:form,
-                    cache:false,
-                    contentType:false,
-                    processData:false,
-                    success:function(res){
-                        $("#cover-spin").hide();
-                        var js_data = JSON.parse(JSON.stringify(res));
-                        if(js_data.status==200){
-                            var total_amt = $("#total_amt").val();
-                            var total_amt2 = parseInt(total_amt);
-                            var discount_offer = total_amt2*parseInt(js_data.msg.offer)/100;
-                            var total_amt_with_dis = total_amt2-parseInt(discount_offer);
-                            $("#total_offer_amt").text(total_amt_with_dis);
-                            $("#total_amt").val(total_amt_with_dis);
+        $("button.corporateBtn").click(function() {
+            const url = "{{ route('website.corporate_coupon') }}";
+            const _token = $('meta[name="csrf-token"]').attr('content');
+            const corporate = $("#corporate_code").val();
 
-                        }else{
-                            var total_amt = $("#prev_amt").val();
-                           $("#total_offer_amt").text(total_amt);
-                           $("#total_amt").val(total_amt);     
-                        }
+            $("#cover-spin").show();
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({ _token, corporate })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status) {
+                    toastr.success(data.message);
+                    location.reload();
+                } else {
+                    toastr.error(data.message);
+                    $("#cover-spin").hide();
+                }
+                
+            })
+            .catch(err => console.log(err));
 
-                    }
-                })
-            }
-        })
+            // e.preventDefault();
+            // var total_amt3 = $("#prev_amt").val();
+            // $("#total_offer_amt").text(total_amt3);
+            // $("#total_amt").val(total_amt3);  
+            // var discount_coupon = $("#corporate_code").val();
+            // if(discount_coupon==''){
+            //     return false;
+            // }else{
+            //     $("#cover-spin").show();
+            //     var form = new FormData();
+            //     form.append('discount_coupon',discount_coupon);
+            //     $.ajax({
+            //         url:"{{route('website.corporate_coupon')}}",
+            //         type:"POST",
+            //         data:form,
+            //         cache:false,
+            //         contentType:false,
+            //         processData:false,
+            //         success:function(res){
+            //             $("#cover-spin").hide();
+            //             var js_data = JSON.parse(JSON.stringify(res));
+            //             if(js_data.status==200){
+            //                 var total_amt = $("#total_amt").val();
+            //                 var total_amt2 = parseInt(total_amt);
+            //                 var discount_offer = total_amt2*parseInt(js_data.msg.offer)/100;
+            //                 var total_amt_with_dis = total_amt2-parseInt(discount_offer);
+            //                 $("#total_offer_amt").text(total_amt_with_dis);
+            //                 $("#total_amt").val(total_amt_with_dis);
 
+            //             }else{
+            //                 var total_amt = $("#prev_amt").val();
+            //                $("#total_offer_amt").text(total_amt);
+            //                $("#total_amt").val(total_amt);     
+            //             }
 
-
-    })
+            //         }
+            //     })
+            // }
+            })
+    });
 </script>
 <script>
     $("#cashondelivery").click(function(e){

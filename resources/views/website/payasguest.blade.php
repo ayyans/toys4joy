@@ -1,6 +1,6 @@
 @extends('website.layouts.master')
 @section('content')
-@php \Cart::clearCartConditions() @endphp
+@php cart()->clearCartConditions() @endphp
 <?php 
 function getChecksumFromString($str, $key) { 
 

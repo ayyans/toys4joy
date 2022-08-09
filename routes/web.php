@@ -82,6 +82,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::post('/remove-cart','WebsiteController@removedcartProd')->name('removedcartProd');
     Route::post('/update-cart','WebsiteController@updateQTY')->name('updateQTY');
     Route::post('/discount-coupon','WebsiteController@discount_coupon')->name('discount_coupon');
+    Route::get('/removeDiscountCoupon', 'WebsiteController@removeDiscountCoupon')->name('removeDiscountCoupon');
     Route::post('/giftcard-coupon','UserController@giftcard_coupon')->name('giftcard_coupon');
     Route::get('/removegiftcard','UserController@removegiftcard')->name('removegiftcard');
 
@@ -109,6 +110,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
 
     Route::post('/customer-address-process','UserController@addAddressProcess')->name('addAddressProcess');
     Route::post('/corporate-coupon','WebsiteController@corporate_coupon')->name('corporate_coupon');
+    Route::post('/removeCorporateCoupon','WebsiteController@removeCorporateCoupon')->name('removeCorporateCoupon');
     Route::post('/add-card-info-process','WebsiteController@Usercardinfo')->name('Usercardinfo');
     Route::post('/place-order-process','WebsiteController@placeorder')->name('placeorder');
     Route::get('/order-history','UserController@orderhistory')->name('orderhistory');
