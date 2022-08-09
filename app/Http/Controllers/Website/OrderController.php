@@ -40,7 +40,7 @@ class OrderController extends Controller
         $giftCardCodes = [];
         cart()->getConditionsByType('giftcard')->each(function($g) {
             array_push($giftCardIds, $g->getAttributes()['id']);
-            array_push($$giftCardCodes, $g->getAttributes()['code']);
+            array_push($giftCardCodes, $g->getAttributes()['code']);
         });
         $giftCardCodes = implode(', ', $giftCardCodes);
         $cust_id = Auth::user()->id;
