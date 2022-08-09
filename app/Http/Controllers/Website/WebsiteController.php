@@ -261,6 +261,7 @@ class WebsiteController extends Controller
 
         giftcards::whereIn('id', $giftCardIds)->update([ 'user_id' => auth()->id() ]);
 
+        // clearing cart
         cart()->clear();
 
         return view('website.guestthanks', compact('order_number'));

@@ -91,8 +91,6 @@ class OrderController extends Controller
                 'total_amount' => $item->getPriceSum()
             ]);
         }
-        // clearing cart
-        cart()->clear();
 
         return response()->json([
             'status' => true
@@ -125,8 +123,6 @@ class OrderController extends Controller
                 'total_amount' => $item->getPriceSum()
             ]);
         }
-        // clearing cart
-        cart()->clear();
 
         return response()->json([
             'status' => true
@@ -171,6 +167,9 @@ class OrderController extends Controller
             'payment_status' => 'paid',
             'transaction_number' => $transaction_number
         ]);
+
+        // clearing cart
+        cart()->clear();
 
         return view('website.guestthanks', compact('order_number'));
         // $allparms =  $request->all();
