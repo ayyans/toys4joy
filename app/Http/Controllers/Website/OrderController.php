@@ -170,6 +170,7 @@ class OrderController extends Controller
 
         // clearing cart
         cart()->clear();
+        cart()->clearCartConditions();
 
         return view('website.guestthanks', compact('order_number'));
         // $allparms =  $request->all();
@@ -248,6 +249,7 @@ class OrderController extends Controller
         }
         // clearing cart
         cart()->clear();
+        cart()->clearCartConditions();
 
         return response()->json([
             'status' => true,

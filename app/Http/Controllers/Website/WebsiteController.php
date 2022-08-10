@@ -263,6 +263,7 @@ class WebsiteController extends Controller
 
         // clearing cart
         cart()->clear();
+        cart()->clearCartConditions();
 
         return view('website.guestthanks', compact('order_number'));
 
@@ -1023,6 +1024,7 @@ class WebsiteController extends Controller
 
         // clearing cart
         cart()->clear();
+        cart()->clearCartConditions();
 
         return response()->json([
             'status' => true,
