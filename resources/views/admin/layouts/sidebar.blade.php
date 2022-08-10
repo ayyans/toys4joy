@@ -109,10 +109,12 @@
 <!-- Divider -->
 <hr class="sidebar-divider">
 @php
-    $order = DB::table('orders')->groupby('orderid')->where('ordertype' , '!=' , 'wishlist')->where('newstatus' , 1)->where('orderstatus' ,'!=','payementpending')->count();
-
-    $guestorder = DB::table('guest_orders')->groupby('order_id')->where('newstatus' , 1)->where('orderstatus' , '!=','payementpending')->count();
-    $wishlistorder = DB::table('orders')->groupby('orderid')->where('ordertype', 'wishlist')->where('newstatus' , 1)->where('orderstatus' , '!=','payementpending')->count();
+//->where('newstatus' , 1)
+    $order = DB::table('orders')->groupby('order_number')->where('order_type' , '!=' , 'wishlist')->where('payment_status' ,'!=','payementpending')->count();
+//->where('newstatus' , 1)
+    $guestorder = DB::table('guest_orders')->groupby('order_id')->where('orderstatus' , '!=','payementpending')->count();
+    //->where('newstatus' , 1)
+    $wishlistorder = DB::table('orders')->groupby('order_number')->where('order_type', 'wishlist')->where('payment_status' , '!=','payementpending')->count();
 
     $totalordernumbers = $order+$guestorder+$wishlistorder;
 @endphp
