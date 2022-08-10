@@ -2100,12 +2100,15 @@ $(document).ready(function() {
     
   $("#main-image").imagezoomsl({
     zoomrange: [1.12, 12],
-    zoomstart: 5,
+    zoomstart: 3,
 	  magnifiersize: [530, 340],
 	  scrollspeedanimate: 10,
 	  loopspeedanimate: 5,
 	  magnifiereffectanimate: "slideIn",
     loadinggif:'loading.gif',	
+    classtracker:"tracker",
+    classstatusdiv:"statusdiv",
+    classmagnifier:"magnifier",
     });
 
 });    
