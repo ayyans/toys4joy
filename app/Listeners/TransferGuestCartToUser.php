@@ -16,12 +16,12 @@ class TransferGuestCartToUser
      */
     public function handle($event)
     {
-        $userCart = cart();
-        $userCartItems = $userCart->getContent()->toArray();
-
         $guestCart = session('guest_cart.data');
         if (!$guestCart) return;
         $guestCartItems = $guestCart->toArray();
+
+        $userCart = cart();
+        $userCartItems = $userCart->getContent()->toArray();
 
         $userCartItems = array_merge($userCartItems, $guestCartItems);
         if ($guestCart->isNotEmpty()) $userCart->add($userCartItems);
