@@ -30,11 +30,11 @@ class Order extends Model
     //     return $this->belongsTo(Product::class, 'prod_id', 'id');
     // }
 
-    // public function address() {
-    //     return $this->belongsTo(CustomerAddress::class, 'cust_add_id', 'id');
-    // }
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 
-    // public function customer() {
-    //     return $this->belongsTo(User::class, 'cust_id', 'id');
-    // }
+    public function address() {
+        return $this->belongsTo(CustomerAddress::class, 'address_id');
+    }
 }

@@ -62,11 +62,13 @@ class Product extends Model
         return $this->belongsTo(SubCategory::class, 'sub_cat', 'id');
     }
 
-    public function orders() {
-        return $this->hasMany(Order::class, 'prod_id', 'id');
+    public function orderItems() {
+        return $this->hasMany(OrderItem::class, 'product_id');
     }
 
-    public function guestOrders() {
-        return $this->hasMany(GuestOrder::class, 'prod_id', 'id');
+    public function paidOrderItems() {
+        return $this->hasMany(OrderItem::class, 'product_id')->whereHas('order', function($query) {
+            $query->where('payment_status', 'paid');
+        });
     }
 }
