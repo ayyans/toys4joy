@@ -4,7 +4,7 @@
 @php
     
 
-    DB::table('orders')->where('orderid' , $orderdetail->orderid)->update(['newstatus'=>0]);
+   // DB::table('orders')->where('id' , $order->id)->update(['newstatus'=>0]); 
 
 @endphp
 
@@ -18,29 +18,29 @@
     <tr>
         <td colspan="2"></td>   
         <td>
-            <input type="hidden" name="orderid" id="orderid" value="{{$orderdetail->id}}" />
+            <input type="hidden" name="orderid" id="orderid" value="{{$order->id}}" />
             <label>Delivery Status</label>
-            @if($orderdetail->status==4 || $orderdetail->status==5 )
+            @if($order->status==4 || $order->status==5 )
             <select class="form-control" readonly>
-                <option @if($orderdetail->status == 1) selected @endif value="1">Pending</option>
-                <option @if($orderdetail->status == 2) selected @endif value="2">Confirm</option>
-                <option @if($orderdetail->status == 3) selected @endif value="3">Shipped</option>
-                <option @if($orderdetail->status == 4) selected @endif value="4">Cancel</option>
-                <option @if($orderdetail->status == 5) selected @endif value="5">Delivered</option>
+                <option @if($order->status == 1) selected @endif value="1">Pending</option>
+                <option @if($order->status == 2) selected @endif value="2">Confirm</option>
+                <option @if($order->status == 3) selected @endif value="3">Shipped</option>
+                <option @if($order->status == 4) selected @endif value="4">Cancel</option>
+                <option @if($order->status == 5) selected @endif value="5">Delivered</option>
             </select>
             @else
             <select class="form-control" id="orderStatus">
-                <option @if($orderdetail->status == 1) selected @endif value="1">Pending</option>
-                <option @if($orderdetail->status == 2) selected @endif value="2">Confirm</option>
-                <option @if($orderdetail->status == 3) selected @endif value="3">Shipped</option>
-                <option @if($orderdetail->status == 4) selected @endif value="4">Cancel</option>
-                <option @if($orderdetail->status == 5) selected @endif value="5">Delivered</option>
+                <option @if($order->status == 1) selected @endif value="1">Pending</option>
+                <option @if($order->status == 2) selected @endif value="2">Confirm</option>
+                <option @if($order->status == 3) selected @endif value="3">Shipped</option>
+                <option @if($order->status == 4) selected @endif value="4">Cancel</option>
+                <option @if($order->status == 5) selected @endif value="5">Delivered</option>
             </select>
             @endif
-            <a href="{{ url('generateinvoice') }}/{{ $orderdetail->orderid }}">Download Invoice</a>
+            <a href="{{ url('generateinvoice') }}/{{ $order->id }}">Download Invoice</a>
 
 
-            @if($orderdetail->ordertype == 'wishlist')
+            @if($order->order_type == 'wishlist')
 
 
             <button data-toggle="modal" data-target="#greetignmessage" class="btn btn-primary">View Greeting Message</button>
@@ -54,7 +54,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   @php
-                    $greetingmessage = DB::table('greetingmessages')->where('orderid' , $orderdetail->orderid)->get()->first();
+                    $greetingmessage = DB::table('greetingmessages')->where('orderid' , $order->id)->get()->first();
 
                   @endphp
                   <!-- Modal body -->
@@ -93,27 +93,27 @@
     </tr>
     <tr>
         <td colspan="1">
-            <strong>{{$orderdetail->name}}</strong><br/>
-            <strong> {{$orderdetail->email}}</strong><br/>
-            <strong>{{$orderdetail->mobile}}</strong><br/>
-            <strong>{{$orderdetail->unit_no}},{{$orderdetail->building_no}},{{$orderdetail->zone}},{{$orderdetail->street}} </strong>
+            <strong>{{$order->name}}</strong><br/>
+            <strong> {{$order->email}}</strong><br/>
+            <strong>{{$order->mobile}}</strong><br/>
+            <strong>{{$order->unit_no}},{{$order->building_no}},{{$order->zone}},{{$order->street}} </strong>
         </td>
         <td style="text-align:justify">
-            <strong>Order Id:{{ $orderdetail->orderid }}</strong><br/>
-            <strong>Order status:</strong> @if($orderdetail->status==1)
+            <strong>Order Id:{{ $order->order_number }}</strong><br/>
+            <strong>Order status:</strong> @if($order->status==1)
             Pending
-            @elseif($orderdetail->status==2)
+            @elseif($order->status==2)
             Confirm
-            @elseif($orderdetail->status==3)
+            @elseif($order->status==3)
             shipped
-            @elseif($orderdetail->status==4)
+            @elseif($order->status==4)
             Cancelled
-            @elseif($orderdetail->status==5)
+            @elseif($order->status==5)
             delivered
             @endif
             <br/>
-            <strong>Order date:</strong>{{$orderdetail->created_at}}<br/>
-            <strong>Payment Mode</strong>: @if($orderdetail->mode==2)Online
+            <strong>Order date:</strong>{{$order->created_at}}<br/>
+            <strong>Payment Mode</strong>: @if($order->mode==2)Online
             @else
             COD
             @endif
@@ -129,57 +129,60 @@
                     <th>product</th>
                     <th>image</th>
                     <th>Qty</th> 
-                    <th>Total Amount (in AED)</th>              
+                    <th>Total Amount (in QAR)</th>              
                 </tr>
             </thead>
             
             <tbody>
-                @foreach($orders as $r)
+                @foreach($orderdetail as $r)
                 @php
                   $product = DB::table('products')->where('id' , $r->product_id)->get()->first();
                 @endphp
                 <tr>
                     <td>1</td>
                     <td>{{ $product->title }}</td>
-                    <td><img src="{{asset('products/'.$product->featured_img)}}" style="width:100px"/></td>
-                    <td>{{$r->qty}}</td>
-                    <td>QAR {{$r->prod_price*$r->qty}}</td>
+                    <td><img src="{{asset('products/'.$r->featured_img)}}" style="width:100px"/></td>
+                    <td>{{$r->quantity}}</td>
+                    <td>QAR {{$r->price*$r->quantity}}</td>
                    
                 </tr>
                 @endforeach
              
             </tbody>
             <tfoot>
+                @php
+                $total_amount = $order->total_amount;
+                @endphp
                         <!-- <tr>
                             <td colspan="4" style="text-align:right"><strong>Discount(coupon)</strong></td>
 
                             <td>
                                 <?php 
-                                $total_amount = $orderdetail->prod_price*$orderdetail->qty;
+                                $total_amount = $order->total_amount;
 
                                  ?>
-                                @if($total_amount==$orderdetail->amount)
+                               {{-- @if($total_amount==$orderdetail->amount)
                                     0
                                     @else
                                     {{$orderdetail->prod_price*$orderdetail->qty-$orderdetail->amount}}
 
-                                    @endif
+                                    @endif--}}
                             </td>
                             
                         </tr> -->
                         <?php $total_price = 0; ?>
-                        @foreach(DB::table('orders')->where('orderid' , $orderdetail->orderid)->get() as $r)
+                        @foreach(DB::table('order_items')->where('order_id' , $order->id)->get() as $r)
                         @php
-                          $product = DB::table('products')->where('id' , $r->prod_id)->get()->first();
-                          if($product->discount)
+                          //$product = DB::table('products')->where('id' , $r->product_id)->get()->first();
+                          if($r->discount)
                           {
-                              $price = $product->discount;
+                              $price = ($r->price-$r->discount);
                           }else{
-                              $price = $product->unit_price;
+                              $price = $r->price;
                           }
 
                         @endphp
-                        <?php $total_price+=$price*$r->qty; ?>
+                        <?php $total_price+=$price*$r->quantity; ?>
                         @endforeach
                         
                         <tr>
@@ -188,8 +191,10 @@
                         </tr>
 
 
-
-                        @if($orders->first()->giftcode)
+                        @php
+                        $giftcardprice=0;
+                        @endphp
+                       {{-- @if($orders->first()->giftcode)
         
                         @php
                           $usergiftcard = DB::table('usergiftcards')->where('code' , $orders->first()->giftcode)->get()->first();
@@ -203,14 +208,15 @@
                           }else{
                             $total_price = $giftcardprice;
                           }
-
+                        
                         @endphp
                         <tr class="total">
                           <td colspan="4" style="text-align:right"><strong>Discount Gift Card:</strong></td>
-                          <td> QAR {{ $giftcard->price }}</td>
+                          <td> QAR {{ $giftcardprice }}  </td>
+                          <!---<td> QAR {{ $giftcard->price }}  </td>-->
                         </tr>
                         @endif
-
+                        --}}
                         <tr class="total">
                           <td colspan="4" style="text-align:right"><strong>Total:</strong></td>
                           <td colspan="3">Total: QAR {{ $total_price }}</td>

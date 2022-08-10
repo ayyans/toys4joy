@@ -22,7 +22,7 @@
                     <th>Address</th>                                                                 
                     <th>Payement Method</th>
                     <th>Payement ID</th>
-                    <th>Total Ammount</th>
+                    <th>Total Amount</th>
                     <th>Status</th>
                     <th>Action</th>                        
                 </tr>
@@ -34,7 +34,7 @@
                     <td>{{ $order->id }}</td>
                     <td>{{date('d M Y', strtotime($order->created_at))}}</td>
                     <td>{{date('h:i:s A', strtotime($order->created_at))}}</td>
-                    <td>{{$order->orderid}}</td>
+                    <td>{{$order->order_number}}</td>
                     <td>{{$order->name}}</td>
                     <td>{{$order->mobile}}</td>
                     <td>{{$order->unit_no}},{{$order->building_no}},{{$order->zone}},{{$order->street}}</td>
@@ -46,8 +46,8 @@
                         @endif
                     </td>
                     <td>{{$order->payment_id}}</td>
-                    <?php $total_price = 0; ?>
-                    @foreach(DB::table('orders')->where('orderid' , $order->orderid)->get() as $r)
+                    <?php //$total_price = 0; ?>
+                    {{--@foreach(DB::table('orders')->where('orderid' , $order->orderid)->get() as $r)
                     @php
                       $product = DB::table('products')->where('id' , $r->prod_id)->get()->first();
                       if($product->discount)
@@ -59,9 +59,9 @@
 
                     @endphp
 
-                    <?php $total_price+=$price*$r->qty; ?>
-                    @endforeach
-                    <td>QAR {{ $total_price }}</td>
+                    <?php //$total_price+=$price*$r->qty; ?>
+                    @endforeach--}}
+                    <td>QAR {{ $order->real_total_amount }}</td>
                     <td>
                         @if($order->status==1)
                         <div class="badge badge-danger">Pending</div>
@@ -83,7 +83,7 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{route('admin.custOrdersDetails',[encrypt($order->orderid)])}}" class="dropdown-item">View</a></li>
+                                <li><a href="{{route('admin.custOrdersDetails',[encrypt($order->id)])}}" class="dropdown-item">View</a></li>
                                 @if($order->status==1)
                                 
                                     <li><a href="{{route('admin.confirmCustOrders',[encrypt($order->id)])}}" class="dropdown-item">Confirm</a></li>
