@@ -20,6 +20,7 @@ class TransferGuestCartToUser
         $userCartItems = $userCart->getContent()->toArray();
 
         $guestCart = session('guest_cart.data');
+        if (!$guestCart) return;
         $guestCartItems = $guestCart->toArray();
 
         $userCartItems = array_merge($userCartItems, $guestCartItems);
