@@ -38,7 +38,7 @@ class AdminController extends Controller
     //
     public function dashboard(){
         // delivered orders count
-        $customersOrderCount = Order::where('status', 5)->count();
+        $customersOrderCount = Order::where('order_status', 5)->count();
         $guestsOrderCount = GuestOrder::where('status', 5)->count();
         $ordersCount = $customersOrderCount + $guestsOrderCount;
 
@@ -49,7 +49,7 @@ class AdminController extends Controller
         $productsCount = Product::where('status', 2)->count();
 
         // Total revenue
-        $customersOrderSum = Order::where('status', 5)->sum(DB::raw('amount * qty'));
+        $customersOrderSum = Order::where('order_status', 5)->sum(DB::raw('total_amount'));
         $guestsOrderSum = GuestOrder::where('guest_orders.status', 5)
             ->join('products', 'guest_orders.prod_id', 'products.id')
             ->sum(DB::raw('products.unit_price * guest_orders.qty'));
@@ -1171,14 +1171,14 @@ public function orderStatus(Request $request){
 public function custOrders(){
     $orders = Order::select(
             "orders.id",
-            "orders.orderid",
-            "orders.orderstatus",
-            "orders.cust_id",
-            "orders.cust_add_id",
-            "orders.payment_id",
-            "orders.mode",
-            "orders.amount",
-            "orders.status",
+            "orders.order_number",
+            "orders.payment_status",
+            "orders.user_id",
+            "orders.address_id",
+            "orders.transaction_number",
+            "orders.order_type as mode",
+            "orders.total_amount",
+            "orders.order_status as status",
             "orders.created_at",
             "users.name",
             "users.email",
@@ -1187,16 +1187,21 @@ public function custOrders(){
             "customer_addresses.building_no",
             "customer_addresses.zone",
             "customer_addresses.street",
-                  
-                        )
-            ->where('orders.orderstatus' , '!=' , 'payementpending')
-            ->where('orders.ordertype' , '!=' , 'wishlist')
-            ->leftJoin('users', 'orders.cust_id', '=', 'users.id')
-            ->leftJoin('customer_addresses', 'orders.cust_add_id', '=', 'customer_addresses.id')
-            ->groupBy('orders.orderid')
+            DB::raw('SUM((order_items.price - order_items.discount) * order_items.quantity) as real_total_amount')
+                        )            
+            ->where('orders.order_status' , '!=' , 'payementpending')
+            ->where('orders.order_type' , '!=' , 'wishlist')
+            ->Join('order_items','order_items.order_id','=','orders.id')
+            ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+            ->leftJoin('customer_addresses', 'orders.address_id', '=', 'customer_addresses.id')
+            ->groupBy('orders.id')
             ->orderby('orders.id' , 'desc')
-
             ->get();
+            /*->map(function ($orders){
+                return [
+                    'real_total_amount'          => $orders->order_items->sum('(order_items.price - order_items.discount)*order_items.quantity'),
+                ];
+            })*/
     $type = 'simpleorder';
     return view('admin.order',compact('orders','type'));
 }
@@ -1350,7 +1355,7 @@ public function deliveredCustOrders(Request $request){
 
 public function custOrdersDetails(Request $request){
     $orderid = decrypt($request->id);
-
+/*
     $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
                 ->leftJoin('users','users.id','=','orders.cust_id')
                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.cust_add_id')
@@ -1361,7 +1366,19 @@ public function custOrdersDetails(Request $request){
                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.cust_add_id')
               ->select('products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')  
               ->where('orders.orderid','=',$orderid)->first();
-    return view('admin.orderdetails',compact('orders','orderdetail'));
+*/
+$order = Order::leftJoin('users','users.id','=','orders.user_id')
+                ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
+              ->select('orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress','order_status as status,orders.payment_type as mode')  
+              ->where('orders.id','=',$orderid)->first();
+//leftJoin('products','products.id','=','orders.prod_id')
+$orderdetail = Order::leftJoin('order_items','order_items.order_id','=','orders.id')
+                ->leftJoin('products','products.id','=','order_items.product_id')
+                ->leftJoin('users','users.id','=','orders.user_id')
+                ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
+              ->select('products.id as prod_id,products.title as productName','featured_img','products.unit_price as prod_price','order_items.*')  
+              ->where('order_items.order_id','=',$orderid)->get();
+    return view('admin.orderdetails',compact('order','orderdetail'));
 }
 
 
