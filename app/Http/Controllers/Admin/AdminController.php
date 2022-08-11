@@ -1616,18 +1616,23 @@ public function editProcess(Request $request){
     }
 
     public function guestsReport(Request $request) {
-        return "it won't work for now";
         $applyFilter = $request->anyFilled('start_date', 'end_date');
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
         $orders = Order::whereNull('user_id')->where('payment_status', 'paid')
             ->orderByDesc('created_at')
+            ->select('total_amount', 'additional_details->email as email')
+            ->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('created_at', [$start_date, $end_date]);
+            })
+            ->get()
+            ->groupBy('email')
             ->map(function($orders, $key) {
                 return [
                     'email' => $key,
                     'total_orders' => $orders->count(),
-                    'total_amount' => $orders->sum(DB::raw('products.unit_price * guest_orders.qty'))
+                    'total_amount' => $orders->sum('total_amount')
                 ];
             });
 
