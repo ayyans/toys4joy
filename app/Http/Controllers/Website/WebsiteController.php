@@ -979,8 +979,8 @@ class WebsiteController extends Controller
     }
     public function confermordercod($id)
     {
-        $orderid = $id;
-        return view('website.guestthanks',compact('orderid'));
+        $order_number = $id;
+        return view('website.guestthanks',compact('order_number'));
     }
 
 
