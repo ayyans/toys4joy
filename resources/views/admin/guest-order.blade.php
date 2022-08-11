@@ -19,9 +19,9 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Mobile</th>
-                            <th>Shipping address</th>
+                            {{-- <th>Shipping address</th> --}}
                             <th>Payment Mode</th>
-                            <th>Payment ID</th>
+                            {{-- <th>Payment ID</th> --}}
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -33,12 +33,12 @@
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->created_at->format('d M Y') }}</td>
                             <td>{{ $order->created_at->format('h:i:s A') }}</td>
-                            <td>{{ $order->additional_details->name }}</td>
-                            <td>{{ $order->additional_details->email }}</td>
-                            <td>{{ $order->additional_details->phone }}</td>
-                            <td>{{ $order->apartment }},{{ $order->faddress }},{{ $order->city }}</td>
+                            <td>{{ $order->additional_details['name'] ?? null }}</td>
+                            <td>{{ $order->additional_details['email'] ?? null }}</td>
+                            <td>{{ $order->additional_details['phone'] ?? null }}</td>
+                            {{-- <td>{{ $order->apartment }},{{ $order->faddress }},{{ $order->city }}</td> --}}
                             <td>{{ $order->order_type }}</td>
-                            <td>{{ $order->payment_id }}</td>
+                            {{-- <td>{{ $order->payment_id }}</td> --}}
                             <td>
                                 {{-- <div class="badge {{ in_array($order->order_status, ['placed', 'cancelled']) ? 'badge-danger' : 'badge-success' }}">{{ $order->order_status }}</div> --}}
                                 <div class="badge {{ $order->payment_status == 'paid' ? 'badge-success' : 'badge-danger' }}">{{ $order->payment_status }}</div>
