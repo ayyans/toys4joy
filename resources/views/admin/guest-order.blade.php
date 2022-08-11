@@ -33,9 +33,9 @@
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->created_at->format('d M Y') }}</td>
                             <td>{{ $order->created_at->format('h:i:s A') }}</td>
-                            <td>{{ $order->cust_name }}</td>
-                            <td>{{ $order->cust_email }}</td>
-                            <td>{{ $order->cust_mobile }}</td>
+                            <td>{{ $order->additional_details->name }}</td>
+                            <td>{{ $order->additional_details->email }}</td>
+                            <td>{{ $order->additional_details->phone }}</td>
                             <td>{{ $order->apartment }},{{ $order->faddress }},{{ $order->city }}</td>
                             <td>{{ $order->order_type }}</td>
                             <td>{{ $order->payment_id }}</td>
