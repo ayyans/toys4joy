@@ -33,7 +33,6 @@ class LoginController extends Controller
 
         if(Auth::user()->status == 1)
         {
-            $request->session()->regenerate();
             return redirect()->route('website.otp')->with('warning','Please Enter Code!');
         }
         return redirect()->intended('/')->with('success','You are Logged in as customer!');
