@@ -123,6 +123,14 @@ class OrderController extends Controller
                 'total_amount' => $item->getPriceSum()
             ]);
         }
+        // saving guest details
+        $order->update([
+            'additional_details' => [
+                'name' => $request->custname,
+                'email' => $request->email,
+                'phone' =>  $request->mobilenumber
+            ]
+        ]);
 
         return response()->json([
             'status' => true
@@ -247,6 +255,14 @@ class OrderController extends Controller
                 'total_amount' => $item->getPriceSum()
             ]);
         }
+        // saving guest details
+        $order->update([
+            'additional_details' => [
+                'name' => $request->custname,
+                'email' => $request->email,
+                'phone' =>  $request->mobilenumber
+            ]
+        ]);
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();

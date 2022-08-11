@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,10 @@ class Order extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'options' => AsCollection::class,
+    ];
 
     // protected $fillable = [
     //     'cust_id',

@@ -38,9 +38,10 @@
                             <td>{{ $order->cust_mobile }}</td>
                             <td>{{ $order->apartment }},{{ $order->faddress }},{{ $order->city }}</td>
                             <td>{{ $order->order_type }}</td>
-                            <td>{{$order->payment_id}}</td>
+                            <td>{{ $order->payment_id }}</td>
                             <td>
-                                <div class="badge {{ in_array($order->order_status, ['placed', 'cancelled']) ? 'badge-danger' : 'badge-success' }}">{{ $order->order_status }}</div>
+                                {{-- <div class="badge {{ in_array($order->order_status, ['placed', 'cancelled']) ? 'badge-danger' : 'badge-success' }}">{{ $order->order_status }}</div> --}}
+                                <div class="badge {{ $order->payment_status == 'paid' ? 'badge-success' : 'badge-danger' }}">{{ $order->payment_status }}</div>
                             </td>
                             <td>
                                 <div class="btn-group">
