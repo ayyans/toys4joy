@@ -237,6 +237,8 @@ class WebsiteController extends Controller
     // guest thanks page
 
     public function guestthank(Request $request) {
+        $request->session()->regenerate();
+
         $data =  $request->all();
 
         $status = $data['STATUS'];
