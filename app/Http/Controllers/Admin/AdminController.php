@@ -1320,7 +1320,7 @@ public function deliveredCustOrders(Request $request){
 
 
 public function custOrdersDetails(Request $request){
-    $orderid = decrypt($request->id);
+    $order_id = decrypt($request->id);
 /*
     $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
                 ->leftJoin('users','users.id','=','orders.cust_id')
@@ -1333,18 +1333,19 @@ public function custOrdersDetails(Request $request){
               ->select('products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')  
               ->where('orders.orderid','=',$orderid)->first();
 */
-$order = Order::leftJoin('users','users.id','=','orders.user_id')
-                ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
-              ->select('orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress','order_status as status,orders.payment_type as mode')  
-              ->where('orders.id','=',$orderid)->first();
-//leftJoin('products','products.id','=','orders.prod_id')
-$orderdetail = Order::leftJoin('order_items','order_items.order_id','=','orders.id')
-                ->leftJoin('products','products.id','=','order_items.product_id')
-                ->leftJoin('users','users.id','=','orders.user_id')
-                ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
-              ->select('products.id as prod_id,products.title as productName','featured_img','products.unit_price as prod_price','order_items.*')  
-              ->where('order_items.order_id','=',$orderid)->get();
-    return view('admin.orderdetails',compact('order','orderdetail'));
+// $order = Order::leftJoin('users','users.id','=','orders.user_id')
+//                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
+//               ->select('orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress','order_status as status,orders.payment_type as mode')  
+//               ->where('orders.id','=',$orderid)->first();
+// //leftJoin('products','products.id','=','orders.prod_id')
+// $orderdetail = Order::leftJoin('order_items','order_items.order_id','=','orders.id')
+//                 ->leftJoin('products','products.id','=','order_items.product_id')
+//                 ->leftJoin('users','users.id','=','orders.user_id')
+//                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
+//               ->select('products.id as prod_id,products.title as productName','featured_img','products.unit_price as prod_price','order_items.*')  
+//               ->where('order_items.order_id','=',$orderid)->get();
+    $order = Order::with(['user', 'address', 'items.product'])->where('id', $order_id)->first();
+    return view('admin.orderdetails', compact('order'));
 }
 
 
@@ -1353,7 +1354,7 @@ $orderdetail = Order::leftJoin('order_items','order_items.order_id','=','orders.
 
 public function CustomerorderStatus(Request $request){
     $order_status = Order::where('id','=',$request->orderid)->update([
-        'status'=>$request->status
+        'order_status' => $request->status
     ]);
     if($order_status==true){
         return response()->json('1');

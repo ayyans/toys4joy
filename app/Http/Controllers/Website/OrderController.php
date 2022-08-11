@@ -128,7 +128,7 @@ class OrderController extends Controller
             'additional_details' => [
                 'name' => $request->custname,
                 'email' => $request->email,
-                'phone' =>  $request->mobilenumber
+                'mobile' =>  $request->mobilenumber
             ]
         ]);
 
@@ -260,7 +260,7 @@ class OrderController extends Controller
             'additional_details' => [
                 'name' => $request->custname,
                 'email' => $request->email,
-                'phone' =>  $request->mobilenumber
+                'mobile' =>  $request->mobilenumber
             ]
         ]);
         // clearing cart
@@ -343,11 +343,11 @@ class OrderController extends Controller
     }
     public function generatepdf($id)
     {
-        $checkorder = order::where('orderid' , $id)->get()->count();
+        $checkorder = Order::where('id', $id)->count();
         if($checkorder > 0)
         {
             $data = [
-                'ordernumber' => $id,
+                'order_number' => $id,
             ];
             $pdf = PDF::loadView('invoice.indexonline', $data);
             return $pdf->download('Order Invoice - '.$id.'.pdf');
@@ -359,7 +359,7 @@ class OrderController extends Controller
             ];
             $pdf = PDF::loadView('invoice.invoicecod', $data);
             return $pdf->download('Order Invoice - '.$id.'.pdf');
-        }        
+        }
     }
      // pay as guest checkout 
 

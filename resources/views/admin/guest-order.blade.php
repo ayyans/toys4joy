@@ -35,7 +35,7 @@
                             <td>{{ $order->created_at->format('h:i:s A') }}</td>
                             <td>{{ $order->additional_details['name'] ?? null }}</td>
                             <td>{{ $order->additional_details['email'] ?? null }}</td>
-                            <td>{{ $order->additional_details['phone'] ?? null }}</td>
+                            <td>{{ $order->additional_details['mobile'] ?? null }}</td>
                             {{-- <td>{{ $order->apartment }},{{ $order->faddress }},{{ $order->city }}</td> --}}
                             <td>{{ $order->order_type }}</td>
                             {{-- <td>{{ $order->payment_id }}</td> --}}
