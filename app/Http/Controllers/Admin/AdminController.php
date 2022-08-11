@@ -1000,12 +1000,13 @@ public function deliveredGuestOrders(Request $request){
 // guest order details 
 
 public function guestOrdersDetails(Request $request){
-    $orderid = decrypt($request->id);
-    $orders = GuestOrder::leftJoin('products','products.id','=','guest_orders.prod_id')
-              ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')
-              ->where('guest_orders.id','=',$orderid)  
-              ->first();
-    return view('admin.guestorderDetails',compact('orders'));
+    $order_id = decrypt($request->id);
+    // $orders = GuestOrder::leftJoin('products','products.id','=','guest_orders.prod_id')
+    //           ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')
+    //           ->where('guest_orders.id','=',$orderid)  
+    //           ->first();
+    $order = Order::with(['user', 'items.product'])->where('id', $order_id)->first();
+    return view('admin.guestorderDetails', compact('order'));
 }
 
 
@@ -1151,8 +1152,8 @@ public function edit_category_process(Request $request){
 // order details status change
 
 public function orderStatus(Request $request){
-    $order_status = GuestOrder::where('id','=',$request->orderid)->update([
-        'status'=>$request->status
+    $order_status = Order::where('id', $request->id)->update([
+        'order_status' => $request->status
     ]);
     if($order_status==true){
         return response()->json('1');

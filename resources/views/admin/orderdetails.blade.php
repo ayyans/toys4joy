@@ -107,7 +107,7 @@
                         <strong>Order Id: {{ $order->order_number }}</strong><br />
                         <strong>Order status:</strong> {{ $order->order_status }}
                         <br />
-                        <strong>Order date:</strong>{{$order->created_at}}<br />
+                        <strong>Order date:</strong>{{ $order->created_at }}<br />
                         <strong>Payment Mode:</strong> {{ $order->order_type }}
                         <br />
                     </td>
@@ -125,12 +125,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($order->items as $item)
+                        @foreach($order->items as $index => $item)
                         {{-- @php
                         $product = DB::table('products')->where('id' , $r->product_id)->get()->first();
                         @endphp --}}
                         <tr>
-                            <td>1</td>
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ $item->product->title }}</td>
                             <td><img src="{{ asset('products/'.$item->product->featured_img) }}" style="width:100px" /></td>
                             <td>{{ $item->quantity }}</td>
