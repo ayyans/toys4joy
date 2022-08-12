@@ -40,10 +40,10 @@
                         <a href="{{ url('generateinvoice') }}/{{ $order->id }}">Download Invoice</a>
 
 
-                        @if($order->order_type == 'wishlist')
+                        @if($order->is_wishlist)
 
 
-                        <button data-toggle="modal" data-target="#greetignmessage" class="btn btn-primary">View Greeting
+                        <button data-toggle="modal" data-target="#greetignmessage" class="btn btn-primary mt-2">View Greeting
                             Message</button>
                         <div class="modal fade" id="greetignmessage">
                             <div class="modal-dialog">
@@ -55,28 +55,28 @@
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     @php
-                                    $greetingmessage = DB::table('greetingmessages')->where('orderid' ,
-                                    $order->id)->get()->first();
+                                    // $greetingmessage = DB::table('greetingmessages')->where('orderid' ,
+                                    // $order->id)->get()->first();
 
                                     @endphp
                                     <!-- Modal body -->
                                     <div class="modal-body">
-                                        @if($greetingmessage)
+                                        {{-- @if($greetingmessage) --}}
                                         <table class="table table-bordered">
                                             <tr>
                                                 <td>Name</td>
-                                                <td>{{ $greetingmessage->name }}</td>
+                                                <td>{{ $order->additional_details['name'] }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Phone Number</td>
-                                                <td>{{ $greetingmessage->phonenumber }}</td>
+                                                <td>{{ $order->additional_details['phone'] }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Message</td>
-                                                <td>{{ $greetingmessage->message }}</td>
+                                                <td>{{ $order->additional_details['message'] }}</td>
                                             </tr>
                                         </table>
-                                        @endif
+                                        {{-- @endif --}}
 
                                     </div>
 
