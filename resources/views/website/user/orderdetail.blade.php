@@ -1,24 +1,25 @@
 @extends('website.layouts.master')
 @section('content')
 
-@php
+{{-- @php
   $singleorder = DB::table('orders')->where('orderid' , $orderid)->get();
   $customer = DB::table('users')->where('id' , $singleorder->first()->cust_id)->get()->first();
   $customer_addresses = DB::table('customer_addresses')->where('cust_id' , $singleorder->first()->cust_id)->get()->first();
-@endphp
+@endphp --}}
 <main id="products-ranking" class="order-history order-detail">
 <div class="container-fluid">
     <div class="row">
         <div class="col-4">
             <div class="text-center order-summary">
                 <h5>Order Summary</h5>
-                <p>Order Number: {{ $orderid }}</p>
-                <p>Total Price: {{ $singleorder->first()->amount }} QAR</p>
+                <p>Order Number: {{ $order->order_number }}</p>
+                <p>Total Price: {{ $order->total_amount }} QAR</p>
             </div>
         </div>
     	<div class="col-8">
             <div class="order-status">
-            	@if($singleorder->first()->status == 5)
+              <div class="odr-btn complete"><a class="{{ $order->order_status == 'delivered' ? 'green-bg' : 'pink-bg' }}" href="javascript:void()">Order {{ ucfirst($order->order_status) }}</a></div>
+            	{{-- @if($singleorder->first()->status == 5)
                 <div class="odr-btn complete"><a class="green-bg" href="javascript:void()">Order Completed</a></div>
                 @elseif($singleorder->first()->status == 4)
                 <div class="odr-btn complete"><a class="pink-bg" href="javascript:void()">Order Cancelled</a></div>
@@ -28,7 +29,7 @@
                 <div class="odr-btn complete"><a class="pink-bg" href="javascript:void()">Order Confirm</a></div>
                 @elseif($singleorder->first()->status == 1)
                 <div class="odr-btn complete"><a class="pink-bg" href="javascript:void()">Order Pending</a></div>
-                @endif
+                @endif --}}
             </div>
             
             <table class="table pro-detail">
@@ -38,7 +39,7 @@
                 </tr>
               </thead>
               <tbody>
-              	@foreach($orders as $order)
+              	{{-- @foreach($orders as $order)
                 @php
                 if($order->discount)
                 {
@@ -46,15 +47,16 @@
                 }else{
                   $price = $order->unit_price;
                 }
-                @endphp
+                @endphp --}}
+                @foreach ($order->items as $item)
                 <tr>
                   <td>
                       <div class="d-flex product-rank">
-                          <div class="img-box"><img src="{{asset('products/'.$order->featured_img)}}"/></div>
+                          <div class="img-box"><img src="{{asset('products/'.$item->product->featured_img)}}"/></div>
                           <div class="detail">
-                              <p>{{$order->title}}</p>
-                              <div><span>Price: {{ $price }} QAR</span></div>
-                              <p>QTY: {{$order->OrderQty}}</p>
+                              <p>{{$item->product->title}}</p>
+                              <div><span>Price: {{ $item->total_amount }} QAR</span></div>
+                              <p>QTY: {{$item->quantity}}</p>
                           </div>
                       </div>
                   </td>
@@ -74,9 +76,9 @@
                   <td>
                       <div class="d-flex product-rank">
                           <div class="detail">
-                              <p>Shipped to: <span>{{ $customer->name }}</span></p>
-                              <p>Address: <span> {{$customer_addresses->unit_no}},{{$customer_addresses->building_no}},{{$customer_addresses->zone}},{{$customer_addresses->street}}</span></p>
-                              <p>Contact No: <span>{{ $customer->mobile }}</span></p>
+                              <p>Shipped to: <span>{{ $order->user->name }}</span></p>
+                              <p>Address: <span> {{$order->address->unit_no}},{{$order->address->building_no}},{{$order->address->zone}},{{$order->address->street}}</span></p>
+                              <p>Contact No: <span>{{ $order->user->mobile }}</span></p>
                           </div>
                       </div>
                   </td>

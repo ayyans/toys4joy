@@ -22,6 +22,7 @@ use App\Models\Coupon;
 use App\Models\usergiftcards;
 use App\Models\sibblings;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\ReturnRequest;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Response;
@@ -298,24 +299,26 @@ class UserController extends Controller
         }
     }
      public function orderhistory(){
-        $cust_id = Auth::user()->id;
-        $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
-                ->select('products.*','orders.qty as OrderQty','orders.orderid as ordernumber','orders.amount as orderAmt','orders.status as orderStatus','orders.id as orderid')
-                ->where('orders.cust_id','=',$cust_id)
-                ->orderBy('orders.id','desc')
-                ->groupby('orders.orderid')
-                ->get();
-        return view('website.user.orderHistory',compact('orders'));
+			// $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
+			//         ->select('products.*','orders.qty as OrderQty','orders.orderid as ordernumber','orders.amount as orderAmt','orders.status as orderStatus','orders.id as orderid')
+			//         ->where('orders.cust_id','=',$cust_id)
+			//         ->orderBy('orders.id','desc')
+			//         ->groupby('orders.orderid')
+			//         ->get();
+			$items = OrderItem::with('product', 'order')->whereHas('order', function($query) {
+				$query->where( 'user_id', auth()->id() );
+			})->get();
+			return view('website.user.orderHistory', compact('items'));
     }
     public function orderdetail($id)
     {
-    	$orderid = $id;
-    	$orders = Order::leftJoin('products','products.id','=','orders.prod_id')
-                ->select('products.*','orders.qty as OrderQty','orders.orderid as ordernumber','orders.amount as orderAmt','orders.status as orderStatus','orders.id as orderid')
-                ->orderBy('orders.id','desc')
-                ->where('orders.orderid' , $id)
-                ->get();
-    	return view('website.user.orderdetail',compact('orders','orderid'));
+			$order = Order::with('user', 'address', 'items.product')->where('order_number', $id)->first();
+    	// $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
+      //           ->select('products.*','orders.qty as OrderQty','orders.orderid as ordernumber','orders.amount as orderAmt','orders.status as orderStatus','orders.id as orderid')
+      //           ->orderBy('orders.id','desc')
+      //           ->where('orders.orderid' , $id)
+      //           ->get();
+    	return view('website.user.orderdetail',compact('order'));
     	
     }
     public function changepassword(Request $request){
