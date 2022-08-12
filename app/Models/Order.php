@@ -50,4 +50,8 @@ class Order extends Model
     public function giftcards() {
         return $this->hasMany(giftcards::class);
     }
+
+    public function coupon() {
+        return $this->belongsTo(Coupon::class);
+    }
 }

@@ -1028,6 +1028,7 @@ public function addcouponProcess(Request $request){
     $coupons->exp_date=$request->validupto;
     $coupons->offer=$request->offer;
     $coupons->desc=$request->desc;
+    $coupons->status=0;
     $coupons->save();
     if($coupons==true){
         return back()->with('success','coupon created successFull!');
@@ -1044,7 +1045,7 @@ public function addcouponProcess(Request $request){
 public function activateCoupon(Request $request){
     $id = decrypt($request->id);
     $activate = Coupon::where('id','=',$id)->update([
-        'status'=>'2'
+        'status'=>'1'
     ]);
     if($activate==true){
         return back()->with('success','coupon activated successfull');
@@ -1060,7 +1061,7 @@ public function activateCoupon(Request $request){
 public function deactivateCoupon(Request $request){
     $id = decrypt($request->id);
     $deactivate = Coupon::where('id','=',$id)->update([
-        'status'=>'1'
+        'status'=>'0'
     ]);
     if($deactivate==true){
         return back()->with('success','coupon deactivated successfull');

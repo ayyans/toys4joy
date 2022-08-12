@@ -179,7 +179,7 @@
 
                         <tr>
                             <td colspan="4" style="text-align:right"><strong>Sub Total</strong></td>
-                            <td>QAR {{ $order->total_amount }}</td>
+                            <td>QAR {{ $order->subtotal }}</td>
                         </tr>
 
 
@@ -203,6 +203,18 @@
                             </tr>
                             @endif
                             --}}
+                            <tr class="giftcard">
+                                <td colspan="4" style="text-align:right"><strong>Giftcard Discount:</strong></td>
+                                <td colspan="3">QAR {{ $order->giftcards->sum('price') }}</td>
+                            </tr>
+                            <tr class="coupon">
+                                <td colspan="4" style="text-align:right"><strong>Coupon Discount:</strong></td>
+                                <td colspan="3">{{ $order->coupon->offer ?? 0 }}%</td>
+                            </tr>
+                            <tr class="coupon">
+                                <td colspan="4" style="text-align:right"><strong>Total Discount:</strong></td>
+                                <td colspan="3">QAR {{ $order->discount ?? 0 }}</td>
+                            </tr>
                             <tr class="total">
                                 <td colspan="4" style="text-align:right"><strong>Total:</strong></td>
                                 <td colspan="3">QAR {{ $order->total_amount }}</td>

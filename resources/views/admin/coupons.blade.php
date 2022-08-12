@@ -138,9 +138,9 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                @if($coupon->status==1)
+                                @if($coupon->status==0)
                                     <li><a href="{{route('admin.activateCoupon',[encrypt($coupon->id)])}}" class="dropdown-item">Activate</a></li>
-                                    @elseif($coupon->status==2)
+                                    @elseif($coupon->status==1)
                                     <li><a href="{{route('admin.deactivateCoupon',[encrypt($coupon->id)])}}" class="dropdown-item">Deactivate</a></li>
                                     @endif
                                     <li><a href="javascript:void(0)" class="dropdown-item">Edit</a></li>
