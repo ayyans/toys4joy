@@ -82,13 +82,17 @@ $action_url = 'https://sadadqa.com/webpurchase';
         </form>';
 ?>
 <style type="text/css">
-#quantity{
+/*#quantity{
+    height: 40px;
+    width: 40px;
+}*/
+.wishlist-qty{
     height: 40px;
     width: 40px;
 }
 .lable-area {
     padding: 10px;
-    border: 1px solid skyblue;
+    /*border: 1px solid skyblue;*/
 }   
 .star-lable{
     color: red;
@@ -132,6 +136,10 @@ $action_url = 'https://sadadqa.com/webpurchase';
     width: 82%;
     margin-left: 80px;
 }
+.wishlist-qty{
+    height: 20px;
+    width: 20px;
+}
 }
 .textarea{
     width: 82%;
@@ -140,14 +148,14 @@ $action_url = 'https://sadadqa.com/webpurchase';
     margin-left: 16px;
 }
 #my-account {
-    padding: 20px 100px;
+    /*padding: 20px 100px;*/
 }
 </style>
 <main style="display: none;" id="my-account" class="my-basket my-wishlist-page">
-    <div class="container-fluid">
+    <div class="container">
         <form method="POST">
         <div class="row content-block">
-            <div class="col-md-6 mt-3">
+            <div class="col-md-6 col-xl-6 col-sm-12 mt-3">
                 <label class="star-lable">*</label>
                 <label class="lable-area">Your Name</label>
                 <input class="input-areas" type="text" id="name">
@@ -227,7 +235,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
 
                 <tr>
                     <td class="qty">
-                      <input style="height: 40px;width: 40px;" onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
+                      <input style="" onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" class="wishlist-qty" name="quantity">
                     </td>
                     <td class="title">
                       <div class="d-flex product-rank">
