@@ -67,8 +67,14 @@
 <div class="container-fluid">
     <!--text-center-->
     <div class="row footer">
-        
-        <div class="col-2">
+    <div class="col-3">
+            <div class="company-policy">
+                <a href="{{ route('website.policy') }}">
+                    <img src="{{asset('website/img/2__4_-removebg-preview.png')}}"><p>Company Policy</p>
+                </a>    
+            </div>
+        </div>
+        <div class="col-3">
             <div class="why-us">
                 <a href="{{ route('website.whyus') }}">
                     <img src="{{asset('website/img/why-us.png')}}" class="why-text">
@@ -77,13 +83,7 @@
                 </a>    
             </div>
         </div>
-        <div class="col-4">
-            <div class="company-policy">
-                <a href="{{ route('website.policy') }}">
-                    <img src="{{asset('website/img/2__4_-removebg-preview.png')}}"><p>Company Policy</p>
-                </a>    
-            </div>
-        </div>
+        
         <div class="col-6">
         <div class="toll-free">
                 <a href="{{ route('website.contact') }}"><img src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
