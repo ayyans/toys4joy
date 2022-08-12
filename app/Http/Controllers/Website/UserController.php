@@ -305,10 +305,8 @@ class UserController extends Controller
 			//         ->orderBy('orders.id','desc')
 			//         ->groupby('orders.orderid')
 			//         ->get();
-			$items = OrderItem::with('product', 'order')->whereHas('order', function($query) {
-				$query->where( 'user_id', auth()->id() );
-			})->get();
-			return view('website.user.orderHistory', compact('items'));
+			$orders = Order::with('items')->where( 'user_id', auth()->id() )->get();
+			return view('website.user.orderHistory', compact('orders'));
     }
     public function orderdetail($id)
     {

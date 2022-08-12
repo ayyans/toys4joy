@@ -13,15 +13,15 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($items as $item)
+                @foreach($orders as $order)
                 <tr>
                   <td>
                       <div class="d-flex product-rank">
-                          <div class="img-box"><img src="{{asset('products/'.$item->product->featured_img)}}"/></div>
+                          {{-- <div class="img-box"><img src="{{asset('products/'.$item->product->featured_img)}}"/></div> --}}
                           <div class="detail">
-                              <a href="{{ url('orderdetail') }}/{{ $item->order->order_number }}" class="order-id">Order# {{$item->order->order_number}}</a>
-                              <p>{{$item->product->title}}</p>
-                              <div class="price-qty"><span class="qty">{{$item->quantity}}</span><span>{{$item->total_amount}} QAR</span></div>
+                              <a href="{{ url('orderdetail') }}/{{ $order->order_number }}" class="order-id" style="font-size: 20px !important">Order# {{$order->order_number}}</a>
+                              {{-- <p>{{$item->product->title}}</p> --}}
+                              <div class="price-qty"><span class="qty">{{$order->items->count()}}</span><span>{{$order->total_amount}} QAR</span></div>
                               <div class="shiping"><span>Ship to: {{auth()->user()->name}}</span></div>
                               
                               <!-- <a href="javascript:void(0)" class="order-again green-text">Order Again</a> -->
@@ -29,7 +29,7 @@
                       </div>
                   </td>
                   <td class="order-status">
-                    <div class="odr-btn {{ $item->order->order_status == 'delivered' ? 'complete' : 'inprogress' }}"><a class="vertical-shake @if($item->order->order_status == 'delivered') green-bg @endif" href="javascript:void(0)">Order {{ ucwords($item->order->order_status) }}</div>
+                    <div class="odr-btn {{ $order->order_status == 'delivered' ? 'complete' : 'inprogress' }}"><a class="vertical-shake @if($order->order_status == 'delivered') green-bg @endif" href="javascript:void(0)">Order {{ ucwords($order->order_status) }}</div>
                     {{-- @if($order->orderStatus==5)
                       <div class="odr-btn complete"><a class="vertical-shake green-bg" href="javascript:void(0)">Order Completed</a></div>
                       <a class="rating">Rate your Product Here</a>
