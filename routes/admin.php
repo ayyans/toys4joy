@@ -101,12 +101,12 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
     // guest orders
     Route::get('/guest-orders','AdminController@guestOrders')->name('guestOrders');
-    Route::get('/guest-orders-confirmed/{id}','AdminController@confirmGuestOrders')->name('confirmGuestOrders');
-    Route::get('/guest-orders-shipped/{id}','AdminController@shippedGuestOrders')->name('shippedGuestOrders');
-    Route::get('/guest-orders-cancelled/{id}','AdminController@cancelledGuestOrders')->name('cancelledGuestOrders');
-    Route::get('/guest-orders-delivered/{id}','AdminController@deliveredGuestOrders')->name('deliveredGuestOrders');
+    // Route::get('/guest-orders-confirmed/{id}','AdminController@confirmGuestOrders')->name('confirmGuestOrders');
+    // Route::get('/guest-orders-shipped/{id}','AdminController@shippedGuestOrders')->name('shippedGuestOrders');
+    // Route::get('/guest-orders-cancelled/{id}','AdminController@cancelledGuestOrders')->name('cancelledGuestOrders');
+    // Route::get('/guest-orders-delivered/{id}','AdminController@deliveredGuestOrders')->name('deliveredGuestOrders');
     Route::get('/guest-orders-details/{id}','AdminController@guestOrdersDetails')->name('guestOrdersDetails');
-    Route::post('/guest-orders-status','AdminController@orderStatus')->name('orderStatus');
+    // Route::post('/guest-orders-status','AdminController@orderStatus')->name('orderStatus');
 
 //    coupons management route
 
@@ -120,12 +120,16 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
     Route::get('/orders','AdminController@custOrders')->name('custOrders');
     Route::get('/wishlistorders','AdminController@wishlistorders')->name('wishlistorders');
-    Route::get('/customer-orders-confirmed/{id}','AdminController@confirmCustOrders')->name('confirmCustOrders');
-    Route::get('/customer-orders-shipped/{id}','AdminController@shippedCustOrders')->name('shippedCustOrders');
-    Route::get('/customer-orders-cancelled/{id}','AdminController@cancelledCustOrders')->name('cancelledCustOrders');
-    Route::get('/customer-orders-delivered/{id}','AdminController@deliveredCustOrders')->name('deliveredCustOrders');
+    // Route::get('/customer-orders-confirmed/{id}','AdminController@confirmCustOrders')->name('confirmCustOrders');
+    // Route::get('/customer-orders-shipped/{id}','AdminController@shippedCustOrders')->name('shippedCustOrders');
+    // Route::get('/customer-orders-cancelled/{id}','AdminController@cancelledCustOrders')->name('cancelledCustOrders');
+    // Route::get('/customer-orders-delivered/{id}','AdminController@deliveredCustOrders')->name('deliveredCustOrders');
     Route::get('/customer-orders-details/{id}','AdminController@custOrdersDetails')->name('custOrdersDetails');
     Route::post('/customer-orders-status','AdminController@CustomerorderStatus')->name('CustomerorderStatus');
+
+    // Change order status
+
+    Route::get('/changeOrderStatus', 'AdminController@changeOrderStatus')->name('changeOrderStatus');
 
     // customer orders
 

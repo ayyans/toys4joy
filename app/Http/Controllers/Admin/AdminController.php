@@ -1366,6 +1366,14 @@ public function CustomerorderStatus(Request $request){
     }
 }
 
+public function changeOrderStatus(Request $request) {
+    Order::where('id', $request->order_id)->update([
+        'order_status' => $request->status
+    ]);
+
+    return back();
+}
+
 
 // edit products
 
