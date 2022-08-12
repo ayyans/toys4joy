@@ -53,6 +53,7 @@ class WishlistController extends Controller
 				'user_id' => $id,
 				'order_number' => $orderid,
 				'address_id' => $address->id,
+				'is_wishlist' => true,
 				'order_type' => 'cc',
 				'subtotal' => $total_price,
 				'discount' => 0,
@@ -192,11 +193,20 @@ class WishlistController extends Controller
 	}
 	public function savegreetings(Request $request)
 	{
-		$greet = new greetingmessages();
-		$greet->message = $request->message;
-		$greet->phonenumber = $request->phonenumber;
-		$greet->name = $request->name;
-		$greet->orderid = $request->orderid;
-		$greet->save();
+		// $greet = new greetingmessages();
+		// $greet->message = $request->message;
+		// $greet->phonenumber = $request->phonenumber;
+		// $greet->name = $request->name;
+		// $greet->orderid = $request->orderid;
+		// $greet->save();
+
+		$order = Order::where('order_number', $request->orderid)->first();
+		$order->update([
+			'additional_details' => [
+				'name' => $request->name,
+				'phone' => $request->phonenumber,
+				'message' => $request->message
+			]
+		]);
 	}
 }

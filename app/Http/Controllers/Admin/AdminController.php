@@ -1168,40 +1168,42 @@ public function orderStatus(Request $request){
 // logged in user orders
 
 public function custOrders(){
-    $orders = Order::with(['user', 'address'])->whereNotNull('user_id')->get();
+    $orders = Order::with(['user', 'address'])
+        ->whereNotNull('user_id')->where('is_wishlist', false)->get();
     return view('admin.order', compact('orders'));
 }
 
 public function wishlistorders()
 {
-    return "it won't work for now";
-    $orders = Order::select(
-            "orders.id",
-            "orders.orderid",
-            "orders.orderstatus",
-            "orders.cust_id",
-            "orders.cust_add_id",
-            "orders.payment_id",
-            "orders.mode",
-            "orders.amount",
-            "orders.status",
-            "orders.created_at",
-            "users.name",
-            "users.email",
-            "users.mobile",
-            "customer_addresses.unit_no",
-            "customer_addresses.building_no",
-            "customer_addresses.zone",
-            "customer_addresses.street",
+    // $orders = Order::select(
+    //         "orders.id",
+    //         "orders.orderid",
+    //         "orders.orderstatus",
+    //         "orders.cust_id",
+    //         "orders.cust_add_id",
+    //         "orders.payment_id",
+    //         "orders.mode",
+    //         "orders.amount",
+    //         "orders.status",
+    //         "orders.created_at",
+    //         "users.name",
+    //         "users.email",
+    //         "users.mobile",
+    //         "customer_addresses.unit_no",
+    //         "customer_addresses.building_no",
+    //         "customer_addresses.zone",
+    //         "customer_addresses.street",
                   
-                        )
-            ->where('orders.orderstatus' , '!=' , 'payementpending')
-            ->leftJoin('users', 'orders.cust_id', '=', 'users.id')
-            ->leftJoin('customer_addresses', 'orders.cust_add_id', '=', 'customer_addresses.id')
-            ->groupBy('orders.orderid')
-            ->orderby('orders.id' , 'desc')
-            ->where('orders.ordertype' , 'wishlist')
-            ->get();
+    //                     )
+    //         ->where('orders.orderstatus' , '!=' , 'payementpending')
+    //         ->leftJoin('users', 'orders.cust_id', '=', 'users.id')
+    //         ->leftJoin('customer_addresses', 'orders.cust_add_id', '=', 'customer_addresses.id')
+    //         ->groupBy('orders.orderid')
+    //         ->orderby('orders.id' , 'desc')
+    //         ->where('orders.ordertype' , 'wishlist')
+    //         ->get();
+    $orders = Order::with(['user', 'address'])
+        ->whereNotNull('user_id')->where('is_wishlist', true)->get();
     $type = 'wishlist';
     return view('admin.order',compact('orders','type'));
 }
