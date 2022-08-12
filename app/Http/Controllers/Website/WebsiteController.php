@@ -259,7 +259,10 @@ class WebsiteController extends Controller
             return $g->getAttributes()['id'];
         })->values();
 
-        giftcards::whereIn('id', $giftCardIds)->update([ 'user_id' => auth()->id() ]);
+        giftcards::whereIn('id', $giftCardIds)->update([
+            'user_id' => auth()->id(),
+            'order_id' => $order->id
+        ]);
 
         // clearing cart
         cart()->clear();
