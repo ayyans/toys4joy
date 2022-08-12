@@ -37,10 +37,11 @@ class AdminController extends Controller
 {
     //
     public function dashboard(){
-        // delivered orders count
-        $customersOrderCount = Order::where('order_status', 5)->count();
-        $guestsOrderCount = GuestOrder::where('status', 5)->count();
-        $ordersCount = $customersOrderCount + $guestsOrderCount;
+        // all orders
+        $orders = Order::where('payment_status', 'paid')->get();
+
+        // paid orders count
+        $ordersCount = $orders->count();
 
         // total customers
         $customersCount = User::where('status', 2)->count();
@@ -48,12 +49,8 @@ class AdminController extends Controller
         // total products
         $productsCount = Product::where('status', 2)->count();
 
-        // Total revenue
-        $customersOrderSum = Order::where('order_status', 5)->sum(DB::raw('total_amount'));
-        $guestsOrderSum = GuestOrder::where('guest_orders.status', 5)
-            ->join('products', 'guest_orders.prod_id', 'products.id')
-            ->sum(DB::raw('products.unit_price * guest_orders.qty'));
-        $revenueCount = $customersOrderSum + $guestsOrderSum;
+        // total revenue
+        $revenueCount = $orders->sum('total_amount');
 
         return view('admin.dashboard', compact('ordersCount', 'customersCount', 'productsCount', 'revenueCount'));
     }
@@ -880,10 +877,11 @@ public function deleteprod(Request $request){
 // guest orders 
 
 public function guestOrders(){
-    $orders = GuestOrder::leftJoin('products','products.id','=','guest_orders.prod_id')
-              ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')  
-              ->groupby('guest_orders.order_id')
-              ->orderBy('guest_orders.id','desc')->get();
+    // $orders = GuestOrder::leftJoin('products','products.id','=','guest_orders.prod_id')
+    //           ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')  
+    //           ->groupby('guest_orders.order_id')
+    //           ->orderBy('guest_orders.id','desc')->get();
+    $orders = Order::whereNull('user_id')->get();
     return view('admin.guest-order',compact('orders'));
 }
 
@@ -1002,12 +1000,13 @@ public function deliveredGuestOrders(Request $request){
 // guest order details 
 
 public function guestOrdersDetails(Request $request){
-    $orderid = decrypt($request->id);
-    $orders = GuestOrder::leftJoin('products','products.id','=','guest_orders.prod_id')
-              ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')
-              ->where('guest_orders.id','=',$orderid)  
-              ->first();
-    return view('admin.guestorderDetails',compact('orders'));
+    $order_id = decrypt($request->id);
+    // $orders = GuestOrder::leftJoin('products','products.id','=','guest_orders.prod_id')
+    //           ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')
+    //           ->where('guest_orders.id','=',$orderid)  
+    //           ->first();
+    $order = Order::with(['user', 'items.product'])->where('id', $order_id)->first();
+    return view('admin.guestorderDetails', compact('order'));
 }
 
 
@@ -1029,6 +1028,7 @@ public function addcouponProcess(Request $request){
     $coupons->exp_date=$request->validupto;
     $coupons->offer=$request->offer;
     $coupons->desc=$request->desc;
+    $coupons->status=0;
     $coupons->save();
     if($coupons==true){
         return back()->with('success','coupon created successFull!');
@@ -1045,7 +1045,7 @@ public function addcouponProcess(Request $request){
 public function activateCoupon(Request $request){
     $id = decrypt($request->id);
     $activate = Coupon::where('id','=',$id)->update([
-        'status'=>'2'
+        'status'=>'1'
     ]);
     if($activate==true){
         return back()->with('success','coupon activated successfull');
@@ -1061,7 +1061,7 @@ public function activateCoupon(Request $request){
 public function deactivateCoupon(Request $request){
     $id = decrypt($request->id);
     $deactivate = Coupon::where('id','=',$id)->update([
-        'status'=>'1'
+        'status'=>'0'
     ]);
     if($deactivate==true){
         return back()->with('success','coupon deactivated successfull');
@@ -1153,8 +1153,8 @@ public function edit_category_process(Request $request){
 // order details status change
 
 public function orderStatus(Request $request){
-    $order_status = GuestOrder::where('id','=',$request->orderid)->update([
-        'status'=>$request->status
+    $order_status = Order::where('id', $request->id)->update([
+        'order_status' => $request->status
     ]);
     if($order_status==true){
         return response()->json('1');
@@ -1169,72 +1169,42 @@ public function orderStatus(Request $request){
 // logged in user orders
 
 public function custOrders(){
-    $orders = Order::select(
-            "orders.id",
-            "orders.order_number",
-            "orders.payment_status",
-            "orders.user_id",
-            "orders.address_id",
-            "orders.transaction_number",
-            "orders.order_type as mode",
-            "orders.total_amount",
-            "orders.order_status as status",
-            "orders.created_at",
-            "users.name",
-            "users.email",
-            "users.mobile",
-            "customer_addresses.unit_no",
-            "customer_addresses.building_no",
-            "customer_addresses.zone",
-            "customer_addresses.street",
-            DB::raw('SUM((order_items.price - order_items.discount) * order_items.quantity) as real_total_amount')
-                        )            
-            ->where('orders.order_status' , '!=' , 'payementpending')
-            ->where('orders.order_type' , '!=' , 'wishlist')
-            ->Join('order_items','order_items.order_id','=','orders.id')
-            ->leftJoin('users', 'orders.user_id', '=', 'users.id')
-            ->leftJoin('customer_addresses', 'orders.address_id', '=', 'customer_addresses.id')
-            ->groupBy('orders.id')
-            ->orderby('orders.id' , 'desc')
-            ->get();
-            /*->map(function ($orders){
-                return [
-                    'real_total_amount'          => $orders->order_items->sum('(order_items.price - order_items.discount)*order_items.quantity'),
-                ];
-            })*/
-    $type = 'simpleorder';
-    return view('admin.order',compact('orders','type'));
+    $orders = Order::with(['user', 'address'])
+        ->whereNotNull('user_id')->where('is_wishlist', false)->get();
+    return view('admin.order', compact('orders'));
 }
 
 public function wishlistorders()
 {
-    $orders = Order::select(
-            "orders.id",
-            "orders.orderid",
-            "orders.orderstatus",
-            "orders.cust_id",
-            "orders.cust_add_id",
-            "orders.payment_id",
-            "orders.mode",
-            "orders.amount",
-            "orders.status",
-            "orders.created_at",
-            "users.name",
-            "users.email",
-            "users.mobile",
-            "customer_addresses.unit_no",
-            "customer_addresses.building_no",
-            "customer_addresses.zone",
-            "customer_addresses.street",
+    // $orders = Order::select(
+    //         "orders.id",
+    //         "orders.orderid",
+    //         "orders.orderstatus",
+    //         "orders.cust_id",
+    //         "orders.cust_add_id",
+    //         "orders.payment_id",
+    //         "orders.mode",
+    //         "orders.amount",
+    //         "orders.status",
+    //         "orders.created_at",
+    //         "users.name",
+    //         "users.email",
+    //         "users.mobile",
+    //         "customer_addresses.unit_no",
+    //         "customer_addresses.building_no",
+    //         "customer_addresses.zone",
+    //         "customer_addresses.street",
                   
-                        )
-            ->where('orders.orderstatus' , '!=' , 'payementpending')
-            ->leftJoin('users', 'orders.cust_id', '=', 'users.id')
-            ->leftJoin('customer_addresses', 'orders.cust_add_id', '=', 'customer_addresses.id')
-            ->groupBy('orders.orderid')
-            ->orderby('orders.id' , 'desc')
-            ->where('orders.ordertype' , 'wishlist')
-            ->get();
+    //                     )
+    //         ->where('orders.orderstatus' , '!=' , 'payementpending')
+    //         ->leftJoin('users', 'orders.cust_id', '=', 'users.id')
+    //         ->leftJoin('customer_addresses', 'orders.cust_add_id', '=', 'customer_addresses.id')
+    //         ->groupBy('orders.orderid')
+    //         ->orderby('orders.id' , 'desc')
+    //         ->where('orders.ordertype' , 'wishlist')
+    //         ->get();
+    $orders = Order::with(['user', 'address'])
+        ->whereNotNull('user_id')->where('is_wishlist', true)->get();
     $type = 'wishlist';
     return view('admin.order',compact('orders','type'));
 }
@@ -1354,7 +1324,7 @@ public function deliveredCustOrders(Request $request){
 
 
 public function custOrdersDetails(Request $request){
-    $orderid = decrypt($request->id);
+    $order_id = decrypt($request->id);
 /*
     $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
                 ->leftJoin('users','users.id','=','orders.cust_id')
@@ -1367,18 +1337,19 @@ public function custOrdersDetails(Request $request){
               ->select('products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')  
               ->where('orders.orderid','=',$orderid)->first();
 */
-$order = Order::leftJoin('users','users.id','=','orders.user_id')
-                ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
-              ->select('orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress','order_status as status,orders.payment_type as mode')  
-              ->where('orders.id','=',$orderid)->first();
-//leftJoin('products','products.id','=','orders.prod_id')
-$orderdetail = Order::leftJoin('order_items','order_items.order_id','=','orders.id')
-                ->leftJoin('products','products.id','=','order_items.product_id')
-                ->leftJoin('users','users.id','=','orders.user_id')
-                ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
-              ->select('products.id as prod_id,products.title as productName','featured_img','products.unit_price as prod_price','order_items.*')  
-              ->where('order_items.order_id','=',$orderid)->get();
-    return view('admin.orderdetails',compact('order','orderdetail'));
+// $order = Order::leftJoin('users','users.id','=','orders.user_id')
+//                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
+//               ->select('orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress','order_status as status,orders.payment_type as mode')  
+//               ->where('orders.id','=',$orderid)->first();
+// //leftJoin('products','products.id','=','orders.prod_id')
+// $orderdetail = Order::leftJoin('order_items','order_items.order_id','=','orders.id')
+//                 ->leftJoin('products','products.id','=','order_items.product_id')
+//                 ->leftJoin('users','users.id','=','orders.user_id')
+//                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
+//               ->select('products.id as prod_id,products.title as productName','featured_img','products.unit_price as prod_price','order_items.*')  
+//               ->where('order_items.order_id','=',$orderid)->get();
+    $order = Order::with(['user', 'address', 'items.product'])->where('id', $order_id)->first();
+    return view('admin.orderdetails', compact('order'));
 }
 
 
@@ -1387,7 +1358,7 @@ $orderdetail = Order::leftJoin('order_items','order_items.order_id','=','orders.
 
 public function CustomerorderStatus(Request $request){
     $order_status = Order::where('id','=',$request->orderid)->update([
-        'status'=>$request->status
+        'order_status' => $request->status
     ]);
     if($order_status==true){
         return response()->json('1');
@@ -1396,6 +1367,14 @@ public function CustomerorderStatus(Request $request){
         return response()->json('2');
         exit();
     }
+}
+
+public function changeOrderStatus(Request $request) {
+    Order::where('id', $request->order_id)->update([
+        'order_status' => $request->status
+    ]);
+
+    return back();
 }
 
 
@@ -1531,31 +1510,22 @@ public function editProcess(Request $request){
     // Reports
 
     public function salesReport(Request $request) {
-        $applyFilter = false;
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
-        if ($request->anyFilled('start_date', 'end_date')) {
-            $applyFilter = true;
-        }
-
         $products = Product::query()
-            ->withSum(['orders' => function ($query) use ($applyFilter, $start_date, $end_date) {
-                $query->where('status', 5)->when($applyFilter, function($query) use ($start_date, $end_date) {
+            ->withSum(['paidOrderItems' => function($query) use ($applyFilter, $start_date, $end_date) {
+                $query->when($applyFilter, function($query) use ($start_date, $end_date) {
                     $query->whereBetween('created_at', [$start_date, $end_date]);
                 });
-            }], 'qty')
-            ->withSum(['guestOrders' => function ($query) use ($applyFilter, $start_date, $end_date) {
-                $query->where('status', 5)->when($applyFilter, function($query) use ($start_date, $end_date) {
-                    $query->whereBetween('created_at', [$start_date, $end_date]);
-                });
-            }], 'qty')
-            ->havingRaw('guest_orders_sum_qty > 0 || orders_sum_qty > 0')
+            }], 'quantity')
+            ->havingRaw('paid_order_items_sum_quantity > 0')
             ->get()
             ->map(function($product) {
                 return [
                     'title' => $product->title,
-                    'sales' => (int) ($product->guest_orders_sum_qty + $product->orders_sum_qty)
+                    'sales' => $product->paid_order_items_sum_quantity
                 ];
             })
             ->sortByDesc('sales');
@@ -1566,18 +1536,11 @@ public function editProcess(Request $request){
         }, 0);
 
         // Total revenue
-        $customersOrderSum = Order::where('status', 5)
+        $revenueCount = Order::where('payment_status', 'paid')
             ->when($applyFilter, function($query) use ($start_date, $end_date) {
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             })
-            ->sum(DB::raw('amount * qty'));
-        $guestsOrderSum = GuestOrder::where('guest_orders.status', 5)
-            ->join('products', 'guest_orders.prod_id', 'products.id')
-            ->when($applyFilter, function($query) use ($start_date, $end_date) {
-                $query->whereBetween('guest_orders.created_at', [$start_date, $end_date]);
-            })
-            ->sum(DB::raw('products.unit_price * guest_orders.qty'));
-        $revenueCount = $customersOrderSum + $guestsOrderSum;
+            ->sum('total_amount');
 
         // Export
         if ($request->filled('export') && $request->export === 'true') {
@@ -1620,31 +1583,27 @@ public function editProcess(Request $request){
 
     public function customersReport(Request $request) {
 
-        $applyFilter = false;
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
-        if ($request->anyFilled('start_date', 'end_date')) {
-            $applyFilter = true;
-        }
-
-        $users = User::with(['paid_orders' => function($query) use ($applyFilter, $start_date, $end_date) {
+        $users = User::with(['paidOrders' => function($query) use ($applyFilter, $start_date, $end_date) {
             $query->when($applyFilter, function($query) use ($start_date, $end_date) {
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             });
         }, 'address', 'siblings'])
-            ->withCount(['paid_orders' => function($query) use ($applyFilter, $start_date, $end_date) {
+            ->withCount(['paidOrders' => function($query) use ($applyFilter, $start_date, $end_date) {
                 $query->when($applyFilter, function($query) use ($start_date, $end_date) {
                     $query->whereBetween('created_at', [$start_date, $end_date]);
                 });
             }])
-            ->withSum(['paid_orders' => function($query) use ($applyFilter, $start_date, $end_date) {
+            ->withSum(['paidOrders' => function($query) use ($applyFilter, $start_date, $end_date) {
                 $query->when($applyFilter, function($query) use ($start_date, $end_date) {
                     $query->whereBetween('created_at', [$start_date, $end_date]);
                 });
-            }], 'amount')
+            }], 'total_amount')
             ->get()
-            ->sortByDesc('paid_orders.*.created_at')
+            ->sortByDesc('paidOrders.*.created_at')
             ->map(function ($user) use ($request) {
                 return [
                     'name' => $user->name,
@@ -1668,29 +1627,23 @@ public function editProcess(Request $request){
     }
 
     public function guestsReport(Request $request) {
-
-        $applyFilter = false;
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
-        if ($request->anyFilled('start_date', 'end_date')) {
-            $applyFilter = true;
-        }
-
-        $orders = GuestOrder::where('guest_orders.status', 5)
-            ->join('products', 'guest_orders.prod_id', 'products.id')
-            ->select('guest_orders.cust_email', 'guest_orders.created_at', 'guest_orders.qty', 'products.title', 'products.unit_price')
+        $orders = Order::whereNull('user_id')->where('payment_status', 'paid')
+            ->orderByDesc('created_at')
+            ->select('total_amount', 'additional_details->email as email')
             ->when($applyFilter, function($query) use ($start_date, $end_date) {
-                $query->whereBetween('guest_orders.created_at', [$start_date, $end_date]);
+                $query->whereBetween('created_at', [$start_date, $end_date]);
             })
             ->get()
-            ->groupBy('cust_email')
-            ->sortByDesc(fn ($orders) => $orders->max('created_at'))
+            ->groupBy('email')
             ->map(function($orders, $key) {
                 return [
                     'email' => $key,
                     'total_orders' => $orders->count(),
-                    'total_amount' => $orders->sum(DB::raw('products.unit_price * guest_orders.qty'))
+                    'total_amount' => $orders->sum('total_amount')
                 ];
             });
 

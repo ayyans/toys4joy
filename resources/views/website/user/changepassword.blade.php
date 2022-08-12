@@ -1,5 +1,20 @@
 @extends('website.layouts.master')
 @section('content')
+@push('otherstyle')
+<style>
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    img.eye {
+        opacity: 0.8;
+    }
+
+    img.eye:hover {
+        opacity: 1;
+    }
+</style>
+@endpush
 
 <main id="change-mob-num" class="change-pswrd">
 <div class="container-fluid">
@@ -34,7 +49,7 @@
                         <div class="col-2">
                             <div class="lock"><img src="{{asset('website/img/lock.png')}}"></div>
                         </div>
-                        <div class="col-10 pswrd-input"><input name="oldpassword" type="password"><img src="{{asset('website/img/eye.png')}}"></div>
+                        <div class="col-10 pswrd-input"><input name="oldpassword" type="password"><img class="eye cursor-pointer" src="{{asset('website/img/eye.png')}}"></div>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -43,7 +58,7 @@
                         <div class="col-2">
                             <div class="lock"><img src="{{asset('website/img/lock.png')}}"></div>
                         </div>
-                        <div class="col-10 pswrd-input"><input name="newpassword" type="password"><img src="{{asset('website/img/eye.png')}}"></div>
+                        <div class="col-10 pswrd-input"><input name="newpassword" type="password" id="newpassword"><img class="eye cursor-pointer" src="{{asset('website/img/eye.png')}}"></div>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -52,7 +67,7 @@
                         <div class="col-2">
                             <div class="lock"><img src="{{asset('website/img/lock.png')}}"></div>
                         </div>
-                        <div class="col-10 pswrd-input"><input name="password_confirmed" type="password"><img src="{{asset('website/img/eye.png')}}"></div>
+                        <div class="col-10 pswrd-input"><input name="password_confirmed" type="password" id="password_confirmed"><img class="eye cursor-pointer" src="{{asset('website/img/eye.png')}}"></div>
                     </div>
                 </div>
                 <div class="btn pinkbg-img"><a onclick="passwordchange()"  href="javascript:void(0)">Update</a></div>
@@ -63,10 +78,20 @@
     </div>
 </div>
 </main>
+@push('otherscript')
 <script type="text/javascript">
     function passwordchange()
     {
         $('#passwordchange').submit();
     }
+
+    $(function() {
+        $('img.eye').on('mousedown', function() {
+            $(this).css('opacity', 0.3).siblings('[type=password]').attr('type', 'text');
+        }).on('mouseup', function() {
+            $(this).css('opacity', 1).siblings('[type=text]').attr('type', 'password');
+        })
+    });
 </script>
-@stop
+@endpush
+@endsection

@@ -110,9 +110,9 @@
 <hr class="sidebar-divider">
 @php
 //->where('newstatus' , 1)
-    $order = DB::table('orders')->groupby('order_number')->where('order_type' , '!=' , 'wishlist')->where('payment_status' ,'!=','payementpending')->count();
+    $order = DB::table('orders')->whereNotNull('user_id')->where('order_status', 'placed')->count();
 //->where('newstatus' , 1)
-    $guestorder = DB::table('guest_orders')->groupby('order_id')->where('orderstatus' , '!=','payementpending')->count();
+    $guestorder = DB::table('orders')->whereNull('user_id')->where('order_status', 'placed')->count();
     //->where('newstatus' , 1)
     $wishlistorder = DB::table('orders')->groupby('order_number')->where('order_type', 'wishlist')->where('payment_status' , '!=','payementpending')->count();
 

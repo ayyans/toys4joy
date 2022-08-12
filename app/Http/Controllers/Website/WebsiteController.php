@@ -229,8 +229,8 @@ class WebsiteController extends Controller
     
     public function guestthankorder($id)
     {
-        $orderid = $id;
-        return view('website.guestthanks',compact('orderid'));
+        $order_number = $id;
+        return view('website.guestthanks',compact('order_number'));
     }
 
 
@@ -249,8 +249,11 @@ class WebsiteController extends Controller
         $order_number = $data['ORDERID'];
         $transaction_number = $data['transaction_number'];
 
+        $coupon_id = cart()->getConditionsByType('coupon')->first()->getAttributes()['id'] ?? null;
+
         $order = Order::where('order_number', $order_number)->first();
         $order->update([
+            'coupon_id' => $coupon_id,
             'payment_status' => 'paid',
             'transaction_number' => $transaction_number
         ]);
@@ -259,10 +262,14 @@ class WebsiteController extends Controller
             return $g->getAttributes()['id'];
         })->values();
 
-        giftcards::whereIn('id', $giftCardIds)->update([ 'user_id' => auth()->id() ]);
+        giftcards::whereIn('id', $giftCardIds)->update([
+            'user_id' => auth()->id(),
+            'order_id' => $order->id
+        ]);
 
         // clearing cart
         cart()->clear();
+        cart()->clearCartConditions();
 
         return view('website.guestthanks', compact('order_number'));
 
@@ -978,8 +985,8 @@ class WebsiteController extends Controller
     }
     public function confermordercod($id)
     {
-        $orderid = $id;
-        return view('website.guestthanks',compact('orderid'));
+        $order_number = $id;
+        return view('website.guestthanks',compact('order_number'));
     }
 
 
@@ -1015,14 +1022,25 @@ class WebsiteController extends Controller
             ]);
         }
 
+        $coupon_id = cart()->getConditionsByType('coupon')->first()->getAttributes()['id'] ?? null;
+
+        $order = Order::where('order_number', $order_number)->first();
+        $order->update([
+            'coupon_id' => $coupon_id
+        ]);
+
         $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
             return $g->getAttributes()['id'];
         })->values();
 
-        giftcards::whereIn('id', $giftCardIds)->update([ 'user_id' => auth()->id() ]);
+        giftcards::whereIn('id', $giftCardIds)->update([
+            'user_id' => auth()->id(),
+            'order_id' => $order->id
+        ]);
 
         // clearing cart
         cart()->clear();
+        cart()->clearCartConditions();
 
         return response()->json([
             'status' => true,

@@ -123,6 +123,14 @@ class OrderController extends Controller
                 'total_amount' => $item->getPriceSum()
             ]);
         }
+        // saving guest details
+        $order->update([
+            'additional_details' => [
+                'name' => $request->custname,
+                'email' => $request->email,
+                'mobile' =>  $request->mobilenumber
+            ]
+        ]);
 
         return response()->json([
             'status' => true
@@ -170,6 +178,7 @@ class OrderController extends Controller
 
         // clearing cart
         cart()->clear();
+        cart()->clearCartConditions();
 
         return view('website.guestthanks', compact('order_number'));
         // $allparms =  $request->all();
@@ -246,8 +255,17 @@ class OrderController extends Controller
                 'total_amount' => $item->getPriceSum()
             ]);
         }
+        // saving guest details
+        $order->update([
+            'additional_details' => [
+                'name' => $request->custname,
+                'email' => $request->email,
+                'mobile' =>  $request->mobilenumber
+            ]
+        ]);
         // clearing cart
         cart()->clear();
+        cart()->clearCartConditions();
 
         return response()->json([
             'status' => true,
@@ -325,11 +343,11 @@ class OrderController extends Controller
     }
     public function generatepdf($id)
     {
-        $checkorder = order::where('orderid' , $id)->get()->count();
+        $checkorder = Order::where('id', $id)->count();
         if($checkorder > 0)
         {
             $data = [
-                'ordernumber' => $id,
+                'order_number' => $id,
             ];
             $pdf = PDF::loadView('invoice.indexonline', $data);
             return $pdf->download('Order Invoice - '.$id.'.pdf');
@@ -341,7 +359,7 @@ class OrderController extends Controller
             ];
             $pdf = PDF::loadView('invoice.invoicecod', $data);
             return $pdf->download('Order Invoice - '.$id.'.pdf');
-        }        
+        }
     }
      // pay as guest checkout 
 

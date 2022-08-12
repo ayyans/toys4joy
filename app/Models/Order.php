@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,10 @@ class Order extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'additional_details' => 'json',
+    ];
 
     // protected $fillable = [
     //     'cust_id',
@@ -30,11 +35,23 @@ class Order extends Model
     //     return $this->belongsTo(Product::class, 'prod_id', 'id');
     // }
 
-    // public function address() {
-    //     return $this->belongsTo(CustomerAddress::class, 'cust_add_id', 'id');
-    // }
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 
-    // public function customer() {
-    //     return $this->belongsTo(User::class, 'cust_id', 'id');
-    // }
+    public function address() {
+        return $this->belongsTo(CustomerAddress::class, 'address_id');
+    }
+
+    public function items() {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function giftcards() {
+        return $this->hasMany(giftcards::class);
+    }
+
+    public function coupon() {
+        return $this->belongsTo(Coupon::class);
+    }
 }
