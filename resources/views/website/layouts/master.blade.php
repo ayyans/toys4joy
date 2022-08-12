@@ -66,6 +66,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script> 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.2.0/jquery-migrate.min.js" integrity="sha512-5O0jzCJTmTO9ylmof+eDShChXs+Y0GncP7fXqEq1jQQ7KwoIALwLIleE4ritPTgfuWEALFmXOTeXopcLMQ8X8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--lazy loader-->
+<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
 <script type="text/javascript" src="{{asset('website/js/owl-carousel-2.3.4/js/owl.carousel.js')}}"></script>
 <script type="text/javascript" src="{{asset('website/js/owl-carousel-2.3.4/js/owl.autoplay.js')}}"></script>
 <script type="text/javascript" src="{{asset('website/js/owl-carousel-2.3.4/js/owl.animate.js')}}"></script>

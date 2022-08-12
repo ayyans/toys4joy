@@ -1381,7 +1381,7 @@ transition: all 0.2s ease-in-out;
     font-weight: 700;
     font-size: 18px;
 }
-.pagination {background: #e9f1fe; padding-bottom: 50px;overflow: auto;}
+.pagination {background: #e9f1fe; padding-bottom: 50px;overflow: auto;justify-content: center;}
 .pagination li {margin: 0 5px;}
 .pagination li a {
     padding: 5px 15px;
@@ -3823,6 +3823,7 @@ img.g-play-store {width: 82px;}
 
 
 @media only screen and (max-width: 767px) {
+
     .categories li a {
         font-size: small;
         font-weight: 700;
@@ -3904,7 +3905,7 @@ ul.d-flex.social-media {justify-content: center;margin-top: -15px;}
 .product-listing .col-9 {width: 100%!important;}
 .products-list .single {width: 30%;margin: 6px;} 
 .products-list {justify-content: normal;} 
-.pagination {padding-top: 20px;} 
+.pagination {padding-top: 20px;justify-content: flex-start;} 
 .pagination li a {padding: 3px 12px; font-size: 14px;}    
 .categories-col {width: 100%!important;} 
 .categories {border: 0;border-radius: 0;}    

@@ -8,10 +8,10 @@
                 <div class="for-mobile mbl-banner">
                 @include('website.layouts.user_menu')
                 </div>
-                <div class="categories">
+                <div class="categories mb-3">
                     <h2 class="for-desktop">Categories</h2>
-                    <h2 class="for-mobile">Select Category</h2>
-                    <ul class="nav nav-pills flex-column mb-auto menu">
+                    
+                    <ul class="nav nav-pills flex-column mb-auto menu ">
                     @include('website.layouts.category_menu')
                       
                     </ul>
@@ -33,7 +33,7 @@
                     @endphp
                     <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
                     @endif
-                    <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
+                    <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img class="lazyload" data-src="{{asset('products/'.$product->featured_img)}}" src="{{asset('products/'.$product->featured_img)}}"/></a></div>
                     <div class="text-center content-block">
                         <h3>{{$product->title}}</h3>
                         <div class="d-flex price-cart">
