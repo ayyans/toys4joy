@@ -157,20 +157,20 @@ $action_url = 'https://sadadqa.com/webpurchase';
         <div class="row content-block">
             <div class="col-md-6 col-xl-6 col-sm-12 mt-3">
                 <label class="star-lable">*</label>
-                <label class="lable-area">Your Name</label>
-                <input class="input-areas" type="text" id="name">
+                <label class="lable-area">Payer Name</label>
+                <input class="input-areas code-block" type="text" id="name">
             </div>
             <div class="col-md-6 col-lg-6 mt-3">
                 <label class="star-lable">*</label>
                 <label class="lable-area">Mobile Number</label>
-                <input class=" input-area" type="number" id="mobilenumber">
+                <input class=" input-area code-block" type="number" id="mobilenumber">
             </div>
             <div class="col-md-1 col-lg-1 mt-3">
                 
                 <label class="lable-area message-area">Your Message</label>
             </div>
             <div class="col-md-11 col-lg-11 mt-3">
-                <textarea class="form-control" id="message" rows="5"></textarea>
+                <textarea class="input-area code-block" id="message" rows="5" style="width: 100%;"></textarea>
             </div>
             <div style="margin-top: 50px;" class="d-flex ftr-btn-area">
                 <div class="vertical-shake continue-shopping"></div>

@@ -36,7 +36,7 @@
             <div class="content-block">
                 <div class="d-flex list">
                     <div class="icon"><img src="{{ url('website/img/points-program.png') }}"/></div>
-                    <h4>Points program, free VIP kids party (2,700QR- 54% OFF)</h4>
+                    <h4>Gain 5,000 points and get free 100 QR e-gift voucher, 100 QR spent is equivalent to 2 points.</h4>
                 </div>
                 <div class="d-flex list">
                     <div class="icon"><img src="{{ url('website/img/wishlist-cart.png') }}"/></div>

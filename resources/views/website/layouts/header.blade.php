@@ -46,7 +46,7 @@
                 <li><a class="dropdown-item" href="#">AR</a></li>
               </ul>
             </div>
-            <a href="https://www.google.com/maps/place/Toys+4+joy/@25.280667,51.503014,18z/data=!4m5!3m4!1s0x0:0xf23502d4ac817c93!8m2!3d25.2806672!4d51.5030136?ll=25.280667,51.503014&z=18&t=m&hl=en&gl=US&mapclient=embed&cid=17452859043394714771&shorturl=1" target="_blank">
+            <a href="https://www.google.com/maps/place/Toys+4+Joy/@25.2806659,51.5007925,17z/data=!3m1!4b1!4m5!3m4!1s0x3e45db08d1dc918d:0xabe71fea30cd8b5b!8m2!3d25.2806659!4d51.5029812" target="_blank">
                 <img src="{{asset('website/img/location.png')}}" class="map-pin">
             </a>
             <div class="cart-icon">

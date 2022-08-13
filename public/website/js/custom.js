@@ -2099,16 +2099,22 @@ $(document).ready(function() {
   });
     
   $("#main-image").imagezoomsl({
-    zoomrange: [1.12, 12],
-    zoomstart: 3,
-	  magnifiersize: [530, 340],
-	  scrollspeedanimate: 10,
+    innerzoommagnifier: true,
+		  classmagnifier: window.external ? "round-loope" : "", // fix для Opera и Safary
+		  magnifierborder: "5px solid #F0F0F0",                 // fix для Opera и Safary		  
+		  zoomrange: [2, 8],
+		  zoomstart: 3,
+		  magnifiersize: [200, 200]	
+    //zoomrange: [1.12, 12],
+    //zoomstart: 3,
+	  //magnifiersize: [530, 340],
+	  /*scrollspeedanimate: 10,
 	  loopspeedanimate: 5,
 	  magnifiereffectanimate: "slideIn",
     loadinggif:'loading.gif',	
     classtracker:"tracker",
-    classstatusdiv:"statusdiv",
-    classmagnifier:"magnifier",
+    classstatusdiv:"statusdiv",*/
+    //classmagnifier:"magnifier",
     });
 
 });    
