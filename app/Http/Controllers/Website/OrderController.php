@@ -98,10 +98,14 @@ class OrderController extends Controller
 
         DB::commit();
 
+        event(new OrderPlaced($order));
+        Cmf::sendordersms($order->order_number);
+
         return response()->json([
             'status' => true
         ]);
     }
+
     public function payasguestordergenerate(Request $request)
     {
         $items = cart()->getContent();
@@ -145,6 +149,9 @@ class OrderController extends Controller
         // ]);
 
         DB::commit();
+
+        event(new OrderPlaced($order));
+        Cmf::sendordersms($order->order_number);
 
         return response()->json([
             'status' => true
@@ -284,6 +291,9 @@ class OrderController extends Controller
         // ]);
 
         DB::commit();
+
+        event(new OrderPlaced($order));
+        Cmf::sendordersms($order->order_number);
 
         // clearing cart
         cart()->clear();

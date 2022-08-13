@@ -15,11 +15,11 @@ class GivePointsWhenOrderDelivered
      */
     public function handle($event)
     {
-        $data = $event->data;
-        if ($data['status'] === 'Delivered') {
-            $rewardPoints = round($data['total'] / 50);
-            $orderID = $data['order_number'];
-            $data['customer']->deposit($rewardPoints, ['description' => "Order #$orderID: Purchase reward points"]);
+        $order = $event->order;
+        if ($order->order_status == 'delivered') {
+            $rewardPoints = round($order->total_amount / 50);
+            $orderID = $order->order_number;
+            $order->user->deposit($rewardPoints, ['description' => "Order #$orderID: Purchase reward points"]);
         }
     }
 }

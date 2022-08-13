@@ -1386,6 +1386,9 @@ public function changeOrderStatus(Request $request) {
         'order_status' => $request->status
     ]);
 
+    $order = Order::with('user')->where('id', $request->order_id)->first();
+    event(new OrderStatusChanged($order));
+
     return back();
 }
 

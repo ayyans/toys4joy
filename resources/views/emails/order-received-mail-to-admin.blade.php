@@ -107,16 +107,16 @@
                           Order ID # </td>
                         <td width="25%" align="left" bgcolor="#eeeeee"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
-                          {{ $data['order_number'] }} </td>
+                          {{ $order->order_number }} </td>
                       </tr>
-                      @foreach ($data['products'] as $index => $name )
+                      @foreach ($order->items as $item)
                       <tr>
                         <td width="75%" align="left"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                          {{ $name }} (x{{ $data['quantity'][$index] }}) </td>
+                          {{ $item->product->title }} (x{{ $item->quantity }}) </td>
                         <td width="25%" align="left"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                          {{ 'QAR ' . number_format($data['amount'][$index], 2) }} </td>
+                          {{ 'QAR ' . $item->total_amount }} </td>
                       </tr>
                       @endforeach
                       <tr>
@@ -125,7 +125,7 @@
                           Date Added</td>
                         <td width="25%" align="left"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                          {{ now()->format('d/m/Y') }} </td>
+                          {{ $order->created_at->format('d/m/Y') }} </td>
                       </tr>
                       <tr>
                         <td width="75%" align="left"
@@ -147,7 +147,7 @@
                           TOTAL </td>
                         <td width="25%" align="left"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
-                          {{ 'QAR ' . number_format($data['total'], 2) }} </td>
+                          {{ 'QAR ' . $order->total_amount }} </td>
                       </tr>
                     </table>
                   </td>
@@ -168,7 +168,7 @@
                           <td align="left" valign="top"
                             style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
                             <p style="font-weight: 800;">Delivery Address</p>
-                            <p>{{ $data['address'] }}</p>
+                            <p>{{ $order->user_id ? $order->address->fullAddress : 'N/A' }}</p>
                           </td>
                         </tr>
                       </table>

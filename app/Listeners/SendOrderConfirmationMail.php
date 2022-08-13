@@ -19,9 +19,9 @@ class SendOrderConfirmationMail
      */
     public function handle($event)
     {
-        $data = $event->user;
-        $to = $data['email'] ?? auth()->user()->email;
-        Mail::to($to)->send(new OrderConfirmationMail($data));
-        Mail::to('toysforjoyorders@gmail.com')->send(new OrderReceivedMailToAdmin($data));
+        $order = $event->order->load('items.product', 'user', 'address', 'giftcards', 'coupon');
+        $to = $order->user_id ? $order->user->email : $order->additional_details['email'];
+        Mail::to($to)->send(new OrderConfirmationMail($order));
+        Mail::to('toysforjoyorders@gmail.com')->send(new OrderReceivedMailToAdmin($order));
     }
 }
