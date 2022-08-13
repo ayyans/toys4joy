@@ -82,6 +82,7 @@ class OrderController extends Controller
             'payment_status' => 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
+            'additional_details->is_new' => true
         ]);
         // creating order items
         foreach ($items as $item) {
@@ -119,6 +120,10 @@ class OrderController extends Controller
             'payment_status' => 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
+            'additional_details->name' => $request->custname,
+            'additional_details->email' => $request->email,
+            'additional_details->mobile' => $request->mobilenumber,
+            'additional_details->is_new' => true
         ]);
         // creating order items
         foreach ($items as $item) {
@@ -132,13 +137,12 @@ class OrderController extends Controller
             ]);
         }
         // saving guest details
-        $order->update([
-            'additional_details' => [
-                'name' => $request->custname,
-                'email' => $request->email,
-                'mobile' =>  $request->mobilenumber
-            ]
-        ]);
+        // $order->update([
+        //     'additional_details->name' => $request->custname,
+        //     'additional_details->email' => $request->email,
+        //     'additional_details->mobile' => $request->mobilenumber,
+        //     'additional_details->is_new' => true
+        // ]);
 
         DB::commit();
 
@@ -255,6 +259,10 @@ class OrderController extends Controller
             'payment_status' => 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
+            'additional_details->name' => $request->custname,
+            'additional_details->email' => $request->email,
+            'additional_details->mobile' => $request->mobilenumber,
+            'additional_details->is_new' => true
         ]);
         // creating order items
         foreach ($items as $item) {
@@ -268,13 +276,12 @@ class OrderController extends Controller
             ]);
         }
         // saving guest details
-        $order->update([
-            'additional_details' => [
-                'name' => $request->custname,
-                'email' => $request->email,
-                'mobile' =>  $request->mobilenumber
-            ]
-        ]);
+        // $order->update([
+        //     'additional_details->name' => $request->custname,
+        //     'additional_details->email' => $request->email,
+        //     'additional_details->mobile' => $request->mobilenumber,
+        //     'additional_details->is_new' => true
+        // ]);
 
         DB::commit();
 

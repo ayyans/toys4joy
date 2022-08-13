@@ -1015,6 +1015,7 @@ class WebsiteController extends Controller
             'payment_status' => cart()->getTotal() == 0 ? 'paid' : 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
+            'additional_details->is_new' => true
         ]);
         // creating order items
         foreach ($items as $item) {
