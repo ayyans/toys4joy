@@ -4,28 +4,28 @@
 $orderid = rand('123456798' , '987654321');
 @endphp
 
-@if($wshlists->count())
-@if($wshlists->where('share_status' , 0)->count() > 0)
-<?php 
+@if($wishlist->count())
+@if($wishlist->where('share_status' , 0)->count() > 0)
 
- $sadad_checksum_array = array(); 
- $sadad__checksum_data = array(); 
- $txnDate = date('Y-m-d H:i:s'); 
- $email = $wshlists->first()->email;
- $secretKey = 'ewHgg8NgyY5zo59M'; 
- $merchantID = '7288803';
- 
- $sadad_checksum_array['merchant_id'] = $merchantID;  
- $sadad_checksum_array['ORDER_ID'] = $orderid; 
- $sadad_checksum_array['WEBSITE'] = url('');  
- $sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
- $sadad_checksum_array['CUST_ID'] = $email; 
- $sadad_checksum_array['EMAIL'] = $email; 
- $sadad_checksum_array['MOBILE_NO'] = '999999999';  
- $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
- $sadad_checksum_array['CALLBACK_URL'] = url('wishlistorderconferm'); 
- $sadad_checksum_array['txnDate'] = $txnDate; 
-foreach ($wshlists as $product) {
+<?php
+$sadad_checksum_array = array(); 
+$sadad__checksum_data = array(); 
+$txnDate = date('Y-m-d H:i:s'); 
+$email = $wishlist->first()->email;
+$secretKey = 'ewHgg8NgyY5zo59M'; 
+$merchantID = '7288803';
+
+$sadad_checksum_array['merchant_id'] = $merchantID;  
+$sadad_checksum_array['ORDER_ID'] = $orderid; 
+$sadad_checksum_array['WEBSITE'] = url('');  
+$sadad_checksum_array['TXN_AMOUNT'] = '50.00'; 
+$sadad_checksum_array['CUST_ID'] = $email; 
+$sadad_checksum_array['EMAIL'] = $email; 
+$sadad_checksum_array['MOBILE_NO'] = '999999999';  
+$sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
+$sadad_checksum_array['CALLBACK_URL'] = url('wishlistorderconferm'); 
+$sadad_checksum_array['txnDate'] = $txnDate; 
+foreach ($wishlist as $product) {
   if($product->share_status == 0)
   {
 
@@ -82,249 +82,272 @@ $action_url = 'https://sadadqa.com/webpurchase';
         </form>';
 ?>
 <style type="text/css">
-#quantity{
-    height: 40px;
-    width: 40px;
-}
-.lable-area {
-    padding: 10px;
-    border: 1px solid skyblue;
-}   
-.star-lable{
-    color: red;
-    font-size: 20px;
-}
-.input-area{
-    border-color: skyblue;
-    padding: 9px 20px;
-    margin-left: -5px;
-}
-.message-area{
-  margin-left: 11px;
-    padding-left: 24px;
-}
-.input-areas{
-    border-color: skyblue;
-    padding: 9px 75px;
-    margin-left: -5px;
-}
-@media only screen and (max-width: 576px) {
+    #quantity {
+        height: 40px;
+        width: 40px;
+    }
+
+    .lable-area {
+        padding: 10px;
+        border: 1px solid skyblue;
+    }
+
+    .star-lable {
+        color: red;
+        font-size: 20px;
+    }
+
+    .input-area {
+        border-color: skyblue;
+        padding: 9px 20px;
+        margin-left: -5px;
+    }
+
+    .message-area {
+        margin-left: 11px;
+        padding-left: 24px;
+    }
+
+    .input-areas {
+        border-color: skyblue;
+        padding: 9px 75px;
+        margin-left: -5px;
+    }
+
+    @media only screen and (max-width: 576px) {
+        .textarea {
+            width: 82%;
+            margin-left: 80px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .textarea {
+            width: 82%;
+            margin-left: 80px;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        .textarea {
+            width: 82%;
+            margin-left: 80px;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+
+        /* For mobile phones: */
+        .textarea {
+            width: 82%;
+            margin-left: 80px;
+        }
+    }
+
     .textarea {
-    width: 82%;
-    margin-left: 80px;
-}
-}
-@media screen and (max-width: 480px) {
-    .textarea {
-    width: 82%;
-    margin-left: 80px;
-}
-}
-@media only screen and (max-width: 600px) {
-  .textarea {
-    width: 82%;
-    margin-left: 80px;
-}
-}
-@media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-  .textarea {
-    width: 82%;
-    margin-left: 80px;
-}
-}
-.textarea{
-    width: 82%;
-    border-color: skyblue;
-    padding-left: 0px;
-    margin-left: 16px;
-}
-#my-account {
-    padding: 20px 100px;
-}
+        width: 82%;
+        border-color: skyblue;
+        padding-left: 0px;
+        margin-left: 16px;
+    }
+
+    #my-account {
+        padding: 20px 100px;
+    }
 </style>
 <main style="display: none;" id="my-account" class="my-basket my-wishlist-page">
     <div class="container-fluid">
         <form method="POST">
-        <div class="row content-block">
-            <div class="col-md-6 mt-3">
-                <label class="star-lable">*</label>
-                <label class="lable-area">Your Name</label>
-                <input class="input-areas" type="text" id="name">
-            </div>
-            <div class="col-md-6 col-lg-6 mt-3">
-                <label class="star-lable">*</label>
-                <label class="lable-area">Mobile Number</label>
-                <input class=" input-area" type="number" id="mobilenumber">
-            </div>
-            <div class="col-md-1 col-lg-1 mt-3">
-                
-                <label class="lable-area message-area">Your Message</label>
-            </div>
-            <div class="col-md-11 col-lg-11 mt-3">
-                <textarea class="form-control" id="message" rows="5"></textarea>
-            </div>
-            <div style="margin-top: 50px;" class="d-flex ftr-btn-area">
-                <div class="vertical-shake continue-shopping"></div>
-                <div class="d-flex pay-as">
-                    <div onclick="submitpayementform()" class="guest"><a href="javascript:void(0)">Pay With Card</a></div>
+            <div class="row content-block">
+                <div class="col-md-6 mt-3">
+                    <label class="star-lable">*</label>
+                    <label class="lable-area">Your Name</label>
+                    <input class="input-areas" type="text" id="name">
                 </div>
+                <div class="col-md-6 col-lg-6 mt-3">
+                    <label class="star-lable">*</label>
+                    <label class="lable-area">Mobile Number</label>
+                    <input class=" input-area" type="number" id="mobilenumber">
+                </div>
+                <div class="col-md-1 col-lg-1 mt-3">
+
+                    <label class="lable-area message-area">Your Message</label>
+                </div>
+                <div class="col-md-11 col-lg-11 mt-3">
+                    <textarea class="form-control" id="message" rows="5"></textarea>
+                </div>
+                <div style="margin-top: 50px;" class="d-flex ftr-btn-area">
+                    <div class="vertical-shake continue-shopping"></div>
+                    <div class="d-flex pay-as">
+                        <div onclick="submitpayementform()" class="guest"><a href="javascript:void(0)">Pay With Card</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-           
-        </div>
         </form>
     </div>
 </main>
 <main id="products-ranking" class="my-basket my-wishlist-page">
-<div class="container-fluid">
-    <div class="row">
-    	<div class="col-12">
-            <div class="d-flex main-title">
-                <div class="title">{{ $wshlists->first()->name }} Wish List</div>
-                <div class="icon">
-                    <button class="btn btn-primary" type="button"><img src="{{asset('website/img/wishlist-heart.png')}}" class="wishlist"></button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex main-title">
+                    <div class="title">{{ $wishlist->first()->name }} Wish List</div>
+                    <div class="icon">
+                        <button class="btn btn-primary" type="button"><img
+                                src="{{asset('website/img/wishlist-heart.png')}}" class="wishlist"></button>
+                    </div>
                 </div>
-            </div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="first"></th>
-                  <th>Name</th>
-                  <th>Images</th>
-                  <th>Prices</th>
-                    <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $total_price = 0; ?>
-                @foreach($wshlists as $wishlist)
-
-                @if($wishlist->share_status == 0)
-                @php
-                if($wishlist->discount)
-                  {
-                      $price = $wishlist->discount;
-                  }else{
-                      $price = $wishlist->unit_price;
-                  }
-                  $total_price+=$price;
-                @endphp
-
-                @else
-
-
-                @php
-                if($wishlist->discount)
-                  {
-                      $price = $wishlist->discount;
-                  }else{
-                      $price = $wishlist->unit_price;
-                  }
-                @endphp
-
-
-                @endif
-
-                <tr>
-                    <td class="qty">
-                      <input style="height: 40px;width: 40px;" onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
-                    </td>
-                    <td class="title">
-                      <div class="d-flex product-rank">
-                          <div class="detail"><a href="{{ url('product') }}/{{ $wishlist->url }}" style="text-decoration:none"><p>{{$wishlist->title}}</p></a></div>
-                      </div>
-                    </td>
-                    <td><div class="img-box"><a href="{{ url('product') }}/{{ $wishlist->url }}"><img src="{{asset('products/'.$wishlist->featured_img)}}"/></a></div></td>
-                    <td class="price"><span>{{$price}} QAR</span></td>
-                </tr>
-                @endforeach
-              </tbody>
-              <tfoot>
-                <tr>
-                    <td colspan="2">Total Price</td>
-                    <td colspan="4">{{$total_price}} QAR</td>
-                </tr>
-              </tfoot>    
-            </table>
-            <div class="d-flex ftr-btn-area">
-                <div class="vertical-shake continue-shopping"></div>
-                <div class="d-flex pay-as">
-                    <div onclick="placeorderwishlist()" class="guest"><a href="javascript:void(0)">Place Order (QAR{{$total_price}})</a></div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="first"></th>
+                            <th>Name</th>
+                            <th>Images</th>
+                            <th>Prices</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $total_price = 0; ?>
+                        @foreach($wishlist as $wish)
+                            @if($wish->share_status == 0)
+                            @php
+                                if($wish->discount) {
+                                    $price = $wish->discount;
+                                } else {
+                                    $price = $wish->unit_price;
+                                }
+                                $total_price+=$price;
+                            @endphp
+                        @else
+                            @php
+                                if($wish->discount) {
+                                    $price = $wish->discount;
+                                } else {
+                                    $price = $wish->unit_price;
+                                }
+                            @endphp
+                        @endif
+                        <tr>
+                            <td class="qty">
+                                <input style="height: 40px;width: 40px;"
+                                    onclick="removefromwishlist({{$wish->wish_id}})" type="checkbox"
+                                    @if($wish->share_status == 0) checked @endif value="1" id="quantity"
+                                name="quantity">
+                            </td>
+                            <td class="title">
+                                <div class="d-flex product-rank">
+                                    <div class="detail"><a href="{{ url('product') }}/{{ $wish->url }}"
+                                            style="text-decoration:none">
+                                            <p>{{$wish->title}}</p>
+                                        </a></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="img-box"><a href="{{ url('product') }}/{{ $wish->url }}"><img
+                                            src="{{asset('products/'.$wish->featured_img)}}" /></a></div>
+                            </td>
+                            <td class="price"><span>{{$price}} QAR</span></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">Total Price</td>
+                            <td colspan="4">{{$total_price}} QAR</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="d-flex ftr-btn-area">
+                    <div class="vertical-shake continue-shopping"></div>
+                    <div class="d-flex pay-as">
+                        <div onclick="placeorderwishlist()" class="guest"><a href="javascript:void(0)">Place Order
+                                (QAR{{$total_price}})</a></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </main>
 @else
 <main id="products-ranking" class="my-basket my-wishlist-page">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex main-title">
-                <div class="title">{{ $wshlists->first()->name }} Wish List</div>
-                <div class="icon">
-                    <button class="btn btn-primary" type="button"><img src="{{asset('website/img/wishlist-heart.png')}}" class="wishlist"></button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex main-title">
+                    <div class="title">{{ $wishlist->first()->name }} Wish List</div>
+                    <div class="icon">
+                        <button class="btn btn-primary" type="button"><img
+                                src="{{asset('website/img/wishlist-heart.png')}}" class="wishlist"></button>
+                    </div>
                 </div>
-            </div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="first"></th>
-                  <th>Name</th>
-                  <th>Images</th>
-                  <th>Prices</th>
-                    <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $total_price = 0; ?>
-                @foreach($wshlists as $wishlist)
-                @php
-                if($wishlist->discount)
-                  {
-                      $price = $wishlist->discount;
-                  }else{
-                      $price = $wishlist->unit_price;
-                  }
-                @endphp
-                @if($wishlist->share_status == 0)
-
-                    @php
-                      $total_price+=$price;
-                    @endphp
-
-                @endif
-                <tr>
-                    <td class="qty">
-                      <input style="height: 40px;width: 40px;" onclick="removefromwishlist({{$wishlist->wish_id}})" type="checkbox" @if($wishlist->share_status == 0) checked @endif value="1" id="quantity" name="quantity">
-                    </td>
-                    <td class="title">
-                      <div class="d-flex product-rank">
-                          <div class="detail"><a href="{{ url('product') }}/{{ $wishlist->url }}" style="text-decoration:none"><p>{{$wishlist->title}}</p></a></div>
-                      </div>
-                    </td>
-                    <td><div class="img-box"><a href="{{ url('product') }}/{{ $wishlist->url }}"><img src="{{asset('products/'.$wishlist->featured_img)}}"/></a></div></td>
-                    <td class="price"><span>{{$price}} QAR</span></td>
-                </tr>
-                @endforeach
-              </tbody>
-              <tfoot>
-                <tr>
-                    <td colspan="2">Total Price</td>
-                    <td colspan="4">{{$total_price}} QAR</td>
-                </tr>
-              </tfoot>    
-            </table>
-            <div class="d-flex ftr-btn-area">
-                <div class="vertical-shake continue-shopping"></div>
-                <div class="d-flex pay-as">
-                    <div onclick="placeorderzerowishlist()" class="guest"><a href="javascript:void(0)">Place Order (QAR{{$total_price}})</a></div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="first"></th>
+                            <th>Name</th>
+                            <th>Images</th>
+                            <th>Prices</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $total_price = 0; ?>
+                        @foreach($wishlist as $wish)
+                            @php
+                                if($wish->discount) {
+                                    $price = $wish->discount;
+                                } else {
+                                    $price = $wish->unit_price;
+                                }
+                            @endphp
+                        @if($wish->share_status == 0)
+                            @php
+                                $total_price+=$price;
+                            @endphp
+                        @endif
+                        <tr>
+                            <td class="qty">
+                                <input style="height: 40px;width: 40px;"
+                                    onclick="removefromwishlist({{$wish->wish_id}})" type="checkbox"
+                                    @if($wish->share_status == 0) checked @endif value="1" id="quantity"
+                                    name="quantity">
+                            </td>
+                            <td class="title">
+                                <div class="d-flex product-rank">
+                                    <div class="detail"><a href="{{ url('product') }}/{{ $wish->url }}"
+                                            style="text-decoration:none">
+                                            <p>{{$wish->title}}</p>
+                                        </a></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="img-box"><a href="{{ url('product') }}/{{ $wish->url }}"><img
+                                            src="{{asset('products/'.$wish->featured_img)}}" /></a></div>
+                            </td>
+                            <td class="price"><span>{{$price}} QAR</span></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">Total Price</td>
+                            <td colspan="4">{{$total_price}} QAR</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="d-flex ftr-btn-area">
+                    <div class="vertical-shake continue-shopping"></div>
+                    <div class="d-flex pay-as">
+                        <div onclick="placeorderzerowishlist()" class="guest"><a href="javascript:void(0)">Place Order
+                                (QAR{{$total_price}})</a></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </main>
 <script type="text/javascript">
     function placeorderzerowishlist()
@@ -349,7 +372,6 @@ $action_url = 'https://sadadqa.com/webpurchase';
 
 @push('otherscript')
 <script>
-
     function submitpayementform()
     {
         var form_data = new FormData();
@@ -400,7 +422,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
                   toastr.error('Please Select Atleast one Product');
               }else if(js_data.status==400){
                   toastr.options.timeOut = 10000;
-                  toastr.error('{{ $wshlists->first()->name }} does not added any address for shipping');
+                  toastr.error('{{ $wishlist->first()->name }} does not added any address for shipping');
               }else{
                   return false;
             }
@@ -414,12 +436,12 @@ $action_url = 'https://sadadqa.com/webpurchase';
 @else
 
 <main id="products-ranking" class="my-basket my-wishlist-page">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <h3>This Link is Empty or you enter a Wrong Link!</h3>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h3>This Link is Empty or you enter a Wrong Link!</h3>
+            </div>
         </div>
     </div>
-</div>
 </main>
 @endif
