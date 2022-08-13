@@ -164,9 +164,9 @@
                 </td>
 
                 <td colspan="2">
-                  {{ $giftCard->user->name }}.<br />
+                  {{ $giftCard->user->name }}<br />
                   {{ $giftCard->user->mobile }}<br />
-                  {{ $giftCard->user->email }}<br>
+                  {{ $giftCard->user->email }}<br />
                   {{ $giftCard->user->address->unit_no }},{{ $giftCard->user->address->building_no }},{{ $giftCard->user->address->zone }},{{ $giftCard->user->address->street }}
                 </td>
               </tr>
