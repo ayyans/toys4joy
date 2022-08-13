@@ -46,7 +46,7 @@ class WishlistController extends Controller
 
 		$total_price = 0;
 		foreach ($wishlist as $wish) {
-			$total_price = $wish->product->discount ?: $wish->product->unit_price;
+			$total_price += $wish->product->discount ?: $wish->product->unit_price;
 		}
 
 		DB::beginTransaction();
