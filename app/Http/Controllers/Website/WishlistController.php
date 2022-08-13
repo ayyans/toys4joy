@@ -80,6 +80,8 @@ class WishlistController extends Controller
 
 		DB::commit();
 
+		Cmf::sendordersms($order->order_number);
+
 		return response()->json([
 			'status' => 200,
 			'msg' => 1

@@ -1050,6 +1050,8 @@ class WebsiteController extends Controller
 
         DB::commit();
 
+        Cmf::sendordersms($order->order_number);
+
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();
