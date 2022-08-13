@@ -109,14 +109,10 @@
 <!-- Divider -->
 <hr class="sidebar-divider">
 @php
-//->where('newstatus' , 1)
-    $order = DB::table('orders')->whereNotNull('user_id')->where('order_status', 'placed')->count();
-//->where('newstatus' , 1)
-    $guestorder = DB::table('orders')->whereNull('user_id')->where('order_status', 'placed')->count();
-    //->where('newstatus' , 1)
-    $wishlistorder = DB::table('orders')->groupby('order_number')->where('order_type', 'wishlist')->where('payment_status' , '!=','payementpending')->count();
-
-    $totalordernumbers = $order+$guestorder+$wishlistorder;
+    $order = DB::table('orders')->whereNotNull('user_id')->where('is_wishlist', false)->where('additional_details->is_new', true)->count();
+    $guestorder = DB::table('orders')->whereNull('user_id')->where('additional_details->is_new', true)->count();
+    $wishlistorder = DB::table('orders')->whereNotNull('user_id')->where('is_wishlist', true)->where('additional_details->is_new', true)->count();
+    $totalordernumbers = $order + $guestorder + $wishlistorder;
 @endphp
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ordersUtility"

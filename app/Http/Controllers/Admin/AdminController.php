@@ -882,6 +882,10 @@ public function guestOrders(){
     //           ->groupby('guest_orders.order_id')
     //           ->orderBy('guest_orders.id','desc')->get();
     $orders = Order::whereNull('user_id')->get();
+    // new orders
+    $newOrders = Order::whereNull('user_id')->where('additional_details->is_new', true)->update([
+        'additional_details->is_new' => false
+    ]);
     return view('admin.guest-order',compact('orders'));
 }
 
@@ -1171,6 +1175,10 @@ public function orderStatus(Request $request){
 public function custOrders(){
     $orders = Order::with(['user', 'address'])
         ->whereNotNull('user_id')->where('is_wishlist', false)->get();
+    // mark new orders is_new to false
+    Order::whereNotNull('user_id')->where('is_wishlist', false)->where('additional_details->is_new', true)->update([
+        'additional_details->is_new' => false
+    ]);
     return view('admin.order', compact('orders'));
 }
 
@@ -1205,6 +1213,10 @@ public function wishlistorders()
     //         ->get();
     $orders = Order::with(['user', 'address'])
         ->whereNotNull('user_id')->where('is_wishlist', true)->get();
+    // mark new orders is_new to false
+    Order::whereNotNull('user_id')->where('is_wishlist', true)->where('additional_details->is_new', true)->update([
+        'additional_details->is_new' => false
+    ]);
     $type = 'wishlist';
     return view('admin.order',compact('orders','type'));
 }
