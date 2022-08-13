@@ -350,10 +350,9 @@ class OrderController extends Controller
     }
     public function generateinvoicegiftcard($id)
     {
-        $giftCard = giftcards::with('user.address', 'transactionDetail')->whereHas('transactionDetail', function($query) use ($id) {
+        $giftCard = giftcards::with('transactionDetail.user.address')->whereHas('transactionDetail', function($query) use ($id) {
             $query->where('order_number', $id);
         })->first();
-        dd($giftCard);
         $pdf = PDF::loadView('invoice.giftcard', compact('giftCard'));
         return $pdf->download("Gift Card Invoice - $id.pdf");
     }
