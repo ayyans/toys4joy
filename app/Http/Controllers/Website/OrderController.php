@@ -350,12 +350,11 @@ class OrderController extends Controller
     }
     public function generateinvoicegiftcard($id)
     {
-        $data = [
-            'cardid' => $id,
-        ];
-        $pdf = PDF::loadView('invoice.giftcard', $data);
-        return $pdf->download('Gift Card Invoice - '.$id.'.pdf');
+        $giftCard = giftcards::with('user.address', 'transactionDetail')->where('id', $id)->first();
+        $pdf = PDF::loadView('invoice.giftcard', $giftCard);
+        return $pdf->download("Gift Card Invoice - $id.pdf");
     }
+
     public function generatepdf($order_number)
     {
         $order = Order::with([

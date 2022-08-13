@@ -12,7 +12,7 @@
                 <p>One of our team member will contact you shortly to get your location & necessary information</p>
                 <div class="text-center d-flex print">
                     <img src="{{asset('website/img/printer.png')}}">
-                    <h4><a href="{{ url('generateinvoicegiftcard') }}/{{ $orderid }}">Print my Receipt</a></h4>
+                    <h4><a href="{{ url('generateinvoicegiftcard') }}/{{ $order_number }}">Print my Receipt</a></h4>
                 </div>
             </div>
         </div>

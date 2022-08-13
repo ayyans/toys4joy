@@ -105,7 +105,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     
 
     Route::post('/submituserprofile','UserController@submituserprofile')->name('submituserprofile');
-    Route::get('/addgiftcard/{id}/{orderid}','UserController@addgiftcard');
+    Route::get('/addgiftcard/{price}/{order_number}','UserController@addgiftcard');
     
 
     Route::post('/customer-address-process','UserController@addAddressProcess')->name('addAddressProcess');

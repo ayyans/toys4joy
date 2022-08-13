@@ -11,7 +11,7 @@ if(Auth::check())
 {
     $email = Auth::user()->email;
 }else{
-    $email = 'ahsinjavaid890@gmail.com';
+    $email = 'toysforjoyorders@gmail.com';
 }
  $secretKey = 'ewHgg8NgyY5zo59M'; 
  $merchantID = '7288803'; 
