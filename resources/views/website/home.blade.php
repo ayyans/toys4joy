@@ -290,7 +290,7 @@
 <div class="right-sidebar">
 <div class="upload-img">
                 <div class="tooltip">
-                    <a href="#">
+                    <a href="#" class="share-price-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <button type="button" class="btn btn-primary modal-toggle share-price-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <img src="{{asset('website/img/upload-image.png')}}" class="img-fluid">
                         </button>    
@@ -349,6 +349,7 @@
     <!--end section-->
   
 </div>
+<img src="{{asset('website/img/animation.gif')}}" class="bg-startup-animation" style="display:none;">
 </main>
 @endsection
 
@@ -373,6 +374,10 @@
       $(window).on('resize', function() {
         hideLastProduct();
       })
+      //the timer for the starting animation
+      setTimeout(function() {
+        $('.bg-startup-animation').css('display','none');
+    }, 4000);
     });
   </script>
 @endpush

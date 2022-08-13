@@ -58,7 +58,7 @@
                 <div class="forgot-password"><a href="{{ route('website.forgot_password') }}">Forgot Password?</a></div>
               <button class="loginbtn">Login</button>
             </form>
-            <div class="dnt-account"><span>Don't have an account? Get <a href="{{route('website.register')}}">register.</a></span></div>
+            <div class="dnt-account"><span>Don't have an account? <a href="{{route('website.register')}}">Register Now.</a></span></div>
             </div>
             </div>    
         </div>

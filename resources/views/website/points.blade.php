@@ -4,12 +4,7 @@
 <main id="your-points">
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12">
-            <div class="d-flex align-items-center gap-5">
-                <a href="#" class="mascot"><img style="max-width: 200px" src="{{asset('website/img/mascot-only.png')}}"></a>
-                <h5 class="fw-bold">3,250</h5>
-            </div>
-        </div>
+        
     	<div class="col-12">
             <div class="row progres-bar gap-4 gap-md-0">
                 <div class="col-md-2">
@@ -36,10 +31,10 @@
             <div class="row party-includes">
                 <div class="col-6 left-col">
                     <div class="content-box">
-                        <p>Gain 5,000 Points by spending 5,000 QR and get Free Part. The cost of this party is 2,700 QR, that means you saved 54% of your total purchases</p>
+                        <p>Gain 5,000 points and get free 100 QR e-gift voucher, 100 QR spent is equivalent to 2 points.</p>
                     </div>
                 </div>
-                <div class="col-6 right-col">
+                <!--<div class="col-6 right-col">
                     <div class="content-box">
                         <h4 class="text-center pink-text">Other special needs?</h4>
                         <div class="d-flex list">
@@ -55,7 +50,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>  
 
 
