@@ -120,7 +120,7 @@ if(Auth::check())
  $sadad_checksum_array['ORDER_ID'] = $order_number; 
  $sadad_checksum_array['WEBSITE'] = 'https://toys4joy.com/';  
  $sadad_checksum_array['VERSION'] = '1.1';
- $sadad_checksum_array['TXN_AMOUNT'] = $giftCardPrice; 
+ $sadad_checksum_array['TXN_AMOUNT'] = request()->price; 
  $sadad_checksum_array['CUST_ID'] = $email; 
  $sadad_checksum_array['EMAIL'] = $email; 
  $sadad_checksum_array['MOBILE_NO'] = '999999999';  
@@ -132,8 +132,8 @@ $sadad_checksum_array['productdetail'] =
  array( 
  array( 
  'order_id'=> $order_number,
- 'itemname'=>  "E-Gift Card ($giftCardPrice)",
- 'amount'=>$giftCardPrice,
+ 'itemname'=>  "E-Gift Card " . request()->price,
+ 'amount'=>request()->price,
  'quantity'=>1,
 ) 
 ); 
