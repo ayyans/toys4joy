@@ -185,7 +185,7 @@
         </tr>
         <tr class="total">
           <td colspan="2"></td>
-          <td>Total: QAR {{ $giftCard->price }}</td>
+          <td colspan="3">Total: QAR {{ $giftCard->price }}</td>
         </tr>
       </table> 
         <br><br>
