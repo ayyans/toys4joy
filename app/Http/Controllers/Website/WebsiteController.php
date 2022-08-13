@@ -1190,8 +1190,9 @@ public function yourpoints(Request $request){
     return view('website.points');
 }
 
-public function giftcard(Request $request){
-    return view('website.giftcards');
+public function giftcard() {
+    $giftCardPrices = [50, 100, 200, 300, 400, 500];
+    return view('website.giftcards', compact('giftCardPrices'));
 }
 
 
