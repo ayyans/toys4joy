@@ -270,6 +270,8 @@ class WebsiteController extends Controller
             'order_id' => $order->id
         ]);
 
+        // forget session
+        session()->forget('order_number');
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();
@@ -648,7 +650,8 @@ class WebsiteController extends Controller
     // pay as member
 
     public function payasmember(Request $request){
-        $cust_id = Cmf::ipaddress();
+        // $cust_id = Cmf::ipaddress();
+        // dd($cust_id);
         // $data = array('customer_id' => Auth::user()->id);
         // DB::table('carts')->where('cust_id' , $cust_id)->update($data);
         // $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
@@ -658,7 +661,6 @@ class WebsiteController extends Controller
         //             ->get();
         $items = cart()->getContent();
 
-        
         // $giftcoupencode = Cart::where('cust_id' , $cust_id)->where('giftcode' , '!=' , '')->count();
 
 
@@ -671,13 +673,11 @@ class WebsiteController extends Controller
                 // return view('website.payasmember',compact('products','giftcoupencode'));
                 return view('website.payasmember',compact('items'));
             }else{
-                
                 return redirect()->route('website.addAddressInfo')->with('error','Add Address First');
             }
         }else{
             return redirect()->route('website.home')->with('error','Cart Is Empty!');
         }
-        
     }
 
 

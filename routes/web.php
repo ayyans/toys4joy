@@ -85,11 +85,13 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/removeDiscountCoupon', 'WebsiteController@removeDiscountCoupon')->name('removeDiscountCoupon');
     Route::post('/giftcard-coupon','UserController@giftcard_coupon')->name('giftcard_coupon');
     Route::get('/removegiftcard','UserController@removegiftcard')->name('removegiftcard');
-
-
+    
+    
     Route::get('/placeorderwishlist/{id}/{orderid}','WishlistController@placeorderwishlist');
     Route::post('/wishlistorderconferm','WishlistController@wishlistorderconferm');
     Route::post('/giftcardconfermorder','UserController@giftcardconfermorder')->name('giftcardconfermorder');
+
+    Route::post('/placeOrder', 'CheckoutController@placeOrder')->name('checkout.placeOrder');
 });
 Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth'])->group(function(){
     Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
@@ -126,6 +128,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     Route::post('/siblingsupdate','UserController@siblingsupdate');
     Route::view('/return-request','website.user.return-request-form')->name('return-request-form');
     Route::post('/return-request','UserController@returnRequest')->name('return-request');
+
 });
 
 require __DIR__.'/admin.php';

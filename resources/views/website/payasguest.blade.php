@@ -3,58 +3,60 @@
 @php cart()->clearCartConditions() @endphp
 <?php
 
-    $sadad_checksum_array = array();
-    $sadad__checksum_data = array();
-    $txnDate = date('Y-m-d H:i:s');
-    $email = auth()->check() ? auth()->user()->email : 'toysforjoyorders@gmail.com';
+    // $sadad_checksum_array = array();
+    // $sadad__checksum_data = array();
+    // $txnDate = date('Y-m-d H:i:s');
+    // $email = auth()->check() ? auth()->user()->email : 'toysforjoyorders@gmail.com';
 
-    $secretKey = 'ewHgg8NgyY5zo59M';
-    $merchantID = '7288803';
-    $sadad_checksum_array['merchant_id'] = $merchantID;
-    $orderid = rand('123456798' , '987654321');
-    $sadad_checksum_array['ORDER_ID'] = $orderid;
-    $sadad_checksum_array['WEBSITE'] = url('');
-    $sadad_checksum_array['TXN_AMOUNT'] = '50.00';
-    $sadad_checksum_array['CUST_ID'] = $email;
-    $sadad_checksum_array['EMAIL'] = $email;
-    $sadad_checksum_array['MOBILE_NO'] = '999999999';
-    $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';
-    $sadad_checksum_array['CALLBACK_URL'] = url('orderconfermasguest');
-    $sadad_checksum_array['txnDate'] = $txnDate;
+    // $secretKey = 'ewHgg8NgyY5zo59M';
+    // $merchantID = '7288803';
+    // $sadad_checksum_array['merchant_id'] = $merchantID;
+    // $orderid = rand('123456798' , '987654321');
+    // $sadad_checksum_array['ORDER_ID'] = $orderid;
+    // $sadad_checksum_array['WEBSITE'] = url('');
+    // $sadad_checksum_array['TXN_AMOUNT'] = '50.00';
+    // $sadad_checksum_array['CUST_ID'] = $email;
+    // $sadad_checksum_array['EMAIL'] = $email;
+    // $sadad_checksum_array['MOBILE_NO'] = '999999999';
+    // $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';
+    // $sadad_checksum_array['CALLBACK_URL'] = url('orderconfermasguest');
+    // $sadad_checksum_array['txnDate'] = $txnDate;
 
-    foreach ($items as $item) {
-        $json_decoded = json_decode($item);
-        $allproducts[] = array('order_id' => $orderid, 'itemname' => $item->name, 'amount' => $item->price, 'quantity' => $item->quantity);
-    }
+    // foreach ($items as $item) {
+    //     $json_decoded = json_decode($item);
+    //     $allproducts[] = array('order_id' => $orderid, 'itemname' => $item->name, 'amount' => $item->price, 'quantity' => $item->quantity);
+    // }
 
-    $sadad_checksum_array['productdetail'] = $allproducts;
-    $sadad__checksum_data['postData'] = $sadad_checksum_array;
-    $sadad__checksum_data['secretKey'] = $secretKey;
+    // $sadad_checksum_array['productdetail'] = $allproducts;
+    // $sadad__checksum_data['postData'] = $sadad_checksum_array;
+    // $sadad__checksum_data['secretKey'] = $secretKey;
 
-    $sAry1 = array();
-    $sadad_checksum_array1 = array();
-    foreach($sadad_checksum_array as $pK => $pV) {
-        if($pK=='checksumhash') continue;
-        if(is_array($pV)) {
-            $prodSize = sizeof($pV);
-            for($i=0;$i<$prodSize;$i++) {
-                foreach($pV[$i] as $innK => $innV){
-                    $sAry1[] = "<input type='hidden' name='productdetail[$i][". $innK ."]' value='" . trim($innV) . "'/>";
-                    $sadad_checksum_array1['productdetail'][$i][$innK] = trim($innV);
-                }
-            }
-        } else {
-            $sAry1[] = "<input type='hidden' name='". $pK ."' id='". $pK ."' value='" . trim($pV) . "'/>";
-            $sadad_checksum_array1[$pK] = trim($pV);
-        }
-    }
-    $sadad__checksum_data['postData'] = $sadad_checksum_array1;
-    $sadad__checksum_data['secretKey'] = $secretKey;  $checksum = getChecksumFromString(json_encode($sadad__checksum_data), $secretKey . $merchantID);
-    $sAry1[] = "<input type='hidden'  name='checksumhash' value='" . $checksum . "'/>";
+    // $sAry1 = array();
+    // $sadad_checksum_array1 = array();
+    // foreach($sadad_checksum_array as $pK => $pV) {
+    //     if($pK=='checksumhash') continue;
+    //     if(is_array($pV)) {
+    //         $prodSize = sizeof($pV);
+    //         for($i=0;$i<$prodSize;$i++) {
+    //             foreach($pV[$i] as $innK => $innV){
+    //                 $sAry1[] = "<input type='hidden' name='productdetail[$i][". $innK ."]' value='" . trim($innV) . "'/>";
+    //                 $sadad_checksum_array1['productdetail'][$i][$innK] = trim($innV);
+    //             }
+    //         }
+    //     } else {
+    //         $sAry1[] = "<input type='hidden' name='". $pK ."' id='". $pK ."' value='" . trim($pV) . "'/>";
+    //         $sadad_checksum_array1[$pK] = trim($pV);
+    //     }
+    // }
+    // $sadad__checksum_data['postData'] = $sadad_checksum_array1;
+    // $sadad__checksum_data['secretKey'] = $secretKey;  $checksum = getChecksumFromString(json_encode($sadad__checksum_data), $secretKey . $merchantID);
+    // $sAry1[] = "<input type='hidden'  name='checksumhash' value='" . $checksum . "'/>";
 
-    $action_url = 'https://sadadqa.com/webpurchase';
-    echo '<form action="' . $action_url . '" method="post" id="paymentform" name="paymentform" data-link="' . $action_url .'">' . implode('', $sAry1) . '</form>';
+    // $action_url = 'https://sadadqa.com/webpurchase';
+    // echo '<form action="' . $action_url . '" method="post" id="paymentform" name="paymentform" data-link="' . $action_url .'">' . implode('', $sAry1) . '</form>';
 ?>
+
+{!! generateSadadForm($items, url('orderconfermasguest')) !!}
 <style type="text/css">
     .iti {
         width: 100%;
@@ -202,11 +204,12 @@ if(isValid!=true){
     e.preventDefault();
     var form = $("form#guestcheckoutFrm")[0];
     var form2 = new FormData(form);
-    form2.append('mode','2');
-    form2.append('order_id','{{ $orderid }}');
+    form2.append('order_type', 'cc');
+    // form2.append('mode','2');
+    // form2.append('order_id','{{ session('order_number') }}');
     $("#cover-spin").show();
     $.ajax({
-        url:"{{route('website.payasguestordergenerate')}}",
+        url:"{{route('website.checkout.placeOrder')}}",
         type:"POST",
         data:form2,
         cache:false,
@@ -271,11 +274,12 @@ if(isValid!=true){
     e.preventDefault();
     var form = $("form#guestcheckoutFrm")[0];
     var form2 = new FormData(form);
-    form2.append('mode','2');
-    form2.append('order_id','{{ $orderid }}');
+    form2.append('order_type', 'cod');
+    // form2.append('mode','2');
+    // form2.append('order_id','{{ session('order_number') }}');
     $("#cover-spin").show();
     $.ajax({
-        url:"{{route('website.saveCustDetails')}}",
+        url:"{{route('website.checkout.placeOrder')}}",
         type:"POST",
         data:form2,
         cache:false,

@@ -67,6 +67,7 @@ class OrderController extends Controller
 
         $items = cart()->getContent();
         $user = auth()->user()->load('address');
+        $orderType = $request->orderType;
 
         DB::beginTransaction();
 
@@ -75,7 +76,7 @@ class OrderController extends Controller
             'user_id' => $user->id,
             'order_number' => $request->order_id,
             'address_id' => $user->address->id,
-            'order_type' => 'cc',
+            'order_type' => $orderType,
             'subtotal' => cart()->getSubTotal(),
             'discount' => cart()->getSubTotal() - cart()->getTotal(),
             'total_amount' => cart()->getTotal(),
