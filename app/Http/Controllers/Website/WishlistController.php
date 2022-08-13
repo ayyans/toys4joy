@@ -208,7 +208,7 @@ class WishlistController extends Controller
 		$order->update([
 			'additional_details' => [
 				'name' => $request->name,
-				'phone' => $request->phonenumber,
+				'mobile' => $request->phonenumber,
 				'message' => $request->message
 			]
 		]);

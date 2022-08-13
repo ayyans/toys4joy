@@ -356,25 +356,32 @@ class OrderController extends Controller
         $pdf = PDF::loadView('invoice.giftcard', $data);
         return $pdf->download('Gift Card Invoice - '.$id.'.pdf');
     }
-    public function generatepdf($id)
+    public function generatepdf($order_number)
     {
-        $checkorder = Order::where('id', $id)->count();
-        if($checkorder > 0)
-        {
-            $data = [
-                'order_number' => $id,
-            ];
-            $pdf = PDF::loadView('invoice.indexonline', $data);
-            return $pdf->download('Order Invoice - '.$id.'.pdf');
-        }
-        else
-        {
-            $data = [
-                'ordernumber' => $id,
-            ];
-            $pdf = PDF::loadView('invoice.invoicecod', $data);
-            return $pdf->download('Order Invoice - '.$id.'.pdf');
-        }
+        $order = Order::with([
+            'user', 'address', 'items.product',
+            'giftcards', 'coupon'
+        ])->where('order_number', $order_number)->first();
+        $pdf = PDF::loadView('invoice.invoice', compact('order'));
+        return $pdf->download("Order Invoice - $order_number.pdf");
+
+        // $checkorder = Order::where('id', $id)->count();
+        // if($checkorder > 0)
+        // {
+        //     $data = [
+        //         'order_number' => $id,
+        //     ];
+        //     $pdf = PDF::loadView('invoice.indexonline', $data);
+        //     return $pdf->download('Order Invoice - '.$id.'.pdf');
+        // }
+        // else
+        // {
+        //     $data = [
+        //         'ordernumber' => $id,
+        //     ];
+        //     $pdf = PDF::loadView('invoice.invoicecod', $data);
+        //     return $pdf->download('Order Invoice - '.$id.'.pdf');
+        // }
     }
      // pay as guest checkout 
 
