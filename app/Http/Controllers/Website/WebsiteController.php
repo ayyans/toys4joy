@@ -1025,9 +1025,9 @@ class WebsiteController extends Controller
             ]);
         }
 
-        $coupon = cart()->getConditionsByType('coupon')->first();
-        if ($coupon) {
-            $coupon_id = $coupon->getAttributes()['id'];
+        $coupon_id = cart()->getConditionsByType('coupon')->first();
+        if ($coupon_id) {
+            $coupon_id = $coupon_id->getAttributes()['id'];
         }
 
         $order = Order::where('order_number', $order_number)->first();
