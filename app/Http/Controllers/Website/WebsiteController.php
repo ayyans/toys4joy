@@ -1012,7 +1012,7 @@ class WebsiteController extends Controller
             'subtotal' => cart()->getSubTotal(),
             'discount' => cart()->getSubTotal() - cart()->getTotal(),
             'total_amount' => cart()->getTotal(),
-            'payment_status' => 'unpaid',
+            'payment_status' => cart()->getTotal() == 0 ? 'paid' : 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
         ]);
