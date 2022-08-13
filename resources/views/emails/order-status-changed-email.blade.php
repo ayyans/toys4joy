@@ -87,13 +87,15 @@
                   <td align="center"
                     style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;">
                     <br>
-                    <h2 style="font-size: 30px; font-weight: 800; line-height: 36px; color: #333333; margin: 0;">{{ $data['title'] }}</h2>
+                    <h2 style="font-size: 30px; font-weight: 800; line-height: 36px; color: #333333; margin: 0;">Order
+                      {{ ucfirst($order->order_status) }}!</h2>
                   </td>
                 </tr>
                 <tr>
                   <td align="center"
                     style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 10px;">
-                    <p style="font-size: 16px; font-weight: 400; line-height: 24px; color: #777777; text-align-center">{{ $data['description'] }}</p>
+                    <p style="font-size: 16px; font-weight: 400; line-height: 24px; color: #777777; text-align-center">
+                      Your order has {{ ucfirst($order->order_status) }}.</p>
                   </td>
                 </tr>
                 <tr>
@@ -105,7 +107,7 @@
                           Order ID # </td>
                         <td width="25%" align="left" bgcolor="#eeeeee"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
-                          {{ $data['order_number'] }} </td>
+                          {{ $order->order_number }} </td>
                       </tr>
                       <tr>
                         <td width="75%" align="left"
@@ -121,7 +123,7 @@
                           To</td>
                         <td width="25%" align="left"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                          {{ $data['to'] }} </td>
+                          {{ $order->user_id ? $order->user->name : $order->additional_details['name'] }} </td>
                       </tr>
                       <tr>
                         <td width="75%" align="left"
@@ -129,7 +131,7 @@
                           Date Added</td>
                         <td width="25%" align="left"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                          {{ $data['date'] }} </td>
+                          {{ $order->created_at->format('d/m/Y') }} </td>
                       </tr>
                       <tr>
                         <td width="75%" align="left"
@@ -137,7 +139,7 @@
                           Order Status </td>
                         <td width="25%" align="left"
                           style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                          {{ $data['status'] }} </td>
+                          {{ ucfirst($order->order_status) }} </td>
                       </tr>
                     </table>
                   </td>

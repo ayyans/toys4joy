@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Mail\OrderStatusChangedMail;
+use App\Models\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
@@ -17,7 +18,8 @@ class SendOrderStatusChangeMail
      */
     public function handle($event)
     {
-        $data = $event->data;
-        Mail::to($data['email'])->send(new OrderStatusChangedMail($data));
+        $order = $event->order;
+        $to = $order->user_id ? $order->user->email : $order->additional_details['email'];
+        Mail::to($to)->send(new OrderStatusChangedMail($order));
     }
 }

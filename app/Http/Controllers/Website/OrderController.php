@@ -98,7 +98,7 @@ class OrderController extends Controller
 
         DB::commit();
 
-        // event(new OrderPlaced($order->id));
+        event(new OrderPlaced($order));
         Cmf::sendordersms($order->order_number);
 
         return response()->json([
@@ -150,6 +150,7 @@ class OrderController extends Controller
 
         DB::commit();
 
+        event(new OrderPlaced($order));
         Cmf::sendordersms($order->order_number);
 
         return response()->json([
@@ -291,6 +292,7 @@ class OrderController extends Controller
 
         DB::commit();
 
+        event(new OrderPlaced($order));
         Cmf::sendordersms($order->order_number);
 
         // clearing cart
