@@ -32,7 +32,7 @@ use Session;
 use Auth;
 use Carbon\Carbon;
 use Darryldecode\Cart\CartCondition;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class WebsiteController extends Controller
 {
@@ -997,6 +997,9 @@ class WebsiteController extends Controller
         $items = cart()->getContent();
         $user = auth()->user()->load('address');
         $order_number = mt_rand(100000000, 999999999);
+
+        DB::beginTransaction();
+
         // creating order
         $order = Order::create([
             'user_id' => $user->id,
@@ -1040,6 +1043,8 @@ class WebsiteController extends Controller
             'user_id' => auth()->id(),
             'order_id' => $order->id
         ]);
+
+        DB::commit();
 
         // clearing cart
         cart()->clear();

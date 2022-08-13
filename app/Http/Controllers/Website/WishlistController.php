@@ -28,7 +28,7 @@ use Illuminate\Http\Response;
 use Stripe;
 use Session;
 use Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class WishlistController extends Controller
 {
@@ -48,6 +48,8 @@ class WishlistController extends Controller
 		foreach ($wishlist as $wish) {
 			$total_price = $wish->product->discount ?: $wish->product->unit_price;
 		}
+
+		DB::beginTransaction();
 
 		$order = Order::create([
 				'user_id' => $id,
@@ -74,6 +76,8 @@ class WishlistController extends Controller
 					'total_amount' => $wish->product->unit_price
 			]);
 		}
+
+		DB::commit();
 
 		return response()->json([
 			'status' => 200,

@@ -28,7 +28,7 @@ use Illuminate\Http\Response;
 use Stripe;
 use Session;
 use Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
 use PDF;
 class OrderController extends Controller
 {
@@ -67,6 +67,9 @@ class OrderController extends Controller
 
         $items = cart()->getContent();
         $user = auth()->user()->load('address');
+
+        DB::beginTransaction();
+
         // creating order
         $order = Order::create([
             'user_id' => $user->id,
@@ -92,6 +95,8 @@ class OrderController extends Controller
             ]);
         }
 
+        DB::commit();
+
         return response()->json([
             'status' => true
         ]);
@@ -99,6 +104,9 @@ class OrderController extends Controller
     public function payasguestordergenerate(Request $request)
     {
         $items = cart()->getContent();
+
+        DB::beginTransaction();
+
         // creating order
         $order = Order::create([
             'user_id' => null,
@@ -131,6 +139,8 @@ class OrderController extends Controller
                 'mobile' =>  $request->mobilenumber
             ]
         ]);
+
+        DB::commit();
 
         return response()->json([
             'status' => true
@@ -232,6 +242,8 @@ class OrderController extends Controller
         $items = cart()->getContent();
         $order_number = $request->order_id;
 
+        DB::beginTransaction();
+
         $order = Order::create([
             'user_id' => null,
             'order_number' => $order_number,
@@ -263,6 +275,9 @@ class OrderController extends Controller
                 'mobile' =>  $request->mobilenumber
             ]
         ]);
+
+        DB::commit();
+
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();
