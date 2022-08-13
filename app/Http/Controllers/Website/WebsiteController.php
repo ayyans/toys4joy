@@ -807,13 +807,14 @@ class WebsiteController extends Controller
 
     public function sharewishlist(Request $request){
         $cust_id = $request->cust_id;
-        $wshlists = Wishlist::leftJoin('products','products.id','=','wishlists.prod_id')
+        $wishlist = Wishlist::leftJoin('products','products.id','=','wishlists.prod_id')
                     ->leftJoin('users','users.id','=','wishlists.cust_id')
                     ->select('products.*','users.name','users.email','users.mobile','wishlists.id as wish_id','wishlists.share_status')
                     ->where('wishlists.cust_id','=',$cust_id)
                     ->orderBy('wishlists.id','desc')
                     ->get();
-        return view('website.share_wishlist',compact('wshlists','cust_id'));
+
+        return view('website.share_wishlist',compact('wishlist','cust_id'));
     }
 
     // coupons at checkout
