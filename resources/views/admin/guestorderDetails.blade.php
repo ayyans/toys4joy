@@ -41,7 +41,7 @@
                             <option @if($order->order_status == 'delivered') selected @endif value="delivered">Delivered</option>
                         </select>
                         {{-- @endif --}}
-                        <a href="{{ url('generateinvoice') }}/{{ $order->id }}">Download Invoice</a>
+                        <a href="{{ url('generateinvoice') }}/{{ $order->order_number }}">Download Invoice</a>
                     </td>
                 </tr>
                 <tr>
