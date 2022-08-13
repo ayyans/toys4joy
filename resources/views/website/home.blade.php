@@ -8,7 +8,7 @@
              
                 <div class="categories for-desktop">
                     <h2 class="for-desktop">Categories</h2>
-                    <h2 class="for-mobile">Select Category</h2>
+                    
                     <ul class="nav nav-pills flex-column mb-auto menu">
                      @include('website.layouts.category_menu')
                       
@@ -42,7 +42,7 @@
                     
                     <div class="carousel-item @if ($loop->first) active @endif">
                     <a href="{{ url('') }}/{{ $r->url }}">
-                    <img src="{{ url('uploads') }}/{{ $r->image }}" class="img-fluid" style="width: 100%;">
+                    <img src="{{ url('uploads') }}/{{ $r->image }}" class="lazyload img-fluid" data-src="{{ url('uploads') }}/{{ $r->image }}"  style="width: 100%;">
                     </a>
                     </div>
                     
@@ -57,9 +57,9 @@
                     <span class="visually-hidden">Next</span>
                   </button>
                 </div>
-                <div class="categories for-mobile">
+                <div class="categories for-mobile mt-3">
                     <h2 class="for-desktop">Categories</h2>
-                    <h2 class="for-mobile">Select Category</h2>
+                    
                     <ul class="nav nav-pills flex-column mb-auto menu">
                      @include('website.layouts.category_menu')
                       
@@ -159,7 +159,7 @@
       @endphp
       <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
       @endif
-      <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
+      <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}" class="lazyload" data-src="{{asset('products/'.$product->featured_img)}}"/></a></div>
       <div class="text-center content-block">
           <h3>{{$product->title}}</h3>
           <div class="d-flex price-cart">
@@ -209,7 +209,7 @@
       @endphp
       <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
       @endif
-      <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}"/></a></div>
+      <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}" class="lazyload" data-src="{{asset('products/'.$product->featured_img)}}"/></a></div>
       <div class="text-center content-block">
           <h3>{{$product->title}}</h3>
           <div class="d-flex price-cart">
@@ -248,12 +248,12 @@
  <div class="section-title"><h3>Our Brands</h3></div>
 <div class="row">
 <div class="owl-carousel-brands owl-carousel owl-theme">
-@foreach(DB::table('brands')->where('status' , 2)->get() as $r)
+@foreach(DB::table('brands')->where('status' , 2)->limit(10)->get() as $r)
 <div class="single">
     <a style="color: black;text-decoration: none;" href="{{ url('brand') }}/{{ $r->brand_name }}">
         @if($r->logo)
         <div class="img-block">
-            <img src="{{ url('uploads') }}/{{ $r->logo }}"/>
+            <img src="{{ url('uploads') }}/{{ $r->logo }}" class="lazyload" data-src="{{ url('uploads') }}/{{ $r->logo }}"/>
         </div>
         @else
         <div class="img-block">
@@ -278,7 +278,7 @@
 <div class="row">
   <div class="banner-desktop">
   <div class="owl-carousel-single-banner owl-carousel owl-theme ">
-<div class="item single"><img class="img-widget" style="height: fit-content;;" src="{{asset('uploads/banner1-01.png')}}"></div>
+<div class="item single"><img class="img-widget lazyload" style="height: fit-content;;" src="{{asset('uploads/banner1-01.png')}}" data-src="{{asset('uploads/banner1-01.png')}}"></div>
   </div>
 
   </div>
