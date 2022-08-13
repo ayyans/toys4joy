@@ -164,10 +164,10 @@
                 </td>
 
                 <td colspan="2">
-                  {{ $giftCard->user->name }}<br />
-                  {{ $giftCard->user->mobile }}<br />
-                  {{ $giftCard->user->email }}<br />
-                  {{ $giftCard->user->address->unit_no }},{{ $giftCard->user->address->building_no }},{{ $giftCard->user->address->zone }},{{ $giftCard->user->address->street }}
+                  {{ $giftCard->transactionDetail->user->name }}<br />
+                  {{ $giftCard->transactionDetail->user->mobile }}<br />
+                  {{ $giftCard->transactionDetail->user->email }}<br />
+                  {{ $giftCard->transactionDetail->user->address->unit_no }},{{ $giftCard->transactionDetail->user->address->building_no }},{{ $giftCard->transactionDetail->user->address->zone }},{{ $giftCard->transactionDetail->user->address->street }}
                 </td>
               </tr>
             </table>
