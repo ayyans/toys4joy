@@ -63,6 +63,7 @@ class WishlistController extends Controller
 				'payment_status' => 'unpaid',
 				'order_status' => 'placed',
 				'transaction_number' => null,
+				'additional_details->is_new' => true
 		]);
 
 		foreach ($wishlist as $wish) 
@@ -206,11 +207,9 @@ class WishlistController extends Controller
 
 		$order = Order::where('order_number', $request->orderid)->first();
 		$order->update([
-			'additional_details' => [
-				'name' => $request->name,
-				'mobile' => $request->phonenumber,
-				'message' => $request->message
-			]
+			'additional_details->name' => $request->name,
+			'additional_details->mobile' => $request->phonenumber,
+			'additional_details->message' => $request->message
 		]);
 	}
 }
