@@ -1555,6 +1555,7 @@ public function editProcess(Request $request){
 
         // Total revenue
         $revenueCount = Order::where('payment_status', 'paid')
+            ->where('additional_details->is_abandoned', false)
             ->when($applyFilter, function($query) use ($start_date, $end_date) {
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             })
@@ -1650,6 +1651,7 @@ public function editProcess(Request $request){
         $end_date = $request->end_date;
 
         $orders = Order::whereNull('user_id')->where('payment_status', 'paid')
+            ->where('additional_details->is_abandoned', false)
             ->orderByDesc('created_at')
             ->select('total_amount', 'additional_details->email as email')
             ->when($applyFilter, function($query) use ($start_date, $end_date) {
