@@ -28,6 +28,7 @@ use App\Models\Order;
 use App\Models\ReturnRequest;
 use App\Models\User;
 use App\Models\requiredproducts;
+use App\Models\usergiftcards;
 use Bavix\Wallet\Models\Wallet;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -139,17 +140,25 @@ class AdminController extends Controller
 
     public function addgiftcardsubmit(Request $request)
     {
-        $card = new giftcards();
-        $card->user_id = $request->user_id;
-        $card->name = $request->coupon_title;
-        $card->price = $request->price;
-        $card->code = $request->coupon_code;
-        $card->status = $request->status ?? 0;
-        $card->save();
+        $giftCard = giftcards::create([
+            'name' => $request->coupon_title,
+            'price' => $request->price,
+            'code' => $request->coupon_code,
+            'status' => $request->status ?? 0
+        ]);
         // giftcard 100 points reward functionality
         // withdraw 100 points if it's reward
         if ($request->type == 'reward') {
             User::find($request->user_id)->withdraw(100, ["description" => "100 Points Gift Card Generated"]);
+            // add usergiftcards entry for the record
+            usergiftcards::create([
+                'order_number' => rand(123456789, 987654321),
+                'user_id' => $request->user_id,
+                'giftcard_id' => $giftCard->id,
+                'price' => $giftCard->price,
+                'payment_status' => 'paid',
+                'transaction_number' => null
+            ]);
         }
         // if it's ajax request
         if ($request->ajax()) {
