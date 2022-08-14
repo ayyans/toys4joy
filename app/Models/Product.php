@@ -68,7 +68,7 @@ class Product extends Model
 
     public function paidOrderItems() {
         return $this->hasMany(OrderItem::class, 'product_id')->whereHas('order', function($query) {
-            $query->where('payment_status', 'paid');
+            $query->where('payment_status', 'paid')->where('additional_details->is_abandoned', false);
         });
     }
 }

@@ -258,7 +258,8 @@ class WebsiteController extends Controller
         $order->update([
             'coupon_id' => $coupon_id,
             'payment_status' => 'paid',
-            'transaction_number' => $transaction_number
+            'transaction_number' => $transaction_number,
+            'additional_details->is_abandoned' => false,
         ]);
 
         $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
@@ -275,6 +276,9 @@ class WebsiteController extends Controller
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();
+
+        event(new OrderPlaced($order));
+        Cmf::sendordersms($order->order_number);
 
         return view('website.guestthanks', compact('order_number'));
 
@@ -1015,6 +1019,7 @@ class WebsiteController extends Controller
             'payment_status' => cart()->getTotal() == 0 ? 'paid' : 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
+            'additional_details->is_abandoned' => false,
             'additional_details->is_new' => true
         ]);
         // creating order items
@@ -1190,8 +1195,9 @@ class WebsiteController extends Controller
 
 // your points
 
-public function yourpoints(Request $request){
-    return view('website.points');
+public function yourpoints(){
+    $points = auth()->user()->balance;
+    return view('website.points', compact('points'));
 }
 
 public function giftcard() {

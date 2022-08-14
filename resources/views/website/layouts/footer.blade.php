@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="d-flex elements app-s-media">
-            <div class="google-play">
+            <div class="google-play" style="visibility:hidden;">
                 <a href="#"><img src="{{asset('website/img/ios.png')}}" class="app-store"></a>
                 <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
             </div>
@@ -94,7 +94,7 @@
         <div class="col-12">
             <div class="get-in-touch">
         
-                <div class="google-play">
+                <div class="google-play" style="visibility:hidden;">
                     <a href="#"><img src="{{asset('website/img/ios.png')}}" class="app-store"></a>
                     <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
                 </div>
@@ -124,7 +124,7 @@
             </div>
             <div class="elements">
                 <div class="d-flex why-us">
-                    <a href="https://api.whatsapp.com/send?phone=97460005370&text=Welcome%20to%20Toys4joy" target="_blank" class="whatsapp-icon">
+                    <a href="https://api.whatsapp.com/send?phone=97460005970&text=Welcome%20to%20Toys4joy" target="_blank" class="whatsapp-icon">
                         <img src="{{asset('website/img/whatsapp.png')}}" class="whatsapp mobile">
                     </a>
                 </div>
