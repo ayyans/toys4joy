@@ -82,6 +82,7 @@ class OrderController extends Controller
             'payment_status' => 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
+            'additional_details->is_abandoned' => true,
             'additional_details->is_new' => true
         ]);
         // creating order items
@@ -97,9 +98,6 @@ class OrderController extends Controller
         }
 
         DB::commit();
-
-        event(new OrderPlaced($order));
-        Cmf::sendordersms($order->order_number);
 
         return response()->json([
             'status' => true
@@ -127,6 +125,7 @@ class OrderController extends Controller
             'additional_details->name' => $request->custname,
             'additional_details->email' => $request->email,
             'additional_details->mobile' => $request->mobilenumber,
+            'additional_details->is_abandoned' => true,
             'additional_details->is_new' => true
         ]);
         // creating order items
@@ -149,9 +148,6 @@ class OrderController extends Controller
         // ]);
 
         DB::commit();
-
-        event(new OrderPlaced($order));
-        Cmf::sendordersms($order->order_number);
 
         return response()->json([
             'status' => true
@@ -194,12 +190,16 @@ class OrderController extends Controller
         $order = Order::where('order_number', $order_number)->first();
         $order->update([
             'payment_status' => 'paid',
-            'transaction_number' => $transaction_number
+            'transaction_number' => $transaction_number,
+            'additional_details->is_abandoned' => false
         ]);
 
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();
+
+        event(new OrderPlaced($order));
+        Cmf::sendordersms($order->order_number);
 
         return view('website.guestthanks', compact('order_number'));
         // $allparms =  $request->all();

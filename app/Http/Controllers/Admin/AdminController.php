@@ -881,7 +881,7 @@ public function guestOrders(){
     //           ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')  
     //           ->groupby('guest_orders.order_id')
     //           ->orderBy('guest_orders.id','desc')->get();
-    $orders = Order::whereNull('user_id')->get();
+    $orders = Order::whereNull('user_id')->where('additional_details->is_abandoned', false)->get();
     // new orders
     $newOrders = Order::whereNull('user_id')->where('additional_details->is_new', true)->update([
         'additional_details->is_new' => false
@@ -1174,7 +1174,10 @@ public function orderStatus(Request $request){
 
 public function custOrders(){
     $orders = Order::with(['user', 'address'])
-        ->whereNotNull('user_id')->where('is_wishlist', false)->get();
+        ->whereNotNull('user_id')
+        ->where('is_wishlist', false)
+        ->where('additional_details->is_abandoned', false)
+        ->get();
     // mark new orders is_new to false
     Order::whereNotNull('user_id')->where('is_wishlist', false)->where('additional_details->is_new', true)->update([
         'additional_details->is_new' => false

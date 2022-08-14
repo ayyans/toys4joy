@@ -258,7 +258,8 @@ class WebsiteController extends Controller
         $order->update([
             'coupon_id' => $coupon_id,
             'payment_status' => 'paid',
-            'transaction_number' => $transaction_number
+            'transaction_number' => $transaction_number,
+            'additional_details->is_abandoned' => false,
         ]);
 
         $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
@@ -273,6 +274,9 @@ class WebsiteController extends Controller
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();
+
+        event(new OrderPlaced($order));
+        Cmf::sendordersms($order->order_number);
 
         return view('website.guestthanks', compact('order_number'));
 
