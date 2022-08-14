@@ -6,24 +6,11 @@
         <div class="col-3 categories-col">
             <div class="d-flex flex-column flex-shrink-0" > 
                 <div class="for-mobile mbl-banner">
-                    <ul class="nav nav-pills nav-fill">
-                      <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Best Offers</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Wish List</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">E-Gift Cards</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link">Your Points</a>
-                      </li>
-                    </ul>
+                    <@include('website.layouts.user_menu') 
+                    <!--<img src="{{asset('website/img/t1.png')}}" class="img-fluid">-->
                 </div>
                 <div class="categories">
                     <h2 class="for-desktop">Categories</h2>
-                    <h2 class="for-mobile">Select Category</h2>
                     <ul class="nav nav-pills flex-column mb-auto menu">
                     @include('website.layouts.category_menu')
                                  
