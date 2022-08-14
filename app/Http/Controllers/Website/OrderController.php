@@ -269,6 +269,7 @@ class OrderController extends Controller
             'additional_details->name' => $request->custname,
             'additional_details->email' => $request->email,
             'additional_details->mobile' => $request->mobilenumber,
+            'additional_details->is_abandoned' => false,
             'additional_details->is_new' => true
         ]);
         // creating order items
