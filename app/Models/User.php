@@ -53,11 +53,11 @@ class User extends Authenticatable implements Wallet, Customer
     }
 
     public function orders() {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class)->where('additional_details->is_abandoned', false);
     }
 
     public function paidOrders() {
-        return $this->hasMany(Order::class)->where('payment_status', 'paid');
+        return $this->hasMany(Order::class)->where('payment_status', 'paid')->where('additional_details->is_abandoned', false);
     }
 
     public function address() {
