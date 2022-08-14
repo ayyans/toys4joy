@@ -29,7 +29,7 @@
             
             
             <div class="row party-includes">
-                <div class="col-6 left-col">
+                <div class="col-xl-12 col-sm-12 col-md-6 left-col">
                     <div class="content-box">
                         <p>Gain 5,000 points and get free 100 QR e-gift voucher, 100 QR spent is equivalent to 2 points.</p>
                     </div>
