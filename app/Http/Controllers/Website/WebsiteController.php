@@ -1195,8 +1195,9 @@ class WebsiteController extends Controller
 
 // your points
 
-public function yourpoints(Request $request){
-    return view('website.points');
+public function yourpoints(){
+    $points = auth()->user()->balance;
+    return view('website.points', compact('points'));
 }
 
 public function giftcard() {
