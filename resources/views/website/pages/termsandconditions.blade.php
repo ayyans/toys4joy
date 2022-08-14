@@ -11,7 +11,7 @@
                 </div>
                 <div class="categories">
                     <h2 class="for-desktop">Categories</h2>
-                    <h2 class="for-mobile">Select Category</h2>
+                    
                     <ul class="nav nav-pills flex-column mb-auto menu">
                      @include('website.layouts.category_menu')
                       
