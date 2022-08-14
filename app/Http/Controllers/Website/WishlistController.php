@@ -63,6 +63,7 @@ class WishlistController extends Controller
 				'payment_status' => 'unpaid',
 				'order_status' => 'placed',
 				'transaction_number' => null,
+				'additional_details->is_abandoned' => true,
 				'additional_details->is_new' => true
 		]);
 
@@ -79,9 +80,6 @@ class WishlistController extends Controller
 		}
 
 		DB::commit();
-
-		event(new OrderPlaced($order));
-		Cmf::sendordersms($order->order_number);
 
 		return response()->json([
 			'status' => 200,
@@ -150,8 +148,12 @@ class WishlistController extends Controller
 		$order = Order::where('order_number', $order_number)->first();
 		$order->update([
 				'payment_status' => 'paid',
-				'transaction_number' => $transaction_number
+				'transaction_number' => $transaction_number,
+				'additional_details->is_abandoned' => false
 		]);
+
+		event(new OrderPlaced($order));
+		Cmf::sendordersms($order->order_number);
 
 		return view('website.guestthanks', compact('order_number'));
 

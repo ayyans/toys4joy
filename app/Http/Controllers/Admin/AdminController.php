@@ -1215,7 +1215,8 @@ public function wishlistorders()
     //         ->where('orders.ordertype' , 'wishlist')
     //         ->get();
     $orders = Order::with(['user', 'address'])
-        ->whereNotNull('user_id')->where('is_wishlist', true)->get();
+        ->whereNotNull('user_id')->where('is_wishlist', true)
+        ->where('additional_details->is_abandoned', false)->get();
     // mark new orders is_new to false
     Order::whereNotNull('user_id')->where('is_wishlist', true)->where('additional_details->is_new', true)->update([
         'additional_details->is_new' => false
