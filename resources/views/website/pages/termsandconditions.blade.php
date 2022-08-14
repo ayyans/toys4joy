@@ -6,21 +6,8 @@
         <div class="col-3 categories-col">
             <div class="d-flex flex-column flex-shrink-0" >
                 <div class="for-mobile mbl-banner">
-                    <ul class="nav nav-pills nav-fill">
-                      <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Best Offers</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Wish List</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">E-Gift Cards</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link">Your Points</a>
-                      </li>
-                    </ul>    
-                    <img src="{{asset('website/img/t1.png')}}" class="img-fluid">
+                @include('website.layouts.user_menu') 
+                    <!--<img src="{{asset('website/img/t1.png')}}" class="img-fluid">-->
                 </div>
                 <div class="categories">
                     <h2 class="for-desktop">Categories</h2>
@@ -46,7 +33,7 @@
                 <p>To create the happiness in the heart of our lovely children and the smile on the face of their parents by providing branded high quality safe and innovative toys, with fastest &amp; free delivery service, with always best price</p>    
             </div>
             <div class="text-box values">
-                <h4>Values<span>Social Care by </span></h4>
+                <h4>Values</h4>
                 <ul>
                     <li>Providing very special price for the kids who has Cancer, Autism, and all any other critical disease</li>
                     <li>Always provide the safe branding products for our lovely children</li>
