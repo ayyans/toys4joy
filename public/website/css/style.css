@@ -3844,6 +3844,19 @@ img.g-play-store {width: 82px;}
 
 
 @media only screen and (max-width: 767px) {
+
+    #your-points{
+        margin: 0;
+        padding: 0;
+    } 
+    #your-points .progress a.ballons img{
+        right: 0;
+        top: calc(-170px/2);
+        width: 90px;
+    } 
+    /*#your-points .party-includes{
+
+    }*/
     .bg-startup-animation{
         width: 100%;
     }
