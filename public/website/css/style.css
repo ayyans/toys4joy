@@ -3926,7 +3926,7 @@ footer.for-mobile {display: block;padding: 10px 0;}
 .why-us p, .company-policy p {font-size: 9px;font-weight: 700;color: #000;text-decoration: underline;}
 .company-policy a img:first-child {margin-right: 0;}   
 .company-policy a {display: unset;}    
-.company-policy img {height: 55px;}
+.company-policy img {height: 70px;}
 .why-us img {width: 70px;} 
 .toll-free img {width: 60px;}    
 .toll-free span {font-size: 10px;font-weight: 700;box-shadow: 0 3px 5px rgb(0 0 0 / 20%);padding: 5px 8px;border-radius: 4px;}    
@@ -3944,7 +3944,7 @@ ul.d-flex.social-media {justify-content: center;margin-top: -15px;}
 .pagination {padding-top: 20px;justify-content: flex-start;} 
 .pagination li a {padding: 3px 12px; font-size: 14px;}    
 .categories-col {width: 100%!important;} 
-.categories {border: 0;border-radius: 0;}    
+.categories {border: 0;border-radius: 0; margin-top: 10px;}    
 .categories h2.for-mobile {/*background: #d51965;*/ background: none; border-radius: 5px; max-width: 200px; margin: 30px auto;color: #d51965;border-bottom: 1px solid;}
 .middle-col {width: 100%!important;padding: 15px;}  
 .right-col {width: 100%!important; padding: 0 15px;}    

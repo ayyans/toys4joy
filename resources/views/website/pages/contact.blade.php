@@ -8,7 +8,7 @@
             <div class="d-flex flex-column flex-shrink-0" >
                 <div class="for-mobile mbl-banner">
                 @include('website.layouts.user_menu') 
-                    <img src="{{asset('website/img/t1.png')}}" class="img-fluid">
+                    <!--<img src="{{asset('website/img/t1.png')}}" class="img-fluid">-->
                 </div>
                 <div class="categories">
                     <h2 class="for-desktop">Categories</h2>
