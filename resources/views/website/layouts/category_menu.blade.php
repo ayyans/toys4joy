@@ -3,7 +3,7 @@
     $subcategories = DB::table('sub_categories')->where('parent_cat' , $cat->id)->where('status' , 2)->get();
 @endphp
 @if($subcategories->count() == 0)
-<li class="nav-item"> <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link" aria-current="page"> <img src="{{asset('uploads/'.$cat->cat_icon)}}"><span class="ms-2">{{$cat->category_name}}</span> </a> </li>
+<li class="nav-item"> <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link " aria-current="page"> <img src="{{asset('uploads/'.$cat->cat_icon)}}"><span class="ms-2">{{$cat->category_name}}</span> </a> </li>
 @else
 <li class="nav-item dropdown">
     <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link text-dark parent-cat" cat-link="{{ url('category') }}/{{ $cat->url }}"> <img src="{{asset('uploads/'.$cat->cat_icon)}}">
@@ -14,8 +14,9 @@
         </span>
     </a> 
     <div class="megadrop">
+      <!--<a id="icon-close" href="#" class="icon-close for-mobile" data-toggle="dropdown"  aria-expanded="false"><i class="fa fa-close"></i></a>-->
         <div class="image col">
-          <img src="{{asset('uploads/'.$cat->cat_banner)}}">
+        <a href="{{ url('category') }}/{{ $cat->url }}"><img  class="cat-banner" src="{{asset('uploads/'.$cat->cat_banner)}}"></a>
         </div>
         @foreach($subcategories as $r)
         <div class="col">
