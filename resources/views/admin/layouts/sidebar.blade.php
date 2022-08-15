@@ -207,6 +207,7 @@
     <div id="sitesettigns" class="collapse" aria-labelledby="headingUtilities"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">           
+            <a class="collapse-item" href="{{route('admin.settings.index')}}">General Settings</a>
             <a class="collapse-item" href="{{route('admin.homepagebanners')}}">Homepage Banners</a>
             <a class="collapse-item" href="{{route('admin.smssettings')}}">SMS Settings</a>
         </div>
