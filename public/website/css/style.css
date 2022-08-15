@@ -3089,16 +3089,19 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     margin: 0 auto;
     padding: 0 10px;
     font-size: 24px;
+    text-align: center;
 }
 #add-change-address .form-group .input-block.unit-num input,
 #add-change-address .form-group .input-block.building-num input {
     max-width: 250px;
     height: 100px;
     font-size: 30px;
+    text-align: center;
 }
 #add-change-address .form-group .zone-street {
     justify-content: center;
     column-gap: 15px;
+    text-align: center;
 }
 #add-change-address .right-col .google-location {justify-content: center;}
 #add-change-address .right-col .google-location img {
@@ -4001,7 +4004,7 @@ ul.nav-fill .nav-item a {
     width: 175px;
     margin: 8px auto 15px;
     color: #0a67a2;
-    border-bottom: 1px solid #0a67a2;
+    /*border-bottom: 1px solid #0a67a2;*/
 } 
 #my-account .content-block .my-profile a, #my-account .content-block .siblings a {margin: 15px auto;}    
 .digits h3 {padding: 5px 1px;border-radius: 5px;}
