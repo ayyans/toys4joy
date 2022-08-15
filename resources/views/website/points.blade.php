@@ -16,8 +16,8 @@
                         <div class="progress">
                             <a href="#" class="ballons"><img src="{{asset('website/img/party-ballons.png')}}"></a>
                             <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="70"
-                                aria-valuemin="0" aria-valuemax="100"><span>{{ number_format(5000 - $points, 0) }} points
-                                    left</span></div>
+                                aria-valuemin="0" aria-valuemax="100"><span>{{ number_format($points, 0) }} Points</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-2">
