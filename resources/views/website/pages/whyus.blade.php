@@ -36,7 +36,9 @@
             <div class="content-block">
                 <div class="d-flex list">
                     <div class="icon"><img src="{{ url('website/img/points-program.png') }}"/></div>
-                    <h4>Gain 5,000 points and get free 100 QR e-gift voucher, 100 QR spent is equivalent to 2 points.</h4>
+                    <h4>1 QR = 2 Points</br>
+                          2500 QR = 5000 Points</br>
+                          When you reach 5000 Points you gain E Gift card in amount of 100 QR</h4>
                 </div>
                 <div class="d-flex list">
                     <div class="icon"><img src="{{ url('website/img/wishlist-cart.png') }}"/></div>
