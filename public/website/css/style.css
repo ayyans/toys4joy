@@ -316,6 +316,13 @@ header {padding: 15px 20px;}
   background-position: 100%;
   color: #a0c8ec;
 }
+.icon-close{
+    border: 0 !important;
+    background-color: transparent !important;
+    right: 0;
+    width: fit-content;
+    left: 90%;
+}
 .categories {
     border: 1px solid #dddbdb;
     border-radius: 10px;
@@ -988,6 +995,9 @@ color: #227087;
 }
 .menu .image {width: 35%;}
 .menu .col img {width: 100%;border-radius: 20px;}
+.cat-banner {width: 100% !important;
+    border-radius: 20px!important;
+    height: auto !important;}
 .menu .col ul {
 padding: 0;
 margin: 0;
