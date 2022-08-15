@@ -169,6 +169,10 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
     // Points
     Route::get('points', 'AdminController@points')->name('points');
+
+    // Settings
+    Route::get('settings', 'SettingsController@index')->name('settings.index');
+    Route::post('settings', 'SettingsController@store')->name('settings.store');
 });
 
 
