@@ -25,11 +25,43 @@ use App\Models\Order;
 use App\Models\ReturnRequest;
 use App\Models\User;
 use App\Models\requiredproducts;
+use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SettingsController extends Controller
 {
+    public function index() {
+        $settings = Setting::pluck('value', 'name');
+        return view('admin.settings.index', compact('settings'));
+    }
+
+    public function store(Request $request) {
+        // Qar in Points
+        $request->whenFilled('qar_in_points', function($qar_in_points) {
+            Setting::updateOrCreate(
+                ['name' => 'qar_in_points'],
+                ['value' => $qar_in_points]
+            );
+        });
+        // Points Threshold
+        $request->whenFilled('points_threshold', function($points_threshold) {
+            Setting::updateOrCreate(
+                ['name' => 'points_threshold'],
+                ['value' => $points_threshold]
+            );
+        });
+        // Reward on Threshold
+        $request->whenFilled('reward_on_threshold', function($reward_on_threshold) {
+            Setting::updateOrCreate(
+                ['name' => 'reward_on_threshold'],
+                ['value' => $reward_on_threshold]
+            );
+        });
+
+        return back()->with('success', 'Settings Saved!');
+    }
+
 	public function smssettings()
     {
         $data = adminsmsnumbers::orderBy('id','desc')->get();
@@ -53,5 +85,4 @@ class SettingsController extends Controller
             exit();
         }
     }
-
 }
