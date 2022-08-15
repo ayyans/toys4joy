@@ -37,7 +37,7 @@
                             <option @if($order->order_status == 'delivered') selected @endif value="delivered">Delivered</option>
                         </select>
                         {{-- @endif --}}
-                        <a href="{{ url('generateinvoice') }}/{{ $order->id }}">Download Invoice</a>
+                        <a href="{{ url('generateinvoice') }}/{{ $order->order_number }}">Download Invoice</a>
 
 
                         @if($order->is_wishlist)
@@ -69,7 +69,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Phone Number</td>
-                                                <td>{{ $order->additional_details['phone'] }}</td>
+                                                <td>{{ $order->additional_details['mobile'] }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Message</td>

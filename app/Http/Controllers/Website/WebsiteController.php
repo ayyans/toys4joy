@@ -32,7 +32,7 @@ use Session;
 use Auth;
 use Carbon\Carbon;
 use Darryldecode\Cart\CartCondition;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class WebsiteController extends Controller
 {
@@ -249,13 +249,17 @@ class WebsiteController extends Controller
         $order_number = $data['ORDERID'];
         $transaction_number = $data['transaction_number'];
 
-        $coupon_id = cart()->getConditionsByType('coupon')->first()->getAttributes()['id'] ?? null;
+        $coupon_id = cart()->getConditionsByType('coupon')->first();
+        if ($coupon_id) {
+            $coupon_id = $coupon_id->getAttributes()['id'];
+        }
 
         $order = Order::where('order_number', $order_number)->first();
         $order->update([
             'coupon_id' => $coupon_id,
             'payment_status' => 'paid',
-            'transaction_number' => $transaction_number
+            'transaction_number' => $transaction_number,
+            'additional_details->is_abandoned' => false,
         ]);
 
         $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
@@ -270,6 +274,9 @@ class WebsiteController extends Controller
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();
+
+        event(new OrderPlaced($order));
+        Cmf::sendordersms($order->order_number);
 
         return view('website.guestthanks', compact('order_number'));
 
@@ -997,6 +1004,9 @@ class WebsiteController extends Controller
         $items = cart()->getContent();
         $user = auth()->user()->load('address');
         $order_number = mt_rand(100000000, 999999999);
+
+        DB::beginTransaction();
+
         // creating order
         $order = Order::create([
             'user_id' => $user->id,
@@ -1006,9 +1016,11 @@ class WebsiteController extends Controller
             'subtotal' => cart()->getSubTotal(),
             'discount' => cart()->getSubTotal() - cart()->getTotal(),
             'total_amount' => cart()->getTotal(),
-            'payment_status' => 'unpaid',
+            'payment_status' => cart()->getTotal() == 0 ? 'paid' : 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
+            'additional_details->is_abandoned' => false,
+            'additional_details->is_new' => true
         ]);
         // creating order items
         foreach ($items as $item) {
@@ -1022,7 +1034,10 @@ class WebsiteController extends Controller
             ]);
         }
 
-        $coupon_id = cart()->getConditionsByType('coupon')->first()->getAttributes()['id'] ?? null;
+        $coupon_id = cart()->getConditionsByType('coupon')->first();
+        if ($coupon_id) {
+            $coupon_id = $coupon_id->getAttributes()['id'];
+        }
 
         $order = Order::where('order_number', $order_number)->first();
         $order->update([
@@ -1037,6 +1052,11 @@ class WebsiteController extends Controller
             'user_id' => auth()->id(),
             'order_id' => $order->id
         ]);
+
+        DB::commit();
+
+        event(new OrderPlaced($order));
+        Cmf::sendordersms($order->order_number);
 
         // clearing cart
         cart()->clear();
@@ -1175,12 +1195,14 @@ class WebsiteController extends Controller
 
 // your points
 
-public function yourpoints(Request $request){
-    return view('website.points');
+public function yourpoints(){
+    $points = auth()->user()->balance;
+    return view('website.points', compact('points'));
 }
 
-public function giftcard(Request $request){
-    return view('website.giftcards');
+public function giftcard() {
+    $giftCardPrices = [50, 100, 200, 300, 400, 500];
+    return view('website.giftcards', compact('giftCardPrices'));
 }
 
 

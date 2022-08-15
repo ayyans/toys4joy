@@ -11,15 +11,15 @@ class OrderStatusChangedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    public $order;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($order)
     {
-        $this->data = $data;
+        $this->order = $order;
     }
 
     /**

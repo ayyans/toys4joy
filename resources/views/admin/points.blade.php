@@ -148,7 +148,7 @@ $(function () {
         coupon_title: '100 Points Gift Card',
         coupon_code: code,
         price: 100,
-        status: 2,
+        status: 1,
         type: 'reward' // if it's reward deduce balance and send mail
       }
       // ajax request

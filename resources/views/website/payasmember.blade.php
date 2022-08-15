@@ -5,204 +5,191 @@
 {{-- if expired please detach --}}
 
 <main id="pay-as-member" class="pay-as-member-page">
-<div class="container-fluid">
-    <div class="row">
-       
-        <div class="col-6 member-col left">
-        <form action="{{ url('place-order-process') }}" method="POST" id="checkoutFrm">
-            <?php //$total_price = 0; ?>
-            @php $total_price = \Cart::getTotal() @endphp
-            @foreach($items as $item)
-            {{-- @php
-              if($product->discount)
-              {
-                  $price = $product->discount;
-              }else{
-                  $price = $product->unit_price;
-              }
-            @endphp --}}
-            <?php //$total_price+=$item->price*$item->cartQty; ?>
-            <input type="hidden" id="prod_id" value="{{$item->id}}" name="prodid[]" />
-            <input type="hidden" id="cart_qty" value="{{$item->quantity}}" name="cartQty[]" />
-            <input type="hidden" id="cart_amount" value="{{$item->price}}" name="cart_amount[]" />
-            <div class="d-flex cart-products">
-                <div class="cart-image"><img src="{{asset('products/'.$item->associatedModel['featured_img'])}}"/></div>
-                <div class="product-detail">
-                    <h2 class="title">{{$item->name}}</h2>
-                    <h4 class="price">QAR {{$item->price}}</h4>
-                    <div class="qty">Quantity : {{$item->quantity}}</div>
-                    <div class="d-flex rmv-or-edit">
-                        <div class="remove icon"><a href="javascript:void(0)" onclick="removecart({{$item->id}})"><img src="{{asset('website/img/delete.png')}}"/></a></div>
-                        <!-- <div class="edit icon"><a href="#"><img src="{{asset('website/img/edit.png')}}"/></a></div> -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-6 member-col left">
+                <form action="{{ url('place-order-process') }}" method="POST" id="checkoutFrm">
+                    <?php //$total_price = 0; ?>
+                    @php $total_price = \Cart::getTotal() @endphp
+                    @foreach($items as $item)
+                    {{-- @php
+                    if($product->discount)
+                    {
+                    $price = $product->discount;
+                    }else{
+                    $price = $product->unit_price;
+                    }
+                    @endphp --}}
+                    <?php //$total_price+=$item->price*$item->cartQty; ?>
+                    <input type="hidden" id="prod_id" value="{{$item->id}}" name="prodid[]" />
+                    <input type="hidden" id="cart_qty" value="{{$item->quantity}}" name="cartQty[]" />
+                    <input type="hidden" id="cart_amount" value="{{$item->price}}" name="cart_amount[]" />
+                    <div class="d-flex cart-products">
+                        <div class="cart-image"><img
+                                src="{{asset('products/'.$item->associatedModel['featured_img'])}}" /></div>
+                        <div class="product-detail">
+                            <h2 class="title">{{$item->name}}</h2>
+                            <h4 class="price">QAR {{$item->price}}</h4>
+                            <div class="qty">Quantity : {{$item->quantity}}</div>
+                            <div class="d-flex rmv-or-edit">
+                                <div class="remove icon"><a href="javascript:void(0)"
+                                        onclick="removecart({{$item->id}})"><img
+                                            src="{{asset('website/img/delete.png')}}" /></a></div>
+                                <!-- <div class="edit icon"><a href="#"><img src="{{asset('website/img/edit.png')}}"/></a></div> -->
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </form>
+            </div>
+
+
+            <div class="col-6 member-col right text-center">
+                @php $coupon = cart()->getConditionsByType('coupon')->first() @endphp
+                <div style="margin-top: 0px;" class="discount-block">
+                    <div class="mb-3">
+                        <label>Discount Code</label>
+                        @if ($coupon && $coupon->getName() == 'Discount Coupon')
+                        <input style="background-color: #ddd" readonly
+                            value="Congratulations! You have redeemed {{ abs($coupon->getValue()) }}% discount coupon"
+                            type="text">
+                        <a href="{{ route('website.removeDiscountCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}"
+                            class="btn btn-primary discountBtn">Remove</a>
+                        @else
+                        <input type="text" id="discount_coupon" @if ($coupon) disabled @endif>
+                        <button class="btn btn-primary discountBtn" @if ($coupon) disabled @endif>Enter</button>
+                        @endif
+                    </div>
+                    {{-- @php $giftCardCondition = \Cart::getCondition('Gift Card') @endphp
+                    @if($giftCardCondition)
+                    @php
+                    $usergiftcard = DB::Table('usergiftcards')->where('code' ,
+                    $products->first()->giftcode)->get()->first();
+                    $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
+                    $total_price = $total_price-$giftcard->price;
+                    @endphp
+                    <div class="mb-3">
+                        <label>Gift-Card Redeemed</label>
+                        <input style="background-color: #ddd" readonly
+                            value="Congratulations! You have redeemed ({{ abs($giftCardCondition->getValue()) }})"
+                            type="text" id="giftcard_coupon">
+                        <a href="{{ url('removegiftcard') }}" class="btn btn-primary giftBtn">Remove</a>
+                    </div>
+                    @else --}}
+                    <div class="mb-3">
+                        <label>Gift-Card Code</label>
+                        <input type="text" id="giftcard_coupon">
+                        <button class="btn btn-primary giftBtn">Enter</button>
+                    </div>
+                    @php $giftCards = cart()->getConditionsByType('giftcard') @endphp
+                    @foreach ($giftCards as $giftCard)
+                    <div class="alert alert-success d-flex justify-content-between px-2 py-1 text-start" role="alert">
+                        <span>You have redeemed {{ abs($giftCard->getValue()) }} QAR</span>
+                        <a href="{{ route('website.removegiftcard', ['id' => $giftCard->getAttributes()['id'], 'name' => $giftCard->getName()]) }}"
+                            class="alert-link">remove</a>
+                    </div>
+                    @endforeach
+                    {{-- @endif --}}
+                </div>
+                <div class="code-block">
+                    <div class="mb-3">
+                        <label>Corporate Code</label>
+                        @if ($coupon && $coupon->getName() == 'Corporate Coupon')
+                        <input style="background-color: #ddd" readonly
+                            value="Congratulations! You have redeemed {{ abs($coupon->getValue()) }}% corporate coupon"
+                            type="text">
+                        <a href="{{ route('website.removeCorporateCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}"
+                            class="btn btn-primary corporateBtn">Remove</a>
+                        @else
+                        <input type="text" id="corporate_code" @if ($coupon) disabled @endif>
+                        <button class="btn btn-primary corporateBtn" @if ($coupon) disabled @endif>Enter</button>
+                        @endif
+                    </div>
+                    <div class="mb-3">
+                        <label>Verify the OTP Code</label>
+                        <input type="text" id="verifyotp">
+                        <button class="btn btn-primary">Submit</button>
                     </div>
                 </div>
-            </div>
-            @endforeach
-            </form>
-        </div>
-
-
-<div class="col-6 member-col right text-center">
-    @php $coupon = cart()->getConditionsByType('coupon')->first() @endphp
-    <div style="margin-top: 0px;" class="discount-block">
-        <div class="mb-3">
-            <label>Discount Code</label>
-            @if ($coupon && $coupon->getName() == 'Discount Coupon')
-                <input style="background-color: #ddd" readonly value="Congratulations! You have redeemed {{ abs($coupon->getValue()) }}% discount coupon" type="text">
-                <a href="{{ route('website.removeDiscountCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}" class="btn btn-primary discountBtn">Remove</a>
-            @else
-                <input type="text" id="discount_coupon" @if ($coupon) disabled @endif>
-                <button class="btn btn-primary discountBtn" @if ($coupon) disabled @endif>Enter</button>
-            @endif
-        </div>
-        {{-- @php $giftCardCondition = \Cart::getCondition('Gift Card') @endphp
-        @if($giftCardCondition)
-            @php
-                $usergiftcard = DB::Table('usergiftcards')->where('code' , $products->first()->giftcode)->get()->first();
-                $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
-                $total_price = $total_price-$giftcard->price;
-            @endphp
-            <div class="mb-3">
-                <label>Gift-Card Redeemed</label>
-                <input style="background-color: #ddd" readonly value="Congratulations! You have redeemed ({{ abs($giftCardCondition->getValue()) }})" type="text" id="giftcard_coupon">
-                <a href="{{ url('removegiftcard') }}" class="btn btn-primary giftBtn">Remove</a>
-            </div>
-        @else --}}
-        <div class="mb-3">
-            <label>Gift-Card Code</label>
-            <input type="text" id="giftcard_coupon">
-            <button class="btn btn-primary giftBtn">Enter</button>
-        </div>
-        @php $giftCards = cart()->getConditionsByType('giftcard') @endphp
-        @foreach ($giftCards as $giftCard)
-        <div class="alert alert-success d-flex justify-content-between px-2 py-1 text-start" role="alert">
-            <span>You have redeemed {{ abs($giftCard->getValue()) }} QAR</span>
-            <a href="{{ route('website.removegiftcard', ['id' => $giftCard->getAttributes()['id'], 'name' => $giftCard->getName()]) }}" class="alert-link">remove</a>
-        </div>
-        @endforeach
-        {{-- @endif --}}
-    </div>
-    <div class="code-block">
-        <div class="mb-3">
-            <label>Corporate Code</label>
-            @if ($coupon && $coupon->getName() == 'Corporate Coupon')
-                <input style="background-color: #ddd" readonly value="Congratulations! You have redeemed {{ abs($coupon->getValue()) }}% corporate coupon" type="text">
-                <a href="{{ route('website.removeCorporateCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}" class="btn btn-primary corporateBtn">Remove</a>
-            @else
-                <input type="text" id="corporate_code" @if ($coupon) disabled @endif>
-                <button class="btn btn-primary corporateBtn" @if ($coupon) disabled @endif>Enter</button>
-            @endif
-        </div>
-        <div class="mb-3">
-            <label>Verify the OTP Code</label>
-            <input type="text" id="verifyotp">
-            <button class="btn btn-primary">Submit</button>
-        </div>
-    </div>
-    <input type="hidden" id="total_amt" value="{{$total_price}}" />
-    <input type="hidden" id="prev_amt" value="{{$total_price}}"/>
-            <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
-            @if($total_price == 0)
-            <div class="yellowbg-img cash-on-delivery">
-                <img src="{{asset('website/img/cash-on-delievery.png')}}"/>
-                <a id="cashondelivery" href="javascript:void(0)">Complete Your<br>Order</a>
-            </div>
-
-            @else
-            <div class="yellowbg-img cash-on-delivery">
-                <div class="member">
-                    <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD" class="pay-btn">Pay</a>
+                <input type="hidden" id="total_amt" value="{{$total_price}}" />
+                <input type="hidden" id="prev_amt" value="{{$total_price}}" />
+                <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
+                @if($total_price == 0)
+                <div class="yellowbg-img cash-on-delivery">
+                    <img src="{{asset('website/img/cash-on-delievery.png')}}" />
+                    <a id="cashondelivery" href="javascript:void(0)">Complete Your<br>Order</a>
                 </div>
-                <img src="{{asset('website/img/cash-on-delievery.png')}}"/>
+
+                @else
+                <div class="yellowbg-img cash-on-delivery">
+                    <div class="member">
+                        <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD" class="pay-btn">Pay</a>
+                    </div>
+                    <img src="{{asset('website/img/cash-on-delievery.png')}}" />
                     <a id="cashondelivery" href="javascript:void(0)">Cash or Credit<br>on Delivery</a>
+                </div>
+                @endif
             </div>
-            @endif
         </div>
     </div>
-</div>
 
 </main>
 <?php
+    $sadad_checksum_array = array();
+    $sadad__checksum_data = array();
+    $txnDate = date('Y-m-d H:i:s');
+    $email = auth()->user()->email ?? 'toysforjoyorders@gmail.com';
 
- $sadad_checksum_array = array(); 
- $sadad__checksum_data = array(); 
- $txnDate = date('Y-m-d H:i:s'); 
+    $secretKey = 'ewHgg8NgyY5zo59M';
+    $merchantID = '7288803';
+    $sadad_checksum_array['merchant_id'] = $merchantID;
+    $orderid = rand('123456798' , '987654321');
+    $sadad_checksum_array['ORDER_ID'] = $orderid;
+    $sadad_checksum_array['WEBSITE'] = url('');
+    $sadad_checksum_array['VERSION'] = '1.1';
+    $sadad_checksum_array['TXN_AMOUNT'] = $total_price;
+    $sadad_checksum_array['CUST_ID'] = $email;
+    $sadad_checksum_array['EMAIL'] = $email;
+    $sadad_checksum_array['MOBILE_NO'] = '999999999';
+    $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';
+    $sadad_checksum_array['CALLBACK_URL'] = url('orderconferm');
+    $sadad_checksum_array['txnDate'] = $txnDate;
 
-if(Auth::check())
-{
-    $email = Auth::user()->email;
-}else{
-    $email = 'ahsinjavaid890@gmail.com';
-}
- $secretKey = 'ewHgg8NgyY5zo59M'; 
- $merchantID = '7288803'; 
- $sadad_checksum_array['merchant_id'] = $merchantID;  
- $orderid = rand('123456798' , '987654321');
- $sadad_checksum_array['ORDER_ID'] = $orderid; 
- $sadad_checksum_array['WEBSITE'] = url('');  
- $sadad_checksum_array['VERSION'] = '1.1';
- $sadad_checksum_array['TXN_AMOUNT'] = $total_price; 
- $sadad_checksum_array['CUST_ID'] = $email; 
- $sadad_checksum_array['EMAIL'] = $email; 
- $sadad_checksum_array['MOBILE_NO'] = '999999999';  
- $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';  
- $sadad_checksum_array['CALLBACK_URL'] = url('orderconferm');
- $sadad_checksum_array['txnDate'] = $txnDate; 
+    foreach ($items as $item) {
+        $json_decoded = json_decode($item);
+        $allproducts[] = array('order_id' => $orderid, 'itemname' => $item->name, 'amount' =>$item->price, 'quantity' => $item->quantity);
+    }
 
-foreach ($items as $item) {
+    $sadad_checksum_array['productdetail'] = $allproducts;
+    $sadad__checksum_data['postData'] = $sadad_checksum_array;
+    $sadad__checksum_data['secretKey'] = $secretKey;
 
-    // if($product->discount)
-    //   {
-    //       $price = $product->discount;
-    //   }else{
-    //       $price = $product->unit_price;
-    //   }
+    $sAry1 = array();
+    $sadad_checksum_array1 = array();
 
-    
-    $json_decoded = json_decode($item);
-    $allproducts[] = array('order_id' => $orderid, 'itemname' => $item->name, 'amount' =>$item->price, 'quantity' => $item->quantity);
-}
-$sadad_checksum_array['productdetail'] = $allproducts;
+    foreach($sadad_checksum_array as $pK => $pV){ 
+        if($pK=='checksumhash') continue;
+        if(is_array($pV)) {
+            $prodSize = sizeof($pV);
+            for($i=0;$i<$prodSize;$i++) {
+                foreach($pV[$i] as $innK => $innV) {
+                    $sAry1[] = "<input type='hidden' name='productdetail[$i][". $innK ."]' value='" . trim($innV) . "'/>";
+                    $sadad_checksum_array1['productdetail'][$i][$innK] = trim($innV);
+                }
+            }
+        } else {
+            $sAry1[] = "<input type='hidden' name='". $pK ."' id='". $pK ."' value='" . trim($pV) . "'/>";
+            $sadad_checksum_array1[$pK] = trim($pV);
+        }
+    }
 
+    $sadad__checksum_data['postData'] = $sadad_checksum_array1;
+    $sadad__checksum_data['secretKey'] = $secretKey;  $checksum = getChecksumFromString(json_encode($sadad__checksum_data), $secretKey . $merchantID);
+    $sAry1[] = "<input type='hidden'  name='checksumhash' value='" . $checksum . "'/>";
 
-  
-        $sadad__checksum_data['postData'] = $sadad_checksum_array;  
-$sadad__checksum_data['secretKey'] = $secretKey; 
-
-$sAry1 = array(); 
-
-                $sadad_checksum_array1 = array(); 
-                foreach($sadad_checksum_array as $pK => $pV){ 
-                    if($pK=='checksumhash') continue; 
-                    if(is_array($pV)){ 
-                        $prodSize = sizeof($pV); 
-                        for($i=0;$i<$prodSize;$i++){ 
-                            foreach($pV[$i] as $innK => 
-$innV){ 
-        $sAry1[] = "<input type='hidden' name='productdetail[$i][". $innK ."]' value='" . trim($innV) 
-. "'/>"; 
-    $sadad_checksum_array1['productdetail'][$i][$innK] = 
-trim($innV); 
-        } 
-    } 
-                    } else { 
-                        $sAry1[] = "<input type='hidden' name='". $pK ."' id='". $pK ."' value='" . trim($pV) . "'/>"; 
-$sadad_checksum_array1[$pK] = 
-trim($pV); 
-        } 
-    } 
-$sadad__checksum_data['postData'] = $sadad_checksum_array1;  
-$sadad__checksum_data['secretKey'] = $secretKey;  $checksum 
-= 
-getChecksumFromString(json_encode($sadad__checksum_data), $secretKey . 
-$merchantID); 
- $sAry1[] = "<input type='hidden'  name='checksumhash' 
-value='" . $checksum . "'/>"; 
-
-$action_url = 'https://sadadqa.com/webpurchase';   
-        echo '<form action="' . $action_url . '" method="post" id="paymentform" name="paymentform" data-link="' . $action_url .'">' 
-        . implode('', $sAry1) . '
-        </form>';
+    $action_url = 'https://sadadqa.com/webpurchase';
+    echo '<form action="' . $action_url . '" method="post" id="paymentform" name="paymentform" data-link="' . $action_url .'">' . implode('', $sAry1) . '</form>';
 ?>
 <script type="text/javascript">
     function submitpayementform()

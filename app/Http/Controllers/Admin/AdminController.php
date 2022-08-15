@@ -28,6 +28,7 @@ use App\Models\Order;
 use App\Models\ReturnRequest;
 use App\Models\User;
 use App\Models\requiredproducts;
+use App\Models\usergiftcards;
 use Bavix\Wallet\Models\Wallet;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -139,17 +140,25 @@ class AdminController extends Controller
 
     public function addgiftcardsubmit(Request $request)
     {
-        $card = new giftcards();
-        $card->user_id = $request->user_id;
-        $card->name = $request->coupon_title;
-        $card->price = $request->price;
-        $card->code = $request->coupon_code;
-        $card->status = $request->status ?? 0;
-        $card->save();
+        $giftCard = giftcards::create([
+            'name' => $request->coupon_title,
+            'price' => $request->price,
+            'code' => $request->coupon_code,
+            'status' => $request->status ?? 0
+        ]);
         // giftcard 100 points reward functionality
         // withdraw 100 points if it's reward
         if ($request->type == 'reward') {
             User::find($request->user_id)->withdraw(100, ["description" => "100 Points Gift Card Generated"]);
+            // add usergiftcards entry for the record
+            usergiftcards::create([
+                'order_number' => rand(123456789, 987654321),
+                'user_id' => $request->user_id,
+                'giftcard_id' => $giftCard->id,
+                'price' => $giftCard->price,
+                'payment_status' => 'paid',
+                'transaction_number' => null
+            ]);
         }
         // if it's ajax request
         if ($request->ajax()) {
@@ -881,7 +890,11 @@ public function guestOrders(){
     //           ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')  
     //           ->groupby('guest_orders.order_id')
     //           ->orderBy('guest_orders.id','desc')->get();
-    $orders = Order::whereNull('user_id')->get();
+    $orders = Order::whereNull('user_id')->where('additional_details->is_abandoned', false)->get();
+    // new orders
+    $newOrders = Order::whereNull('user_id')->where('additional_details->is_new', true)->update([
+        'additional_details->is_new' => false
+    ]);
     return view('admin.guest-order',compact('orders'));
 }
 
@@ -1170,7 +1183,14 @@ public function orderStatus(Request $request){
 
 public function custOrders(){
     $orders = Order::with(['user', 'address'])
-        ->whereNotNull('user_id')->where('is_wishlist', false)->get();
+        ->whereNotNull('user_id')
+        ->where('is_wishlist', false)
+        ->where('additional_details->is_abandoned', false)
+        ->get();
+    // mark new orders is_new to false
+    Order::whereNotNull('user_id')->where('is_wishlist', false)->where('additional_details->is_new', true)->update([
+        'additional_details->is_new' => false
+    ]);
     return view('admin.order', compact('orders'));
 }
 
@@ -1204,7 +1224,12 @@ public function wishlistorders()
     //         ->where('orders.ordertype' , 'wishlist')
     //         ->get();
     $orders = Order::with(['user', 'address'])
-        ->whereNotNull('user_id')->where('is_wishlist', true)->get();
+        ->whereNotNull('user_id')->where('is_wishlist', true)
+        ->where('additional_details->is_abandoned', false)->get();
+    // mark new orders is_new to false
+    Order::whereNotNull('user_id')->where('is_wishlist', true)->where('additional_details->is_new', true)->update([
+        'additional_details->is_new' => false
+    ]);
     $type = 'wishlist';
     return view('admin.order',compact('orders','type'));
 }
@@ -1374,6 +1399,9 @@ public function changeOrderStatus(Request $request) {
         'order_status' => $request->status
     ]);
 
+    $order = Order::with('user')->where('id', $request->order_id)->first();
+    event(new OrderStatusChanged($order));
+
     return back();
 }
 
@@ -1537,6 +1565,7 @@ public function editProcess(Request $request){
 
         // Total revenue
         $revenueCount = Order::where('payment_status', 'paid')
+            ->where('additional_details->is_abandoned', false)
             ->when($applyFilter, function($query) use ($start_date, $end_date) {
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             })
@@ -1632,6 +1661,7 @@ public function editProcess(Request $request){
         $end_date = $request->end_date;
 
         $orders = Order::whereNull('user_id')->where('payment_status', 'paid')
+            ->where('additional_details->is_abandoned', false)
             ->orderByDesc('created_at')
             ->select('total_amount', 'additional_details->email as email')
             ->when($applyFilter, function($query) use ($start_date, $end_date) {

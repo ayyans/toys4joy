@@ -8,5 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class giftcards extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function transactionDetail() {
+        return $this->hasOne(usergiftcards::class, 'giftcard_id');
+    }
 }

@@ -106,7 +106,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     // Route::get('/guest-orders-cancelled/{id}','AdminController@cancelledGuestOrders')->name('cancelledGuestOrders');
     // Route::get('/guest-orders-delivered/{id}','AdminController@deliveredGuestOrders')->name('deliveredGuestOrders');
     Route::get('/guest-orders-details/{id}','AdminController@guestOrdersDetails')->name('guestOrdersDetails');
-    // Route::post('/guest-orders-status','AdminController@orderStatus')->name('orderStatus');
+    Route::post('/guest-orders-status','AdminController@orderStatus')->name('orderStatus');
 
 //    coupons management route
 

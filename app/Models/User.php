@@ -53,11 +53,11 @@ class User extends Authenticatable implements Wallet, Customer
     }
 
     public function orders() {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class)->where('additional_details->is_abandoned', false);
     }
 
     public function paidOrders() {
-        return $this->hasMany(Order::class)->where('payment_status', 'paid');
+        return $this->hasMany(Order::class)->where('payment_status', 'paid')->where('additional_details->is_abandoned', false);
     }
 
     public function address() {
@@ -66,5 +66,19 @@ class User extends Authenticatable implements Wallet, Customer
 
     public function siblings() {
         return $this->hasOne(sibblings::class, 'user_id', 'id');
+    }
+
+    public function giftCardsUsed() {
+        return $this->hasMany(giftcards::class, 'user_id', 'id');
+    }
+
+    public function giftCardsPurchased() {
+        return $this->hasMany(usergiftcards::class, 'user_id', 'id')
+            ->where('payment_status', 'paid')->whereNotNull('transaction_number');
+    }
+
+    public function giftCardsRewarded() {
+        return $this->hasMany(usergiftcards::class, 'user_id', 'id')
+            ->where('payment_status', 'paid')->whereNull('transaction_number');
     }
 }

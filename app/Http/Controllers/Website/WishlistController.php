@@ -28,7 +28,7 @@ use Illuminate\Http\Response;
 use Stripe;
 use Session;
 use Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class WishlistController extends Controller
 {
@@ -46,8 +46,10 @@ class WishlistController extends Controller
 
 		$total_price = 0;
 		foreach ($wishlist as $wish) {
-			$total_price = $wish->product->discount ?: $wish->product->unit_price;
+			$total_price += $wish->product->discount ?: $wish->product->unit_price;
 		}
+
+		DB::beginTransaction();
 
 		$order = Order::create([
 				'user_id' => $id,
@@ -61,6 +63,8 @@ class WishlistController extends Controller
 				'payment_status' => 'unpaid',
 				'order_status' => 'placed',
 				'transaction_number' => null,
+				'additional_details->is_abandoned' => true,
+				'additional_details->is_new' => true
 		]);
 
 		foreach ($wishlist as $wish) 
@@ -74,6 +78,8 @@ class WishlistController extends Controller
 					'total_amount' => $wish->product->unit_price
 			]);
 		}
+
+		DB::commit();
 
 		return response()->json([
 			'status' => 200,
@@ -142,8 +148,12 @@ class WishlistController extends Controller
 		$order = Order::where('order_number', $order_number)->first();
 		$order->update([
 				'payment_status' => 'paid',
-				'transaction_number' => $transaction_number
+				'transaction_number' => $transaction_number,
+				'additional_details->is_abandoned' => false
 		]);
+
+		event(new OrderPlaced($order));
+		Cmf::sendordersms($order->order_number);
 
 		return view('website.guestthanks', compact('order_number'));
 
@@ -202,11 +212,9 @@ class WishlistController extends Controller
 
 		$order = Order::where('order_number', $request->orderid)->first();
 		$order->update([
-			'additional_details' => [
-				'name' => $request->name,
-				'phone' => $request->phonenumber,
-				'message' => $request->message
-			]
+			'additional_details->name' => $request->name,
+			'additional_details->mobile' => $request->phonenumber,
+			'additional_details->message' => $request->message
 		]);
 	}
 }

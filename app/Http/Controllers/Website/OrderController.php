@@ -28,7 +28,7 @@ use Illuminate\Http\Response;
 use Stripe;
 use Session;
 use Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
 use PDF;
 class OrderController extends Controller
 {
@@ -67,6 +67,9 @@ class OrderController extends Controller
 
         $items = cart()->getContent();
         $user = auth()->user()->load('address');
+
+        DB::beginTransaction();
+
         // creating order
         $order = Order::create([
             'user_id' => $user->id,
@@ -79,6 +82,8 @@ class OrderController extends Controller
             'payment_status' => 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
+            'additional_details->is_abandoned' => true,
+            'additional_details->is_new' => true
         ]);
         // creating order items
         foreach ($items as $item) {
@@ -92,13 +97,19 @@ class OrderController extends Controller
             ]);
         }
 
+        DB::commit();
+
         return response()->json([
             'status' => true
         ]);
     }
+
     public function payasguestordergenerate(Request $request)
     {
         $items = cart()->getContent();
+
+        DB::beginTransaction();
+
         // creating order
         $order = Order::create([
             'user_id' => null,
@@ -111,6 +122,11 @@ class OrderController extends Controller
             'payment_status' => 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
+            'additional_details->name' => $request->custname,
+            'additional_details->email' => $request->email,
+            'additional_details->mobile' => $request->mobilenumber,
+            'additional_details->is_abandoned' => true,
+            'additional_details->is_new' => true
         ]);
         // creating order items
         foreach ($items as $item) {
@@ -124,13 +140,14 @@ class OrderController extends Controller
             ]);
         }
         // saving guest details
-        $order->update([
-            'additional_details' => [
-                'name' => $request->custname,
-                'email' => $request->email,
-                'mobile' =>  $request->mobilenumber
-            ]
-        ]);
+        // $order->update([
+        //     'additional_details->name' => $request->custname,
+        //     'additional_details->email' => $request->email,
+        //     'additional_details->mobile' => $request->mobilenumber,
+        //     'additional_details->is_new' => true
+        // ]);
+
+        DB::commit();
 
         return response()->json([
             'status' => true
@@ -173,12 +190,16 @@ class OrderController extends Controller
         $order = Order::where('order_number', $order_number)->first();
         $order->update([
             'payment_status' => 'paid',
-            'transaction_number' => $transaction_number
+            'transaction_number' => $transaction_number,
+            'additional_details->is_abandoned' => false
         ]);
 
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();
+
+        event(new OrderPlaced($order));
+        Cmf::sendordersms($order->order_number);
 
         return view('website.guestthanks', compact('order_number'));
         // $allparms =  $request->all();
@@ -232,6 +253,8 @@ class OrderController extends Controller
         $items = cart()->getContent();
         $order_number = $request->order_id;
 
+        DB::beginTransaction();
+
         $order = Order::create([
             'user_id' => null,
             'order_number' => $order_number,
@@ -243,6 +266,11 @@ class OrderController extends Controller
             'payment_status' => 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
+            'additional_details->name' => $request->custname,
+            'additional_details->email' => $request->email,
+            'additional_details->mobile' => $request->mobilenumber,
+            'additional_details->is_abandoned' => false,
+            'additional_details->is_new' => true
         ]);
         // creating order items
         foreach ($items as $item) {
@@ -256,13 +284,18 @@ class OrderController extends Controller
             ]);
         }
         // saving guest details
-        $order->update([
-            'additional_details' => [
-                'name' => $request->custname,
-                'email' => $request->email,
-                'mobile' =>  $request->mobilenumber
-            ]
-        ]);
+        // $order->update([
+        //     'additional_details->name' => $request->custname,
+        //     'additional_details->email' => $request->email,
+        //     'additional_details->mobile' => $request->mobilenumber,
+        //     'additional_details->is_new' => true
+        // ]);
+
+        DB::commit();
+
+        event(new OrderPlaced($order));
+        Cmf::sendordersms($order->order_number);
+
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();
@@ -335,31 +368,39 @@ class OrderController extends Controller
     }
     public function generateinvoicegiftcard($id)
     {
-        $data = [
-            'cardid' => $id,
-        ];
-        $pdf = PDF::loadView('invoice.giftcard', $data);
-        return $pdf->download('Gift Card Invoice - '.$id.'.pdf');
+        $giftCard = giftcards::with('transactionDetail.user.address')->whereHas('transactionDetail', function($query) use ($id) {
+            $query->where('order_number', $id);
+        })->first();
+        $pdf = PDF::loadView('invoice.giftcard', compact('giftCard'));
+        return $pdf->download("Gift Card Invoice - $id.pdf");
     }
-    public function generatepdf($id)
+
+    public function generatepdf($order_number)
     {
-        $checkorder = Order::where('id', $id)->count();
-        if($checkorder > 0)
-        {
-            $data = [
-                'order_number' => $id,
-            ];
-            $pdf = PDF::loadView('invoice.indexonline', $data);
-            return $pdf->download('Order Invoice - '.$id.'.pdf');
-        }
-        else
-        {
-            $data = [
-                'ordernumber' => $id,
-            ];
-            $pdf = PDF::loadView('invoice.invoicecod', $data);
-            return $pdf->download('Order Invoice - '.$id.'.pdf');
-        }
+        $order = Order::with([
+            'user', 'address', 'items.product',
+            'giftcards', 'coupon'
+        ])->where('order_number', $order_number)->first();
+        $pdf = PDF::loadView('invoice.invoice', compact('order'));
+        return $pdf->download("Order Invoice - $order_number.pdf");
+
+        // $checkorder = Order::where('id', $id)->count();
+        // if($checkorder > 0)
+        // {
+        //     $data = [
+        //         'order_number' => $id,
+        //     ];
+        //     $pdf = PDF::loadView('invoice.indexonline', $data);
+        //     return $pdf->download('Order Invoice - '.$id.'.pdf');
+        // }
+        // else
+        // {
+        //     $data = [
+        //         'ordernumber' => $id,
+        //     ];
+        //     $pdf = PDF::loadView('invoice.invoicecod', $data);
+        //     return $pdf->download('Order Invoice - '.$id.'.pdf');
+        // }
     }
      // pay as guest checkout 
 

@@ -1,8 +1,8 @@
 @php
-  $usergiftcard = DB::table('usergiftcards')->where('orderid' , $cardid)->get()->first();
-  $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
-  $customer = DB::table('users')->where('id' , $usergiftcard->user_id)->get()->first();
-  $customer_addresses = DB::table('customer_addresses')->where('cust_id' , $customer->id)->get()->first();
+  // $usergiftcard = DB::table('usergiftcards')->where('orderid' , $cardid)->get()->first();
+  // $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
+  // $customer = DB::table('users')->where('id' , $usergiftcard->user_id)->get()->first();
+  // $customer_addresses = DB::table('customer_addresses')->where('cust_id' , $customer->id)->get()->first();
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +10,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Gift Card Invoice {{ $cardid }}</title>
+    <title>Gift Card Invoice {{ $giftCard->id }}</title>
 
     <!-- Favicon -->
     <link rel="icon" href="https://www.toys4joy.com/website/img/logo-t4j.png" type="image/x-icon" />
@@ -107,6 +107,14 @@
         font-weight: bold;
       }
 
+      .text-green {
+        color: green;
+      }
+
+      .text-red {
+        color: red;
+      }
+
       @media only screen and (max-width: 600px) {
         .invoice-box table tr.top table td {
           width: 100%;
@@ -136,9 +144,9 @@
                 </td>
 
                 <td>
-                  Order ID #: {{ $cardid }}<br />
-                  Order Date: {{ date('M d, Y', strtotime($usergiftcard->created_at)) }}<br />
-                  Invoice Status: <b style="color: green;">PAID</b>
+                  Order Number #: {{ $giftCard->transactionDetail->order_number }}<br />
+                  Order Date: {{ $giftCard->created_at->format('M d, Y') }}<br />
+                  Invoice Status: <b class="{{ $giftCard->transactionDetail->payment_status == 'paid' ? 'text-green' : 'text-red' }}">{{ strtoupper($giftCard->transactionDetail->payment_status) }}</b>
                 </td>
               </tr>
             </table>
@@ -156,10 +164,10 @@
                 </td>
 
                 <td colspan="2">
-                  {{ $customer->name }}.<br />
-                  {{ $customer->mobile }}<br />
-                  {{ $customer->email }}<br>
-                  {{$customer_addresses->unit_no}},{{$customer_addresses->building_no}},{{$customer_addresses->zone}},{{$customer_addresses->street}}
+                  {{ $giftCard->transactionDetail->user->name }}<br />
+                  {{ $giftCard->transactionDetail->user->mobile }}<br />
+                  {{ $giftCard->transactionDetail->user->email }}<br />
+                  {{ $giftCard->transactionDetail->user->address->unit_no }},{{ $giftCard->transactionDetail->user->address->building_no }},{{ $giftCard->transactionDetail->user->address->zone }},{{ $giftCard->transactionDetail->user->address->street }}
                 </td>
               </tr>
             </table>
@@ -171,13 +179,13 @@
           <td style="text-align:center">Price</td>
         </tr>
         <tr class="item">
-          <td>{{ $giftcard->name }}</td>
-          <td style="text-align:center">{{ $usergiftcard->code }}</td>
-          <td style="text-align:center">QAR {{ $giftcard->price }}</td>
+          <td>{{ $giftCard->name }}</td>
+          <td style="text-align:center">{{ $giftCard->code }}</td>
+          <td style="text-align:center">QAR {{ $giftCard->price }}</td>
         </tr>
         <tr class="total">
           <td colspan="2"></td>
-          <td colspan="3">Total: QAR {{ $giftcard->price }}</td>
+          <td colspan="3">Total: QAR {{ $giftCard->price }}</td>
         </tr>
       </table> 
         <br><br>

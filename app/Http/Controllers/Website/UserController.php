@@ -1,37 +1,39 @@
 <?php
 
 namespace App\Http\Controllers\Website;
-use App\Helpers\Cmf;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\Brand;
-use App\Models\Attribute;
-use App\Models\AttrValue;
-use App\Models\Product;
-use App\Models\ProductImage;
-use App\Models\ProdAttr;
-use App\Models\giftcards;
-use App\Models\User;
-use App\Models\Cart;
-use App\Models\Wishlist;
-use App\Models\CustomerAddress;
-use App\Models\CardInfo;
-use App\Models\Coupon;
-use App\Models\usergiftcards;
-use App\Models\sibblings;
-use App\Models\Order;
-use App\Models\OrderItem;
-use App\Models\ReturnRequest;
-use Illuminate\Support\Facades\View;
-use Illuminate\Http\Response;
+use DB;
+use Auth;
+use Mail;
 use Stripe;
 use Session;
-use Auth;
+use App\Helpers\Cmf;
+use App\Models\Cart;
+use App\Models\User;
+use App\Models\Brand;
+use App\Models\Order;
+use App\Models\Coupon;
+use App\Models\Product;
+use App\Models\CardInfo;
+use App\Models\Category;
+use App\Models\ProdAttr;
+use App\Models\Wishlist;
+use App\Models\Attribute;
+use App\Models\AttrValue;
+use App\Models\giftcards;
+use App\Models\OrderItem;
+use App\Models\sibblings;
+use App\Models\SubCategory;
+use Illuminate\Support\Str;
+use App\Models\ProductImage;
+use Illuminate\Http\Request;
+use App\Models\ReturnRequest;
+use App\Models\usergiftcards;
+use Illuminate\Http\Response;
+use App\Models\CustomerAddress;
+use App\Http\Controllers\Controller;
 use Darryldecode\Cart\CartCondition;
-use DB;
-use Mail;
+use Illuminate\Support\Facades\View;
+
 class UserController extends Controller
 {
 	// gift card coupon 
@@ -211,46 +213,85 @@ class UserController extends Controller
 	    }
 	    return $randomString;
 	}
-	public function addgiftcard($id , $orderid)
+	public function addgiftcard($price, $order_number)
 	{
-		$giftcard = giftcards::where('id' , $id)->get()->first();
-		$card = new usergiftcards();
-		$card->user_id = Auth::user()->id;
-		$card->gift_card_id = $id;
-		$card->code = $this->generateRandomString();
-		$card->orderid = $orderid;
-		$card->status = 1;
-		$card->payement = 'pending';
-		$card->save();
-		if($card){
-            return response()->json(["status"=>"200","msg"=>'success']);
-            exit();
-        }else{
-            return response()->json(["status"=>"400","msg"=>"2"]);
-            exit();
-        }
+		usergiftcards::create([
+			'order_number' => $order_number,
+			'user_id' => auth()->id(),
+			'price' => $price,
+			'payment_status' => 'unpaid'
+		]);
+
+		return response()->json([
+			'status' => true
+		]);
+		// $giftcard = giftcards::where('id' , $id)->get()->first();
+		// $card = new usergiftcards();
+		// $card->user_id = Auth::user()->id;
+		// $card->gift_card_id = $id;
+		// $card->code = $this->generateRandomString();
+		// $card->orderid = $orderid;
+		// $card->status = 1;
+		// $card->payement = 'pending';
+		// $card->save();
+		// if($card){
+    //         return response()->json(["status"=>"200","msg"=>'success']);
+    //         exit();
+    //     }else{
+    //         return response()->json(["status"=>"400","msg"=>"2"]);
+    //         exit();
+    //     }
 	}
 	public function giftcardconfermorder(Request $request)
 	{
-		$allparms =  $request->all();
-		if($allparms['STATUS'] == 'TXN_SUCCESS')
-        {
-        	$usergiftcard = usergiftcards::where('orderid' , $allparms['ORDERID'])->get()->first();
-        	$card = usergiftcards::find($usergiftcard->id);
-			$card->status = 2;
-			$card->payement = 'completed';
-			$card->save();
-			$customer = DB::table('users')->where('id' , $card->user_id)->get()->first();
-        	auth()->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
-			Mail::send('emails.giftcard', ['card' => $card], function($message) use($request){
-	              $message->to(Auth::user()->email);
-	              $message->subject('Purchase Gift Card');
-	        });
-	        $orderid = $allparms['ORDERID'];
-			return view('website.guestthanksgiftcard',compact('orderid'));
-        }else{
-        	return redirect()->route('website.giftcard')->with('error','Payement Failed');
-        }
+		$data =  $request->all();
+
+		$status = $data['STATUS'];
+
+		// check for successful transaction
+		if ($status != 'TXN_SUCCESS') {
+			return redirect()->route('website.giftcard')->with('error','Payement Failed');
+		}
+
+		$order_number = $data['ORDERID'];
+    $transaction_number = $data['transaction_number'];
+
+		$userGiftCard = usergiftcards::where('order_number', $order_number)->first();
+
+		$giftCard = giftcards::create([
+			'name' => 'Gift Card Purchased ' . Str::random(3) . auth()->id(),
+			'code' => 'GIFT' . auth()->id() . Str::random(6),
+			'price' => $userGiftCard->price,
+			'status' => 1
+		]);
+
+		$userGiftCard->update([
+			'giftcard_id' => $giftCard->id,
+			'payment_status' => 'paid',
+			'transaction_number' => $transaction_number
+		]);
+
+		return view('website.guestthanksgiftcard', compact('order_number'));
+
+		// $allparms =  $request->all();
+		// if($allparms['STATUS'] == 'TXN_SUCCESS')
+    //     {
+    //     	$usergiftcard = usergiftcards::where('orderid' , $allparms['ORDERID'])->get()->first();
+    //     	$card = usergiftcards::find($usergiftcard->id);
+		// 	$card->status = 2;
+		// 	$card->payement = 'completed';
+		// 	$card->save();
+		// 	$customer = DB::table('users')->where('id' , $card->user_id)->get()->first();
+    //     	auth()->attempt(['email'=>$customer->email,'password'=>$customer->show_password]);
+		// 	Mail::send('emails.giftcard', ['card' => $card], function($message) use($request){
+	  //             $message->to(Auth::user()->email);
+	  //             $message->subject('Purchase Gift Card');
+	  //       });
+	  //       $orderid = $allparms['ORDERID'];
+		// 	return view('website.guestthanksgiftcard',compact('orderid'));
+    //     }else{
+    //     	return redirect()->route('website.giftcard')->with('error','Payement Failed');
+    //     }
 	}
 	public function generateinvoicegiftcard()
 	{

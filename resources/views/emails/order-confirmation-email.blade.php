@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
     <title>
@@ -61,6 +62,7 @@
             @-ms-viewport {
                 width: 320px;
             }
+
             @viewport {
                 width: 320px;
             }
@@ -113,10 +115,12 @@
 
         <div style="background:#f9f9f9;background-color:#f9f9f9;Margin:0px auto;max-width:600px;">
 
-            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#f9f9f9;background-color:#f9f9f9;width:100%;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
+                style="background:#f9f9f9;background-color:#f9f9f9;width:100%;">
                 <tbody>
                     <tr>
-                        <td style="border-bottom:#333957 solid 5px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+                        <td
+                            style="border-bottom:#333957 solid 5px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
                             <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 
@@ -149,10 +153,12 @@
 
         <div style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;">
 
-            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
+                style="background:#fff;background-color:#fff;width:100%;">
                 <tbody>
                     <tr>
-                        <td style="border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+                        <td
+                            style="border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
                             <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 
@@ -163,19 +169,27 @@
             >
           <![endif]-->
 
-                            <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;">
+                            <div class="mj-column-per-100 outlook-group-fix"
+                                style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;">
 
-                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:bottom;" width="100%">
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation"
+                                    style="vertical-align:bottom;" width="100%">
 
                                     <tr>
-                                        <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                        <td align="center"
+                                            style="font-size:0px;padding:10px 25px;word-break:break-word;">
 
-                                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0"
+                                                role="presentation"
+                                                style="border-collapse:collapse;border-spacing:0px;">
                                                 <tbody>
                                                     <tr>
                                                         <td style="width:64px;">
 
-                                                            <img height="auto" src="http://phplaravel-788354-2698725.cloudwaysapps.com/website/img/logo-t4j.png" style="border:0;display:block;outline:none;text-decoration:none;width:100%;" width="64" />
+                                                            <img height="auto"
+                                                                src="http://phplaravel-788354-2698725.cloudwaysapps.com/website/img/logo-t4j.png"
+                                                                style="border:0;display:block;outline:none;text-decoration:none;width:100%;"
+                                                                width="64" />
 
                                                         </td>
                                                     </tr>
@@ -186,9 +200,11 @@
                                     </tr>
 
                                     <tr>
-                                        <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                        <td align="center"
+                                            style="font-size:0px;padding:10px 25px;word-break:break-word;">
 
-                                            <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:24px;font-weight:bold;line-height:22px;text-align:center;color:#525252;">
+                                            <div
+                                                style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:24px;font-weight:bold;line-height:22px;text-align:center;color:#525252;">
                                                 Thank you for your order
                                             </div>
 
@@ -198,14 +214,16 @@
                                     <tr>
                                         <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
 
-                                            <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:22px;text-align:left;color:#525252;">
-                                                <p>Your Order Number <b>{{ $data['order_number'] }}</b>,</p>
+                                            <div
+                                                style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:22px;text-align:left;color:#525252;">
+                                                <p>Your Order Number <b>{{ $order->order_number }}</b>,</p>
                                                 <br>
                                                 <p><b>Delivery Address</b></p>
-                                                <p>{{ $data['address'] }}</p>
+                                                <p>{{ $order->user_id ? $order->address->fullAddress : 'N/A' }}</p>
                                                 <br>
                                                 <p style="text-align: center;">Your order has
-                      been received and is now being processed. Your order details are shown below for your reference:</p>
+                                                    been received and is now being processed. Your order details are
+                                                    shown below for your reference:</p>
                                             </div>
 
                                         </td>
@@ -214,76 +232,79 @@
                                     <tr>
                                         <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
 
-                                            <table 0="[object Object]" 1="[object Object]" 2="[object Object]" border="0" style="cellspacing:0;color:#000;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
+                                            <table 0="[object Object]" 1="[object Object]" 2="[object Object]"
+                                                border="0"
+                                                style="cellspacing:0;color:#000;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
                                                 <tr style="border-bottom:1px solid #ecedee;text-align:left;">
                                                     <th style="padding: 0 15px 10px 0;">Item</th>
                                                     <th style="padding: 0 15px;">Product SKU.</th>
                                                     <th style="padding: 0 15px;">Qt.</th>
                                                     <th style="padding: 0 0 0 15px;" align="right">Price</th>
                                                 </tr>
-                                                @foreach ($data['products'] as $index => $name )
-
-                                                @php
-
-                                                  $product = DB::table('products')->where('title' , $name)->get()->first();
-
-                                                @endphp
+                                                @foreach ( $order->items as $item )
                                                 <tr>
-                                                    <td style="padding: 5px 15px 5px 0;">{{ $name }}</td>
-                                                    <td style="padding: 0 15px;">{{ $product->sku }}</td>
-                                                    
-                                                    <td style="padding: 0 15px;">{{ $data['quantity'][$index] }}</td>
-                                                    <td style="padding: 0 0 0 15px;" align="right">{{ 'QAR ' . $data['amount'][$index] }}</td>
+                                                    <td style="padding: 5px 15px 5px 0;">{{ $item->product->title }}
+                                                    </td>
+                                                    <td style="padding: 0 15px;">{{ $item->product->sku }}</td>
+                                                    <td style="padding: 0 15px;">{{ $item->quantity }}</td>
+                                                    <td style="padding: 0 0 0 15px;" align="right">{{ 'QAR ' .
+                                                        $item->total_amount }}</td>
                                                 </tr>
-
                                                 @endforeach
 
-                                                @php
-
-                                                $total_price = $data['total'];
-
-                                                $orderemail = DB::table('orders')->where('orderid' , $data['order_number'])->get()->first();
-
-                                                @endphp
-
-
-                                                @if(!empty($orderemail->giftcode))
-        
-                                                @php
-                                                  $usergiftcard = DB::table('usergiftcards')->where('code' , $orderemail->giftcode)->get()->first();
-                                                  $giftcard = DB::table('giftcards')->where('id' , $usergiftcard->gift_card_id)->get()->first();
-
-                                                  $giftcardprice = $total_price-$giftcard->price;
-
-                                                  if($giftcardprice < 0)
-                                                  {
-                                                    $total_price = 0;
-                                                  }else{
-                                                    $total_price = $giftcardprice;
-                                                  }
-
-                                                @endphp
-                                                <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
-                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">SUB TOTAL</td>
+                                                @if($order->giftcards || $order->coupon)
+                                                <tr
+                                                    style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">Subtotal</td>
                                                     <td style="padding: 0 15px;"></td>
                                                     <td style="padding: 0 15px;"></td>
-                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">{{ 'QAR ' . number_format($total_price, 2) }} </td>
-                                                </tr>
-                                                <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
-                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">Discount Gift Card</td>
-                                                    <td style="padding: 0 15px;"></td>
-                                                    <td style="padding: 0 15px;"></td>
-                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">{{ 'QAR ' . number_format($giftcard->price, 2) }} </td>
+                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">QAR
+                                                        {{ $order->subtotal }} </td>
                                                 </tr>
                                                 @endif
 
+                                                @if($order->giftcards)
+                                                <tr
+                                                    style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">Discount Gift
+                                                        Card</td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">QAR
+                                                        {{ $order->giftcards->sum('price') }} </td>
+                                                </tr>
+                                                @endif
 
-                                                
-                                                <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
-                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">TOTAL</td>
+                                                @if($order->coupon)
+                                                <tr
+                                                    style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">Discount
+                                                        Coupon</td>
                                                     <td style="padding: 0 15px;"></td>
                                                     <td style="padding: 0 15px;"></td>
-                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">{{ 'QAR ' . number_format($total_price, 2) }} </td>
+                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">{{
+                                                        $order->coupon->offer }} </td>
+                                                </tr>
+                                                @endif
+
+                                                @if($order->giftcards || $order->coupon)
+                                                <tr
+                                                    style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">Total Discount</td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">{{
+                                                        'QAR ' . $order->discount }} </td>
+                                                </tr>
+                                                @endif
+
+                                                <tr
+                                                    style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">Total</td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">{{
+                                                        'QAR ' . $order->total_amount }} </td>
                                                 </tr>
                                             </table>
 
@@ -293,15 +314,21 @@
 
 
                                     <tr>
-                                        <td align="center" style="font-size:0px;padding:10px 25px;padding-top:30px;padding-bottom:50px;word-break:break-word;">
+                                        <td align="center"
+                                            style="font-size:0px;padding:10px 25px;padding-top:30px;padding-bottom:50px;word-break:break-word;">
 
-                                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0"
+                                                role="presentation" style="border-collapse:separate;line-height:100%;">
                                                 <tr>
-                                                    <td align="center" bgcolor="#2F67F6" role="presentation" style="border:none;border-radius:3px;color:#ffffff;cursor:auto;padding:15px 25px;" valign="middle">
-                                                        <p style="background:#2F67F6;color:#ffffff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;">
-                                                            <a href="{{ route('website.home') }}" style="color:#fff; text-decoration:none">
-          Shop
-                            Again</a>
+                                                    <td align="center" bgcolor="#2F67F6" role="presentation"
+                                                        style="border:none;border-radius:3px;color:#ffffff;cursor:auto;padding:15px 25px;"
+                                                        valign="middle">
+                                                        <p
+                                                            style="background:#2F67F6;color:#ffffff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;">
+                                                            <a href="{{ route('website.home') }}"
+                                                                style="color:#fff; text-decoration:none">
+                                                                Shop
+                                                                Again</a>
                                                         </p>
                                                     </td>
                                                 </tr>
