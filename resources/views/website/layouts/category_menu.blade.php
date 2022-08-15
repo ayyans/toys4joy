@@ -6,7 +6,7 @@
 <li class="nav-item"> <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link" aria-current="page"> <img src="{{asset('uploads/'.$cat->cat_icon)}}"><span class="ms-2">{{$cat->category_name}}</span> </a> </li>
 @else
 <li class="nav-item dropdown">
-    <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link text-dark"> <img src="{{asset('uploads/'.$cat->cat_icon)}}">
+    <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link text-dark parent-cat" cat-link="{{ url('category') }}/{{ $cat->url }}"> <img src="{{asset('uploads/'.$cat->cat_icon)}}">
         <span class="ms-2">{{$cat->category_name}} 
             <svg xmlns="http://www.w3.org/2000/svg" width="8" height="16" viewBox="0 0 8 16">
               <path id="Vector_14_" data-name="Vector (14)" d="M8,8,0,0H16Z" transform="translate(0 16) rotate(-90)" fill="#d51965"/>

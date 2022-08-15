@@ -2070,6 +2070,20 @@ $(document).ready(function() {
     audio.load();
     audio.play();
   });
+  //device detect
+  if($(window).width()<=768){
+    $('.parent-cat').each(function(){
+      var href = $(this).attr('href','#');
+      // do something with href
+    })
+  }else{
+    $('.parent-cat').each(function(){
+      var oldlink=$(this).attr('cat-link');
+      var href = $(this).attr('href',oldlink);
+      // do something with href
+    })
+  }
+
 
 
   var owl_single = $(".owl-carousel-single-picture");
@@ -2118,7 +2132,21 @@ $(document).ready(function() {
     });
 
 });    
- 
+$( window ).resize(function() {
+  //device detect
+if($(window).width()<=768){
+  $('.parent-cat').each(function(){
+    var href = $(this).attr('href','#');
+    // do something with href
+  })
+}else{
+  $('.parent-cat').each(function(){
+    var oldlink=$(this).attr('cat-link');
+    var href = $(this).attr('href',oldlink);
+    // do something with href
+  })
+}
+});
 //$('.categories li ul li a').each(function() {
 //      var $this = $(this);
 //      $this.text( $this.text().slice(0,15) );
@@ -2206,6 +2234,9 @@ $(function() {
   }
   });
 });  
+
+
+
 
 const animateCSS = (element, animation, prefix = 'animate__') =>
   // We create a Promise and return it

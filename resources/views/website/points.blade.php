@@ -14,18 +14,13 @@
                     </div>
                     <div class="col-md-8">
                         <div class="progress">
-                            <a href="#" class="ballons"><img src="{{asset('website/img/party-ballons.png')}}"></a>
-                            <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="70"
-                                aria-valuemin="0" aria-valuemax="100"><span>{{ number_format($points, 0) }} Points</span>
+                            
+                            <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="70"
+                                aria-valuemin="0" aria-valuemax="100"><span>{{ number_format($points, 0) }}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="text-center free">
-                            <h4 class="text-center pink-text">Free</h4>
-                            <img src="{{asset('website/img/like-emoji.png')}}">
-                        </div>
-                    </div>
+                    
                 </div>
                 <div class="row party-includes">
                     <div class="col-xl-12 col-sm-12 col-md-6 left-col">
