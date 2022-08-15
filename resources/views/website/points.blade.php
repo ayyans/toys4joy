@@ -25,8 +25,9 @@
                 <div class="row party-includes">
                     <div class="col-xl-12 col-sm-12 col-md-6 left-col">
                         <div class="content-box">
-                            <p>Gain 5,000 points and get free 100 QR e-gift voucher, 100 QR spent is equivalent to 2
-                                points.</p>
+                           <p>1 QR = 2 Points.</p>
+                          <p>2500 QR = 5000 Points.</p>
+                          <p>When you reach 5000 Points you gain E Gift card in amount of 100 QR</p>
                         </div>
                     </div>
                     <!--<div class="col-6 right-col">

@@ -26,9 +26,9 @@
                     <h4>Rewards Points</h4>
                     <p>Toys 4 Joy offer unique Reward points in a great way to treat yourself!</p>
                     <p>Our point system is easy!</p>
-                    <p>Gain 5,000 points and get free 100 QR e-gift voucher.</p>
-                    <p>100 QR spent is equivalent to 2 points.</p>
-                    <!--<p>The party include the following:</p>
+                    <p>1 QR = 2 Points.</p>
+                    <p>2500 QR = 5000 Points.</p>
+                    <p>When you reach 5000 Points you gain E Gift card in amount of 100 QR</p>
                     <ul>
                         <li>Magician</li>
                         <li>Mascot of your choice</li>
