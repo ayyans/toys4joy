@@ -3282,12 +3282,13 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 }
 .progres-bar .free img {width: 120px;}
 #your-points .progress-bar span {
-    width: 200px;
+    width: 100%;
     color: #26a557;
     font-weight: 700;
-    position: absolute;
-    right: -35%;
+    /* position: absolute; */
+    /* right: -35%; */
     text-transform: capitalize;
+    font-size: 38px;
 }
 
 #your-points .progress a.mascot img {width: 150px;position: absolute;top: -200px;left: 25%;}
@@ -3727,7 +3728,7 @@ ul.social-media img {width: 34px;}
 .copy-link {width: 65%;font-size: 24px;}
 .copy-link img {width: 80px;} 
 .add-more a {padding: 20px 70px;font-size: 24px;}    
-#your-points .progress {height: 8.6vw;}
+#your-points .progress {height: 12.6vw;}
 .progres-bar .free img {width: 90px;}  
 .brands-logo {padding: 40px; column-gap: 25px;}
 .brands-logo .single {margin-bottom: 25px;} 
@@ -3844,10 +3845,26 @@ img.g-play-store {width: 82px;}
 
 
 @media only screen and (max-width: 767px) {
-
+    .menu > li:hover .megadrop {
+        opacity: 1;
+        visibility: visible;
+        margin-top: 0px;
+        background: #fff;
+        position: fixed;
+        top: 0!important;
+        left: 0;
+        overflow: scroll;
+    }
+    #your-points .progress-bar span {
+        font-size: 24px;
+    }
+    .your-points{
+        font-size: 15px
+    }
     #your-points{
         margin: 0;
         padding: 0;
+        
     } 
     #your-points .progress a.ballons img{
         right: 0;
