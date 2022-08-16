@@ -85,6 +85,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     // products
     Route::get('/products','AdminController@products')->name('products');
     Route::get('/add-products','AdminController@addproducts')->name('addproducts');
+    Route::post('/change-product-featured-type/{product}/{type}', 'AdminController@changeProductFeaturedType')->name('changeProductFeaturedType');
 
     Route::post('/prodattribut','AdminController@prodAttrVal')->name('prodAttrVal');
 

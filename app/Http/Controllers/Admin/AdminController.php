@@ -1758,4 +1758,14 @@ public function editProcess(Request $request){
             ->get();
         return view('admin.points', compact('totalBalance', 'eligibleUsers', 'points', 'reward'));
     }
+
+    public function changeProductFeaturedType(Request $request, Product $product, $type) {
+        $status = $product->update([
+            $type => $request->status
+        ]);
+
+        return response()->json([
+            'status' => $status
+        ]);
+    }
 }
