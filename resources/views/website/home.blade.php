@@ -38,7 +38,7 @@
                         
                 </div>
                   <div class="carousel-inner">
-                    @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
+                    @foreach(DB::table('homepagebanners')->where('status' , 2)->orderBy('position')->get() as $r)
                     
                     <div class="carousel-item @if ($loop->first) active @endif">
                     <a href="{{ url('') }}/{{ $r->url }}">
