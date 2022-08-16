@@ -39,7 +39,7 @@
                         <h3>{{$product->title}}</h3>
                         <div class="d-flex price-cart">
                               @if($product->discount)
-                              <span class="price">QAR {{$product->discount}}</span>
+                              <span class="price text-danger" style="font-size: 1rem">QAR {{$product->discount}}</span>
                               <del class="price">QAR {{$product->unit_price}}</del>
                               @else
                               <span class="price">QAR {{$product->unit_price}}</span>
