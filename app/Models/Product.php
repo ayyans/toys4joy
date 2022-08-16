@@ -52,7 +52,8 @@ class Product extends Model
 
     public function getRewardPointsAttribute() {
         $qarInPoints = Setting::where('name', 'qar_in_points')->value('value') ?? 2;
-        return $this->discount ?: $this->unit_price * $qarInPoints;
+        $price = $this->discount ?: $this->unit_price;
+        return $price * $qarInPoints;
     }
 
     public function category() {
