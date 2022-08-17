@@ -714,19 +714,22 @@ class WebsiteController extends Controller
         $ip_address =  $this->getUserIpAddr();
         $ipInfo = $this->grabIpInfo($ip_address);
         $ipdata =  json_decode($ipInfo);
-        $address = CustomerAddress::where('cust_id' , Auth::user()->id);
-        if($address->count() > 0)
-        {
-            if($address->get()->first()->latitude)
-            {
-                $lattitude =  $ipdata->latitude ?? 25.281639;
-                $longitude =  $ipdata->longitude ?? 51.524300;
-            }
-        }else{
-            $lattitude =  $ipdata->longitude ?? 25.281639;
-            $longitude =  $ipdata->latitude ?? 51.524300;
-        }
-        return view('website.add_address')->with(array('lattitude'=>$lattitude,'longitude'=>$longitude));
+        $address = CustomerAddress::where('cust_id' , Auth::user()->id)->first();
+        // $address = CustomerAddress::where('cust_id' , Auth::user()->id);
+        // if($address->count() > 0)
+        // {
+        //     if($address->get()->first()->latitude)
+        //     {
+        //         $lattitude =  $ipdata->latitude ?? 25.281639;
+        //         $longitude =  $ipdata->longitude ?? 51.524300;
+        //     }
+        // }else{
+        //     $lattitude =  $ipdata->longitude ?? 25.281639;
+        //     $longitude =  $ipdata->latitude ?? 51.524300;
+        // }
+        $latitude = $address ? $address->latitude : ($ipdata->latitude ?? 25.281639);
+        $longitude = $address ? $address->longitude : ($ipdata->longitude ?? 51.524300);
+        return view('website.add_address')->with(array('latitude'=>$latitude,'longitude'=>$longitude));
     }
 
 
