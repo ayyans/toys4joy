@@ -2118,7 +2118,7 @@ $(document).ready(function() {
 		  magnifierborder: "5px solid #F0F0F0",                 // fix для Opera и Safary		  
 		  zoomrange: [2, 8],
 		  zoomstart: 3,
-		  magnifiersize: [200, 200]	
+		  magnifiersize: [300, 300]	
     //zoomrange: [1.12, 12],
     //zoomstart: 3,
 	  //magnifiersize: [530, 340],
