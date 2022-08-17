@@ -90,7 +90,7 @@
 @push('otherscript')
     <script>
         $(function() {
-            $('.best-offer-checkbox').on('click', function() {
+            $('#dataTable').on('click', '.best-offer-checkbox', function() {
                 const url = $(this).data('url');
                 const id = $(this).data('id');
                 const status = $(this).is(':checked');
