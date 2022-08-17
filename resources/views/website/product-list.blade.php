@@ -36,7 +36,15 @@
                     @endif
                     <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img class="lazyload" data-src="{{asset('products/'.$product->featured_img)}}" src="{{asset('products/'.$product->featured_img)}}"/></a></div>
                     <div class="text-center content-block">
-                        <h3>{{$product->title}}</h3>
+                         @php
+                        $name=$product->title;
+                        if(strlen($name) > 30){
+                      $name = substr($name, 0, 30) . '...';
+                        }
+                        @endphp
+                    <h3>@php 
+                        echo $name;
+                         @endphp</h3>
                         <div class="d-flex price-cart">
                               @if($product->discount)
                               <span class="price text-danger" style="font-size: 1rem">QAR {{$product->discount}}</span>
