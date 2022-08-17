@@ -28,6 +28,7 @@ use App\Models\Order;
 use App\Models\ReturnRequest;
 use App\Models\User;
 use App\Models\requiredproducts;
+use App\Models\Setting;
 use App\Models\usergiftcards;
 use Bavix\Wallet\Models\Wallet;
 use Illuminate\Support\Facades\DB;
@@ -149,7 +150,7 @@ class AdminController extends Controller
         // giftcard 100 points reward functionality
         // withdraw 100 points if it's reward
         if ($request->type == 'reward') {
-            User::find($request->user_id)->withdraw(100, ["description" => "100 Points Gift Card Generated"]);
+            User::find($request->user_id)->withdraw($request->points, ["description" => $giftCard->name . " Generated"]);
             // add usergiftcards entry for the record
             usergiftcards::create([
                 'order_number' => rand(123456789, 987654321),
@@ -1746,10 +1747,25 @@ public function editProcess(Request $request){
     }
 
     public function points(Request $request) {
+        // points system
+        $settings = Setting::whereIn('name', ['points_threshold', 'reward_on_threshold'])->pluck('value', 'name');
+        $points = $settings['points_threshold'] ?? 5000; // threshold points for the gift card
+        $reward = $settings['reward_on_threshold'] ?? 100; // gift card reward value
+        // wallet
         $totalBalance = Wallet::sum('balance');
         $eligibleUsers = User::with(['wallet', 'transactions' => fn ($q) => $q->orderBy('created_at', 'desc')])
-            ->whereHas('wallet', fn ($q) => $q->where('balance', '>=', 100))
+            ->whereHas('wallet', fn ($q) => $q->where('balance', '>=', $points))
             ->get();
-        return view('admin.points', compact('totalBalance', 'eligibleUsers'));
+        return view('admin.points', compact('totalBalance', 'eligibleUsers', 'points', 'reward'));
+    }
+
+    public function changeProductFeaturedType(Request $request, Product $product, $type) {
+        $status = $product->update([
+            $type => $request->status
+        ]);
+
+        return response()->json([
+            'status' => $status
+        ]);
     }
 }

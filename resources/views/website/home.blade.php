@@ -38,7 +38,7 @@
                         
                 </div>
                   <div class="carousel-inner">
-                    @foreach(DB::table('homepagebanners')->where('status' , 2)->get() as $r)
+                    @foreach(DB::table('homepagebanners')->where('status' , 2)->orderBy('position')->get() as $r)
                     
                     <div class="carousel-item @if ($loop->first) active @endif">
                     <a href="{{ url('') }}/{{ $r->url }}">
@@ -153,18 +153,19 @@
   <div class="item single single-home-card">
       @if($product->qty == 0)
       <div class="availbility"><span>Out of Stock</span></div>
-      @elseif($product->discount)
-      @php
+      @elseif($product->best_offer)
+      {{-- @php
         $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
-      @endphp
-      <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
+      @endphp --}}
+      {{-- <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div> --}}
+      <div class="availbility"><span>Special Price</span></div>
       @endif
       <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}" class="lazyload" data-src="{{asset('products/'.$product->featured_img)}}"/></a></div>
       <div class="text-center content-block">
           <h3>{{$product->title}}</h3>
           <div class="d-flex price-cart">
             @if($product->discount)
-            <span class="price">QAR {{$product->discount}}</span>
+            <span class="price text-danger" style="font-size: 1rem">QAR {{$product->discount}}</span>
             <del class="price">QAR {{$product->unit_price}}</del>
             @else
             <span class="price">QAR {{$product->unit_price}}</span>
@@ -203,18 +204,19 @@
   <div class="item single single-home-card">
       @if($product->qty == 0)
       <div class="availbility"><span>Out of Stock</span></div>
-      @elseif($product->discount)
-      @php
+      @elseif($product->best_offer)
+      {{-- @php
         $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
-      @endphp
-      <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div>
+      @endphp --}}
+      {{-- <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div> --}}
+      <div class="availbility"><span>Special Price</span></div>
       @endif
       <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}" class="lazyload" data-src="{{asset('products/'.$product->featured_img)}}"/></a></div>
       <div class="text-center content-block">
           <h3>{{$product->title}}</h3>
           <div class="d-flex price-cart">
             @if($product->discount)
-            <span class="price">QAR {{$product->discount}}</span>
+            <span class="price text-danger" style="font-size: 1rem">QAR {{$product->discount}}</span>
             <del class="price">QAR {{$product->unit_price}}</del>
             @else
             <span class="price">QAR {{$product->unit_price}}</span>

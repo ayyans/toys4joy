@@ -64,7 +64,7 @@
           <td>{{ $user->name }}</td>
           <td>{{ $user->balance }}</td>
           <td><a href="#" class="text-decoration-none" data-type="transactions" data-title="Transactions" data-transactions="{{ $user->transactions }}" data-toggle="modal" data-target="#transactionsModal">view</a></td>
-          <td><a href="#" class="text-decoration-none" data-type="giftcard" data-title="E-Gift Card" data-id="{{ $user->id }}" data-toggle="modal" data-target="#transactionsModal">Generate E-Gift Card</a></td>
+          <td><a href="#" class="text-decoration-none" data-type="giftcard" data-title="E-Gift Card" data-id="{{ $user->id }}" data-points="{{ $points }}" data-reward="{{ $reward }}" data-toggle="modal" data-target="#transactionsModal">Generate E-Gift Card</a></td>
         </tr>
       @endforeach
     </tbody>
@@ -139,15 +139,18 @@ $(function () {
       modal.find('#giftcardInformation').show(); // show gift part if hidden
       const url = "{{ route('admin.addgiftcardsubmit') }}";
       const user_id = button.data('id');
+      const points = button.data('points');
+      const reward = button.data('reward');
       const random = Math.random().toString(16).substr(2, 6); // random 6 characters
       const code = `gift${random}`; // code will be gift+random
       // data to send
       const data = {
         _token: $('meta[name="csrf-token"]').attr('content'),
         user_id,
-        coupon_title: '100 Points Gift Card',
+        coupon_title: `${points} Points Gift Card`,
         coupon_code: code,
-        price: 100,
+        price: reward,
+        points,
         status: 1,
         type: 'reward' // if it's reward deduce balance and send mail
       }

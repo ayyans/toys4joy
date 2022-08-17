@@ -85,6 +85,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     // products
     Route::get('/products','AdminController@products')->name('products');
     Route::get('/add-products','AdminController@addproducts')->name('addproducts');
+    Route::post('/change-product-featured-type/{product}/{type}', 'AdminController@changeProductFeaturedType')->name('changeProductFeaturedType');
 
     Route::post('/prodattribut','AdminController@prodAttrVal')->name('prodAttrVal');
 
@@ -169,6 +170,10 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
     // Points
     Route::get('points', 'AdminController@points')->name('points');
+
+    // Settings
+    Route::get('settings', 'SettingsController@index')->name('settings.index');
+    Route::post('settings', 'SettingsController@store')->name('settings.store');
 });
 
 
