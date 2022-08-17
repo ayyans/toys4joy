@@ -153,7 +153,7 @@
   <div class="item single single-home-card">
       @if($product->qty == 0)
       <div class="availbility"><span>Out of Stock</span></div>
-      @elseif($product->discount)
+      @elseif($product->best_offer)
       {{-- @php
         $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
       @endphp --}}
@@ -204,7 +204,7 @@
   <div class="item single single-home-card">
       @if($product->qty == 0)
       <div class="availbility"><span>Out of Stock</span></div>
-      @elseif($product->discount)
+      @elseif($product->best_offer)
       {{-- @php
         $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
       @endphp --}}
