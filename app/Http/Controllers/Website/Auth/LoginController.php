@@ -38,11 +38,11 @@ class LoginController extends Controller
             return redirect()->route('website.otp')->with('warning', 'Please Enter Code!');
         }
 
-        if ( auth()->login( $user, $request->filled('remember') ) ) {
-            return redirect()->intended('/')->with('success', 'You are Logged in as customer!');
+        if ( ! auth()->login( $user, $request->filled('remember') ) ) {
+            return $this->loginFailed();
         }
 
-        return $this->loginFailed();
+        return redirect()->intended('/')->with('success', 'You are Logged in as customer!');
     }
     public function verificationotp()
     {

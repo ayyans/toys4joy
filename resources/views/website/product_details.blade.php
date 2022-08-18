@@ -50,7 +50,7 @@
                     @if($products->logo)
                     <div class="nerf-logo"><img src="{{asset('uploads/'.$products->logo)}}"/></div>
                     @endif
-                    <div class="reviews">
+                    <!--<div class="reviews">
                         <div class="d-flex stars">
                             <img src="{{asset('website/img/star.png')}}"/>
                             <img src="{{asset('website/img/star.png')}}"/>
@@ -59,7 +59,7 @@
                             <img src="{{asset('website/img/star.png')}}"/>
                         </div>
                         <p>Be the first one to review this product</p>
-                    </div>
+                    </div>-->
                     @if($products->discount)
                     <del class="price"> QAR {{$products->unit_price}}</del>
                     <h2 class="price"> QAR {{$products->discount}}</h2>
@@ -92,10 +92,10 @@
                             <label>Add to Cart</label>
                             <div class="icon" id="addtocart"><img src="{{asset('website/img/cart-icon.png')}}"/></div>
                         </div> -->
-                        <div class="like block">
+                        <!--<div class="like block">
                             <label>Like</label>
                             <div class="icon"><img src="{{asset('website/img/thumb-up.svg')}}"/></div>
-                        </div>
+                        </div>-->
                         @if(Auth::check())
                         <div class="wishlist block">
                             <label>Wish List</label>
