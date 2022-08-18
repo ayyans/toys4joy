@@ -37,7 +37,7 @@
                             <td>{{ $order->order_number }}</td>
                             <td>{{ $order->user->name }}</td>
                             <td>{{ $order->user->mobile }}</td>
-                            <td>{{ $order->address->unit_no }},{{ $order->address->building_no }},{{ $order->address->zone }},{{ $order->address->street }}</td>
+                            <td>{{ $order->address->fullAddress }}</td>
                             <td>
                                 <div class="badge {{ $order->payment_status == 'paid' ? 'badge-success' : 'badge-danger' }}">{{ strtoupper($order->payment_status) }}</div>
                             </td>
