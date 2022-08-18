@@ -168,7 +168,7 @@
                 {{ $mobile ?? null }}<br />
                 {{ $email ?? null }}<br>
                 @if ($order->user_id)
-                {{ $order->address->unit_no }},{{ $order->address->building_no }},{{ $order->address->zone }},{{ $order->address->street }}
+                {{ $order->address->fullAddress }}
                 @endif
               </td>
             </tr>
