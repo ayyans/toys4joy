@@ -34,7 +34,7 @@ class LoginController extends Controller
         $user = User::firstWhere('email', $request->email);
 
         if ($user->status == 1) {
-            sendOTPCode(auth()->user());
+            sendOTPCode($user);
             return redirect()->route('website.otp')->with('warning', 'Please Enter Code!');
         }
 
