@@ -2,6 +2,8 @@
 
 // sadad functions
 
+use Twilio\Rest\Client;
+
 if (!function_exists('getChecksumFromString')) {
   function getChecksumFromString($str, $key)
   {
@@ -46,5 +48,29 @@ if (!function_exists('cart')) {
   {
     $session = auth()->check() ? auth()->id() : session()->getId();
     return app('cart')->session($session);
+  }
+}
+
+// send message
+
+if ( !function_exists('sendMessage') ) {
+  function sendMessage($number, $body) {
+    $client = new Client(config('twilio.sid'), config('twilio.token'));
+    $message = $client->messages->create($number, [
+      'from' => config('twilio.number'),
+      'body' => $body
+    ]);
+    return !in_array($message->status, ['failed', 'undelivered']);
+  }
+}
+
+// send otp
+
+if ( !function_exists('sendOTPCode') ) {
+  function sendOTPCode($user) {
+    $otp = rand(123456, 654321);
+    $updated = $user->forceFill([ 'otp' => $otp ])->save();
+    $sent = sendMessage($user->mobile, "Your one time pin is ${otp}. Use this pin for verification on Toys4Joy.");
+    return $updated && $sent;
   }
 }
