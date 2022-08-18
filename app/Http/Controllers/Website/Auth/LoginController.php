@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\View;
 use DB;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -33,16 +34,21 @@ class LoginController extends Controller
         $this->validator($request);
         $user = User::firstWhere('email', $request->email);
 
+        // password not matching
+        if ( !Hash::check($request->password, $user->password) ) {
+            return $this->loginFailed();
+        }
+
+        // phone not verified
         if ($user->status == 1) {
             sendOTPCode($user);
             return redirect()->route('website.otp')->with('warning', 'Please Enter Code!');
         }
 
-        if ( auth()->login( $user, $request->filled('remember') ) ) {
-            return redirect()->intended('/')->with('success', 'You are Logged in as customer!');
-        }
+        // login the user
+        auth()->login($user, $request->filled('remember'));
 
-        return $this->loginFailed();
+        return redirect()->intended('/')->with('success', 'You are Logged in as customer!');
     }
     public function verificationotp()
     {
