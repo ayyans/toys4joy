@@ -61,11 +61,11 @@
                         <p>Be the first one to review this product</p>
                     </div>-->
                     @if($products->discount)
-                    <del class="price"> QAR {{$products->unit_price}}</del>
-                    <h2 class="price"> QAR {{$products->discount}}</h2>
+                    <del class="price"> QR {{$products->unit_price}}</del>
+                    <h2 class="price"> QR {{$products->discount}}</h2>
 
                     @else
-                    <h2 class="price"> QAR {{$products->unit_price}}</h2>
+                    <h2 class="price"> QR {{$products->unit_price}}</h2>
                     @endif
 
                     <div class="earn-points"><h5>Earn Reward Points Worth {{$products->rewardPoints}} Points<span>(Only for registered users)</span></h5></div>

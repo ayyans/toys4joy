@@ -165,10 +165,10 @@
           <h3>{{$product->title}}</h3>
           <div class="d-flex price-cart">
             @if($product->discount)
-            <span class="price text-danger" style="font-size: 1.1rem; text-shadow: 0px 0.5px 0px #DC3545;">QAR {{$product->discount}}</span>
-            <del class="price">QAR {{$product->unit_price}}</del>
+            <span class="price text-danger" style="font-size: 1.1rem; text-shadow: 0px 0.5px 0px #DC3545;">QR {{$product->discount}}</span>
+            <del class="price">QR {{$product->unit_price}}</del>
             @else
-            <span class="price">QAR {{$product->unit_price}}</span>
+            <span class="price">QR {{$product->unit_price}}</span>
             @endif
             <span class="card-action d-flex mr-1">
             <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
@@ -216,10 +216,10 @@
           <h3>{{$product->title}}</h3>
           <div class="d-flex price-cart">
             @if($product->discount)
-            <span class="price text-danger" style="font-size: 1.1rem; text-shadow: 0px 0.5px 0px #DC3545;">QAR {{$product->discount}}</span>
-            <del class="price">QAR {{$product->unit_price}}</del>
+            <span class="price text-danger" style="font-size: 1.1rem; text-shadow: 0px 0.5px 0px #DC3545;">QR {{$product->discount}}</span>
+            <del class="price">QR {{$product->unit_price}}</del>
             @else
-            <span class="price">QAR {{$product->unit_price}}</span>
+            <span class="price">QR {{$product->unit_price}}</span>
             @endif
             <span class="card-action d-flex mr-1">
             <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
