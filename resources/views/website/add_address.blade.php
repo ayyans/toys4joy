@@ -22,8 +22,8 @@
             
             <div class="col-6 right-col">
              <form action="#" id="addressFrm">
-                <input type="hidden" name="latitude" id="latitude">
-                <input type="hidden" name="longitude" id="longitude">
+                <input type="hidden" name="latitude" id="latitude" value="{{ $latitude }}">
+                <input type="hidden" name="longitude" id="longitude" value="{{ $longitude }}">
                 <div class="form-group">
                     <div class="form-inner">
                         <div class="input-block unit-num">
@@ -63,11 +63,11 @@
 <script>
 function initAutocomplete() {
 const map = new google.maps.Map(document.getElementById("mapid"), {
-  center: { lat: {{$lattitude}}, lng: {{ $longitude }} },
+  center: { lat: {{$latitude}}, lng: {{ $longitude }} },
   zoom: 13,
   mapTypeId: "roadmap",
 });
-const myLatlng = { lat: {{$lattitude}}, lng: {{ $longitude }} };
+const myLatlng = { lat: {{$latitude}}, lng: {{ $longitude }} };
 marker = new google.maps.Marker({
     position: myLatlng,
     map: map
