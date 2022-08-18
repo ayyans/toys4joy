@@ -30,15 +30,18 @@ class LoginController extends Controller
 
     public function login_process(Request $request)
     {
-        $credentials = $this->validator($request);
-        if ( auth()->attempt( $credentials, $request->filled('remember') ) ) {
+        $this->validator($request);
+        $user = User::firstWhere('email', $request->email);
 
-            if (auth()->user()->status == 1) {
-                sendOTPCode(auth()->user());
-                return redirect()->route('website.otp')->with('warning', 'Please Enter Code!');
-            }
+        if ($user->status == 1) {
+            sendOTPCode(auth()->user());
+            return redirect()->route('website.otp')->with('warning', 'Please Enter Code!');
+        }
+
+        if ( auth()->login( $user, $request->filled('remember') ) ) {
             return redirect()->intended('/')->with('success', 'You are Logged in as customer!');
         }
+
         return $this->loginFailed();
     }
     public function verificationotp()
@@ -51,7 +54,7 @@ class LoginController extends Controller
         if ($user) {
             $user->forceFill(['status' => 2])->save();
             event(new Registered($user)); // Registered event fired
-            auth()->login($user);
+            auth()->login($user, true);
             return redirect()->route('website.home')->with('success', 'Your Account is Approved');
         } else {
             return back()->with('error', 'Invalid OTP');
