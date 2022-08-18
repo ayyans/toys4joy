@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Website\Auth;
+
 use Auth;
 use App\Models\Category;
 use App\Models\User;
@@ -16,26 +17,27 @@ use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
-     public function __construct(){ 
-        $categoriestest = Category::where('status','=','2')->orderBy('id','desc')->get();
+    public function __construct()
+    {
+        $categoriestest = Category::where('status', '=', '2')->orderBy('id', 'desc')->get();
         View::share('categoriestest', $categoriestest);
     }
 
-    public function login(){
+    public function login()
+    {
         return view('website.auth.login');
     }
 
     public function login_process(Request $request)
     {
-        $data = $request->all();
-        $this->validator($request);
-        if(auth()->attempt(['email'=>$data['email'],'password'=>$data['password']],$request->filled('remember'))){
+        $credentials = $this->validator($request);
+        if ( auth()->attempt( $credentials, $request->filled('remember') ) ) {
 
-        if(Auth::user()->status == 1)
-        {
-            return redirect()->route('website.otp')->with('warning','Please Enter Code!');
-        }
-        return redirect()->intended('/')->with('success','You are Logged in as customer!');
+            if (auth()->user()->status == 1) {
+                sendOTPCode(auth()->user());
+                return redirect()->route('website.otp')->with('warning', 'Please Enter Code!');
+            }
+            return redirect()->intended('/')->with('success', 'You are Logged in as customer!');
         }
         return $this->loginFailed();
     }
@@ -45,20 +47,15 @@ class LoginController extends Controller
     }
     public function confermotp(Request $request)
     {
-        $check = DB::table('users')->where('otp' , $request->otp)->get();
-        if($check->count() == 1)
-        {
-            $user = User::find($check->first()->id);
-            $user->status = 2;
-            $user->save();
+        $user = User::where('otp', $request->otp)->first();
+        if ($user) {
+            $user->forceFill(['status' => 2])->save();
             event(new Registered($user)); // Registered event fired
-            Auth::login($user);
-            return redirect()->route('website.home')->with('success','Your Account is Approved');
-        }else{
-            return back()->with('error','Invalid OTP');
+            auth()->login($user);
+            return redirect()->route('website.home')->with('success', 'Your Account is Approved');
+        } else {
+            return back()->with('error', 'Invalid OTP');
         }
-
-
     }
     /**
      * Logout the admin.
@@ -67,8 +64,8 @@ class LoginController extends Controller
      */
     public function logout()
     {
-      Auth::logout();
-      return redirect()->route('website.login')->with('success','customer has been logged out!');
+        Auth::logout();
+        return redirect()->route('website.login')->with('success', 'customer has been logged out!');
     }
 
     /**
@@ -79,22 +76,21 @@ class LoginController extends Controller
      */
     private function validator(Request $request)
     {
-      //validate the form...
+        //validate the form...
 
-              //validation rules.
-    $rules = [
-        'email'    => 'required|email|exists:users|min:5|max:191',
-        'password' => 'required|string|min:4|max:255',
-    ];
+        //validation rules.
+        $rules = [
+            'email'    => 'required|email|exists:users|min:5|max:191',
+            'password' => 'required|string|min:4|max:255',
+        ];
 
-    //custom validation error messages.
-    $messages = [
-        'email.exists' => 'These credentials do not match our records.',
-    ];
+        //custom validation error messages.
+        $messages = [
+            'email.exists' => 'These credentials do not match our records.',
+        ];
 
-    //validate the request.
-    $request->validate($rules,$messages);
-
+        //validate the request.
+        return $request->validate($rules, $messages);
     }
 
     /**
@@ -104,8 +100,8 @@ class LoginController extends Controller
      */
     private function loginFailed()
     {
-      //Login failed...
-      return redirect()->back()->withInput()->with('error','Login failed, please try again!');
+        //Login failed...
+        return redirect()->back()->withInput()->with('error', 'Login failed, please try again!');
     }
 
     public function forgot_password()
