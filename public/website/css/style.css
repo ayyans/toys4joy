@@ -3858,6 +3858,9 @@ img.g-play-store {width: 82px;}
 
 
 @media only screen and (max-width: 767px) {
+     #products-ranking.my-basket .table tbody tr button{
+        font-size: 10px;
+    }
     .menu > li:hover .megadrop {
         opacity: 1;
         visibility: visible;
