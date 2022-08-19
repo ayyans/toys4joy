@@ -42,4 +42,8 @@ class Product extends Model
             $query->where('payment_status', 'paid')->where('additional_details->is_abandoned', false);
         });
     }
+
+    public function brand() {
+        return $this->belongsTo(Brand::class);
+    }
 }

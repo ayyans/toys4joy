@@ -21,6 +21,7 @@
                             <th>Product ID</th>
                             <th>SKU</th>
                             <th>Name</th>
+                            <th>Brand</th>
                             <th>New Arrival</th>
                             <th>Best Seller</th>
                             <th>Best Offer</th>
@@ -37,7 +38,8 @@
                         <tr>
                             <td>{{ $product->id }}</td>
                             <td>{{ $product->sku }}</td>
-                            <td>{{$product->title}}</td>
+                            <td>{{ $product->title }}</td>
+                            <td>{{ $product->brand->brand_name }}</td>
                             <td>
                                 <input type="checkbox" data-url="{{ route('admin.changeProductFeaturedType', ['product' => $product->id, 'type' => 'new_arrival']) }}" data-id="{{ $product->id }}" class="featured_type_checkbox" {{ $product->new_arrival ? 'checked' : '' }}>
                             </td>

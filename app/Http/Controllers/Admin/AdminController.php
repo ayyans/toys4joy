@@ -700,7 +700,7 @@ public function deleteAttrVal(Request $request){
     // products
 
     public function products(){
-        $products = Product::orderBy('id','desc')->get();
+        $products = Product::with('brand')->latest()->get();
         return view('admin.products',compact('products'));
     }
 
