@@ -1,111 +1,32 @@
 <footer class="for-desktop">
-<div class="container-fluid">
-    <div class="footer">
-        <div class="elements">
-            <div class="d-flex why-us">
-                <a href="{{ route('website.whyus') }}">
-                    <img src="{{asset('website/img/why-us.png')}}" class="why-text">
-                    <img src="{{asset('website/img/logo-t4j.png')}}" class="why-logo">
-                </a>
-                <div class="company-policy">
-                    <a href="{{ route('website.policy') }}">
-                        <img src="{{asset('website/img/2__4_-removebg-preview.png')}}">
-                        <span>COMPANY POLICY</span>
+    <div class="container-fluid">
+        <div class="footer">
+            <div class="elements">
+                <div class="d-flex why-us">
+                    <a href="{{ route('website.whyus') }}">
+                        <img src="{{asset('website/img/why-us.png')}}" class="why-text">
+                        <img src="{{asset('website/img/logo-t4j.png')}}" class="why-logo">
                     </a>
-                </div>    
-            </div>
-        </div>
-        <div class="d-flex elements app-s-media">
-            <div class="google-play" style="visibility:hidden;">
-                <a href="#"><img src="{{asset('website/img/ios.png')}}" class="app-store"></a>
-                <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
-            </div>
-            <ul class="d-flex social-media">
-                <li><a href="https://www.facebook.com/Toys4joyqatar/" target="_blank">
-                    <img src="{{asset('website/img/fb.png')}}">
-                    </a></li>
-                <li>
-                    <a href="https://twitter.com/Toys4joy3" target="_blank">
-                    <img src="{{asset('website/img/twitter.png')}}"></a>
-                </li>
-                <li>
-                    <a href="https://www.instagram.com/toys4joyqatar/" target="_blank">
-                        <img src="{{asset('website/img/instagram.png')}}"></a>
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/channel/UCMK_gmojd4eBvMTHN1vD9Aw" target="_blank">
-                        <img src="{{asset('website/img/linkedin.png')}}"></a>
-                </li>
-                <li>
-                    <a href="https://www.tiktok.com/@toys4joyqatar" target="_blank">
-                        <img src="{{asset('website/img/tiktok.png')}}"></a>
-                </li>
-            </ul>
-            
-        </div>
-        <div class="elements">
-            <div class="toll-free">
-                <a href="{{ route('website.contact') }}"><img src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
-            </div>
-        </div>
-        <div class="elements">
-            <div class="d-flex why-us">
-                <a href="https://api.whatsapp.com/send?phone=97460005370&text=Welcome%20to%20Toys4joy" target="_blank" class="whatsapp-icon">
-                    <img src="{{asset('website/img/whatsapp.png')}}" class="whatsapp">
-                </a>
-            </div>
-        </div>
-    </div>
-</div> 
-</footer>
-
-
-
-
-    
-<footer class="for-mobile">
-<div class="container-fluid">
-    <!--text-center-->
-    <div class="row footer">
-    <div class="col-3">
-            <div class="company-policy">
-                <a href="{{ route('website.policy') }}">
-                    <img src="{{asset('website/img/2__4_-removebg-preview.png')}}"><p>Company Policy</p>
-                </a>    
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="why-us">
-                <a href="{{ route('website.whyus') }}">
-                    <img src="{{asset('website/img/why-us.png')}}" class="why-text">
-                    <img src="{{asset('website/img/logo-t4j.png')}}" class="why-logo">
-                    <!--<p>Why Choose us</p>-->
-                </a>    
-            </div>
-        </div>
-        
-        <div class="col-6">
-        <div class="toll-free">
-                <a href="{{ route('website.contact') }}"><img src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
+                    <div class="company-policy">
+                        <a href="{{ route('website.policy') }}">
+                            <img src="{{asset('website/img/2__4_-removebg-preview.png')}}">
+                            <span>COMPANY POLICY</span>
+                        </a>
+                    </div>
                 </div>
-        </div>
-        
-        
-        <div class="col-12">
-            <div class="get-in-touch">
-        
+            </div>
+            <div class="d-flex elements app-s-media">
                 <div class="google-play" style="visibility:hidden;">
                     <a href="#"><img src="{{asset('website/img/ios.png')}}" class="app-store"></a>
                     <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
                 </div>
-                
                 <ul class="d-flex social-media">
                     <li><a href="https://www.facebook.com/Toys4joyqatar/" target="_blank">
-                        <img src="{{asset('website/img/fb.png')}}">
+                            <img src="{{asset('website/img/fb.png')}}">
                         </a></li>
                     <li>
                         <a href="https://twitter.com/Toys4joy3" target="_blank">
-                        <img src="{{asset('website/img/twitter.png')}}"></a>
+                            <img src="{{asset('website/img/twitter.png')}}"></a>
                     </li>
                     <li>
                         <a href="https://www.instagram.com/toys4joyqatar/" target="_blank">
@@ -120,19 +41,103 @@
                             <img src="{{asset('website/img/tiktok.png')}}"></a>
                     </li>
                 </ul>
-                
+
+            </div>
+            <div class="elements">
+                <div class="toll-free">
+                    <a href="{{ route('website.contact') }}"><img
+                            src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
+                </div>
             </div>
             <div class="elements">
                 <div class="d-flex why-us">
-                    <a href="https://api.whatsapp.com/send?phone=97460005970&text=Welcome%20to%20Toys4joy" target="_blank" class="whatsapp-icon">
-                        <img src="{{asset('website/img/whatsapp.png')}}" class="whatsapp mobile">
+                    <a href="https://api.whatsapp.com/send?phone=97460005370&text=Welcome%20to%20Toys4joy"
+                        target="_blank" class="whatsapp-icon">
+                        <img src="{{asset('website/img/whatsapp.png')}}" class="whatsapp">
                     </a>
                 </div>
             </div>
         </div>
-      
     </div>
-</div> 
+</footer>
+
+
+
+
+
+<footer class="for-mobile">
+    <div class="container-fluid">
+        <!--text-center-->
+        <div class="row footer">
+            <div class="col-3">
+                <div class="company-policy">
+                    <a href="{{ route('website.policy') }}">
+                        <img src="{{asset('website/img/2__4_-removebg-preview.png')}}">
+                        <p>Company Policy</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="why-us">
+                    <a href="{{ route('website.whyus') }}">
+                        <img src="{{asset('website/img/why-us.png')}}" class="why-text">
+                        <img src="{{asset('website/img/logo-t4j.png')}}" class="why-logo">
+                        <!--<p>Why Choose us</p>-->
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="toll-free">
+                    <a href="{{ route('website.contact') }}"><img
+                            src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
+                </div>
+            </div>
+
+
+            <div class="col-12">
+                <div class="get-in-touch">
+
+                    <div class="google-play" style="visibility:hidden;">
+                        <a href="#"><img src="{{asset('website/img/ios.png')}}" class="app-store"></a>
+                        <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
+                    </div>
+
+                    <ul class="d-flex social-media">
+                        <li><a href="https://www.facebook.com/Toys4joyqatar/" target="_blank">
+                                <img src="{{asset('website/img/fb.png')}}">
+                            </a></li>
+                        <li>
+                            <a href="https://twitter.com/Toys4joy3" target="_blank">
+                                <img src="{{asset('website/img/twitter.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/toys4joyqatar/" target="_blank">
+                                <img src="{{asset('website/img/instagram.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/channel/UCMK_gmojd4eBvMTHN1vD9Aw" target="_blank">
+                                <img src="{{asset('website/img/linkedin.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.tiktok.com/@toys4joyqatar" target="_blank">
+                                <img src="{{asset('website/img/tiktok.png')}}"></a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="elements">
+                    <div class="d-flex why-us">
+                        <a href="https://api.whatsapp.com/send?phone=97460005970&text=Welcome%20to%20Toys4joy"
+                            target="_blank" class="whatsapp-icon">
+                            <img src="{{asset('website/img/whatsapp.png')}}" class="whatsapp mobile">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </footer>
 <input type="hidden" name="cust_id" value="{{ Cmf::ipaddress() }}" id="cust_id" />
 @include('website.layouts.loader')
@@ -168,39 +173,63 @@
             }
         })    
     }
-   function addtocart(prod_id,qty,amt){
-        var form =new FormData();
-        form.append('prod_id',prod_id);
-        form.append('quantity',qty);
-        form.append('amt',amt);
+
+    function addtocart(product_id, quantity) {
+
+        const url = "{{route('website.addTocart')}}";
+        const data = {product_id, quantity};
+
         $("#cover-spin").show();
-        $.ajax({
-            url:"{{route('website.addTocart')}}",
-            type:"POST",
-            data:form,
-            cache:false,
-            contentType:false,
-            processData:false,
-            success:function(res){
-                $("#cover-spin").hide();
-                var js_data = JSON.parse(JSON.stringify(res));
-                if(js_data.status==200){
-                    toastr.success('Product added to cart');
-                    headercart();
-                }else if(js_data.msg=='3'){
-                    toastr.error('product out of stock! please check product stock');
-                    return false; 
-                }
-                else{
-                    toastr.error('something went wrong');
-                    return false; 
-                }
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(res => {
+            $("#cover-spin").hide();
+            if (res.status) {
+                toastr.success(res.message);
+                headercart();
+            } else {
+                toastr.error(res.message)
             }
         })
-   }
+        .catch(err => console.log(err));
+        // var form =new FormData();
+        // form.append('prod_id',prod_id);
+        // form.append('quantity',qty);
+        // form.append('amt',amt);
+        // $("#cover-spin").show();
+        // $.ajax({
+        //     url:"{{route('website.addTocart')}}",
+        //     type:"POST",
+        //     data:form,
+        //     cache:false,
+        //     contentType:false,
+        //     processData:false,
+        //     success:function(res){
+        //         $("#cover-spin").hide();
+        //         var js_data = JSON.parse(JSON.stringify(res));
+        //         if(js_data.status==200){
+        //             toastr.success('Product added to cart');
+        //             headercart();
+        //         }else if(js_data.msg=='3'){
+        //             toastr.error('product out of stock! please check product stock');
+        //             return false; 
+        //         }
+        //         else{
+        //             toastr.error('something went wrong');
+        //             return false; 
+        //         }
+        //     }
+        // })
+    }
 </script>
 
-<script>  
+<script>
     function showcart()
     {
         $("#cover-spin").show();
