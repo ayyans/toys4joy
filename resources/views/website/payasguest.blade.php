@@ -107,6 +107,23 @@
                             <label>Email<span style="color:#ff0000">*</span></label>
                             <input type="email" name="email" class="guestcheckinp" required>
                         </div>
+                        <div class="mb-3">
+                            <label>Unit Number (optional)</label>
+                            <input type="email" name="unique_n" class="guestcheckinp" >
+                        </div>
+                        <div class="mb-3">
+                            <label>Building Number (optional)</label>
+                            <input type="email" name="building_n" class="guestcheckinp" >
+                        </div>
+                        <div class="mb-3">
+                            <label>Zone (optional)</label>
+                            <input type="email" name="zone" class="guestcheckinp" >
+                        </div>
+                        <div class="mb-3">
+                            <label>Street (optional)</label>
+                            <input type="email" name="street" class="guestcheckinp" >
+                        </div>
+                        <p>Note: One of our team member will contact you shortly to get your location & necessary information.</p>
                     </div>
                 </form>
                 <div class="pay-as-guest row">
