@@ -21,6 +21,9 @@
                             <th>Product ID</th>
                             <th>SKU</th>
                             <th>Name</th>
+                            <th>Brand</th>
+                            <th>New Arrival</th>
+                            <th>Best Seller</th>
                             <th>Best Offer</th>
                             <th>price</th>
                             <th>discount</th>
@@ -35,9 +38,16 @@
                         <tr>
                             <td>{{ $product->id }}</td>
                             <td>{{ $product->sku }}</td>
-                            <td>{{$product->title}}</td>
+                            <td>{{ $product->title }}</td>
+                            <td>{{ $product->brand->brand_name }}</td>
                             <td>
-                                <input type="checkbox" data-url="{{ route('admin.changeProductFeaturedType', ['product' => $product->id, 'type' => 'best_offer']) }}" data-id="{{ $product->id }}" class="best-offer-checkbox" {{ $product->best_offer ? 'checked' : '' }}>
+                                <input type="checkbox" data-url="{{ route('admin.changeProductFeaturedType', ['product' => $product->id, 'type' => 'new_arrival']) }}" data-id="{{ $product->id }}" class="featured_type_checkbox" {{ $product->new_arrival ? 'checked' : '' }}>
+                            </td>
+                            <td>
+                                <input type="checkbox" data-url="{{ route('admin.changeProductFeaturedType', ['product' => $product->id, 'type' => 'best_seller']) }}" data-id="{{ $product->id }}" class="featured_type_checkbox" {{ $product->best_seller ? 'checked' : '' }}>
+                            </td>
+                            <td>
+                                <input type="checkbox" data-url="{{ route('admin.changeProductFeaturedType', ['product' => $product->id, 'type' => 'best_offer']) }}" data-id="{{ $product->id }}" class="featured_type_checkbox" {{ $product->best_offer ? 'checked' : '' }}>
                             </td>
                             <td>{{$product->unit_price}}</td>
                             <td>{{$product->discount}}</td>
@@ -90,7 +100,7 @@
 @push('otherscript')
     <script>
         $(function() {
-            $('#dataTable').on('click', '.best-offer-checkbox', function() {
+            $('#dataTable').on('click', '.featured_type_checkbox', function() {
                 const url = $(this).data('url');
                 const id = $(this).data('id');
                 const status = $(this).is(':checked');
