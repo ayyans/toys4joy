@@ -5,15 +5,17 @@
 <title>Toys 4 Joy</title>
 <link rel="icon" href="{{asset('website/img/logo-t4j.png')}}" type="image/x-icon">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<link href="{{asset('website/css/style.css')}}" rel="stylesheet">
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="{{asset('website/js/animate/animate.min.css')}}" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-
-
+<!--
+<link href="{{asset('website/plugins/mmenu/mmenu.css')}}" rel="stylesheet">
+<link href="{{asset('website/plugins/mhead-menu/mhead.css')}}" rel="stylesheet">-->
+<link href="{{asset('website/css/style.css')}}" rel="stylesheet">
 <link rel='stylesheet' href='https://unpkg.com/xzoom/dist/xzoom.css'>    
 
 @stack('otherstyle')
@@ -56,6 +58,8 @@ src="https://www.facebook.com/tr?id=1199770164191927&ev=PageView&noscript=1"
 <meta name="facebook-domain-verification" content="8365pig04unbnybla9i6f5r5z0189u" />
 </head>
 <body>
+
+
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N8WPWL4"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -81,6 +85,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/foundation.min.js'></script>  
 <script type="text/javascript" src="{{asset('website/js/zoomsl/zoomsl.min.js')}}"></script>
+<!--mobile menu-->
+<!--<script type="text/javascript" src="{{asset('website/plugins/mmenu/mmenu.js')}}"></script>   
+<script type="text/javascript" src="{{asset('website/plugins/mhead-menu/mhead.js')}}"></script>   -->
+
 <script type="text/javascript" src="{{asset('website/js/custom.js')}}"></script>   
         <script>
         $(document).ready(function() {
@@ -99,6 +107,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+/*document.addEventListener(
+        "DOMContentLoaded", () => {
+            const menu =  new Mmenu( "nav#menu-mobile", {
+                "theme": "dark-contrast"
+            },{
+    // CSS classes
+    classNames: {
+      divider:"Divider",
+      inset:"Inset",
+      panel:"Panel",
+      selected:"Selected",
+      spacer:"Spacer",
+      vertical:"Vertical"
+        } 
+    }) 
+            const api = menu.API;
+
+            document.querySelector( "#open-menu-mobile" )
+                .addEventListener(
+                    "click", () => {
+                        api.open();
+                    }
+                );
+           
+      });*/
+
+    
     </script>
 @stack('otherscript')
 
