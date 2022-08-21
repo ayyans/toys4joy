@@ -109,19 +109,19 @@
                         </div>
                         <div class="mb-3">
                             <label>Unit Number (optional)</label>
-                            <input type="email" name="unique_n" class="guestcheckinp" >
+                            <input type="number" name="unit_no">
                         </div>
                         <div class="mb-3">
                             <label>Building Number (optional)</label>
-                            <input type="email" name="building_n" class="guestcheckinp" >
+                            <input type="number" name="building_no">
                         </div>
                         <div class="mb-3">
                             <label>Zone (optional)</label>
-                            <input type="email" name="zone" class="guestcheckinp" >
+                            <input type="number" name="zone">
                         </div>
                         <div class="mb-3">
                             <label>Street (optional)</label>
-                            <input type="email" name="street" class="guestcheckinp" >
+                            <input type="number" name="street">
                         </div>
                         <p>Note: One of our team member will contact you shortly to get your location & necessary information.</p>
                     </div>
