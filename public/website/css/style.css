@@ -1278,6 +1278,9 @@ transition: all 0.2s ease-in-out;
     text-align: left;
     height: 30px;
 }
+.owl-carousel-features .single .availbility{
+    position: absolute;
+}
 .owl-carousel-features .single .availbility span {
     background: #dc3545;
     color: #fff;
