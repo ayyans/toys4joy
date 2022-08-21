@@ -51,7 +51,7 @@
 
                 </tr>
                 <tr>
-                    <td colspan="1">
+                    <td colspan="1" style="max-width: 250px">
                         <strong>{{ $order->additional_details['name'] ?? null }}</strong><br />
                         <strong> {{ $order->additional_details['email'] ?? null }}</strong><br />
                         <strong>{{ $order->additional_details['mobile'] ?? null }}</strong><br />
