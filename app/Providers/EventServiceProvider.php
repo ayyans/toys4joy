@@ -6,6 +6,7 @@ use App\Events\OrderPlaced;
 use App\Events\OrderStatusChanged;
 use App\Listeners\GivePointsWhenOrderDelivered;
 use App\Listeners\PrepareCartTransfer;
+use App\Listeners\ReduceOrderItemsStock;
 use App\Listeners\SendOrderConfirmationMail;
 use App\Listeners\SendOrderStatusChangeMail;
 use App\Listeners\SendWelcomeMail;
@@ -30,7 +31,8 @@ class EventServiceProvider extends ServiceProvider
             SendWelcomeMail::class
         ],
         OrderPlaced::class => [
-            SendOrderConfirmationMail::class
+            SendOrderConfirmationMail::class,
+            ReduceOrderItemsStock::class
         ],
         OrderStatusChanged::class => [
             SendOrderStatusChangeMail::class,

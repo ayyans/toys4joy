@@ -96,11 +96,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="1">
+                    <td colspan="1" style="max-width: 250px">
                         <strong>{{$order->user->name}}</strong><br />
                         <strong> {{$order->user->email}}</strong><br />
                         <strong>{{$order->user->mobile}}</strong><br />
-                        <strong>{{ $order->address->unit_no }},{{ $order->address->building_no }},{{ $order->address->zone }},{{ $order->address->street }}
+                        <strong>{{ $order->address->fullAddress }}
                         </strong>
                     </td>
                     <td style="text-align:justify">

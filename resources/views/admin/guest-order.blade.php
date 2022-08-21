@@ -16,14 +16,13 @@
                             <th>#</th>
                             <th>Date</th>
                             <th>Time</th>
+                            <th>Order ID</th>
                             <th>Name</th>
-                            <th>Email</th>
                             <th>Mobile</th>
-                            {{-- <th>Shipping address</th> --}}
+                            <th>Address</th>
                             <th>Payement Status</th>
                             <th>Total Amount</th>
                             <th>Order Status</th>
-                            {{-- <th>Payment ID</th> --}}
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -34,9 +33,10 @@
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->created_at->format('d M Y') }}</td>
                             <td>{{ $order->created_at->format('h:i:s A') }}</td>
+                            <td>{{ $order->order_number }}</td>
                             <td>{{ $order->additional_details['name'] ?? null }}</td>
-                            <td>{{ $order->additional_details['email'] ?? null }}</td>
                             <td>{{ $order->additional_details['mobile'] ?? null }}</td>
+                            <td>{{ $order->fullAddress ?? null }}</td>
                             {{-- <td>{{ $order->apartment }},{{ $order->faddress }},{{ $order->city }}</td> --}}
                             {{-- <td>{{ $order->order_type }}</td> --}}
                             {{-- <td>{{ $order->payment_id }}</td> --}}
@@ -76,27 +76,6 @@
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'cancelled'])}}"
                                                 class="dropdown-item">Concel</a></li>
                                         @endif
-                                        {{-- @if($order->status==1)
-
-                                        <li><a href="{{route('admin.confirmGuestOrders',[encrypt($order->id)])}}"
-                                                class="dropdown-item">Confirm</a></li>
-                                        <li><a href="{{route('admin.cancelledGuestOrders',[encrypt($order->id)])}}"
-                                                class="dropdown-item">Concel</a></li>
-                                        @elseif($order->status==2)
-                                        <li><a href="{{route('admin.shippedGuestOrders',[encrypt($order->id)])}}"
-                                                class="dropdown-item">Shipped</a></li>
-                                        <li><a href="{{route('admin.cancelledGuestOrders',[encrypt($order->id)])}}"
-                                                class="dropdown-item">Concel</a></li>
-                                        @elseif($order->status==3)
-                                        <li><a href="{{route('admin.deliveredGuestOrders',[encrypt($order->id)])}}"
-                                                class="dropdown-item">Delivered</a></li>
-                                        <li><a href="{{route('admin.cancelledGuestOrders',[encrypt($order->id)])}}"
-                                                class="dropdown-item">Concel</a></li>
-                                        @elseif($order->status==4)
-                                        <li><a href="javascript:void(0)" class="dropdown-item">Concelled</a></li>
-                                        @elseif($order->status==5)
-                                        <li><a href="javascript:void(0)" class="dropdown-item">Delivered</a></li>
-                                        @endif --}}
                                     </ul>
                                 </div>
                             </td>

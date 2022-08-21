@@ -167,9 +167,7 @@
                 {{ $name ?? null }}.<br />
                 {{ $mobile ?? null }}<br />
                 {{ $email ?? null }}<br>
-                @if ($order->user_id)
-                {{ $order->address->fullAddress }}
-                @endif
+                {{ $order->user_id ? $order->address->fullAddress : $order->fullAddress }}
               </td>
             </tr>
           </table>

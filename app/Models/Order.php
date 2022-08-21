@@ -16,24 +16,16 @@ class Order extends Model
         'additional_details' => 'json',
     ];
 
-    // protected $fillable = [
-    //     'cust_id',
-    //     'cust_add_id',
-    //     'cust_card_id',
-    //     'prod_id',
-    //     'qty',
-    //     'amount',
-    //     'payment_id',
-    //     'mode'
-    // ];
-
-    // public static function getTotalAmount($order_id) {
-    //     return self::where('orderid', $order_id)->sum('amount');
-    // }
-
-    // public function product() {
-    //     return $this->belongsTo(Product::class, 'prod_id', 'id');
-    // }
+    public function getFullAddressAttribute() {
+        $address = '';
+        if (!$this->user_id) {
+            $address .= isset($this->additional_details['unit_no']) ? "Unit No: {$this->additional_details['unit_no']}" : '';
+            $address .= isset($this->additional_details['building_no']) ? ", Building No: {$this->additional_details['building_no']}" : '';
+            $address .= isset($this->additional_details['zone']) ? ", Zone: {$this->additional_details['zone']}" : '';
+            $address .= isset($this->additional_details['street']) ? ", Street: {$this->additional_details['street']}" : '';
+        }
+        return $address;
+    }
 
     public function user() {
         return $this->belongsTo(User::class);

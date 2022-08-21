@@ -341,11 +341,16 @@ class WebsiteController extends Controller
 
     public function addTocart(Request $request)
     {
-        // $cust = Cmf::ipaddress();
-        $prod_id = $request->prod_id;
-        $qty = $request->quantity;
+        $product = Product::find($request->product_id);
+        $quantity = $request->quantity;
+        $quantity += cart()->has($product->id) ? cart()->get($product->id)->quantity : 0;
 
-        $product = Product::where('id', '=', $prod_id)->first();
+        if ($product->qty < $quantity) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Product out of stock'
+            ]);
+        }
 
         if ($product->discount) {
             $price = $product->discount;
@@ -357,14 +362,14 @@ class WebsiteController extends Controller
             'id' => $product->id,
             'name' => $product->title,
             'price' => $price,
-            'quantity' => $qty,
+            'quantity' => $request->quantity,
             'attributes' => [],
             'associatedModel' => $product
         ]);
 
         return response()->json([
-            'status' => 200,
-            'msg' => 1
+            'status' => true,
+            'message' => 'Product added to cart'
         ]);
 
         // $existcart = Cart::where('cust_id', '=', $cust)->where('prod_id', '=', $prod_id)->count();

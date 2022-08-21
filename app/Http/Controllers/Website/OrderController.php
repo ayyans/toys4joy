@@ -125,6 +125,10 @@ class OrderController extends Controller
             'additional_details->name' => $request->custname,
             'additional_details->email' => $request->email,
             'additional_details->mobile' => $request->mobilenumber,
+            'additional_details->unit_no' => $request->unit_no,
+            'additional_details->building_no' => $request->building_no,
+            'additional_details->zone' => $request->zone,
+            'additional_details->street' => $request->street,
             'additional_details->is_abandoned' => true,
             'additional_details->is_new' => true
         ]);
@@ -247,9 +251,7 @@ class OrderController extends Controller
         //     return redirect()->route('website.home')->with('error','Order IS Placed But Payement is Failed');
         // }
     }
-    public function saveCustDetails(Request $request){
-        // $ipaddres = Cmf::ipaddress();
-        // $cart = DB::table('carts')->where('cust_id' , $ipaddres)->get();
+    public function saveCustDetails(Request $request) {
         $items = cart()->getContent();
         $order_number = $request->order_id;
 
@@ -269,6 +271,10 @@ class OrderController extends Controller
             'additional_details->name' => $request->custname,
             'additional_details->email' => $request->email,
             'additional_details->mobile' => $request->mobilenumber,
+            'additional_details->unit_no' => $request->unit_no,
+            'additional_details->building_no' => $request->building_no,
+            'additional_details->zone' => $request->zone,
+            'additional_details->street' => $request->street,
             'additional_details->is_abandoned' => false,
             'additional_details->is_new' => true
         ]);
