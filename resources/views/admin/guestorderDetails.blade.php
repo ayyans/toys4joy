@@ -55,7 +55,7 @@
                         <strong>{{ $order->additional_details['name'] ?? null }}</strong><br />
                         <strong> {{ $order->additional_details['email'] ?? null }}</strong><br />
                         <strong>{{ $order->additional_details['mobile'] ?? null }}</strong><br />
-
+                        <strong>{{ $order->fullAddress ?? null }}</strong><br />
                     </td>
                     <td style="text-align:justify">
                         <strong>Order Id:{{ $order->order_number }}</strong><br />
