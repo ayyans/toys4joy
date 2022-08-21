@@ -49,6 +49,21 @@ body {
     font-family: "Nunito Sans", sans-serif;
     font-weight: 400;
 }
+.bg-startup-animation{
+    position: fixed;
+    width: 500px;
+    height: auto;
+    margin: 5% auto;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    display: block;
+    top: 0;
+}
+.round-loope{
+    border-radius: 75px;
+    border: 5px solid #F0F0F0;
+ }
 .pink-bg{background: #d51965;}
 .green-bg{background: #26a557;}
 .blue-bg{background: #2972bc;}
@@ -300,6 +315,13 @@ header {padding: 15px 20px;}
 .my-account a:hover {
   background-position: 100%;
   color: #a0c8ec;
+}
+.icon-close{
+    border: 0 !important;
+    background-color: transparent !important;
+    right: 0;
+    width: fit-content;
+    left: 90%;
 }
 .categories {
     border: 1px solid #dddbdb;
@@ -973,6 +995,9 @@ color: #227087;
 }
 .menu .image {width: 35%;}
 .menu .col img {width: 100%;border-radius: 20px;}
+.cat-banner {width: 100% !important;
+    border-radius: 20px!important;
+    height: auto !important;}
 .menu .col ul {
 padding: 0;
 margin: 0;
@@ -1228,7 +1253,7 @@ transition: all 0.2s ease-in-out;
     /*width: 22.5%;*/
     text-align: center;
     margin: 10;
-    padding: 10px;
+   /* padding: 10px;*/
     z-index: 3;
 }
 .owl-carousel-brands .single:hover,.owl-carousel-features .single:hover {
@@ -1238,8 +1263,11 @@ transition: all 0.2s ease-in-out;
     /*transform: scale(1.09);transition: 0.5s;
     z-index: 3;*/
 }
-.owl-carousel-features .single .img-block {height: 200px;overflow: hidden;}
+.owl-carousel-features .single .img-block {height: 150px;overflow: hidden;width: 100%;}
 .owl-carousel-brands .single .img-block img, .owl-carousel-features .single .img-block img {width: 100%;height: 100%; object-fit: contain;}
+.owl-carousel-features .single .content-block{
+    padding:0px 2.5px 5px 2.5px
+}
 .owl-carousel-features .single .content-block h3 {
     /*font-size: 17px;
     font-weight: 700;
@@ -1252,6 +1280,18 @@ transition: all 0.2s ease-in-out;
     margin-bottom: 5px;
     text-align: left;
     height: 30px;
+}
+
+.owl-carousel-features .single .availbility span {
+    background: #dc3545;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 6px;
+    border-radius: 5px;
+    position: absolute;
+    left: 11;
+    top: 11;
 }
 .owl-carousel-features .single .content-block span {
     font-size: 17px;
@@ -1381,7 +1421,7 @@ transition: all 0.2s ease-in-out;
     font-weight: 700;
     font-size: 18px;
 }
-.pagination {background: #e9f1fe; padding-bottom: 50px;overflow: auto;}
+.pagination {background: #e9f1fe; padding-bottom: 50px;overflow: auto;justify-content: center;}
 .pagination li {margin: 0 5px;}
 .pagination li a {
     padding: 5px 15px;
@@ -1405,7 +1445,7 @@ transition: all 0.2s ease-in-out;
 
 .product-detail-page main .container-fluid, .product-listing main .container-fluid {padding: 0 30px;}
 .products-detail {background: #f6faff;border-radius: 12px;padding: 30px 30px 30px 0;}
-.products-detail .product-gallery #main-image {width: 30vw;background: #fff; border: 1px solid #d6e1e9;}
+.products-detail .product-gallery #main-image {width: 30vw;background: #fff; border: 1px solid #d6e1e9;max-height: 500px;object-fit: contain;}
 .product-detail .brand h5, .product-detail .price, .product-desc span {color: #D51965;font-weight: 800;}
 .product-detail .title h2 {color: #2972bc;font-weight: 800;}
 .products-detail .earn-points h5 {
@@ -1524,6 +1564,12 @@ transition: all 0.2s ease-in-out;
 .code-block label, .card-info label{display: block; font-size: 20px; color: #707070; font-weight: 600;text-align: left;}
 .discount-block input,
 .code-block input {
+    border: 1px solid #707070;
+    border-radius: 9px;
+    padding: 10px;
+    width: 80%;
+}
+.code-block textarea {
     border: 1px solid #707070;
     border-radius: 9px;
     padding: 10px;
@@ -3068,16 +3114,19 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
     margin: 0 auto;
     padding: 0 10px;
     font-size: 24px;
+    text-align: center;
 }
 #add-change-address .form-group .input-block.unit-num input,
 #add-change-address .form-group .input-block.building-num input {
     max-width: 250px;
     height: 100px;
     font-size: 30px;
+    text-align: center;
 }
 #add-change-address .form-group .zone-street {
     justify-content: center;
     column-gap: 15px;
+    text-align: center;
 }
 #add-change-address .right-col .google-location {justify-content: center;}
 #add-change-address .right-col .google-location img {
@@ -3261,12 +3310,13 @@ label.star:before {content: '\f005';font-family: FontAwesome;color: #dbdbdb;curs
 }
 .progres-bar .free img {width: 120px;}
 #your-points .progress-bar span {
-    width: 200px;
+    width: 100%;
     color: #26a557;
     font-weight: 700;
-    position: absolute;
-    right: -35%;
+    /* position: absolute; */
+    /* right: -35%; */
     text-transform: capitalize;
+    font-size: 38px;
 }
 
 #your-points .progress a.mascot img {width: 150px;position: absolute;top: -200px;left: 25%;}
@@ -3706,7 +3756,7 @@ ul.social-media img {width: 34px;}
 .copy-link {width: 65%;font-size: 24px;}
 .copy-link img {width: 80px;} 
 .add-more a {padding: 20px 70px;font-size: 24px;}    
-#your-points .progress {height: 8.6vw;}
+#your-points .progress {height: 12.6vw;}
 .progres-bar .free img {width: 90px;}  
 .brands-logo {padding: 40px; column-gap: 25px;}
 .brands-logo .single {margin-bottom: 25px;} 
@@ -3823,6 +3873,42 @@ img.g-play-store {width: 82px;}
 
 
 @media only screen and (max-width: 767px) {
+    #products-ranking.my-basket .table tbody tr button{
+        font-size: 10px;
+    }
+    .menu > li:hover .megadrop {
+        opacity: 1;
+        visibility: visible;
+        margin-top: 0px;
+        background: #fff;
+        position: fixed;
+        top: 0!important;
+        left: 0;
+        overflow-y: scroll;
+        max-height: 200px;
+    }
+    #your-points .progress-bar span {
+        font-size: 24px;
+    }
+    .your-points{
+        font-size: 15px
+    }
+    #your-points{
+        margin: 0;
+        padding: 0;
+        
+    } 
+    #your-points .progress a.ballons img{
+        right: 0;
+        top: calc(-170px/2);
+        width: 90px;
+    } 
+    /*#your-points .party-includes{
+
+    }*/
+    .bg-startup-animation{
+        width: 100%;
+    }
     .categories li a {
         font-size: small;
         font-weight: 700;
@@ -3889,9 +3975,9 @@ footer.for-mobile {display: block;padding: 10px 0;}
 .why-us p, .company-policy p {font-size: 9px;font-weight: 700;color: #000;text-decoration: underline;}
 .company-policy a img:first-child {margin-right: 0;}   
 .company-policy a {display: unset;}    
-.company-policy img {height: 55px;}
-.why-us img {width: 60px;} 
-.toll-free img {width: 40px;}    
+.company-policy img {height: 70px;}
+.why-us img {width: 70px;} 
+.toll-free img {width: 60px;}    
 .toll-free span {font-size: 10px;font-weight: 700;box-shadow: 0 3px 5px rgb(0 0 0 / 20%);padding: 5px 8px;border-radius: 4px;}    
 img.app-store {width: 60px;margin-top: -3px;margin-left: 0;} 
 img.g-play-store {width: 56px;}
@@ -3904,10 +3990,10 @@ ul.d-flex.social-media {justify-content: center;margin-top: -15px;}
 .product-listing .col-9 {width: 100%!important;}
 .products-list .single {width: 30%;margin: 6px;} 
 .products-list {justify-content: normal;} 
-.pagination {padding-top: 20px;} 
+.pagination {padding-top: 20px;justify-content: flex-start;} 
 .pagination li a {padding: 3px 12px; font-size: 14px;}    
 .categories-col {width: 100%!important;} 
-.categories {border: 0;border-radius: 0;}    
+.categories {border: 0;border-radius: 0; margin-top: 10px;}    
 .categories h2.for-mobile {/*background: #d51965;*/ background: none; border-radius: 5px; max-width: 200px; margin: 30px auto;color: #d51965;border-bottom: 1px solid;}
 .middle-col {width: 100%!important;padding: 15px;}  
 .right-col {width: 100%!important; padding: 0 15px;}    
@@ -3947,7 +4033,7 @@ ul.nav-fill .nav-item a {
     width: 175px;
     margin: 8px auto 15px;
     color: #0a67a2;
-    border-bottom: 1px solid #0a67a2;
+    /*border-bottom: 1px solid #0a67a2;*/
 } 
 #my-account .content-block .my-profile a, #my-account .content-block .siblings a {margin: 15px auto;}    
 .digits h3 {padding: 5px 1px;border-radius: 5px;}
@@ -3994,7 +4080,7 @@ ul.nav-fill .nav-item a {
 .products-detail .btn-area a {margin: 25px 10px;} 
 .products-detail {padding: 0px 20px 30px 20px; margin: 15px 0;} 
 .stars {justify-content: center;} 
-.product-detail {text-align: center;margin-left: 0;} 
+.product-detail {text-align: center;margin-left: 5px;} 
 .playstore {padding: 20px;}
 .playstore img, .upload-doc label img {width: 120px;}     
 .playstore h2 {font-size: 20px;} 
@@ -4124,7 +4210,7 @@ img.why-logo {width: 55px;margin-left: 15px;}
 .playstore img, .upload-doc label img {width: 80px;}    
 .playstore h2, .upload-doc label span {font-size: 18px;}
 .cart-products .product-detail .title {font-size: 16px;}    
-.product-detail .price, .cart-products .qty {font-size: 14px;}
+.product-detail .price, .cart-products .qty {font-size: 16px;}
 .products-detail p.product-desc table {font-size: 14px;}
 .suitable-age img {width: 20px;} 
 .suitable-age span {font-size: 16px;}    
