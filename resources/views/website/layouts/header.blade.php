@@ -1,6 +1,109 @@
+<style>
+    .cat-title-sidebar{
+        -webkit-box-flex: 1;
+    display: flex;
+    flex: 1 1 50%;
+    padding: 0px 20px;
+    overflow: hidden;
+    }
+#cat-sidemenu{
+    display: block;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;}
+#cat-sidemenu li{
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    color: var(--mm-color-text);
+    padding: 0px;
+    margin: 0px;
+    border-color: var(--mm-color-border);
+ }   
+ #sidebar-cats li img{
+    width: 30px!important;
+ }
+ /*#sidebar-cats .li{
+    padding: 8px;
+    width: 100%;
+    border-botom: 1px solid grey;
+}*/
+#offcanvasLeft-cats{
+    background-color: #f3f3f3;
+}
+#sidebar-cats .main-cats{
+    /*display: flex;*/
+    flex-wrap: wrap;
+    position: relative;
+    color: var(--mm-color-text);
+    padding: 0px;
+    margin: 0px;
+    border-color: var(--mm-color-border);
+}
+#sidebar-cats .main-cats a span svg{
+    float: right;
+}
+#sidebar-cat-button{
+    width: 1.5em;
+    height: auto;
+    color: grey;
+}
+#sidebar-cats .main-cats[aria-expanded="true"] a span svg{
+transform: rotate(90deg);
+}
+#sidebar-cats .main-cats .collapsed a span svg{
+transform: rotate(0deg);
+}
+    
+</style>
 <header id="main-header">
 <div class="container-fluid">
     <div class="row">
+    <div class="col-1 sidenenu-display for-mobile">
+       
+       <a  data-bs-toggle="offcanvas" href="#offcanvasLeft-cats" role="button" aria-controls="offcanvasLeft-cats">
+       <svg id="sidebar-cat-button" viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg" width="14" height="10" class=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 5.806H0v.944h7.5v-.944zm2.25-2.903H0v.944h9.75v-.944zM0 0h9.75v.944H0V0z" fill="currentColor"></path></svg>
+</a>
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasLeft-cats" aria-labelledby="offcanvasLeftLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title cat-title-sidebar" id="offcanvasLeftLabel">Categories</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="nav flex-column" id="sidebar-cats">
+  @foreach($categoriestest as $cat)     
+@php
+    $subcategories = DB::table('sub_categories')->where('parent_cat' , $cat->id)->where('status' , 2)->get();
+@endphp
+@if($subcategories->count() == 0)
+<li class="nav-item main-cats"> <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link" aria-current="page"> <img src="{{asset('uploads/'.$cat->cat_icon)}}" ><span class="ms-2">{{$cat->category_name}}</span> </a> </li>
+@else
+<li class="nav-item main-cats collapsed" data-bs-toggle="collapse" href="#" role="button" data-bs-target="#collapse{{$cat->id}}" aria-expanded="false" aria-controls="collapse{{$cat->id}}">
+    {{-- {{ url('category') }}/{{ $cat->url }} --}}
+    <a href="#" class="nav-link text-dark" cat-link="{{ url('category') }}/{{ $cat->url }}"> <img src="{{asset('uploads/'.$cat->cat_icon)}}">
+        <span class="ms-2">{{$cat->category_name}} 
+            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="16" viewBox="0 0 8 16">
+              <path id="Vector_14_" data-name="Vector (14)" d="M8,8,0,0H16Z" transform="translate(0 16) rotate(-90)" fill="#d51965"/>
+            </svg>
+        </span>
+    </a> 
+    <div class="collapse" id="collapse{{$cat->id}}">
+    <ul class="nav flex-column" style="margin-left:40px;">
+        @foreach($subcategories as $r)
+        
+            <li class="nav-item"><a href="{{ url('category') }}/{{ $cat->url }}/{{ $r->url }}" class="nav-link text-dark">{{ $r->subcat_name }}</a></li>
+        @endforeach
+        </ul>
+    </div>
+</li>
+
+@endif
+@endforeach
+</ul>
+  </div>
+</div>   
+
+        </div>
         <div class="col-2 logo-col">
             <div class="logo-here">
                 <a href="{{route('website.home')}}"><img src="{{asset('website/img/logo-t4j.png')}}"></a>
