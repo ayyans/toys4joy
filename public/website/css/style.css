@@ -1278,6 +1278,17 @@ transition: all 0.2s ease-in-out;
     text-align: left;
     height: 30px;
 }
+.owl-carousel-features .single .availbility span {
+    background: #dc3545;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 6px;
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
 .owl-carousel-features .single .content-block span {
     font-size: 17px;
     font-weight: 700;
