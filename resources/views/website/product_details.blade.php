@@ -238,7 +238,7 @@
 
 <!-- pay as wishlist -->
 
-<script>
+{{-- <script>
   $("#payasmember").click(function(e){
         e.preventDefault();
         var form = $("form#productFRM")[0];
@@ -267,7 +267,7 @@
             }
         })
     })
-</script>
+</script> --}}
 
 <script>
   $("#addwishlist").click(function(){
