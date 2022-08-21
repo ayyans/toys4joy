@@ -165,7 +165,7 @@
           <h3>{{$product->title}}</h3>
           <div class="d-flex price-cart">
             @if($product->discount)
-            <span class="price text-danger" style="font-size: 1.1rem; text-shadow: 0px 0.5px 0px #DC3545;">QR {{$product->discount}}</span>
+            <span class="price text-danger" style="/*font-size: 1.1rem;*/ text-shadow: 0px 0.5px 0px #DC3545;">QR {{$product->discount}}</span>
             <del class="price">QR {{$product->unit_price}}</del>
             @else
             <span class="price">QR {{$product->unit_price}}</span>
