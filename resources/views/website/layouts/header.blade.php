@@ -20,6 +20,9 @@
     margin: 0px;
     border-color: var(--mm-color-border);
  }   
+ #sidebar-cats{
+    width: 100%;
+ }
  #sidebar-cats li img{
     width: 30px!important;
  }
@@ -59,7 +62,7 @@ transform: rotate(0deg);
 <header id="main-header">
 <div class="container-fluid">
     <div class="row">
-    <div class="col-1 sidenenu-display for-mobile">
+    <div class="col-1 sidenenu-display ">
        
        <a  data-bs-toggle="offcanvas" href="#offcanvasLeft-cats" role="button" aria-controls="offcanvasLeft-cats">
        <svg id="sidebar-cat-button" viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg" width="14" height="10" class=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 5.806H0v.944h7.5v-.944zm2.25-2.903H0v.944h9.75v-.944zM0 0h9.75v.944H0V0z" fill="currentColor"></path></svg>
@@ -70,36 +73,40 @@ transform: rotate(0deg);
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    <ul class="nav flex-column" id="sidebar-cats">
-  @foreach($categoriestest as $cat)     
-@php
-    $subcategories = DB::table('sub_categories')->where('parent_cat' , $cat->id)->where('status' , 2)->get();
-@endphp
-@if($subcategories->count() == 0)
-<li class="nav-item main-cats"> <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link" aria-current="page"> <img src="{{asset('uploads/'.$cat->cat_icon)}}" ><span class="ms-2">{{$cat->category_name}}</span> </a> </li>
-@else
-<li class="nav-item main-cats collapsed" data-bs-toggle="collapse" href="#" role="button" data-bs-target="#collapse{{$cat->id}}" aria-expanded="false" aria-controls="collapse{{$cat->id}}">
-    {{-- {{ url('category') }}/{{ $cat->url }} --}}
-    <a href="#" class="nav-link text-dark" cat-link="{{ url('category') }}/{{ $cat->url }}"> <img src="{{asset('uploads/'.$cat->cat_icon)}}">
-        <span class="ms-2">{{$cat->category_name}} 
-            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="16" viewBox="0 0 8 16">
-              <path id="Vector_14_" data-name="Vector (14)" d="M8,8,0,0H16Z" transform="translate(0 16) rotate(-90)" fill="#d51965"/>
-            </svg>
-        </span>
-    </a> 
-    <div class="collapse" id="collapse{{$cat->id}}">
-    <ul class="nav flex-column" style="margin-left:40px;">
-        @foreach($subcategories as $r)
+  <nav class="navbar navbar-dark accordion" style="width:100%;" >
+  <ul class=" navbar-nav flex-column accordion" id="sidebar-cats">
         
-            <li class="nav-item"><a href="{{ url('category') }}/{{ $cat->url }}/{{ $r->url }}" class="nav-link text-dark">{{ $r->subcat_name }}</a></li>
-        @endforeach
-        </ul>
-    </div>
-</li>
-
-@endif
-@endforeach
-</ul>
+        @foreach($categoriestest as $cat)     
+      @php
+          $subcategories = DB::table('sub_categories')->where('parent_cat' , $cat->id)->where('status' , 2)->get();
+      @endphp
+      @if($subcategories->count() == 0)
+      <li class="nav-item main-cats"> <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link" aria-current="page"> <img src="{{asset('uploads/'.$cat->cat_icon)}}" ><span class="ms-2">{{$cat->category_name}}</span> </a> </li>
+      @else
+      <li class="nav-item main-cats ">
+          {{-- {{ url('category') }}/{{ $cat->url }} --}}
+          <a class="nav-link text-dark navbar-collapse" cat-link="{{ url('category') }}/{{ $cat->url }}" data-bs-toggle="collapse" href="#collapse{{$cat->id}}" role="button" data-bs-target="#collapse{{$cat->id}}" aria-expanded="false" aria-controls="collapse{{$cat->id}}"> <img src="{{asset('uploads/'.$cat->cat_icon)}}">
+              <span class="ms-2">{{$cat->category_name}} 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="8" height="16" viewBox="0 0 8 16">
+                    <path id="Vector_14_" data-name="Vector (14)" d="M8,8,0,0H16Z" transform="translate(0 16) rotate(-90)" fill="#d51965"/>
+                  </svg>
+              </span>
+          </a> 
+          <div class="collapse" id="collapse{{$cat->id}}">
+          <ul class="navbar-nav" style="margin-left:40px;">
+              @foreach($subcategories as $r)
+              
+              <li class="nav-item"><a href="{{ url('category') }}/{{ $cat->url }}/{{ $r->url }}" class="nav-link text-dark">{{ $r->subcat_name }}</a></li>
+              @endforeach
+      </ul>
+          </div>
+      </li>
+      
+      @endif
+      @endforeach
+      </ul>
+    </nav>
+    
   </div>
 </div>   
 
