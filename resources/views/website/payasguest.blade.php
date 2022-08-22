@@ -1,6 +1,5 @@
 @extends('website.layouts.master')
 @section('content')
-@php cart()->clearCartConditions() @endphp
 <?php
 
     $sadad_checksum_array = array();
