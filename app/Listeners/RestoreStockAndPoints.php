@@ -17,16 +17,18 @@ class RestoreStockAndPoints
     public function handle($event)
     {
         $order = $event->order;
-        // return stock
-        foreach ($order->items as $item) {
-            $item->product()->increment('qty', $item->quantity);
-        }
-        // return points
-        if ($order->previous_order_status == 'delivered') {
-            $qarInPoints = Setting::where('name', 'qar_in_points')->value('value') ?? 2;
-            $rewardPoints = round($order->total_amount * $qarInPoints);
-            $orderNumber = $order->order_number;
-            $order->user->withdraw($rewardPoints, ['description' => "Order #$orderNumber: Cancelled reward points"]);
+        if ($order->order_status == 'cancelled') {
+            // return stock
+            foreach ($order->items as $item) {
+                $item->product()->increment('qty', $item->quantity);
+            }
+            // return points
+            if ($order->previous_order_status == 'delivered') {
+                $qarInPoints = Setting::where('name', 'qar_in_points')->value('value') ?? 2;
+                $rewardPoints = round($order->total_amount * $qarInPoints);
+                $orderNumber = $order->order_number;
+                $order->user->withdraw($rewardPoints, ['description' => "Order #$orderNumber: Cancelled reward points"]);
+            }
         }
     }
 }
