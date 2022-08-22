@@ -1,11 +1,5 @@
 @extends('website.layouts.master')
 @section('content')
-@php
-    removeOutOfStockFromCart();
-@endphp
-
-{{-- check if attached gift card or coupon expired --}}
-{{-- if expired please detach --}}
 
 <main id="pay-as-member" class="pay-as-member-page">
     <div class="container-fluid">

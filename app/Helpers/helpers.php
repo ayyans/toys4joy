@@ -80,12 +80,55 @@ if ( !function_exists('sendOTPCode') ) {
 
 if ( !function_exists('removeOutOfStockFromCart') ) {
   function removeOutOfStockFromCart() {
+    // loading products at once for single query
     $productIds = cart()->getContent()->keys();
     $products = Product::find($productIds);
+    // looping through all cart items
     cart()->getContent()->each(function($item) use ($products) {
+      // finding product
       $product = $products->find($item->id);
-      if ($product && $product->qty < $item->quantity) {
+      // if products exists then proceed
+      // else remove product from cart
+      if ($product) {
+        // if out of stock product
+        if ($product->qty == 0) {
+          // removing out of stock product
+          cart()->remove($item->id);
+        } elseif ($product->qty < $item->quantity) {
+          // update product quantity to what we have left
+          cart()->update($item->id, [
+            'quantity' => [
+              'relative' => false,
+              'value' => $product->qty
+            ]
+          ]);
+        }
+      } else {
+        // removing unavailable product
         cart()->remove($item->id);
+      }
+    });
+  }
+}
+
+// remove out of stock items from wishlist
+
+if ( !function_exists('removeOutOfStockFromWishlist') ) {
+  function removeOutOfStockFromWishlist() {
+    // load wishlist with products
+    auth()->user()->wishlist->load('product')->each(function($wish) {
+      // wishlist product
+      $product = $wish->product;
+      // if product exists then proceed
+      // else remove from wishlist
+      if ($product) {
+        if ($product->qty == 0) {
+          // removing out of stock wishlist
+          $wish->delete();
+        }
+      } else {
+        // removing unavailable wishlist
+        $wish->delete();
       }
     });
   }

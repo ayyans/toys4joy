@@ -10,7 +10,7 @@ class Wishlist extends Model
     use HasFactory;
     protected $fillable = [
         'cust_id',
-        'prod_id'        
+        'prod_id'
     ];
 
     public function customer() {

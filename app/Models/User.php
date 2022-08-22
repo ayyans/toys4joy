@@ -48,6 +48,10 @@ class User extends Authenticatable implements Wallet, Customer
         'email_verified_at' => 'datetime',
     ];
 
+    public function wishlist() {
+        return $this->hasMany(Wishlist::class, 'cust_id');
+    }
+
     public function returnRequests() {
         return $this->hasMany(ReturnRequest::class);
     }
