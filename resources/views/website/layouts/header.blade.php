@@ -62,7 +62,7 @@ transform: rotate(0deg);
 <header id="main-header">
 <div class="container-fluid">
     <div class="row">
-    <div class="col-1 sidenenu-display ">
+    <div class="col-1 sidenenu-display for-mobile">
        
        <a  data-bs-toggle="offcanvas" href="#offcanvasLeft-cats" role="button" aria-controls="offcanvasLeft-cats">
        <svg id="sidebar-cat-button" viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg" width="14" height="10" class=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 5.806H0v.944h7.5v-.944zm2.25-2.903H0v.944h9.75v-.944zM0 0h9.75v.944H0V0z" fill="currentColor"></path></svg>
