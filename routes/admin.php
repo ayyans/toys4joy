@@ -107,7 +107,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     // Route::get('/guest-orders-cancelled/{id}','AdminController@cancelledGuestOrders')->name('cancelledGuestOrders');
     // Route::get('/guest-orders-delivered/{id}','AdminController@deliveredGuestOrders')->name('deliveredGuestOrders');
     Route::get('/guest-orders-details/{id}','AdminController@guestOrdersDetails')->name('guestOrdersDetails');
-    Route::post('/guest-orders-status','AdminController@orderStatus')->name('orderStatus');
+    // Route::post('/guest-orders-status','AdminController@orderStatus')->name('orderStatus');
 
 //    coupons management route
 
@@ -126,11 +126,11 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     // Route::get('/customer-orders-cancelled/{id}','AdminController@cancelledCustOrders')->name('cancelledCustOrders');
     // Route::get('/customer-orders-delivered/{id}','AdminController@deliveredCustOrders')->name('deliveredCustOrders');
     Route::get('/customer-orders-details/{id}','AdminController@custOrdersDetails')->name('custOrdersDetails');
-    Route::post('/customer-orders-status','AdminController@CustomerorderStatus')->name('CustomerorderStatus');
+    // Route::post('/customer-orders-status','AdminController@CustomerorderStatus')->name('CustomerorderStatus');
 
     // Change order status
 
-    Route::get('/changeOrderStatus', 'AdminController@changeOrderStatus')->name('changeOrderStatus');
+    Route::any('/changeOrderStatus', 'AdminController@changeOrderStatus')->name('changeOrderStatus');
 
     // customer orders
 
