@@ -1,5 +1,8 @@
 @extends('website.layouts.master')
 @section('content')
+@php
+    removeOutOfStockFromCart();
+@endphp
 
 {{-- check if attached gift card or coupon expired --}}
 {{-- if expired please detach --}}

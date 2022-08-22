@@ -2,6 +2,7 @@
 
 // sadad functions
 
+use App\Models\Product;
 use Twilio\Rest\Client;
 
 if (!function_exists('getChecksumFromString')) {
@@ -72,5 +73,20 @@ if ( !function_exists('sendOTPCode') ) {
     $updated = $user->forceFill([ 'otp' => $otp ])->save();
     $sent = sendMessage($user->mobile, "Your one time pin is ${otp}. Use this pin for verification on Toys4Joy.");
     return $updated && $sent;
+  }
+}
+
+// remove out of stock items from cart
+
+if ( !function_exists('removeOutOfStockFromCart') ) {
+  function removeOutOfStockFromCart() {
+    $productIds = cart()->getContent()->keys();
+    $products = Product::find($productIds);
+    cart()->getContent()->each(function($item) use ($products) {
+      $product = $products->find($item->id);
+      if ($product && $product->qty < $item->quantity) {
+        cart()->remove($item->id);
+      }
+    });
   }
 }

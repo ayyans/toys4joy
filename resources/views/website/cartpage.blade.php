@@ -1,5 +1,8 @@
 @extends('website.layouts.master')
 @section('content')
+@php
+    removeOutOfStockFromCart();
+@endphp
 
 <main id="products-ranking" class="my-basket">
 <div class="container-fluid">
