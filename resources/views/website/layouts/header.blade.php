@@ -51,10 +51,10 @@
     height: auto;
     color: grey;
 }
-#sidebar-cats .main-cats[aria-expanded="true"] a span svg{
+#sidebar-cats .main-cats a[aria-expanded="true"] span svg{
 transform: rotate(90deg);
 }
-#sidebar-cats .main-cats .collapsed a span svg{
+#sidebar-cats .main-cats a.collapsed a span svg{
 transform: rotate(0deg);
 }
     
