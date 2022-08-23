@@ -165,6 +165,11 @@ class WebsiteController extends Controller
                     ->where('products.url','=',$url)
                     ->first();
         $catid = $products->category_id;
+        logger(str_repeat('=products=', 50));
+        logger($products);
+        logger(str_repeat('=catid=', 50));
+        logger($catid);
+        logger(str_repeat('=end=', 50));
         $gallery = ProductImage::where('prod_id','=',$products->id)->orderBy('id','desc')->get();          
         return view('website.product_details',compact('categories','catid','products','gallery'));
     }
