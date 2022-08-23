@@ -75,7 +75,9 @@ transform: rotate(0deg);
   <div class="offcanvas-body">
   <nav class="navbar navbar-dark accordion" style="width:100%;" >
   <ul class=" navbar-nav flex-column accordion" id="sidebar-cats">
-        
+        @php
+          $categoriestest = DB::table('categories')->where('status' , 2)->get();
+      @endphp 
         @foreach($categoriestest as $cat)     
       @php
           $subcategories = DB::table('sub_categories')->where('parent_cat' , $cat->id)->where('status' , 2)->get();
