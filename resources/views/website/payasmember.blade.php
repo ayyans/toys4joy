@@ -1,9 +1,6 @@
 @extends('website.layouts.master')
 @section('content')
 
-{{-- check if attached gift card or coupon expired --}}
-{{-- if expired please detach --}}
-
 <main id="pay-as-member" class="pay-as-member-page">
     <div class="container-fluid">
         <div class="row">

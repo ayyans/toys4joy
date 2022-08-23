@@ -1396,14 +1396,26 @@ public function CustomerorderStatus(Request $request){
 }
 
 public function changeOrderStatus(Request $request) {
-    Order::where('id', $request->order_id)->update([
+    $order = Order::with('user')->find($request->order_id);
+    $previousOrderStatus = $order->order_status;
+    $orderUpdated = $order->update([
         'order_status' => $request->status
     ]);
+    $order->previous_order_status = $previousOrderStatus;
 
-    $order = Order::with('user')->where('id', $request->order_id)->first();
-    event(new OrderStatusChanged($order));
+    // if order updated
+    if ($orderUpdated) {
+        event(new OrderStatusChanged($order));
+    }
+
+    if ($request->ajax()) {
+        return response()->json([
+            'status' => $orderUpdated
+        ]);
+    }
 
     return back();
+
 }
 
 
