@@ -32,6 +32,7 @@ use Session;
 use Auth;
 use Carbon\Carbon;
 use Darryldecode\Cart\CartCondition;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class WebsiteController extends Controller
@@ -164,8 +165,9 @@ class WebsiteController extends Controller
                     ->select('products.*','brand_name','logo')
                     ->where('products.url','=',$url)
                     ->first();
-        $catid = $products->category_id;
-        if (!$catid) {
+        try {
+            $catid = $products->category_id;
+        } catch (Exception $ex) {
             logger(str_repeat('=products=', 50));
             logger($products);
             logger(str_repeat('=catid=', 50));
@@ -797,7 +799,7 @@ class WebsiteController extends Controller
 
     public function mywishlist(Request $request){
         $cust_id = decrypt($request->cust_id);
-        removeOutOfStockFromWishlist(); // clean wishlist
+        removeOutOfStockFromWishlist($cust_id); // clean wishlist
         $wshlists = Wishlist::leftJoin('products','products.id','=','wishlists.prod_id')
                     ->select('products.*','wishlists.id as wish_id')
                     ->where('wishlists.cust_id','=',$cust_id)
@@ -826,7 +828,7 @@ class WebsiteController extends Controller
 
     public function sharewishlist(Request $request){
         $cust_id = $request->cust_id;
-        removeOutOfStockFromWishlist();
+        removeOutOfStockFromWishlist($cust_id);
         $wshlists = Wishlist::leftJoin('products','products.id','=','wishlists.prod_id')
                     ->leftJoin('users','users.id','=','wishlists.cust_id')
                     ->select('products.*','users.name','users.email','users.mobile','wishlists.id as wish_id','wishlists.share_status')
