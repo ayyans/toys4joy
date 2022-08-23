@@ -37,9 +37,9 @@ class Product extends Model
         return $this->hasMany(OrderItem::class, 'product_id');
     }
 
-    public function paidOrderItems() {
+    public function deliveredOrderItems() {
         return $this->hasMany(OrderItem::class, 'product_id')->whereHas('order', function($query) {
-            $query->where('payment_status', 'paid')->where('additional_details->is_abandoned', false);
+            $query->where('order_status', 'delivered');
         });
     }
 
