@@ -776,8 +776,6 @@ public function deleteAttrVal(Request $request){
             $addproduct->sub_cat=$request->sub_cat;
             $addproduct->barcode=$request->barcode;
             $addproduct->featured_img=$thumbnail_img;
-            $addproduct->video_provider=$request->video_provider;
-            $addproduct->videolink=$request->video_link;
             $addproduct->unit_price=$request->unit_price;
             $addproduct->discount=$request->discount;
             $addproduct->price_discount_unit=$request->discount_type;
@@ -789,10 +787,6 @@ public function deleteAttrVal(Request $request){
             $addproduct->sku=$request->sku;
             $addproduct->short_desc=$request->shortdescription;
             $addproduct->long_desc=$request->longdescription;
-            $addproduct->shiping_type=$request->shipping_type;
-            $addproduct->flat_shipping_cost=$request->flat_shipping_cost;            
-            $addproduct->low_qty_warning=$request->low_stock_quantity;
-            $addproduct->stock_visibilty=$request->stock_visibility_state;
             $addproduct->featured_status=$featured;
             $addproduct->todays_deal=$todaysdeal;
             $addproduct->shiping_time=$request->est_shipping_days;
@@ -813,20 +807,8 @@ public function deleteAttrVal(Request $request){
                 $addProductImage->save();
             }
 
-            // $attribute = $request->attribute;
-            // $attrVal = $request->attrval;
-            // $total_attr = count($attribute);
-
-            // for($i=0;$i<$total_attr;$i++){
-            //     $addattr = new ProdAttr;
-            //     $addattr->prod_id=$lastid;
-            //     $addattr->attr_id=$attribute[$i];
-            //     $addattr->attrval_id=$attrVal[$i];
-            //     $addattr->save();
-            // }
-
             if($addproduct==true){
-                return back()->with('success','product added successfull');
+                return back()->with('success','product successfully added');
                 exit();
             }else{
                 return back()->with('error','something went wrong');
@@ -1466,8 +1448,6 @@ public function editProcess(Request $request){
         'sub_cat'=>$request->sub_cat,
         'barcode'=>$request->barcode,
         'featured_img'=>$thumbnail_img,
-        'video_provider'=>$request->video_provider,
-        'videolink'=>$request->video_link,
         'unit_price'=>$request->unit_price,
         'discount'=>$request->discount,
         'price_discount_unit'=>$request->discount_type,
@@ -1479,10 +1459,6 @@ public function editProcess(Request $request){
         'sku'=>$request->sku,
         'short_desc'=>$request->shortdescription,
         'long_desc'=>$request->longdescription,
-        'shiping_type'=>$request->shipping_type,
-        'flat_shipping_cost'=>$request->flat_shipping_cost,
-        'low_qty_warning'=>$request->low_stock_quantity,
-        'stock_visibilty'=>$request->stock_visibility_state,
         'featured_status'=>$featured,
         'todays_deal'=>$todaysdeal,
         'shiping_time'=>$request->est_shipping_days,
@@ -1501,8 +1477,6 @@ public function editProcess(Request $request){
         'min_qty'=>$request->min_qty,
         'sub_cat'=>$request->sub_cat,
         'barcode'=>$request->barcode,
-        'video_provider'=>$request->video_provider,
-        'videolink'=>$request->video_link,
         'unit_price'=>$request->unit_price,
         'discount'=>$request->discount,
         'price_discount_unit'=>$request->discount_type,
@@ -1514,10 +1488,6 @@ public function editProcess(Request $request){
         'sku'=>$request->sku,
         'short_desc'=>$request->shortdescription,
         'long_desc'=>$request->longdescription,
-        'shiping_type'=>$request->shipping_type,
-        'flat_shipping_cost'=>$request->flat_shipping_cost,
-        'low_qty_warning'=>$request->low_stock_quantity,
-        'stock_visibilty'=>$request->stock_visibility_state,
         'featured_status'=>$featured,
         'todays_deal'=>$todaysdeal,
         'shiping_time'=>$request->est_shipping_days,
@@ -1532,7 +1502,7 @@ public function editProcess(Request $request){
 
 }
     if($update_product==true){
-        return back()->with('success','product updated successFull');
+        return back()->with('success','product successfully updated');
         exit();
     }else{
         return back()->with('error','something went wrong');

@@ -6,22 +6,25 @@
         @csrf
         <div class="row gutters-5">
             <div class="col-lg-8">
-              
+
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0 h6">Product Information</h5>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
-                            <label class="col-md-3 col-from-label">Product Name <span class="text-danger">*</span></label>
+                            <label class="col-md-3 col-from-label">Product Name <span
+                                    class="text-danger">*</span></label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control addprodfrm" name="prodname" placeholder="Product Name"  required="" />
+                                <input type="text" class="form-control addprodfrm" name="prodname"
+                                    placeholder="Product Name" required="" />
                             </div>
                         </div>
                         <div class="form-group row" id="category">
                             <label class="col-md-3 col-from-label">Category <span class="text-danger">*</span></label>
                             <div class="col-md-8">
-                                <select onchange="subcategories(this.value)" class="form-control addprodfrm" name="category_id" id="category_id">
+                                <select onchange="subcategories(this.value)" class="form-control addprodfrm"
+                                    name="category_id" id="category_id">
                                     <option value="0">select category</option>
                                     @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->category_name}}</option>
@@ -33,7 +36,7 @@
                             <label class="col-md-3 col-from-label">Sub Category </label>
                             <div class="col-md-8">
                                 <select class="form-control addprodfrm" name="sub_cat" id="subcat_id">
-                                    <option >Select Subcategory</option>
+                                    <option>Select Subcategory</option>
                                 </select>
                             </div>
                         </div>
@@ -50,29 +53,32 @@
                                 });
                             }
                         </script>
-                            <div class="form-group row" id="brand">
-                                <label class="col-md-3 col-from-label">Brand</label>
-                                <div class="col-md-8">
-                                    <select class="form-control addprodfrm" name="brand_id" id="brand_id">
-                                        <option value="0">Select Brand</option>
-                                        @foreach($brands as $brand)
-                                        <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
-                                        @endforeach
-                                    </select>                                   
-                                   
-                                
+                        <div class="form-group row" id="brand">
+                            <label class="col-md-3 col-from-label">Brand</label>
+                            <div class="col-md-8">
+                                <select class="form-control addprodfrm" name="brand_id" id="brand_id">
+                                    <option value="0">Select Brand</option>
+                                    @foreach($brands as $brand)
+                                    <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
+                                    @endforeach
+                                </select>
+
+
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">Unit</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control addprodfrm" name="unit" placeholder="Unit (e.g. KG, Pc etc)" required="" />
+                                <input type="text" class="form-control addprodfrm" name="unit"
+                                    placeholder="Unit (e.g. KG, Pc etc)" required="" />
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 col-from-label">Minimum Purchase Qty <span class="text-danger">*</span></label>
+                            <label class="col-md-3 col-from-label">Minimum Purchase Qty <span
+                                    class="text-danger">*</span></label>
                             <div class="col-md-8">
-                                <input type="number" lang="en" class="form-control addprodfrm" name="min_qty" value="1" min="1" required="" />
+                                <input type="number" lang="en" class="form-control addprodfrm" name="min_qty" value="1"
+                                    min="1" required="" />
                             </div>
                         </div>
                         <!-- <div class="form-group row">
@@ -93,15 +99,15 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">Recommended Age</label>
                             <div class="col-md-8">
-                                <select class="form-control " name="recommended_age" >
-                                    @for ($i = 0; $i <= 192; $i++)
-                                    <option value="{{ $i }}">{{  $product->formatRecommendedAge($i) }}</option>
-                                    @endfor
+                                <select class="form-control " name="recommended_age">
+                                    @for ($i = 0; $i <= 192; $i++) <option value="{{ $i }}">{{
+                                        $product->formatRecommendedAge($i) }}</option>
+                                        @endfor
                                 </select>
                             </div>
                         </div>
 
-                       <!--  <div class="form-group row">
+                        <!--  <div class="form-group row">
                             <label class="col-md-3 col-from-label">Refundable</label>
                             <div class="col-md-8">
                                 <label class="aiz-switch aiz-switch-success mb-0">
@@ -118,89 +124,36 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label" for="signinSrEmail">Gallery Images <small>(600x600)</small></label>
+                            <label class="col-md-3 col-form-label" for="signinSrEmail">Gallery Images
+                                <small>(600x600)</small></label>
                             <div class="col-md-8">
-                                <div class="input-group" >
-                                    
-                                    <input type="file" name="photos[]" class="selected-files addprodfrm" multiple/>
+                                <div class="input-group">
+
+                                    <input type="file" name="photos[]" class="selected-files addprodfrm" multiple />
                                 </div>
                                 <div class="file-preview box sm"></div>
-                                <small class="text-muted">These images are visible in product details page gallery. Use 600x600 sizes images.</small>
+                                <small class="text-muted">These images are visible in product details page gallery. Use
+                                    600x600 sizes images.</small>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label" for="signinSrEmail">Thumbnail Image <small>(300x300)</small></label>
+                            <label class="col-md-3 col-form-label" for="signinSrEmail">Thumbnail Image
+                                <small>(300x300)</small></label>
                             <div class="col-md-8">
-                                <div class="input-group" >
-                                    
+                                <div class="input-group">
+
                                     <input type="file" name="thumbnail_img" class="selected-files addprodfrm" />
                                 </div>
                                 <div class="file-preview box sm"></div>
                                 <small class="text-muted">
-                                    This image is visible in all product box. Use 300x300 sizes image. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.
+                                    This image is visible in all product box. Use 300x300 sizes image. Keep some blank
+                                    space around main object of your image as we had to crop some edge in different
+                                    devices to make it responsive.
                                 </small>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">Product Videos</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-md-3 col-from-label">Video Provider</label>
-                            <div class="col-md-8">
-                               
-                                    <select class="form-control " name="video_provider" id="video_provider" >
-                                        <option value="youtube">Youtube</option>
-                                        <option value="dailymotion">Dailymotion</option>
-                                        <option value="vimeo">Vimeo</option>
-                                    </select>                                   
-                                    
-                               
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-from-label">Video Link</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" name="video_link" placeholder="Video Link" />
-                                <small class="text-muted">Use proper link without extra parameter. Don't use short share link/embeded iframe code.</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">Product Variation</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group row gutters-5">
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" value="Attribute" disabled="" />
-                            </div>
-                            <div class="col-md-8">                                
-                                <ul class="attrbutelist">
-                                @foreach($attributes as $attr)
-                                    <li><input type="checkbox" value="{{$attr->id}}" name="attribute[]" data="{{$attr->attribute_name}}" class="attrlist"/><label>{{$attr->attribute_name}}</label></li>
-                                @endforeach
-                                </ul>                                
-                            </div>                            
-                        </div>                       
-                        
-
-                        <div>
-                            <p>Choose the attributes of this product and then input values of each attribute</p>
-                            <br />
-                        </div>
-
-                        <div id="attrvalues"></div>
-
-                        
-
-                        
-                    </div>
-                </div> -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0 h6">Product price + stock</h5>
@@ -209,26 +162,18 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">Unit price <span class="text-danger">*</span></label>
                             <div class="col-md-6">
-                                <input type="number" lang="en" min="0" value="0" step="0.01" placeholder="Unit price" name="unit_price" class="form-control addprodfrm" required="" />
+                                <input type="number" lang="en" min="0" value="0" step="0.01" placeholder="Unit price"
+                                    name="unit_price" class="form-control addprodfrm" required="" />
                             </div>
                         </div>
 
-                        
+
 
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">Discount <span class="text-danger">*</span></label>
                             <div class="col-md-6">
-                                <input type="number" lang="en" min="0" value="0" step="0.01" placeholder="Discount" name="discount" class="form-control addprodfrm" required="" />
-                            </div>
-                            <div class="col-md-3">
-                                
-                                    <select class="form-control addprodfrm" name="discount_type" tabindex="-98">
-                                        <option value="amount">Flat</option>
-                                        <option value="percent">Percent</option>
-                                    </select>
-                                   
-                                    
-                             
+                                <input type="number" lang="en" min="0" value="0" step="0.01" placeholder="Discount"
+                                    name="discount" class="form-control addprodfrm" required="" />
                             </div>
                         </div>
 
@@ -243,9 +188,11 @@
 
                         <div id="show-hide-div">
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">Quantity <span class="text-danger">*</span></label>
+                                <label class="col-md-3 col-from-label">Quantity <span
+                                        class="text-danger">*</span></label>
                                 <div class="col-md-6">
-                                    <input type="number" lang="en" min="0" value="0" step="1" placeholder="Quantity" name="current_qty" class="form-control addprodfrm" required="" />
+                                    <input type="number" lang="en" min="0" value="0" step="1" placeholder="Quantity"
+                                        name="current_qty" class="form-control addprodfrm" required="" />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -257,7 +204,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                         <br />
                         <div class="sku_combination" id="sku_combination"></div>
                     </div>
@@ -271,7 +218,7 @@
                             <label class="col-md-3 col-from-label">Short Description</label>
                             <div class="col-md-8">
                                 <textarea class="form-control addprodfrm" name="shortdescription" rows="5"></textarea>
-                               
+
                             </div>
                         </div>
 
@@ -279,7 +226,7 @@
                             <label class="col-md-3 col-from-label">Long Description</label>
                             <div class="col-md-8">
                                 <textarea class="form-control" name="longdescription" rows="8" id="longdesc"></textarea>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -294,115 +241,11 @@
                     </div>
                 </div>-->
 
-               
-                
+
+
             </div>
 
             <div class="col-lg-4">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">
-                            Shipping Configuration
-                        </h5>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Free Shipping</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="radio" name="shipping_type" value="free" checked="" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Flat Rate</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="radio" name="shipping_type" value="flat_rate" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="flat_rate_shipping_div" style="display: none;">
-                            <div class="form-group row">
-                                <label class="col-md-6 col-from-label">Shipping cost</label>
-                                <div class="col-md-6">
-                                    <input type="number" lang="en" min="0" value="0" step="0.01" placeholder="Shipping cost" name="flat_shipping_cost" class="form-control" required="" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Is Product Quantity Mulitiply</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="checkbox" name="is_quantity_multiplied" value="1" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
-
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">Low Stock Quantity Warning</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group mb-3">
-                            <label for="name">
-                                Quantity
-                            </label>
-                            <input type="number" name="low_stock_quantity" value="1" min="0" step="1" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">
-                            Stock Visibility State
-                        </h5>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Show Stock Quantity</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="radio" name="stock_visibility_state" value="quantity" checked="" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Show Stock With Text Only</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="radio" name="stock_visibility_state" value="text" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Hide Stock</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="radio" name="stock_visibility_state" value="hide" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0 h6">Featured</h5>
@@ -463,59 +306,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">Flash Deal</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group mb-3">
-                            <label for="name">
-                                Add To Flash
-                            </label>
-                           
-                                <select class="form-control" name="flash_deal_id" id="flash_deal" tabindex="-98">
-                                    <option value="">Choose Flash Title</option>
-                                    <option value="1">
-                                        Winter Sell
-                                    </option>
-                                    <option value="2">
-                                        Falsh sale
-                                    </option>
-                                    <option value="3">
-                                        Electronic
-                                    </option>
-                                    <option value="4">
-                                        Flash Deal
-                                    </option>
-                                </select>
-                               
-                            
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="name">
-                                Discount
-                            </label>
-                            <input type="number" name="flash_discount" value="0" min="0" step="1" class="form-control" />
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="name">
-                                Discount Type
-                            </label>
-                            
-                                <select class="form-control" name="flash_discount_type" id="flash_discount_type">
-                                    <option value="">Choose Discount Type</option>
-                                    <option value="amount">Flat</option>
-                                    <option value="percent">Percent</option>
-                                </select>
-                               
-                                
-                           
-                        </div>
-                    </div>
-                </div> -->
-
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0 h6">Estimate Shipping Time</h5>
@@ -526,7 +316,8 @@
                                 Shipping Days
                             </label>
                             <div class="input-group">
-                                <input type="number" class="form-control" name="est_shipping_days" min="1" step="1" placeholder="Shipping Days" />
+                                <input type="number" class="form-control" name="est_shipping_days" min="1" step="1"
+                                    placeholder="Shipping Days" />
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroupPrepend">Days</span>
                                 </div>
@@ -547,17 +338,18 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <input type="number" lang="en" min="0" value="0" step="0.01" placeholder="Tax" name="tax" class="form-control" required="" />
+                                <input type="number" lang="en" min="0" value="0" step="0.01" placeholder="Tax"
+                                    name="tax" class="form-control" required="" />
                             </div>
                             <div class="form-group col-md-6">
-                                
-                                    <select class="form-control" name="tax_type" tabindex="-98">
-                                        <option value="amount">Flat</option>
-                                        <option value="percent">Percent</option>
-                                    </select>
-                                   
-                                   
-                               
+
+                                <select class="form-control" name="tax_type" tabindex="-98">
+                                    <option value="amount">Flat</option>
+                                    <option value="percent">Percent</option>
+                                </select>
+
+
+
                             </div>
                         </div>
                         <label for="name">
@@ -567,16 +359,17 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <input type="number" lang="en" min="0" value="0" step="0.01" placeholder="Tax" name="vat" class="form-control" required="" />
+                                <input type="number" lang="en" min="0" value="0" step="0.01" placeholder="Tax"
+                                    name="vat" class="form-control" required="" />
                             </div>
                             <div class="form-group col-md-6">
-                               
-                                    <select class="form-control" name="vat_type" tabindex="-98">
-                                        <option value="amount">Flat</option>
-                                        <option value="percent">Percent</option>
-                                    </select>
-                                   
-                              
+
+                                <select class="form-control" name="vat_type" tabindex="-98">
+                                    <option value="amount">Flat</option>
+                                    <option value="percent">Percent</option>
+                                </select>
+
+
                             </div>
                         </div>
                     </div>
@@ -584,9 +377,10 @@
             </div>
             <div class="col-12">
                 <div class="btn-toolbar float-right mb-3" role="toolbar" aria-label="Toolbar with button groups">
-                   
+
                     <div class="btn-group" role="group" aria-label="Second group">
-                        <button type="submit" name="button" class="btn btn-success action-btn addproductSubmitBtn">Submit</button>
+                        <button type="submit" name="button"
+                            class="btn btn-success action-btn addproductSubmitBtn">Submit</button>
                     </div>
                 </div>
             </div>
@@ -603,130 +397,133 @@
 
 
 <style>
-    @import
-url(https://fonts.googleapis.com/icon?family=Material+Icons);
+    @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 
-.select-checkbox option::before {
-  content: "\2610";
-  width: 1.3em;
-  text-align: center;
-  display: inline-block;
-}
-.select-checkbox option:checked::before {
-  content: "\2611";
-}
+    .select-checkbox option::before {
+        content: "\2610";
+        width: 1.3em;
+        text-align: center;
+        display: inline-block;
+    }
 
-.select-checkbox-fa option::before {
-  font-family: FontAwesome;
-  content: "\f096";
-  width: 1.3em;
-  display: inline-block;
-  margin-left: 2px;
-}
-.select-checkbox-fa option:checked::before {
-  content: "\f046";
-}
+    .select-checkbox option:checked::before {
+        content: "\2611";
+    }
 
-.frame {
- 
- 
-  width: 100%;
-  height: 200px;
-   
-  border-radius: 2px;
-	box-shadow: 4px 8px 16px 0 rgba(0,0,0,0.1);
-	overflow: hidden;
-  background: #ffff;
-  color: #fff;
-	font-family: 'Open Sans', Helvetica, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
+    .select-checkbox-fa option::before {
+        font-family: FontAwesome;
+        content: "\f096";
+        width: 1.3em;
+        display: inline-block;
+        margin-left: 2px;
+    }
 
-.center {
- 
-	width: 100%;
-	height: 200px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
+    .select-checkbox-fa option:checked::before {
+        content: "\f046";
+    }
+
+    .frame {
 
 
+        width: 100%;
+        height: 200px;
 
-.dropzone{
-	position: absolute;
-	width: 200px;
-	height: 200px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-}
+        border-radius: 2px;
+        box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        background: #ffff;
+        color: #fff;
+        font-family: 'Open Sans', Helvetica, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-.filename {
-	color: #d9d9d9;
-	width: 300px;
-	height: 130px;
-	word-break: break-all;
-	font-size: 11px;
-	line-height: 15px;
-	z-index: 1;
-}
+    .center {
 
-#img{
-	position: absolute;
-	opacity: 0; 
-	width: 150px;
-	height: 130px;
-	cursor: pointer;
-	z-index: 99999;
-}
-
-.content{
-	width: 150px;
-	height: 130px;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 5px;
-	border: 2px dashed #d9d9d9;
-	cursor: pointer;
-}
+        width: 100%;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
 
-.syncing{
-	font-size: 100px;
-    color: #021754d1;
-    text-shadow: 0 0 5px #049191;
-    opacity: .3;
-}
-.multiselect-container>li>a>label {
-  padding: 4px 20px 3px 20px;
-}
 
-.attrbutelist{
-    list-style:none;
-    max-height:100px;
-    border:1px solid #d1d3e2;
-    width:100%;
-    overflow:auto;
-    border-radius:5px;
-    padding:10px
-}
+    .dropzone {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
-.attrbutelist>li>label{
-    padding: 4px 10px 3px 10px;
-}
-.attrbutelist>li{
-    padding-left:5px;
-}
-.attrbutelist>li:hover{
-    background:#d1d3e2;
-}
+    .filename {
+        color: #d9d9d9;
+        width: 300px;
+        height: 130px;
+        word-break: break-all;
+        font-size: 11px;
+        line-height: 15px;
+        z-index: 1;
+    }
 
+    #img {
+        position: absolute;
+        opacity: 0;
+        width: 150px;
+        height: 130px;
+        cursor: pointer;
+        z-index: 99999;
+    }
+
+    .content {
+        width: 150px;
+        height: 130px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        border: 2px dashed #d9d9d9;
+        cursor: pointer;
+    }
+
+
+    .syncing {
+        font-size: 100px;
+        color: #021754d1;
+        text-shadow: 0 0 5px #049191;
+        opacity: .3;
+    }
+
+    .multiselect-container>li>a>label {
+        padding: 4px 20px 3px 20px;
+    }
+
+    .attrbutelist {
+        list-style: none;
+        max-height: 100px;
+        border: 1px solid #d1d3e2;
+        width: 100%;
+        overflow: auto;
+        border-radius: 5px;
+        padding: 10px
+    }
+
+    .attrbutelist>li>label {
+        padding: 4px 10px 3px 10px;
+    }
+
+    .attrbutelist>li {
+        padding-left: 5px;
+    }
+
+    .attrbutelist>li:hover {
+        background: #d1d3e2;
+    }
 </style>
 @endpush
 
@@ -811,7 +608,7 @@ url(https://fonts.googleapis.com/icon?family=Material+Icons);
 </script>
 
 <script>
-   $(function() {
+    $(function() {
         $("input.attrlist").click(function(){ 
             var attrid = $(this).val();            
             if($(this).is(":checked")){
