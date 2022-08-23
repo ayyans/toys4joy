@@ -115,21 +115,24 @@ if ( !function_exists('removeOutOfStockFromCart') ) {
 
 if ( !function_exists('removeOutOfStockFromWishlist') ) {
   function removeOutOfStockFromWishlist() {
-    // load wishlist with products
-    auth()->user()->wishlist->load('product')->each(function($wish) {
-      // wishlist product
-      $product = $wish->product;
-      // if product exists then proceed
-      // else remove from wishlist
-      if ($product) {
-        if ($product->qty == 0) {
-          // removing out of stock wishlist
+    // if user is logged in
+    if (auth()->check()) {
+      // load wishlist with products
+      auth()->user()->wishlist->load('product')->each(function($wish) {
+        // wishlist product
+        $product = $wish->product;
+        // if product exists then proceed
+        // else remove from wishlist
+        if ($product) {
+          if ($product->qty == 0) {
+            // removing out of stock wishlist
+            $wish->delete();
+          }
+        } else {
+          // removing unavailable wishlist
           $wish->delete();
         }
-      } else {
-        // removing unavailable wishlist
-        $wish->delete();
-      }
-    });
+      });
+    }
   }
 }
