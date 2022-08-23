@@ -201,8 +201,8 @@ class AdminController extends Controller
     // customer details
 
     public function customer(){
-        $customers = DB::table('users')->where('type' , 'customer')->orderBy('id','desc')->get();
-        return view('admin.customer',compact('customers'));
+        $customers = User::where('type' , 'customer')->get();
+        return view('admin.customer', compact('customers'));
     }
 
 
