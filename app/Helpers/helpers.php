@@ -3,6 +3,7 @@
 // sadad functions
 
 use App\Models\Product;
+use App\Models\Wishlist;
 use Twilio\Rest\Client;
 
 if (!function_exists('getChecksumFromString')) {
@@ -114,11 +115,13 @@ if ( !function_exists('removeOutOfStockFromCart') ) {
 // remove out of stock items from wishlist
 
 if ( !function_exists('removeOutOfStockFromWishlist') ) {
-  function removeOutOfStockFromWishlist() {
-    // if user is logged in
-    if (auth()->check()) {
-      // load wishlist with products
-      auth()->user()->wishlist->load('product')->each(function($wish) {
+  function removeOutOfStockFromWishlist($user_id) {
+    // load wishlist with products
+    $wishlist = Wishlist::with('product')->where('cust_id', $user_id)->get();
+    // if wishlist exists
+    if ($wishlist) {
+      // looping through wishlist
+      $wishlist->each(function($wish) {
         // wishlist product
         $product = $wish->product;
         // if product exists then proceed
