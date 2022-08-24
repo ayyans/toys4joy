@@ -35,7 +35,7 @@ Route::get('products/search/{search?}', function($search = null) {
         ->when($search, function($query, $search) {
             $query->where('title', 'LIKE', "%$search%")
             ->orWhere('barcode', 'LIKE', "%$search%")
-            ->orWhere('sku', 'LIKE', "%$search%");
+            ->orWhere('sku', $search);
         })->get();
     return $products;
 });
