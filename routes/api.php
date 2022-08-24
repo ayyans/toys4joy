@@ -29,3 +29,13 @@ return DB::table('products')->select('products.*', 'sub_categories.id as subcat_
 })
 ->get();
 });
+
+Route::get('products/search', function(Request $request) {
+    $products = Product::with('brand', 'category', 'subCategory');
+    $request->whenFilled('search', function($search) use ($products) {
+        $products->where('title', 'LIKE', "%$search%")
+            ->orWhere('barcode', 'LIKE', "%$search%")
+            ->orWhere('sku', 'LIKE', "%$search%");
+    });
+    return $products->get();
+});
