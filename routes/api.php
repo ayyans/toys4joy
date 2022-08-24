@@ -19,7 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/get_product', function () {
-    //return new SearchProductResource(Product::findOrFail($barcode));
-    //return Product::where('barcode',request('barcode'))->get();
-return DB::table('products')->select('products.*', 'sub_categories.id as subcat_id')->leftJoin('sub_categories', 'products.sub_cat', '=', 'sub_categories.id')->where('barcode',request('barcode'))->get();
+return DB::table('products')->select('products.*', 'sub_categories.id as subcat_id')
+->leftJoin('sub_categories', 'products.sub_cat', '=', 'sub_categories.id')
+->when(request('barcode'), function ($query, $withbarcode) {
+    $query->where('barcode',request('barcode'));
+})
+->when(request('sku'), function ($query, $with_sku) {
+    $query->Where('sku', '=', request('sku'));
+})
+->get();
 });
