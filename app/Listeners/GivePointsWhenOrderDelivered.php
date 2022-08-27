@@ -17,7 +17,7 @@ class GivePointsWhenOrderDelivered
     public function handle($event)
     {
         $order = $event->order;
-        if ($order->order_status == 'delivered') {
+        if ($order->user_id && $order->order_status == 'delivered') {
             $qarInPoints = Setting::where('name', 'qar_in_points')->value('value') ?? 2;
             $rewardPoints = round($order->total_amount * $qarInPoints);
             $orderNumber = $order->order_number;
