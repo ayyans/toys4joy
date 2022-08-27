@@ -32,6 +32,7 @@ use Session;
 use Auth;
 use Carbon\Carbon;
 use Darryldecode\Cart\CartCondition;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class WebsiteController extends Controller
@@ -164,7 +165,15 @@ class WebsiteController extends Controller
                     ->select('products.*','brand_name','logo')
                     ->where('products.url','=',$url)
                     ->first();
-        $catid = $products->category_id;
+        try {
+            $catid = $products->category_id;
+        } catch (Exception $ex) {
+            logger(str_repeat('=products=', 50));
+            logger($products);
+            logger(str_repeat('=catid=', 50));
+            logger($catid);
+            logger(str_repeat('=end=', 50));
+        }
         $gallery = ProductImage::where('prod_id','=',$products->id)->orderBy('id','desc')->get();          
         return view('website.product_details',compact('categories','catid','products','gallery'));
     }
@@ -610,6 +619,10 @@ class WebsiteController extends Controller
         // ->orderBy('carts.id','desc')
         // ->get();
 
+        // removing out of stock or
+        // unavailable cart items
+        removeOutOfStockFromCart();
+
         return view('website.cartpage');
     }
 
@@ -658,20 +671,14 @@ class WebsiteController extends Controller
 
     public function payasmember(Request $request){
         $cust_id = Cmf::ipaddress();
-        // $data = array('customer_id' => Auth::user()->id);
-        // DB::table('carts')->where('cust_id' , $cust_id)->update($data);
-        // $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
-        //             ->leftJoin('brands','brands.id','=','products.brand_id')                    
-        //             ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty','carts.giftcode as giftcode')
-        //             ->where('carts.cust_id','=',$cust_id)
-        //             ->get();
+
+        // removing out of stock and unavilable items
+        removeOutOfStockFromCart();
+
+        // check if attached gift card or coupon expired
+        // if expired please detach
+
         $items = cart()->getContent();
-
-        
-        // $giftcoupencode = Cart::where('cust_id' , $cust_id)->where('giftcode' , '!=' , '')->count();
-
-
-        // if($products->count()>0)
         if(! cart()->isEmpty())
         {
             $checkaddres = CustomerAddress::where('cust_id' , Auth::user()->id)->count();
@@ -792,11 +799,13 @@ class WebsiteController extends Controller
 
     public function mywishlist(Request $request){
         $cust_id = decrypt($request->cust_id);
+        removeOutOfStockFromWishlist($cust_id); // clean wishlist
         $wshlists = Wishlist::leftJoin('products','products.id','=','wishlists.prod_id')
                     ->select('products.*','wishlists.id as wish_id')
                     ->where('wishlists.cust_id','=',$cust_id)
                     ->orderBy('wishlists.id','desc')
                     ->get();
+        // remove out of stock wishlist
         // print_r($wshlists);exit;
         return view('website.mywishlist',compact('wshlists'));
     }
@@ -819,6 +828,7 @@ class WebsiteController extends Controller
 
     public function sharewishlist(Request $request){
         $cust_id = $request->cust_id;
+        removeOutOfStockFromWishlist($cust_id);
         $wshlists = Wishlist::leftJoin('products','products.id','=','wishlists.prod_id')
                     ->leftJoin('users','users.id','=','wishlists.cust_id')
                     ->select('products.*','users.name','users.email','users.mobile','wishlists.id as wish_id','wishlists.share_status')

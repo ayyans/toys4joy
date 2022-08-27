@@ -2,6 +2,8 @@
 
 // sadad functions
 
+use App\Models\Product;
+use App\Models\Wishlist;
 use Twilio\Rest\Client;
 
 if (!function_exists('getChecksumFromString')) {
@@ -72,5 +74,68 @@ if ( !function_exists('sendOTPCode') ) {
     $updated = $user->forceFill([ 'otp' => $otp ])->save();
     $sent = sendMessage($user->mobile, "Your one time pin is ${otp}. Use this pin for verification on Toys4Joy.");
     return $updated && $sent;
+  }
+}
+
+// remove out of stock items from cart
+
+if ( !function_exists('removeOutOfStockFromCart') ) {
+  function removeOutOfStockFromCart() {
+    // loading products at once for single query
+    $productIds = cart()->getContent()->keys();
+    $products = Product::find($productIds);
+    // looping through all cart items
+    cart()->getContent()->each(function($item) use ($products) {
+      // finding product
+      $product = $products->find($item->id);
+      // if products exists then proceed
+      // else remove product from cart
+      if ($product) {
+        // if out of stock product
+        if ($product->qty == 0) {
+          // removing out of stock product
+          cart()->remove($item->id);
+        } elseif ($product->qty < $item->quantity) {
+          // update product quantity to what we have left
+          cart()->update($item->id, [
+            'quantity' => [
+              'relative' => false,
+              'value' => $product->qty
+            ]
+          ]);
+        }
+      } else {
+        // removing unavailable product
+        cart()->remove($item->id);
+      }
+    });
+  }
+}
+
+// remove out of stock items from wishlist
+
+if ( !function_exists('removeOutOfStockFromWishlist') ) {
+  function removeOutOfStockFromWishlist($user_id) {
+    // load wishlist with products
+    $wishlist = Wishlist::with('product')->where('cust_id', $user_id)->get();
+    // if wishlist exists
+    if ($wishlist) {
+      // looping through wishlist
+      $wishlist->each(function($wish) {
+        // wishlist product
+        $product = $wish->product;
+        // if product exists then proceed
+        // else remove from wishlist
+        if ($product) {
+          if ($product->qty == 0) {
+            // removing out of stock wishlist
+            $wish->delete();
+          }
+        } else {
+          // removing unavailable wishlist
+          $wish->delete();
+        }
+      });
+    }
   }
 }

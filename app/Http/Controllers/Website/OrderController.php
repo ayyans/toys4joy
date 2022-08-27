@@ -411,12 +411,13 @@ class OrderController extends Controller
      // pay as guest checkout 
 
     public function payasguest(Request $request){
-        // $cust_id = Cmf::ipaddress();
-        // $products = Cart::leftJoin('products','products.id','=','carts.prod_id')
-        //             ->leftJoin('brands','brands.id','=','products.brand_id')                    
-        //             ->select('products.*','brand_name','logo','carts.id as crtid','carts.qty as cartQty')
-        //             ->where('carts.cust_id','=',$cust_id)
-        //             ->get();
+
+        // clear cart conditions if customer tries to add cart condition
+        // form customer side and try to place order at guest side
+        cart()->clearCartConditions();
+        // removing out of stock and unavilable items
+        removeOutOfStockFromCart();
+
         $items = cart()->getContent();
         if(! cart()->isEmpty())
         {

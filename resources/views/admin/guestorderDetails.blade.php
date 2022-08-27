@@ -22,7 +22,6 @@
                 <tr>
                     <td colspan="2"></td>
                     <td>
-                        <input type="hidden" name="orderid" id="orderid" value="{{$order->id}}" />
                         <label>Delivery Status</label>
                         {{-- @if($orders->status==4 || $orders->status==5 )
                         <select class="form-control" readonly>
@@ -59,7 +58,7 @@
                     </td>
                     <td style="text-align:justify">
                         <strong>Order Id:{{ $order->order_number }}</strong><br />
-                        <strong>Order status:</strong> {{ $order->order_status }}
+                        <strong>Order status:</strong> <span id="order-status">{{ $order->order_status }}</span>
                         <br />
                         <strong>Order date:</strong> {{ $order->created_at->format('d M Y') }} <br />
                         <strong>Order Time:</strong> {{ $order->created_at->format('h:i:s A') }} <br />
@@ -154,33 +153,32 @@
 
 @push('otherscript')
 <script>
-    $(function(){
-        $("#orderStatus").change(function(){
-            var status = $(this).val();
-            if (['cancelled', 'delivered'].includes("{{ $order->order_status }}")) return;
-            var orderid = $("#orderid").val();
-            var form = new FormData();
-            form.append('status',status);
-            form.append('id',orderid);
-            $.ajax({
-                url:"{{route('admin.orderStatus')}}",
-                type:"POST",
-                data:form,
-                cache:false,
-                contentType:false,
-                processData:false,
-                success:function(res){
-                    var js_data = JSON.parse(res);
-                    if(js_data==1){
-                        toastr.success('order status changed successfull!');
-                                    location.reload();
-                    }else{
-                        toastr.error('something went wrong');
-                                    return false;
-                    }
+    $(function() {
+        $("#orderStatus").on('change', function() {
+            const selectedValue = $(this).find(':selected');
+            const url = "{{ route('admin.changeOrderStatus') }}";
+            const order_id = "{{ $order->id }}";
+            const status = $(this).val();
+            if (['cancelled', 'delivered'].includes(status)) return;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ order_id, status })
+            })
+            .then(res => res.json())
+            .then(res => {
+                if (res.status) {
+                    $('#order-status').text(status);
+                    toastr.success('order status changed successfull!');
+                } else {
+                    toastr.error('something went wrong');
                 }
             })
-        })
-    })
+            .catch(err => console.log(err))
+        });
+    });
 </script>
 @endpush
