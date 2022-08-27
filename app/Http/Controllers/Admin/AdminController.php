@@ -547,108 +547,108 @@ public function deleteBrands(Request $request){
 }
 
 
-// attribute
+// // attribute
 
-public function atribute(){
-    $attr = Attribute::orderBy('id','desc')->get();
-    $attrVal = AttrValue::leftJoin('attributes','attributes.id','=','attr_values.attr_id')
-            ->select('attr_values.*','attributes.id as attrID','attribute_name')
-            ->orderBy('id','desc')
-            ->get();
-    $attributs = Attribute::where('status','=','2')->orderBy('id','desc')->get();
-    return view('admin.attribute',compact('attr','attrVal','attributs'));
-}
+// public function atribute(){
+//     $attr = Attribute::orderBy('id','desc')->get();
+//     $attrVal = AttrValue::leftJoin('attributes','attributes.id','=','attr_values.attr_id')
+//             ->select('attr_values.*','attributes.id as attrID','attribute_name')
+//             ->orderBy('id','desc')
+//             ->get();
+//     $attributs = Attribute::where('status','=','2')->orderBy('id','desc')->get();
+//     return view('admin.attribute',compact('attr','attrVal','attributs'));
+// }
 
-public function addattr(Request $request){
-    $exist_attr = Attribute::where('attribute_name','=',$request->attrname)->count();
-    if($exist_attr>0){
-        return back()->with('error','attribute already exist');
-        exit();
-    }else{
-        $attribute = new Attribute;
-        $attribute->attribute_name=$request->attrname;
-        $attribute->save();
-        if($attribute==true){
-            return back()->with('success','attribute added successfull');
-            exit();
-        }else{
-            return back()->with('error','something went wrong');
-            exit();
-        }
-    }
-}
+// public function addattr(Request $request){
+//     $exist_attr = Attribute::where('attribute_name','=',$request->attrname)->count();
+//     if($exist_attr>0){
+//         return back()->with('error','attribute already exist');
+//         exit();
+//     }else{
+//         $attribute = new Attribute;
+//         $attribute->attribute_name=$request->attrname;
+//         $attribute->save();
+//         if($attribute==true){
+//             return back()->with('success','attribute added successfull');
+//             exit();
+//         }else{
+//             return back()->with('error','something went wrong');
+//             exit();
+//         }
+//     }
+// }
 
 // activate attribute
 
  
 
-  public function activateAttr(Request $request){
-    $catid = decrypt($request->id);
-    $activate = Attribute::where('id','=',$catid)->update([
-        'status'=>'2'
-    ]);
-    if($activate==true){
-        return back()->with('success','Attribute activated SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+//   public function activateAttr(Request $request){
+//     $catid = decrypt($request->id);
+//     $activate = Attribute::where('id','=',$catid)->update([
+//         'status'=>'2'
+//     ]);
+//     if($activate==true){
+//         return back()->with('success','Attribute activated SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
-// deactivate attribute
+// // deactivate attribute
 
-public function deactivatAttr(Request $request){
-    $catid = decrypt($request->id);
-    $deactivate = Attribute::where('id','=',$catid)->update([
-        'status'=>'1'
-    ]);
-    if($deactivate==true){
-        return back()->with('success','Attribute deactivated SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+// public function deactivatAttr(Request $request){
+//     $catid = decrypt($request->id);
+//     $deactivate = Attribute::where('id','=',$catid)->update([
+//         'status'=>'1'
+//     ]);
+//     if($deactivate==true){
+//         return back()->with('success','Attribute deactivated SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
-// delete attribute 
+// // delete attribute 
 
-public function deleteAttr(Request $request){
-    $catid = decrypt($request->id);
-    $deleteattr = Attribute::where('id','=',$catid)->delete();
-    if($deleteattr==true){
-        return back()->with('success','attribute deleted SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+// public function deleteAttr(Request $request){
+//     $catid = decrypt($request->id);
+//     $deleteattr = Attribute::where('id','=',$catid)->delete();
+//     if($deleteattr==true){
+//         return back()->with('success','attribute deleted SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
 
 
 // attribute value
 
-public function addattrVal(Request $request){
-    $exist_attr = AttrValue::where('attr_value','=',$request->attrval)->count();
-    if($exist_attr>0){
-        return back()->with('error','attribute value already exist');
-        exit();
-    }else{
-        $attribute = new AttrValue;
-        $attribute->attr_id=$request->attrname;
-        $attribute->attr_value=$request->attrval;
-        $attribute->save();
-        if($attribute==true){
-            return back()->with('success','attribute value added successfull');
-            exit();
-        }else{
-            return back()->with('error','something went wrong');
-            exit();
-        }
-    }
-}
+// public function addattrVal(Request $request){
+//     $exist_attr = AttrValue::where('attr_value','=',$request->attrval)->count();
+//     if($exist_attr>0){
+//         return back()->with('error','attribute value already exist');
+//         exit();
+//     }else{
+//         $attribute = new AttrValue;
+//         $attribute->attr_id=$request->attrname;
+//         $attribute->attr_value=$request->attrval;
+//         $attribute->save();
+//         if($attribute==true){
+//             return back()->with('success','attribute value added successfull');
+//             exit();
+//         }else{
+//             return back()->with('error','something went wrong');
+//             exit();
+//         }
+//     }
+// }
 
 
 
@@ -656,49 +656,49 @@ public function addattrVal(Request $request){
 
  
 
-public function activateAttrVal(Request $request){
-    $catid = decrypt($request->id);
-    $activate = AttrValue::where('id','=',$catid)->update([
-        'status'=>'2'
-    ]);
-    if($activate==true){
-        return back()->with('success','Attribute value activated SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+// public function activateAttrVal(Request $request){
+//     $catid = decrypt($request->id);
+//     $activate = AttrValue::where('id','=',$catid)->update([
+//         'status'=>'2'
+//     ]);
+//     if($activate==true){
+//         return back()->with('success','Attribute value activated SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
-// deactivate attribute value
+// // deactivate attribute value
 
-public function deactivatAttrVal(Request $request){
-    $catid = decrypt($request->id);
-    $deactivate = AttrValue::where('id','=',$catid)->update([
-        'status'=>'1'
-    ]);
-    if($deactivate==true){
-        return back()->with('success','Attribute value deactivated SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+// public function deactivatAttrVal(Request $request){
+//     $catid = decrypt($request->id);
+//     $deactivate = AttrValue::where('id','=',$catid)->update([
+//         'status'=>'1'
+//     ]);
+//     if($deactivate==true){
+//         return back()->with('success','Attribute value deactivated SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
 // delete attribute value 
 
-public function deleteAttrVal(Request $request){
-    $catid = decrypt($request->id);
-    $deleteattr = AttrValue::where('id','=',$catid)->delete();
-    if($deleteattr==true){
-        return back()->with('success','attribute value deleted SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+// public function deleteAttrVal(Request $request){
+//     $catid = decrypt($request->id);
+//     $deleteattr = AttrValue::where('id','=',$catid)->delete();
+//     if($deleteattr==true){
+//         return back()->with('success','attribute value deleted SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
     // products
 
