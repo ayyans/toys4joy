@@ -23,7 +23,7 @@ class RestoreStockAndPoints
                 $item->product()->increment('qty', $item->quantity);
             }
             // return points
-            if ($order->previous_order_status == 'delivered') {
+            if ($order->user_id && $order->previous_order_status == 'delivered') {
                 $qarInPoints = Setting::where('name', 'qar_in_points')->value('value') ?? 2;
                 $rewardPoints = round($order->total_amount * $qarInPoints);
                 $orderNumber = $order->order_number;

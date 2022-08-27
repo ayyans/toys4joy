@@ -93,7 +93,7 @@
           
             <a class="collapse-item" href="{{route('admin.addproducts')}}">Add products</a>
             <a class="collapse-item" href="{{route('admin.products')}}">List of products</a>
-            <a class="collapse-item" href="{{route('admin.atribute')}}">Attribute</a>
+            {{-- <a class="collapse-item" href="{{route('admin.atribute')}}">Attribute</a> --}}
         </div>
     </div>
 </li>

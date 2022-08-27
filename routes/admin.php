@@ -64,23 +64,23 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('/delete-brands/{id}','AdminController@deleteBrands')->name('deleteBrands');
 
     // attribute
-    Route::get('/attribute','AdminController@atribute')->name('atribute');
-    Route::post('/add-attribute','AdminController@addattr')->name('addattr');
+    // Route::get('/attribute','AdminController@atribute')->name('atribute');
+    // Route::post('/add-attribute','AdminController@addattr')->name('addattr');
 
     // activate attribute
 
-    Route::get('/activate-attribute/{id}','AdminController@activateAttr')->name('activateAttr');
-    Route::get('/deactivate-attribute/{id}','AdminController@deactivatAttr')->name('deactivatAttr');
-    Route::get('/delete-attribute/{id}','AdminController@deleteAttr')->name('deleteAttr');
+    // Route::get('/activate-attribute/{id}','AdminController@activateAttr')->name('activateAttr');
+    // Route::get('/deactivate-attribute/{id}','AdminController@deactivatAttr')->name('deactivatAttr');
+    // Route::get('/delete-attribute/{id}','AdminController@deleteAttr')->name('deleteAttr');
 
     // attribute value 
-    Route::post('/add-attribute-value','AdminController@addattrVal')->name('addattrVal');
+    // Route::post('/add-attribute-value','AdminController@addattrVal')->name('addattrVal');
 
     // activate attribute values
 
-    Route::get('/activate-attribute-value/{id}','AdminController@activateAttrVal')->name('activateAttrVal');
-    Route::get('/deactivate-attribute-value/{id}','AdminController@deactivatAttrVal')->name('deactivatAttrVal');
-    Route::get('/delete-attribute-value/{id}','AdminController@deleteAttrVal')->name('deleteAttrVal');
+    // Route::get('/activate-attribute-value/{id}','AdminController@activateAttrVal')->name('activateAttrVal');
+    // Route::get('/deactivate-attribute-value/{id}','AdminController@deactivatAttrVal')->name('deactivatAttrVal');
+    // Route::get('/delete-attribute-value/{id}','AdminController@deleteAttrVal')->name('deleteAttrVal');
 
     // products
     Route::get('/products','AdminController@products')->name('products');

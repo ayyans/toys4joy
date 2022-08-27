@@ -165,6 +165,7 @@ class WebsiteController extends Controller
                     ->select('products.*','brand_name','logo')
                     ->where('products.url','=',$url)
                     ->first();
+        abort_if($products->status !== 2, 404);
         try {
             $catid = $products->category_id;
         } catch (Exception $ex) {
@@ -1267,7 +1268,7 @@ public function giftcard() {
     }
 
     public function search(Request $request) {
-        $products = Product::with('category', 'subCategory');
+        $products = Product::with('category', 'subCategory')->where('status', 2);
         $categories = Category::query();
         $subCategories = SubCategory::with(['parentCategory' => fn($q) => $q->select('id', 'url')]);
         $request->whenFilled('search', function($search) use ($products, $categories, $subCategories) {

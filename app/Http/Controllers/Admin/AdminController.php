@@ -39,22 +39,25 @@ class AdminController extends Controller
 {
     //
     public function dashboard(){
-        // all orders
-        $orders = Order::where('payment_status', 'paid')->get();
+        // orders
+        $orders = Order::whereIn('order_status', ['delivered', 'cancelled'])->get();
 
-        // paid orders count
-        $ordersCount = $orders->count();
+        // delivered orders count
+        $deliveredOrdersCount = $orders->where('order_status', 'delivered')->count();
 
-        // total customers
-        $customersCount = User::where('status', 2)->count();
+        // cancelled orders count
+        $cancelledOrdersCount = $orders->where('order_status', 'cancelled')->count();
 
-        // total products
-        $productsCount = Product::where('status', 2)->count();
+        // users
+        $users = User::all();
 
-        // total revenue
-        $revenueCount = $orders->sum('total_amount');
+        // verified users
+        $verifiedUsersCount = $users->where('status', 2)->count();
 
-        return view('admin.dashboard', compact('ordersCount', 'customersCount', 'productsCount', 'revenueCount'));
+        // unverified users
+        $unverifiedUsersCount = $users->where('status', 1)->count();
+
+        return view('admin.dashboard', compact('deliveredOrdersCount', 'cancelledOrdersCount', 'verifiedUsersCount', 'unverifiedUsersCount'));
     }
     public function productrequest()
     {
@@ -198,8 +201,8 @@ class AdminController extends Controller
     // customer details
 
     public function customer(){
-        $customers = DB::table('users')->where('type' , 'customer')->orderBy('id','desc')->get();
-        return view('admin.customer',compact('customers'));
+        $customers = User::where('type' , 'customer')->get();
+        return view('admin.customer', compact('customers'));
     }
 
 
@@ -544,108 +547,108 @@ public function deleteBrands(Request $request){
 }
 
 
-// attribute
+// // attribute
 
-public function atribute(){
-    $attr = Attribute::orderBy('id','desc')->get();
-    $attrVal = AttrValue::leftJoin('attributes','attributes.id','=','attr_values.attr_id')
-            ->select('attr_values.*','attributes.id as attrID','attribute_name')
-            ->orderBy('id','desc')
-            ->get();
-    $attributs = Attribute::where('status','=','2')->orderBy('id','desc')->get();
-    return view('admin.attribute',compact('attr','attrVal','attributs'));
-}
+// public function atribute(){
+//     $attr = Attribute::orderBy('id','desc')->get();
+//     $attrVal = AttrValue::leftJoin('attributes','attributes.id','=','attr_values.attr_id')
+//             ->select('attr_values.*','attributes.id as attrID','attribute_name')
+//             ->orderBy('id','desc')
+//             ->get();
+//     $attributs = Attribute::where('status','=','2')->orderBy('id','desc')->get();
+//     return view('admin.attribute',compact('attr','attrVal','attributs'));
+// }
 
-public function addattr(Request $request){
-    $exist_attr = Attribute::where('attribute_name','=',$request->attrname)->count();
-    if($exist_attr>0){
-        return back()->with('error','attribute already exist');
-        exit();
-    }else{
-        $attribute = new Attribute;
-        $attribute->attribute_name=$request->attrname;
-        $attribute->save();
-        if($attribute==true){
-            return back()->with('success','attribute added successfull');
-            exit();
-        }else{
-            return back()->with('error','something went wrong');
-            exit();
-        }
-    }
-}
+// public function addattr(Request $request){
+//     $exist_attr = Attribute::where('attribute_name','=',$request->attrname)->count();
+//     if($exist_attr>0){
+//         return back()->with('error','attribute already exist');
+//         exit();
+//     }else{
+//         $attribute = new Attribute;
+//         $attribute->attribute_name=$request->attrname;
+//         $attribute->save();
+//         if($attribute==true){
+//             return back()->with('success','attribute added successfull');
+//             exit();
+//         }else{
+//             return back()->with('error','something went wrong');
+//             exit();
+//         }
+//     }
+// }
 
 // activate attribute
 
  
 
-  public function activateAttr(Request $request){
-    $catid = decrypt($request->id);
-    $activate = Attribute::where('id','=',$catid)->update([
-        'status'=>'2'
-    ]);
-    if($activate==true){
-        return back()->with('success','Attribute activated SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+//   public function activateAttr(Request $request){
+//     $catid = decrypt($request->id);
+//     $activate = Attribute::where('id','=',$catid)->update([
+//         'status'=>'2'
+//     ]);
+//     if($activate==true){
+//         return back()->with('success','Attribute activated SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
-// deactivate attribute
+// // deactivate attribute
 
-public function deactivatAttr(Request $request){
-    $catid = decrypt($request->id);
-    $deactivate = Attribute::where('id','=',$catid)->update([
-        'status'=>'1'
-    ]);
-    if($deactivate==true){
-        return back()->with('success','Attribute deactivated SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+// public function deactivatAttr(Request $request){
+//     $catid = decrypt($request->id);
+//     $deactivate = Attribute::where('id','=',$catid)->update([
+//         'status'=>'1'
+//     ]);
+//     if($deactivate==true){
+//         return back()->with('success','Attribute deactivated SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
-// delete attribute 
+// // delete attribute 
 
-public function deleteAttr(Request $request){
-    $catid = decrypt($request->id);
-    $deleteattr = Attribute::where('id','=',$catid)->delete();
-    if($deleteattr==true){
-        return back()->with('success','attribute deleted SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+// public function deleteAttr(Request $request){
+//     $catid = decrypt($request->id);
+//     $deleteattr = Attribute::where('id','=',$catid)->delete();
+//     if($deleteattr==true){
+//         return back()->with('success','attribute deleted SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
 
 
 // attribute value
 
-public function addattrVal(Request $request){
-    $exist_attr = AttrValue::where('attr_value','=',$request->attrval)->count();
-    if($exist_attr>0){
-        return back()->with('error','attribute value already exist');
-        exit();
-    }else{
-        $attribute = new AttrValue;
-        $attribute->attr_id=$request->attrname;
-        $attribute->attr_value=$request->attrval;
-        $attribute->save();
-        if($attribute==true){
-            return back()->with('success','attribute value added successfull');
-            exit();
-        }else{
-            return back()->with('error','something went wrong');
-            exit();
-        }
-    }
-}
+// public function addattrVal(Request $request){
+//     $exist_attr = AttrValue::where('attr_value','=',$request->attrval)->count();
+//     if($exist_attr>0){
+//         return back()->with('error','attribute value already exist');
+//         exit();
+//     }else{
+//         $attribute = new AttrValue;
+//         $attribute->attr_id=$request->attrname;
+//         $attribute->attr_value=$request->attrval;
+//         $attribute->save();
+//         if($attribute==true){
+//             return back()->with('success','attribute value added successfull');
+//             exit();
+//         }else{
+//             return back()->with('error','something went wrong');
+//             exit();
+//         }
+//     }
+// }
 
 
 
@@ -653,49 +656,49 @@ public function addattrVal(Request $request){
 
  
 
-public function activateAttrVal(Request $request){
-    $catid = decrypt($request->id);
-    $activate = AttrValue::where('id','=',$catid)->update([
-        'status'=>'2'
-    ]);
-    if($activate==true){
-        return back()->with('success','Attribute value activated SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+// public function activateAttrVal(Request $request){
+//     $catid = decrypt($request->id);
+//     $activate = AttrValue::where('id','=',$catid)->update([
+//         'status'=>'2'
+//     ]);
+//     if($activate==true){
+//         return back()->with('success','Attribute value activated SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
-// deactivate attribute value
+// // deactivate attribute value
 
-public function deactivatAttrVal(Request $request){
-    $catid = decrypt($request->id);
-    $deactivate = AttrValue::where('id','=',$catid)->update([
-        'status'=>'1'
-    ]);
-    if($deactivate==true){
-        return back()->with('success','Attribute value deactivated SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+// public function deactivatAttrVal(Request $request){
+//     $catid = decrypt($request->id);
+//     $deactivate = AttrValue::where('id','=',$catid)->update([
+//         'status'=>'1'
+//     ]);
+//     if($deactivate==true){
+//         return back()->with('success','Attribute value deactivated SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
 // delete attribute value 
 
-public function deleteAttrVal(Request $request){
-    $catid = decrypt($request->id);
-    $deleteattr = AttrValue::where('id','=',$catid)->delete();
-    if($deleteattr==true){
-        return back()->with('success','attribute value deleted SuccessFull!');
-        exit();
-    }else{
-        return back()->with('error','something went wrong');
-        exit();
-    }
-}
+// public function deleteAttrVal(Request $request){
+//     $catid = decrypt($request->id);
+//     $deleteattr = AttrValue::where('id','=',$catid)->delete();
+//     if($deleteattr==true){
+//         return back()->with('success','attribute value deleted SuccessFull!');
+//         exit();
+//     }else{
+//         return back()->with('error','something went wrong');
+//         exit();
+//     }
+// }
 
     // products
 
@@ -773,8 +776,6 @@ public function deleteAttrVal(Request $request){
             $addproduct->sub_cat=$request->sub_cat;
             $addproduct->barcode=$request->barcode;
             $addproduct->featured_img=$thumbnail_img;
-            $addproduct->video_provider=$request->video_provider;
-            $addproduct->videolink=$request->video_link;
             $addproduct->unit_price=$request->unit_price;
             $addproduct->discount=$request->discount;
             $addproduct->price_discount_unit=$request->discount_type;
@@ -786,10 +787,6 @@ public function deleteAttrVal(Request $request){
             $addproduct->sku=$request->sku;
             $addproduct->short_desc=$request->shortdescription;
             $addproduct->long_desc=$request->longdescription;
-            $addproduct->shiping_type=$request->shipping_type;
-            $addproduct->flat_shipping_cost=$request->flat_shipping_cost;            
-            $addproduct->low_qty_warning=$request->low_stock_quantity;
-            $addproduct->stock_visibilty=$request->stock_visibility_state;
             $addproduct->featured_status=$featured;
             $addproduct->todays_deal=$todaysdeal;
             $addproduct->shiping_time=$request->est_shipping_days;
@@ -810,20 +807,8 @@ public function deleteAttrVal(Request $request){
                 $addProductImage->save();
             }
 
-            // $attribute = $request->attribute;
-            // $attrVal = $request->attrval;
-            // $total_attr = count($attribute);
-
-            // for($i=0;$i<$total_attr;$i++){
-            //     $addattr = new ProdAttr;
-            //     $addattr->prod_id=$lastid;
-            //     $addattr->attr_id=$attribute[$i];
-            //     $addattr->attrval_id=$attrVal[$i];
-            //     $addattr->save();
-            // }
-
             if($addproduct==true){
-                return back()->with('success','product added successfull');
+                return back()->with('success','product successfully added');
                 exit();
             }else{
                 return back()->with('error','something went wrong');
@@ -1463,8 +1448,6 @@ public function editProcess(Request $request){
         'sub_cat'=>$request->sub_cat,
         'barcode'=>$request->barcode,
         'featured_img'=>$thumbnail_img,
-        'video_provider'=>$request->video_provider,
-        'videolink'=>$request->video_link,
         'unit_price'=>$request->unit_price,
         'discount'=>$request->discount,
         'price_discount_unit'=>$request->discount_type,
@@ -1476,10 +1459,6 @@ public function editProcess(Request $request){
         'sku'=>$request->sku,
         'short_desc'=>$request->shortdescription,
         'long_desc'=>$request->longdescription,
-        'shiping_type'=>$request->shipping_type,
-        'flat_shipping_cost'=>$request->flat_shipping_cost,
-        'low_qty_warning'=>$request->low_stock_quantity,
-        'stock_visibilty'=>$request->stock_visibility_state,
         'featured_status'=>$featured,
         'todays_deal'=>$todaysdeal,
         'shiping_time'=>$request->est_shipping_days,
@@ -1498,8 +1477,6 @@ public function editProcess(Request $request){
         'min_qty'=>$request->min_qty,
         'sub_cat'=>$request->sub_cat,
         'barcode'=>$request->barcode,
-        'video_provider'=>$request->video_provider,
-        'videolink'=>$request->video_link,
         'unit_price'=>$request->unit_price,
         'discount'=>$request->discount,
         'price_discount_unit'=>$request->discount_type,
@@ -1511,10 +1488,6 @@ public function editProcess(Request $request){
         'sku'=>$request->sku,
         'short_desc'=>$request->shortdescription,
         'long_desc'=>$request->longdescription,
-        'shiping_type'=>$request->shipping_type,
-        'flat_shipping_cost'=>$request->flat_shipping_cost,
-        'low_qty_warning'=>$request->low_stock_quantity,
-        'stock_visibilty'=>$request->stock_visibility_state,
         'featured_status'=>$featured,
         'todays_deal'=>$todaysdeal,
         'shiping_time'=>$request->est_shipping_days,
@@ -1529,7 +1502,7 @@ public function editProcess(Request $request){
 
 }
     if($update_product==true){
-        return back()->with('success','product updated successFull');
+        return back()->with('success','product successfully updated');
         exit();
     }else{
         return back()->with('error','something went wrong');
@@ -1556,17 +1529,17 @@ public function editProcess(Request $request){
         $end_date = $request->end_date;
 
         $products = Product::query()
-            ->withSum(['paidOrderItems' => function($query) use ($applyFilter, $start_date, $end_date) {
+            ->withSum(['deliveredOrderItems' => function($query) use ($applyFilter, $start_date, $end_date) {
                 $query->when($applyFilter, function($query) use ($start_date, $end_date) {
                     $query->whereBetween('created_at', [$start_date, $end_date]);
                 });
             }], 'quantity')
-            ->havingRaw('paid_order_items_sum_quantity > 0')
+            ->havingRaw('delivered_order_items_sum_quantity > 0')
             ->get()
             ->map(function($product) {
                 return [
                     'title' => $product->title,
-                    'sales' => $product->paid_order_items_sum_quantity
+                    'sales' => $product->delivered_order_items_sum_quantity
                 ];
             })
             ->sortByDesc('sales');
@@ -1577,8 +1550,7 @@ public function editProcess(Request $request){
         }, 0);
 
         // Total revenue
-        $revenueCount = Order::where('payment_status', 'paid')
-            ->where('additional_details->is_abandoned', false)
+        $revenueCount = Order::where('order_status', 'delivered')
             ->when($applyFilter, function($query) use ($start_date, $end_date) {
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             })
@@ -1630,23 +1602,23 @@ public function editProcess(Request $request){
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
-        $users = User::with(['paidOrders' => function($query) use ($applyFilter, $start_date, $end_date) {
+        $users = User::with(['deliveredOrders' => function($query) use ($applyFilter, $start_date, $end_date) {
             $query->when($applyFilter, function($query) use ($start_date, $end_date) {
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             });
         }, 'address', 'siblings'])
-            ->withCount(['paidOrders' => function($query) use ($applyFilter, $start_date, $end_date) {
+            ->withCount(['deliveredOrders' => function($query) use ($applyFilter, $start_date, $end_date) {
                 $query->when($applyFilter, function($query) use ($start_date, $end_date) {
                     $query->whereBetween('created_at', [$start_date, $end_date]);
                 });
             }])
-            ->withSum(['paidOrders' => function($query) use ($applyFilter, $start_date, $end_date) {
+            ->withSum(['deliveredOrders' => function($query) use ($applyFilter, $start_date, $end_date) {
                 $query->when($applyFilter, function($query) use ($start_date, $end_date) {
                     $query->whereBetween('created_at', [$start_date, $end_date]);
                 });
             }], 'total_amount')
             ->get()
-            ->sortByDesc('paidOrders.*.created_at')
+            ->sortByDesc('deliveredOrders.*.created_at')
             ->map(function ($user) use ($request) {
                 return [
                     'name' => $user->name,
@@ -1674,8 +1646,7 @@ public function editProcess(Request $request){
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
-        $orders = Order::whereNull('user_id')->where('payment_status', 'paid')
-            ->where('additional_details->is_abandoned', false)
+        $orders = Order::whereNull('user_id')->where('order_status', 'delivered')
             ->orderByDesc('created_at')
             ->select('total_amount', 'additional_details->email as email')
             ->when($applyFilter, function($query) use ($start_date, $end_date) {
