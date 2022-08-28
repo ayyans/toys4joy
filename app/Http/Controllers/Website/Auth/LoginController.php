@@ -46,7 +46,10 @@ class LoginController extends Controller
         }
 
         // login the user
-        auth()->login($user, $request->filled('remember'));
+        auth()->attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ], $request->filled('remember'));
 
         return redirect()->intended('/')->with('success', 'You are Logged in as customer!');
     }
