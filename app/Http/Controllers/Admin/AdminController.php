@@ -1220,6 +1220,13 @@ public function wishlistorders()
     return view('admin.order',compact('orders','type'));
 }
 
+public function abandonedOrders() {
+    $orders = Order::with(['user', 'address'])
+        ->where('additional_details->is_abandoned', true)
+        ->get();
+    return view('admin.abandoned_orders', compact('orders'));
+}
+
 // confirm guest orders
 
 
