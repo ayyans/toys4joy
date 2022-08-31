@@ -14,4 +14,8 @@ class usergiftcards extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    public function giftCard() {
+        return $this->belongsTo(giftcards::class, 'giftcard_id');
+    }
 }

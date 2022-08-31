@@ -168,6 +168,8 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('inventory-report', 'AdminController@inventoryReport')->name('report.inventory');
     Route::get('customers-report', 'AdminController@customersReport')->name('report.customers');
     Route::get('guests-report', 'AdminController@guestsReport')->name('report.guests');
+    Route::get('generated-giftcards-report', 'AdminController@generatedGiftCardsReport')->name('report.generatedGiftCards');
+    Route::get('used-giftcards-report', 'AdminController@usedGiftCardsReport')->name('report.usedGiftCards');
 
     // Points
     Route::get('points', 'AdminController@points')->name('points');
