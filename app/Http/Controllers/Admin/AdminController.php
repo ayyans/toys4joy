@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Events\OrderStatusChanged;
 use App\Exports\CustomersReportExport;
+use App\Exports\GeneratedGiftCardsReportExport;
 use App\Exports\GuestsReportExport;
 use App\Exports\InventoryReportExport;
 use App\Exports\SalesReportExport;
+use App\Exports\UsedGiftCardsReportExport;
 use App\Imports\ImportProducts;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
@@ -31,6 +33,7 @@ use App\Models\requiredproducts;
 use App\Models\Setting;
 use App\Models\usergiftcards;
 use Bavix\Wallet\Models\Wallet;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use PDO;
@@ -1675,6 +1678,70 @@ public function editProcess(Request $request){
         }
 
         return view('admin.reports.guests-report', compact('orders'));
+    }
+
+    public function generatedGiftCardsReport(Request $request) {
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $userGiftCards = usergiftcards::with('user', 'giftCard')->latest()
+            ->where('payment_status', 'paid')
+            ->select('user_id', 'giftcard_id', 'payment_status', 'created_at')
+            ->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('created_at', [$start_date, $end_date]);
+            })
+            ->get()
+            ->map(function($userGiftCard) {
+                return [
+                    'code' => $userGiftCard->giftCard->code,
+                    'name' => $userGiftCard->user->name,
+                    'mobile' => $userGiftCard->user->mobile,
+                    'type' => $userGiftCard->transaction_number ? 'Purchased' : 'Rewarded',
+                    'date_generated' => $userGiftCard->created_at->format('d-m-Y')
+                ];
+            });
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new GeneratedGiftCardsReportExport($userGiftCards), 'generated-giftcards-report.xlsx');
+        }
+
+        return view('admin.reports.generated-giftcards-report', compact('userGiftCards'));
+    }
+
+    public function usedGiftCardsReport(Request $request) {
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $giftCards = giftcards::with('user','order')
+            ->whereHas('order', function($query) use ($applyFilter, $start_date, $end_date) {
+                $query->when($applyFilter, function($query) use ($start_date, $end_date) {
+                    $query->whereBetween('created_at', [$start_date, $end_date]);
+                });
+            })
+            ->latest()
+            ->whereNotNull('user_id')
+            ->select('id', 'user_id', 'order_id', 'code', 'price', 'status', 'created_at')
+            ->get()
+            ->map(function($giftCard) {
+                return [
+                    'code' => $giftCard->code,
+                    'price' => $giftCard->price,
+                    'name' => $giftCard->user->name,
+                    'mobile' => $giftCard->user->mobile,
+                    'order_number' => $giftCard->order->order_number,
+                    'date_used' => $giftCard->order->created_at->format('d-m-Y')
+                ];
+            });
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new UsedGiftCardsReportExport($giftCards), 'used-giftcards-report.xlsx');
+        }
+
+        return view('admin.reports.used-giftcards-report', compact('giftCards'));
     }
 
     public function bulkupload()
