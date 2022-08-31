@@ -83,7 +83,7 @@ transform: rotate(0deg);
           $subcategories = DB::table('sub_categories')->where('parent_cat' , $cat->id)->where('status' , 2)->get();
       @endphp
       @if($subcategories->count() == 0)
-      <li class="nav-item main-cats"> <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link" aria-current="page"> <img src="{{asset('uploads/'.$cat->cat_icon)}}" ><span class="ms-2">{{$cat->category_name}}</span> </a> </li>
+      <li class="nav-item main-cats"> <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link text-dark" aria-current="page"> <img src="{{asset('uploads/'.$cat->cat_icon)}}" ><span class="ms-2">{{$cat->category_name}}</span> </a> </li>
       @else
       <li class="nav-item main-cats ">
           {{-- {{ url('category') }}/{{ $cat->url }} --}}
