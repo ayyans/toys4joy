@@ -14,7 +14,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 <!--
 <link href="{{asset('website/plugins/mmenu/mmenu.css')}}" rel="stylesheet">
-<link href="{{asset('website/plugins/mhead-menu/mhead.css')}}" rel="stylesheet">-->
+<link href="{{asset('website/plugins/mhead-menu/mhead.css')}}" rel="stylesheet">
+<link href="{{asset('website/plugins/b-multiselect/bootstrap-multiselect.min.css')}}" rel="stylesheet">-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"> 
+<!--<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>-->
+<link href="{{asset('website/css/buttons-fancy.css')}}" rel="stylesheet">
+<link href="{{asset('website/css/buttons-animated.css')}}" rel="stylesheet">
+<link href="{{asset('website/css/footer.css')}}" rel="stylesheet">
 <link href="{{asset('website/css/style.css')}}" rel="stylesheet">
 <link rel='stylesheet' href='https://unpkg.com/xzoom/dist/xzoom.css'>    
 
@@ -87,8 +93,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script type="text/javascript" src="{{asset('website/js/zoomsl/zoomsl.min.js')}}"></script>
 <!--mobile menu-->
 <!--<script type="text/javascript" src="{{asset('website/plugins/mmenu/mmenu.js')}}"></script>   
-<script type="text/javascript" src="{{asset('website/plugins/mhead-menu/mhead.js')}}"></script>   -->
-
+<script type="text/javascript" src="{{asset('website/plugins/mhead-menu/mhead.js')}}"></script>   
+<script type="text/javascript" src="{{asset('website/plugins/b-multiselect/bootstrap-multiselect.min.js')}}"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script> 
+<!--<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
+<script type="text/javascript" src="{{asset('website/js/buttons-animated.js')}}"></script>   
 <script type="text/javascript" src="{{asset('website/js/custom.js')}}"></script>   
         <script>
         $(document).ready(function() {
