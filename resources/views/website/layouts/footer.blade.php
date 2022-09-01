@@ -147,7 +147,7 @@
     {
         $("#cover-spin").show();
         var form = new FormData();
-        form.append('prod_id',id);
+        form.append('product_id',id);
         $.ajax({
             url:"{{route('website.addWishlist')}}", 
             type:"POST",
