@@ -1,26 +1,29 @@
-<footer class="for-desktop">
-    <div class="container-fluid">
-        <div class="footer">
-            <div class="elements">
-                <div class="d-flex why-us">
-                    <a href="{{ route('website.whyus') }}">
-                        <img src="{{asset('website/img/why-us.png')}}" class="why-text">
-                        <img src="{{asset('website/img/logo-t4j.png')}}" class="why-logo">
-                    </a>
-                    <div class="company-policy">
-                        <a href="{{ route('website.policy') }}">
-                            <img src="{{asset('website/img/2__4_-removebg-preview.png')}}">
-                            <span>COMPANY POLICY</span>
-                        </a>
-                    </div>
-                </div>
+<!--test footer-->
+<!--footer start-->
+<footer>
+  <div class="footer-wrap">
+  <div class="container first_class">
+      <div class="row">
+        <div class="col-md-4 col-sm-6">
+          <h3>BE THE FIRST TO KNOW</h3>
+          <p>Get all the latest information on  Triedge Services, Events, Jobs
+            and Fairs. Sign up for our newsletter today.</p>
+        </div>
+        <div class="col-md-4 col-sm-6">
+        <form class="newsletter">
+            <div class="input-group">
+            <input type="text" placeholder="Email Address"> 
+                <button class="newsletter_submit_btn" type="submit"><i class="fa fa-paper-plane"></i></button> 
             </div>
-            <div class="d-flex elements app-s-media">
-                <div class="google-play" style="visibility:hidden;">
-                    <a href="#"><img src="{{asset('website/img/ios.png')}}" class="app-store"></a>
-                    <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
-                </div>
-                <ul class="d-flex social-media">
+            
+        </form>
+        
+        </div>
+        <div class="col-md-4 col-sm-6 mt-2">
+        <div class="col-md-12">
+          <div class="standard_social_links">
+        <div>
+        <ul class="d-flex social-media">
                     <li><a href="https://www.facebook.com/Toys4joyqatar/" target="_blank">
                             <img src="{{asset('website/img/fb.png')}}">
                         </a></li>
@@ -41,104 +44,106 @@
                             <img src="{{asset('website/img/tiktok.png')}}"></a>
                     </li>
                 </ul>
-
-            </div>
-            <div class="elements">
-                <div class="toll-free">
-                    <a href="{{ route('website.contact') }}"><img
-                            src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
-                </div>
-            </div>
-            <div class="elements">
-                <div class="d-flex why-us">
-                    <a href="https://api.whatsapp.com/send?phone=97460005970&text=Welcome%20to%20Toys4joy"
-                        target="_blank" class="whatsapp-icon">
-                        <img src="{{asset('website/img/whatsapp.png')}}" class="whatsapp">
-                    </a>
-                </div>
-            </div>
         </div>
-    </div>
-</footer>
+      </div>  
+        </div>
+          <div class="clearfix"></div>
+        <div class="col-md-12 for-desktop"><h3 style="text-align: right;">Stay Connected</h3></div>
+        </div>
+      </div>
+  </div>
+    <div class="second_class">
+      <div class="container second_class_bdr">
+      <div class="row">
+        <div class="col-md-4 col-sm-6">
 
-
-
-
-
-<footer class="for-mobile">
-    <div class="container-fluid">
-        <!--text-center-->
-        <div class="row footer">
-            <div class="col-3">
-                <div class="company-policy">
-                    <a href="{{ route('website.policy') }}">
-                        <img src="{{asset('website/img/2__4_-removebg-preview.png')}}">
-                        <p>Company Policy</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="why-us">
-                    <a href="{{ route('website.whyus') }}">
+          <div class="footer-logo why-us">
+            <a href="{{ route('website.whyus') }}">
                         <img src="{{asset('website/img/why-us.png')}}" class="why-text">
-                        <img src="{{asset('website/img/logo-t4j.png')}}" class="why-logo">
-                        <!--<p>Why Choose us</p>-->
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <div class="toll-free">
-                    <a href="{{ route('website.contact') }}"><img
-                            src="{{asset('website/img/phone-character.png')}}"><span>Contact us</span></a>
-                </div>
-            </div>
-
-
-            <div class="col-12">
-                <div class="get-in-touch">
-
-                    <div class="google-play" style="visibility:hidden;">
-                        <a href="#"><img src="{{asset('website/img/ios.png')}}" class="app-store"></a>
-                        <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store"></a>
-                    </div>
-
-                    <ul class="d-flex social-media">
-                        <li><a href="https://www.facebook.com/Toys4joyqatar/" target="_blank">
-                                <img src="{{asset('website/img/fb.png')}}">
-                            </a></li>
-                        <li>
-                            <a href="https://twitter.com/Toys4joy3" target="_blank">
-                                <img src="{{asset('website/img/twitter.png')}}"></a>
-                        </li>
-                        <li>
-                            <a href="https://www.instagram.com/toys4joyqatar/" target="_blank">
-                                <img src="{{asset('website/img/instagram.png')}}"></a>
-                        </li>
-                        <li>
-                            <a href="https://www.youtube.com/channel/UCMK_gmojd4eBvMTHN1vD9Aw" target="_blank">
-                                <img src="{{asset('website/img/linkedin.png')}}"></a>
-                        </li>
-                        <li>
-                            <a href="https://www.tiktok.com/@toys4joyqatar" target="_blank">
-                                <img src="{{asset('website/img/tiktok.png')}}"></a>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="elements">
+                        <img src="{{asset('website/img/logowhiteline.png')}}" class="why-logo">
+            </a>
+          </div>
+          <p>Number one Toys E-Commerce by providing best smooth shopping experience with easy checkout, free and fastest delivery, and unique online shopping features such as Loyalty Program, Wish List, and E-Gift Cards.</p>
+        </div>
+        <div class="col-md-2 col-sm-6">
+          <h3>Sitemap</h3>
+          <ul class="footer-links">
+            <li><a href="/">Home</a>
+            </li>
+            <li><a href="{{ route('website.bestoffers') }}">Special prices</a>
+            </li>
+            <li><a href="@if(Auth::check())  {{route('website.mywishlist',[encrypt(Auth::user()->id)])}} @else {{ url('login') }} @endif">Wishlist</a>
+            </li>
+            <li><a href="{{route('website.giftcard')}}">E-gift cards</a>
+            </li>
+            <li><a href="{{route('website.yourpoints')}}">Points</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <h3>Policy</h3>
+          <ul class="footer-category">
+            <li><a href="{{ route('website.policy') }}">Browse Our Policies</a>
+            </li>
+            <li><a href="{{ url('return-policy') }}">Return Policy</a>
+            </li>
+            <li><a href="{{ url('rewards-policy') }}">Rewards Policy</a>
+            </li>
+            <li><a href="{{ url('delivery-policy') }}">Delivery Policy</a>
+            </li>
+            <li><a href="{{ url('privacy-policy') }}">privacy Policy</a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <h3>Contact Us</h3>
+          
+          <ul class="footer-contact footer-links">
+          <li>
+            <a href="mailto:info@toys4joy.com"><i class="fa fa-envelope"></i> info@toys4joy.com</a></li>
+            <li><a href="tel:+974 6000 5970"><i class="fa fa-whatsapp"></i> <strong>What'sapp Number:</strong> +974 6000 5970</a></li>
+            <li><i class="fa fa-phone"></i> <strong>Customer Service:</strong> +974 6000 5370</li>
+            <li><i class="fa fa-phone"></i> <strong>Land Line:</strong> +974 4441 4215</li>
+          </ul>
+          
+          <a href="{{ url('contact-us') }}" class="pushable pushable-contact">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+           <span class="front front-contact">
+             More info
+           </span>
+</a>
+          <!--<div class="google-play" >
+                    <a href="#"><img src="{{asset('website/img/ios.png')}}" class="app-store" style="width: 150px;"></a>
+                    <a href="#"><img src="{{asset('website/img/android.png')}}" class="g-play-store" style="width: 150px;"></a>
+                </div>-->
+        </div>
+      </div>
+      
+    </div>
+    </div>
+    
+    <div class="row">
+      
+      <div class="container-fluid">
+      <div class="copyright"> Copyright 2022 | All Rights Reserved by Toys4joy.com.</div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="elements">
                     <div class="d-flex why-us">
                         <a href="https://api.whatsapp.com/send?phone=97460005970&text=Welcome%20to%20Toys4joy"
                             target="_blank" class="whatsapp-icon">
-                            <img src="{{asset('website/img/whatsapp.png')}}" class="whatsapp mobile">
+                            <img src="{{asset('website/img/whatsapp-icon.png')}}" class="whatsapp">
                         </a>
                     </div>
                 </div>
-            </div>
+  </footer>
 
-        </div>
-    </div>
-</footer>
+<!--footer end-->
+
 <input type="hidden" name="cust_id" value="{{ Cmf::ipaddress() }}" id="cust_id" />
 @include('website.layouts.loader')
 @push('otherscript')
