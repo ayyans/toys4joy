@@ -9,11 +9,12 @@
                 @include('website.layouts.user_menu') 
                     <!--<img src="{{asset('website/img/t1.png')}}" class="img-fluid">-->
                 </div>
-                <div class="categories">
+                <div class="categories for-mobile mt-3">
                     <h2 class="for-desktop">Categories</h2>
+                    @include('website.layouts.category_btn')
                     <ul class="nav nav-pills flex-column mb-auto menu">
-                     @include('website.layouts.category_menu')
-                      
+                     {{--@include('website.layouts.category_menu')--}}
+                    
                     </ul>
                 </div>
             </div>
