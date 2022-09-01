@@ -759,7 +759,7 @@ class WebsiteController extends Controller
 
     public function addWishlist(Request $request){
         $cust_id = Auth::user()->id;
-        $prod_id = $request->prod_id;
+        $prod_id = $request->product_id;
         $getwishlist = Wishlist::where('cust_id','=',$cust_id)->where('prod_id','=',$prod_id)->count();
         if($getwishlist > 0){
             return response()->json(["status"=>"400","msg"=>"3"]);
