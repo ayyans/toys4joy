@@ -88,7 +88,6 @@
             </div>
             @endif
             <p class="product-desc"><span>Description</span> : {!! $products->long_desc !!}</p>
-            <p class="product-desc"><span>Estimated Shipping Time</span> : {{ $products->shiping_time * 24 ?: 48 }} Hours</p>
             @if($products->qty!=0)
             <div class="d-flex icons-area">
 
