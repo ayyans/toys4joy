@@ -61,12 +61,11 @@ transform: rotate(0deg);
 </style>
 <header id="main-header">
 <div class="container-fluid">
-    <div class="row">
-    <div class="col-1 sidenenu-display for-mobile">
+<div class="sidenenu-display for-mobile">
        
-       <a  data-bs-toggle="offcanvas" href="#offcanvasLeft-cats" role="button" aria-controls="offcanvasLeft-cats">
+       <!--<a  data-bs-toggle="offcanvas" href="#offcanvasLeft-cats" role="button" aria-controls="offcanvasLeft-cats">
        <svg id="sidebar-cat-button" viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg" width="14" height="10" class=""><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 5.806H0v.944h7.5v-.944zm2.25-2.903H0v.944h9.75v-.944zM0 0h9.75v.944H0V0z" fill="currentColor"></path></svg>
-</a>
+</a>-->
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasLeft-cats" aria-labelledby="offcanvasLeftLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title cat-title-sidebar" id="offcanvasLeftLabel">Categories</h5>
@@ -75,9 +74,9 @@ transform: rotate(0deg);
   <div class="offcanvas-body">
   <nav class="navbar navbar-dark accordion" style="width:100%;" >
   <ul class=" navbar-nav flex-column accordion" id="sidebar-cats">
-        @php
+      @php
           $categoriestest = DB::table('categories')->where('status' , 2)->get();
-      @endphp 
+      @endphp
         @foreach($categoriestest as $cat)     
       @php
           $subcategories = DB::table('sub_categories')->where('parent_cat' , $cat->id)->where('status' , 2)->get();
@@ -88,7 +87,7 @@ transform: rotate(0deg);
       <li class="nav-item main-cats ">
           {{-- {{ url('category') }}/{{ $cat->url }} --}}
           <a class="nav-link text-dark navbar-collapse" cat-link="{{ url('category') }}/{{ $cat->url }}" data-bs-toggle="collapse" href="#collapse{{$cat->id}}" role="button" data-bs-target="#collapse{{$cat->id}}" aria-expanded="false" aria-controls="collapse{{$cat->id}}"> <img src="{{asset('uploads/'.$cat->cat_icon)}}">
-              <span class="ms-2">{{$cat->category_name}} 
+              <span class="ms-2" style="font-size: 20px;font-weight: bold;">{{$cat->category_name}} 
                   <svg xmlns="http://www.w3.org/2000/svg" width="8" height="16" viewBox="0 0 8 16">
                     <path id="Vector_14_" data-name="Vector (14)" d="M8,8,0,0H16Z" transform="translate(0 16) rotate(-90)" fill="#d51965"/>
                   </svg>
@@ -113,6 +112,7 @@ transform: rotate(0deg);
 </div>   
 
         </div>
+    <div class="row">
         <div class="col-2 logo-col">
             <div class="logo-here">
                 <a href="{{route('website.home')}}"><img src="{{asset('website/img/logo-t4j.png')}}"></a>
