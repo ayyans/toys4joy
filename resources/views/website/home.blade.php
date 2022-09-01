@@ -59,10 +59,10 @@
                 </div>
                 <div class="categories for-mobile mt-3">
                     <h2 class="for-desktop">Categories</h2>
-                    
+                    @include('website.layouts.category_btn')
                     <ul class="nav nav-pills flex-column mb-auto menu">
-                     @include('website.layouts.category_menu')
-                      
+                     {{--@include('website.layouts.category_menu')--}}
+                    
                     </ul>
                 </div>
             </div>
