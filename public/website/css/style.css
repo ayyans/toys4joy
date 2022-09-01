@@ -351,7 +351,7 @@ header {padding: 15px 20px;}
 .categories li a img {height: 40px;}
 ul.nav-fill .nav-item a {
     width: 100%;
-    /*border-radius: 8px 8px 0 0;
+    border-radius: 8px 8px 0 0;
     color: #fff;
     font-size: 24px;
     font-weight: 600;
@@ -360,7 +360,8 @@ ul.nav-fill .nav-item a {
     border: 3px solid #fff;
     box-shadow: 0 0 15px rgb(0 0 0 / 15%);
     border-bottom: 0;
-    width: 100%;*/
+    width: 100%;
+    /*was commented*/
 }
 .categories li ul li a {font-size: 18px;}
 /*
@@ -402,10 +403,10 @@ ul.nav-fill .nav-item:nth-child(4) a,ul.nav-fill .nav-item:nth-child(4) a .font,
 ul.nav-fill .nav-item:nth-child(4) a:hover {
     background: #2972bc;
 }
-ul.nav-fill .nav-item:first-child a:hover{/*border-color: #d61a64;margin-left: 3px;*/}
-ul.nav-fill .nav-item:nth-child(2) a:hover {/*border-color: #28b357;*/}
-ul.nav-fill .nav-item:nth-child(3) a:hover {/*border-color: #fabd34;*/}
-ul.nav-fill .nav-item:nth-child(4) a:hover {/*border-color: #2972bc;*/}
+ul.nav-fill .nav-item:first-child a:hover{border-color: #d61a64;margin-left: 3px;}
+ul.nav-fill .nav-item:nth-child(2) a:hover {border-color: #28b357;}
+ul.nav-fill .nav-item:nth-child(3) a:hover {border-color: #fabd34;}
+ul.nav-fill .nav-item:nth-child(4) a:hover {border-color: #2972bc;}
 ul.nav-fill .nav-item a:hover{
     /*transform: scale(1.03);*/
     color: #fff !important;
@@ -428,7 +429,7 @@ ul.nav-fill .nav-item:last-child {
 }
 .nav-fill .nav-link.active {
     color: #fff;
-    width: calc(100%/4);
+   /* width: calc(100%/4);*/
 }
 .right-sidebar {
     background: #e8f3f5;
