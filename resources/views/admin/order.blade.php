@@ -76,6 +76,8 @@
                                         @elseif($order->order_status == 'delivered')
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'cancelled'])}}"
                                                 class="dropdown-item">Concel</a></li>
+                                        <li><a href="{{route('admin.returnItems', ['order' => $order->id])}}"
+                                                class="dropdown-item">Return Items</a></li>
                                         {{-- @elseif($order->order_status == 'shipped')
                                         <li><a href="javascript:void(0)" class="dropdown-item">Delivered</a></li> --}}
                                         @endif
