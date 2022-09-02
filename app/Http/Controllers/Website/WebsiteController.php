@@ -161,11 +161,11 @@ class WebsiteController extends Controller
 
     public function productDetails($url){
         $categories = $this->listCategory();
-        $products = Product::leftJoin('brands','brands.id','=','products.brand_id')                    
+        $products = Product::leftJoin('brands','brands.id','=','products.brand_id')
                     ->select('products.*','brand_name','logo')
                     ->where('products.url','=',$url)
                     ->first();
-        abort_if($products->status !== 2, 404);
+        abort_if(!$products || $products->status !== 2, 404);
         try {
             $catid = $products->category_id;
         } catch (Exception $ex) {
