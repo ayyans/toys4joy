@@ -132,6 +132,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
     Route::get('/abandoned-orders','AdminController@abandonedOrders')->name('abandonedOrders');
     Route::any('/changeOrderStatus', 'AdminController@changeOrderStatus')->name('changeOrderStatus');
+    Route::get('/return-items/{order}', 'AdminController@returnItems')->name('returnItems');
 
     // customer orders
 
