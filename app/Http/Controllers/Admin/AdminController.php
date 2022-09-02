@@ -1167,6 +1167,12 @@ public function orderStatus(Request $request){
     }
 }
 
+public function returnItems(Order $order) {
+    $order = $order->load('items.product');
+    $discountPercentage = ($order->discount / $order->subtotal) * 100;
+    return view('admin.return_items', compact('order', 'discountPercentage'));
+}
+
 
 // logged in user orders
 
