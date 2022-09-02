@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "maatwebsite/excel": "^3.1",
+        "opcodesio/log-viewer": "^1.2",
         "stripe/stripe-php": "^8.5",
         "twilio/sdk": "^6.37"
     },
