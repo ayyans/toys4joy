@@ -103,7 +103,8 @@ class WebsiteController extends Controller
     public function brandshow($id)
     {
         $categories = $this->listCategory();
-        $brand = Brand::where('brand_name' , $id)->get()->first();
+        $brand = Brand::where('brand_name' , $id)->first();
+        abort_if(!$brand, 404);
         $products = Product::where('brand_id','=',$brand->id)->where('status','=','2')->orderBy('id','desc')->paginate(12);
         return view('website.product-list',compact('categories','products'));
     }
