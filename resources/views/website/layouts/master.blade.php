@@ -26,13 +26,13 @@
 
 @stack('otherstyle')
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H5WNX6KF1J"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E5P76SM8E3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-H5WNX6KF1J');
+  gtag('config', 'G-E5P76SM8E3');
 </script>
 
 <!-- Google Tag Manager -->
