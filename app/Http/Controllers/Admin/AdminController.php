@@ -1443,7 +1443,7 @@ public function changeOrderStatus(Request $request) {
         'order_status' => $request->status
     ]);
     // updating order items status
-    $order->items()->update([
+    $order->items()->where('status', '!=', 'returned')->update([
         'status' => $order->order_status
     ]);
     // setting previous order status for orderstatuschanged event
