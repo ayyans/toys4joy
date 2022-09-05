@@ -27,6 +27,7 @@ use App\Models\Coupon;
 use App\Models\giftcards;
 use App\Models\homepagebanners;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\ReturnRequest;
 use App\Models\User;
 use App\Models\requiredproducts;
@@ -1173,6 +1174,36 @@ public function returnItems(Order $order) {
     return view('admin.return_items', compact('order', 'discountPercentage'));
 }
 
+public function returnItemProceed(Order $order, OrderItem $item) {
+    $discountPercentage = ($order->discount / $order->subtotal) * 100;
+    $itemPrice = reduceByPercentage($item->total_amount, $discountPercentage);
+    $discount = $item->total_amount - $itemPrice;
+    DB::beginTransaction();
+    // change item status to returned
+    $item->update([
+        'status' => 'returned'
+    ]);
+    // updating order parameters
+    $itemOriginalPrice = ($item->price - $item->discount) * $item->quantity;
+    $order->update([
+        'subtotal' => $order->subtotal - $itemOriginalPrice,
+        'discount' => $order->discount - $discount,
+        'total_amount' => $order->total_amount - $itemPrice
+    ]);
+    // reduce points and test with discounted order
+    $item->product()->increment('qty', $item->quantity);
+    // return points
+    if ($order->user_id) {
+        $qarInPoints = Setting::where('name', 'qar_in_points')->value('value') ?? 2;
+        $rewardPoints = round($itemPrice * $qarInPoints);
+        $orderNumber = $order->order_number;
+        $itemID = $item->id;
+        $order->user->withdraw($rewardPoints, ['description' => "Order #$orderNumber: Cancelled reward points on Order Item #$itemID return"]);
+    }
+    DB::commit();
+    return back()->with('success', 'Item successfully returned');
+}
+
 
 // logged in user orders
 
@@ -1398,10 +1429,17 @@ public function CustomerorderStatus(Request $request){
 
 public function changeOrderStatus(Request $request) {
     $order = Order::with('user')->find($request->order_id);
+    // order status before updating
     $previousOrderStatus = $order->order_status;
+    // updating order status
     $orderUpdated = $order->update([
         'order_status' => $request->status
     ]);
+    // updating order items status
+    $order->items()->update([
+        'status' => $order->order_status
+    ]);
+    // setting previous order status for orderstatuschanged event
     $order->previous_order_status = $previousOrderStatus;
 
     // if order updated

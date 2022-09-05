@@ -49,7 +49,7 @@
                         <label>Discount Code</label>
                         @if ($coupon && $coupon->getName() == 'Discount Coupon')
                         <input style="background-color: #ddd" readonly
-                            value="Congratulations! You have redeemed {{ abs($coupon->getValue()) }}% discount coupon"
+                            value="Congratulations! You have redeemed {{ substr($coupon->getValue(), 1) }} discount coupon"
                             type="text">
                         <a href="{{ route('website.removeDiscountCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}"
                             class="btn btn-primary discountBtn">Remove</a>
@@ -94,7 +94,7 @@
                         <label>Corporate Code</label>
                         @if ($coupon && $coupon->getName() == 'Corporate Coupon')
                         <input style="background-color: #ddd" readonly
-                            value="Congratulations! You have redeemed {{ abs($coupon->getValue()) }}% corporate coupon"
+                            value="Congratulations! You have redeemed {{ substr($coupon->getValue(), 1) }} corporate coupon"
                             type="text">
                         <a href="{{ route('website.removeCorporateCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}"
                             class="btn btn-primary corporateBtn">Remove</a>

@@ -85,7 +85,11 @@
           <td>{{ $item->quantity }}</td>
           <td>{{ reduceByPercentage($item->total_amount, $discountPercentage) }}</td>
           <td>
-            <a href="#">Return Item</a>
+            @if ($item->status == 'returned')
+            <p class="text-danger">Returned</p>
+            @else
+            <a href="{{ route('admin.returnItemProceed', ['order' => $order->id, 'item' => $item->id]) }}" onclick="return confirm('Are you sure you want to return this item?')">Return</a>
+            @endif
           </td>
         </tr>
       @endforeach
