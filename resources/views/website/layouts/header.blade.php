@@ -75,14 +75,14 @@ transform: rotate(0deg);
   <nav class="navbar navbar-dark accordion" style="width:100%;" >
   <ul class=" navbar-nav flex-column accordion" id="sidebar-cats">
       @php
-          $categoriestest = DB::table('categories')->where('status' , 2)->get();
+          $categoriestest = DB::table('categories')->where('status','=', 2)->orderBy('id','desc')->get();
       @endphp
         @foreach($categoriestest as $cat)     
       @php
           $subcategories = DB::table('sub_categories')->where('parent_cat' , $cat->id)->where('status' , 2)->get();
       @endphp
       @if($subcategories->count() == 0)
-      <li class="nav-item main-cats"> <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link text-dark" aria-current="page"> <img src="{{asset('uploads/'.$cat->cat_icon)}}" ><span class="ms-2">{{$cat->category_name}}</span> </a> </li>
+      <li class="nav-item main-cats"> <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link text-dark" aria-current="page"> <img src="{{asset('uploads/'.$cat->cat_icon)}}" ><span class="ms-2" style="font-size: 20px;font-weight: bold;">{{$cat->category_name}}</span> </a> </li>
       @else
       <li class="nav-item main-cats ">
           {{-- {{ url('category') }}/{{ $cat->url }} --}}
