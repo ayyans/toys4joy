@@ -85,12 +85,12 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                         @if($coupon->status==0)
-                            <li><a href="{{route('admin.activategiftcard',[encrypt($coupon->id)])}}" class="dropdown-item">Activate</a></li>
+                            <li><a href="{{route('admin.activategiftcard',$coupon->id)}}" class="dropdown-item">Activate</a></li>
                             @elseif($coupon->status==1)
-                            <li><a href="{{route('admin.deactivategiftcard',[encrypt($coupon->id)])}}" class="dropdown-item">Deactivate</a></li>
+                            <li><a href="{{route('admin.deactivategiftcard',$coupon->id)}}" class="dropdown-item">Deactivate</a></li>
                             @endif
-                            <li><a href="javascript:void(0)" class="dropdown-item">Edit</a></li>
-                            <li><a href="{{route('admin.deletegiftcard',[encrypt($coupon->id)])}}" class="dropdown-item">Delete</a></li>
+                            {{-- <li><a href="javascript:void(0)" class="dropdown-item">Edit</a></li> --}}
+                            <li><a href="{{route('admin.deletegiftcard', $coupon->id)}}" class="dropdown-item">Delete</a></li>
                         </ul>
                         </div>
                       </td>
