@@ -38,6 +38,7 @@
                             <option @if($order->order_status == 'shipped') selected @endif value="shipped">Shipped</option>
                             <option @if($order->order_status == 'cancelled') selected @endif value="cancelled">Cancelled</option>
                             <option @if($order->order_status == 'delivered') selected @endif value="delivered">Delivered</option>
+                            <option @if($order->order_status == 'returned') selected @endif value="returned">Returned</option>
                         </select>
                         {{-- @endif --}}
                         <a href="{{ url('generateinvoice') }}/{{ $order->order_number }}">Download Invoice</a>
@@ -159,7 +160,7 @@
             const url = "{{ route('admin.changeOrderStatus') }}";
             const order_id = "{{ $order->id }}";
             const status = $(this).val();
-            if (['cancelled', 'delivered'].includes(status)) return;
+            if (['cancelled', 'delivered', 'returned'].includes(status)) return;
             fetch(url, {
                 method: 'POST',
                 headers: {

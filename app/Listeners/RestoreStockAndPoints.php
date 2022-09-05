@@ -17,7 +17,7 @@ class RestoreStockAndPoints
     public function handle($event)
     {
         $order = $event->order;
-        if ($order->order_status == 'cancelled') {
+        if ( in_array($order->order_status, ['cancelled', 'returned']) ) {
             // return stock
             foreach ($order->items as $item) {
                 $item->product()->increment('qty', $item->quantity);
