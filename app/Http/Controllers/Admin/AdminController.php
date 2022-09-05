@@ -177,13 +177,12 @@ class AdminController extends Controller
         return back()->with('success','Gift Card Added SuccessFull!');
 
     }
-    public function activategiftcards(Request $request){
-        $id = decrypt($request->id);
-        $activate = giftcards::where('id', $id)->update([
+    public function activategiftcards(giftcards $giftcard){
+        $activate = $giftcard->update([
             'status' => 1
         ]);
         if($activate){
-            return back()->with('success','Gift Card activated successfull');
+            return back()->with('success','Gift Card Activated');
         }else{
             return back()->with('error','something went wrong');
         }
@@ -191,13 +190,21 @@ class AdminController extends Controller
 
     // deactivate giftcard 
 
-    public function deactivategiftcards(Request $request){
-        $id = decrypt($request->id);
-        $deactivate = giftcards::where('id','=',$id)->update([
+    public function deactivategiftcards(giftcards $giftcard){
+        $deactivate = $giftcard->update([
             'status' => 0
         ]);
         if($deactivate){
-            return back()->with('success','Gift Card  deactivated successfull');
+            return back()->with('success','Gift Card Deactivated');
+        }else{
+            return back()->with('error','something went wrong');
+        }
+    }
+
+    public function deletegiftcards(giftcards $giftcard) {
+        $delete = $giftcard->delete();
+        if($delete){
+            return back()->with('success','Gift Card Deleted');
         }else{
             return back()->with('error','something went wrong');
         }

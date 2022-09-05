@@ -21,7 +21,6 @@
                             <th>Mobile</th>
                             <th>Address</th>
                             <th>Payement Status</th>
-                            {{-- <th>Payement ID</th> --}}
                             <th>Total Amount</th>
                             <th>Order Status</th>
                             <th>Action</th>
@@ -41,7 +40,6 @@
                             <td>
                                 <div class="badge {{ $order->payment_status == 'paid' ? 'badge-success' : 'badge-danger' }}">{{ strtoupper($order->payment_status) }}</div>
                             </td>
-                            {{-- <td>{{$order->payment_id}}</td> --}}
                             <td>QAR {{ $order->total_amount }}</td>
                             <td>
                                 <div class="badge {{ in_array($order->order_status, ['placed', 'cancelled']) ? 'badge-danger' : 'badge-success' }}">{{ strtoupper($order->order_status) }}</div>

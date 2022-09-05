@@ -146,9 +146,9 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
     Route::get('/giftcards','AdminController@giftcards')->name('giftcards');
     Route::post('/addgiftcardsubmit','AdminController@addgiftcardsubmit')->name('addgiftcardsubmit');
-    Route::get('/giftcards-activate/{id}','AdminController@activategiftcards')->name('activategiftcard');
-    Route::get('/giftcards-deactivate/{id}','AdminController@deactivategiftcards')->name('deactivategiftcard');
-    Route::get('/giftcards-delete/{id}','AdminController@deletegiftcards')->name('deletegiftcard');
+    Route::get('/giftcards-activate/{giftcard}','AdminController@activategiftcards')->name('activategiftcard');
+    Route::get('/giftcards-deactivate/{giftcard}','AdminController@deactivategiftcards')->name('deactivategiftcard');
+    Route::get('/giftcards-delete/{giftcard}','AdminController@deletegiftcards')->name('deletegiftcard');
 
     
     Route::get('/homepagebanners','AdminController@homepagebanners')->name('homepagebanners');
