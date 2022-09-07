@@ -13,7 +13,6 @@
     font-size: 20px;
     /*font-family: 'Besty', sans-serif !important;*/
     font-family: 'Königsberg', sans-serif !important;
-    
     font-style: normal !important;
     text-decoration: none;
 }
@@ -29,9 +28,9 @@
 }
 .btn-blue:hover {
  /* background: #333333;*/
-  box-shadow: 0 -2px 0 3px #108fe8c1 inset, 0 5px 5px rgba(0, 0, 0, 0.17),
-    0 15px rgba(255, 255, 255, 0.32) inset !important;
-  border-color:blue !important;
+ box-shadow: 0 -2px 0 3px #108fe8c1 inset, 0 5px 5px rgba(214, 214, 214, 0.17) ,
+ 0 15px rgba(255, 255, 255, 0.25) inset !important;
+  border-color:rgba(212, 212, 213, 0.534) !important;
   filter: brightness(110%) !important;
 }
 .btn-blue:active
@@ -52,9 +51,9 @@
 }
 .btn-red:hover {
   /*background: #333333;*/
-  box-shadow: 0 -2px 0 3px #e53030c1 inset, 0 5px 5px rgba(0, 0, 0, 0.17),
-    0 15px rgba(255, 255, 255, 0.32) inset !important;
-  border-color:red !important;
+  box-shadow: 0 -2px 0 3px #c91919 inset, 0 5px 5px rgba(214, 214, 214, 0.17) ,
+    0 15px rgba(255, 255, 255, 0.25) inset !important;
+    border-color:rgba(212, 212, 213, 0.534) !important;
 }
 .btn-red:active
 {
@@ -73,9 +72,9 @@
 }
 .btn-green:hover {
   /*background: #333333;*/
-  box-shadow: 0 -2px 0 3px #0ec518c1 inset, 0 5px 5px rgba(0, 0, 0, 0.17),
-    0 15px rgba(255, 255, 255, 0.32) inset !important;
-  border-color:green !important;
+  box-shadow: 0 -2px 0 3px #0b9512c1 inset, 0 5px 5px rgba(214, 214, 214, 0.17) ,
+    0 15px rgba(255, 255, 255, 0.25) inset !important;
+    border-color:rgba(212, 212, 213, 0.534) !important;
 }
 .btn-green:active
 {
@@ -96,9 +95,9 @@
 }
 .btn-yellow:hover {
   /*background: #333333;*/
-  box-shadow: 0 -2px 0 3px #ffb401c1 inset, 0 5px 5px rgba(0, 0, 0, 0.17),
-    0 15px rgba(255, 255, 255, 0.32) inset !important;
-  border-color:yellow !important;
+  box-shadow: 0 -2px 0 3px #ffb401c1 inset, 0 5px 5px rgba(214, 214, 214, 0.17) ,
+    0 15px rgba(255, 255, 255, 0.25) inset !important;
+    border-color:rgba(212, 212, 213, 0.534) !important;
 }
 .btn-yellow:active
 {
