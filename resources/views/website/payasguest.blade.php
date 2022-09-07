@@ -103,8 +103,8 @@
                             <input type="hidden" name="mobilenumber" id="mobilenumber">
                         </div>
                         <div class="mb-3">
-                            <label>Email<span style="color:#ff0000">*</span></label>
-                            <input type="email" name="email" class="guestcheckinp" required>
+                            <label>Email</label>
+                            <input type="email" name="email" class="guestcheckinp">
                         </div>
                         <div class="mb-3">
                             <label>Unit Number (optional)</label>
@@ -128,7 +128,7 @@
                 <div class="pay-as-guest row">
                     <div class="text-center col-6">
                         <div class="guest">
-                            <a href="javascript:void(0)" id="payasgueast">Pay as Guest (<span>{{ $total_price
+                            <a href="javascript:void(0)" id="payasgueast">Fast Pay (<span>{{ $total_price
                                     }}</span>)</a>
                         </div>
                         <p>You need to create an account with us to be able to Enter Discount, Corporate Code, or Gift
