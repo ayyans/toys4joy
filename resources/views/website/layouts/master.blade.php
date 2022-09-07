@@ -97,7 +97,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script type="text/javascript" src="{{asset('website/plugins/b-multiselect/bootstrap-multiselect.min.js')}}"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script> 
 <!--<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
-<script type="text/javascript" src="{{asset('website/js/buttons-animated.js')}}?v=<?=md5_file(public_path('website/js/buttons-animated.js')); ?>"></script>  
+<!--<script type="text/javascript" src="{{asset('website/js/buttons-animated.js')}}?v=<?php //md5_file(public_path('website/js/buttons-animated.js')); ?>"></script> --> 
 <script type="text/javascript" src="{{asset('website/js/custom.js')}}?v=<?=md5_file(public_path('website/js/custom.js')); ?>"></script>   
         <script>
         $(document).ready(function() {
