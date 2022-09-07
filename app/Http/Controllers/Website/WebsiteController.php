@@ -103,7 +103,8 @@ class WebsiteController extends Controller
     public function brandshow($id)
     {
         $categories = $this->listCategory();
-        $brand = Brand::where('brand_name' , $id)->get()->first();
+        $brand = Brand::where('brand_name' , $id)->first();
+        abort_if(!$brand, 404);
         $products = Product::where('brand_id','=',$brand->id)->where('status','=','2')->orderBy('id','desc')->paginate(12);
         return view('website.product-list',compact('categories','products'));
     }
@@ -161,10 +162,11 @@ class WebsiteController extends Controller
 
     public function productDetails($url){
         $categories = $this->listCategory();
-        $products = Product::leftJoin('brands','brands.id','=','products.brand_id')                    
+        $products = Product::leftJoin('brands','brands.id','=','products.brand_id')
                     ->select('products.*','brand_name','logo')
                     ->where('products.url','=',$url)
                     ->first();
+        abort_if(!$products || $products->status !== 2, 404);
         try {
             $catid = $products->category_id;
         } catch (Exception $ex) {
@@ -758,7 +760,7 @@ class WebsiteController extends Controller
 
     public function addWishlist(Request $request){
         $cust_id = Auth::user()->id;
-        $prod_id = $request->prod_id;
+        $prod_id = $request->product_id;
         $getwishlist = Wishlist::where('cust_id','=',$cust_id)->where('prod_id','=',$prod_id)->count();
         if($getwishlist > 0){
             return response()->json(["status"=>"400","msg"=>"3"]);
@@ -1045,9 +1047,9 @@ class WebsiteController extends Controller
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $item->id,
-                'price' => $item->associatedModel->unit_price,
+                'price' => $item->associatedModel['unit_price'],
                 'quantity' => $item->quantity,
-                'discount' => $item->associatedModel->unit_price - $item->price,
+                'discount' => $item->associatedModel['unit_price'] - $item->price,
                 'total_amount' => $item->getPriceSum()
             ]);
         }
@@ -1267,7 +1269,7 @@ public function giftcard() {
     }
 
     public function search(Request $request) {
-        $products = Product::with('category', 'subCategory');
+        $products = Product::with('category', 'subCategory')->where('status', 2);
         $categories = Category::query();
         $subCategories = SubCategory::with(['parentCategory' => fn($q) => $q->select('id', 'url')]);
         $request->whenFilled('search', function($search) use ($products, $categories, $subCategories) {

@@ -139,3 +139,12 @@ if ( !function_exists('removeOutOfStockFromWishlist') ) {
     }
   }
 }
+
+// reduce by percentage
+
+if ( !function_exists('reduceByPercentage') ) {
+  function reduceByPercentage($value, $percentage) {
+    $discount = $value * ($percentage / 100);
+    return $value - $discount;
+  }
+}

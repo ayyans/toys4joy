@@ -64,23 +64,23 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('/delete-brands/{id}','AdminController@deleteBrands')->name('deleteBrands');
 
     // attribute
-    Route::get('/attribute','AdminController@atribute')->name('atribute');
-    Route::post('/add-attribute','AdminController@addattr')->name('addattr');
+    // Route::get('/attribute','AdminController@atribute')->name('atribute');
+    // Route::post('/add-attribute','AdminController@addattr')->name('addattr');
 
     // activate attribute
 
-    Route::get('/activate-attribute/{id}','AdminController@activateAttr')->name('activateAttr');
-    Route::get('/deactivate-attribute/{id}','AdminController@deactivatAttr')->name('deactivatAttr');
-    Route::get('/delete-attribute/{id}','AdminController@deleteAttr')->name('deleteAttr');
+    // Route::get('/activate-attribute/{id}','AdminController@activateAttr')->name('activateAttr');
+    // Route::get('/deactivate-attribute/{id}','AdminController@deactivatAttr')->name('deactivatAttr');
+    // Route::get('/delete-attribute/{id}','AdminController@deleteAttr')->name('deleteAttr');
 
     // attribute value 
-    Route::post('/add-attribute-value','AdminController@addattrVal')->name('addattrVal');
+    // Route::post('/add-attribute-value','AdminController@addattrVal')->name('addattrVal');
 
     // activate attribute values
 
-    Route::get('/activate-attribute-value/{id}','AdminController@activateAttrVal')->name('activateAttrVal');
-    Route::get('/deactivate-attribute-value/{id}','AdminController@deactivatAttrVal')->name('deactivatAttrVal');
-    Route::get('/delete-attribute-value/{id}','AdminController@deleteAttrVal')->name('deleteAttrVal');
+    // Route::get('/activate-attribute-value/{id}','AdminController@activateAttrVal')->name('activateAttrVal');
+    // Route::get('/deactivate-attribute-value/{id}','AdminController@deactivatAttrVal')->name('deactivatAttrVal');
+    // Route::get('/delete-attribute-value/{id}','AdminController@deleteAttrVal')->name('deleteAttrVal');
 
     // products
     Route::get('/products','AdminController@products')->name('products');
@@ -130,7 +130,10 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
     // Change order status
 
+    Route::get('/abandoned-orders','AdminController@abandonedOrders')->name('abandonedOrders');
     Route::any('/changeOrderStatus', 'AdminController@changeOrderStatus')->name('changeOrderStatus');
+    Route::get('/return/{order}', 'AdminController@returnItems')->name('returnItems');
+    Route::get('/return/{order}/item/{item}', 'AdminController@returnItemProceed')->name('returnItemProceed');
 
     // customer orders
 
@@ -143,9 +146,9 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
     Route::get('/giftcards','AdminController@giftcards')->name('giftcards');
     Route::post('/addgiftcardsubmit','AdminController@addgiftcardsubmit')->name('addgiftcardsubmit');
-    Route::get('/giftcards-activate/{id}','AdminController@activategiftcards')->name('activategiftcard');
-    Route::get('/giftcards-deactivate/{id}','AdminController@deactivategiftcards')->name('deactivategiftcard');
-    Route::get('/giftcards-delete/{id}','AdminController@deletegiftcards')->name('deletegiftcard');
+    Route::get('/giftcards-activate/{giftcard}','AdminController@activategiftcards')->name('activategiftcard');
+    Route::get('/giftcards-deactivate/{giftcard}','AdminController@deactivategiftcards')->name('deactivategiftcard');
+    Route::get('/giftcards-delete/{giftcard}','AdminController@deletegiftcards')->name('deletegiftcard');
 
     
     Route::get('/homepagebanners','AdminController@homepagebanners')->name('homepagebanners');
@@ -167,6 +170,8 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('inventory-report', 'AdminController@inventoryReport')->name('report.inventory');
     Route::get('customers-report', 'AdminController@customersReport')->name('report.customers');
     Route::get('guests-report', 'AdminController@guestsReport')->name('report.guests');
+    Route::get('generated-giftcards-report', 'AdminController@generatedGiftCardsReport')->name('report.generatedGiftCards');
+    Route::get('used-giftcards-report', 'AdminController@usedGiftCardsReport')->name('report.usedGiftCards');
 
     // Points
     Route::get('points', 'AdminController@points')->name('points');

@@ -7,13 +7,16 @@ use App\Events\OrderStatusChanged;
 use App\Listeners\GivePointsWhenOrderDelivered;
 use App\Listeners\PrepareCartTransfer;
 use App\Listeners\ReduceOrderItemsStock;
+use App\Listeners\RemoveOrderedItemsFromWishlist;
 use App\Listeners\RestoreStockAndPoints;
 use App\Listeners\SendOrderConfirmationMail;
 use App\Listeners\SendOrderStatusChangeMail;
+use App\Listeners\SendPasswordUpdatedMail;
 use App\Listeners\SendWelcomeMail;
 use App\Listeners\TransferGuestCartToUser;
 use Illuminate\Auth\Events\Attempting;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -33,7 +36,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderPlaced::class => [
             SendOrderConfirmationMail::class,
-            ReduceOrderItemsStock::class
+            ReduceOrderItemsStock::class,
+            RemoveOrderedItemsFromWishlist::class
         ],
         OrderStatusChanged::class => [
             SendOrderStatusChangeMail::class,
@@ -45,6 +49,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         Login::class => [
             TransferGuestCartToUser::class
+        ],
+        PasswordReset::class => [
+            SendPasswordUpdatedMail::class
         ]
     ];
 

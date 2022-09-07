@@ -32,6 +32,7 @@ use Illuminate\Http\Response;
 use App\Models\CustomerAddress;
 use App\Http\Controllers\Controller;
 use Darryldecode\Cart\CartCondition;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
@@ -376,6 +377,7 @@ class UserController extends Controller
               $users =User::find(Auth::user()->id);
               $users->password = bcrypt($request->newpassword);
               User::where( 'id' , Auth::user()->id)->update( array( 'password' =>  $users->password));
+							event(new PasswordReset($users));
               session()->flash('message','password updated successfully');
               return redirect()->back();
             }

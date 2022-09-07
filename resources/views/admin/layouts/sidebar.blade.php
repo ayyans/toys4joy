@@ -93,7 +93,7 @@
           
             <a class="collapse-item" href="{{route('admin.addproducts')}}">Add products</a>
             <a class="collapse-item" href="{{route('admin.products')}}">List of products</a>
-            <a class="collapse-item" href="{{route('admin.atribute')}}">Attribute</a>
+            {{-- <a class="collapse-item" href="{{route('admin.atribute')}}">Attribute</a> --}}
         </div>
     </div>
 </li>
@@ -123,6 +123,7 @@
     <div id="ordersUtility" class="collapse" aria-labelledby="headingUtilities"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{route('admin.abandonedOrders')}}">Abandoned Orders</a>
             <a class="collapse-item" href="{{route('admin.guestOrders')}}">Guest Orders @if($guestorder > 0) <span style="padding: 4px 7px;margin-left: 30px;" class="badge badge-danger">{{ $guestorder }}</span>@endif</a>
             <a class="collapse-item" href="{{route('admin.custOrders')}}">Orders @if($order > 0) <span style="padding: 4px 7px;margin-left: 30px;" class="badge badge-danger">{{ $order }}</span>@endif</a>
             <a class="collapse-item" href="{{route('admin.wishlistorders')}}">Wishlist Orders @if($wishlistorder > 0) <span style="padding: 4px 7px;margin-left: 30px;" class="badge badge-danger">{{ $wishlistorder }}</span>@endif</a>
@@ -247,6 +248,8 @@
             <a class="collapse-item" href="{{ route('admin.report.inventory') }}">Inventory Report</a>
             <a class="collapse-item" href="{{ route('admin.report.customers') }}">Customers Report</a>
             <a class="collapse-item" href="{{ route('admin.report.guests') }}">Guests Report</a>
+            <a class="collapse-item" href="{{ route('admin.report.generatedGiftCards') }}">Generated Gift Cards</a>
+            <a class="collapse-item" href="{{ route('admin.report.usedGiftCards') }}">Used Gift Cards</a>
         </div>
     </div>
 </li>

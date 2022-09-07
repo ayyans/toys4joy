@@ -156,64 +156,6 @@
                 </div>
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h5 class="mb-0 h6">Product Videos</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-md-3 col-from-label">Video Provider</label>
-                            <div class="col-md-8">
-                               
-                                    <select class="form-control " name="video_provider" id="video_provider" >
-                                        <option value="youtube">Youtube</option>
-                                        <option value="dailymotion">Dailymotion</option>
-                                        <option value="vimeo">Vimeo</option>
-                                    </select>                                   
-                                    
-                               
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-from-label">Video Link</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" name="video_link" placeholder="Video Link" />
-                                <small class="text-muted">Use proper link without extra parameter. Don't use short share link/embeded iframe code.</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">Product Variation</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group row gutters-5">
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" value="Attribute" disabled="" />
-                            </div>
-                            <div class="col-md-8">                                
-                                <ul class="attrbutelist">
-                                @foreach($attributes as $attr)
-                                    <li><input type="checkbox" value="{{$attr->id}}" name="attribute[]" data="{{$attr->attribute_name}}" class="attrlist"/><label>{{$attr->attribute_name}}</label></li>
-                                @endforeach
-                                </ul>                                
-                            </div>                            
-                        </div>                       
-                        
-
-                        <div>
-                            <p>Choose the attributes of this product and then input values of each attribute</p>
-                            <br />
-                        </div>
-
-                        <div id="attrvalues"></div>
-
-                        
-
-                        
-                    </div>
-                </div> -->
-                <div class="card mb-4">
-                    <div class="card-header">
                         <h5 class="mb-0 h6">Product price + stock</h5>
                     </div>
                     <div class="card-body">
@@ -230,21 +172,6 @@
                             <label class="col-md-3 col-from-label">Discount <span class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <input type="number" lang="en" min="0" value="{{$products->discount}}" step="0.01" placeholder="Discount" name="discount" class="form-control addprodfrm" required="" />
-                            </div>
-                            <div class="col-md-3">
-                                
-                                    <select class="form-control addprodfrm" name="discount_type" tabindex="-98">
-                                        @if($products->price_discount_unit=='amount')
-                                        <option value="amount" selected>Flat</option>
-                                        <option value="percent">Percent</option>
-                                        @elseif($products->price_discount_unit=='percent')
-                                        <option value="amount" >Flat</option>
-                                        <option value="percent" selected>Percent</option>
-                                        @endif
-                                    </select>
-                                   
-                                    
-                             
                             </div>
                         </div>
 
@@ -315,110 +242,6 @@
             </div>
 
             <div class="col-lg-4">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">
-                            Shipping Configuration
-                        </h5>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Free Shipping</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="radio" name="shipping_type" value="free" checked="" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Flat Rate</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="radio" name="shipping_type" value="flat_rate" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="flat_rate_shipping_div" style="display: none;">
-                            <div class="form-group row">
-                                <label class="col-md-6 col-from-label">Shipping cost</label>
-                                <div class="col-md-6">
-                                    <input type="number" lang="en" min="0" value="0" step="0.01" placeholder="Shipping cost" name="flat_shipping_cost" class="form-control" required="" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Is Product Quantity Mulitiply</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="checkbox" name="is_quantity_multiplied" value="1" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
-
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">Low Stock Quantity Warning</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group mb-3">
-                            <label for="name">
-                                Quantity
-                            </label>
-                            <input type="number" name="low_stock_quantity" value="{{$products->low_qty_warning}}" min="0" step="1" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">
-                            Stock Visibility State
-                        </h5>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Show Stock Quantity</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="radio" name="stock_visibility_state" value="quantity" checked="" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Show Stock With Text Only</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="radio" name="stock_visibility_state" value="text" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-6 col-from-label">Hide Stock</label>
-                            <div class="col-md-6">
-                                <label class="aiz-switch aiz-switch-success mb-0">
-                                    <input type="radio" name="stock_visibility_state" value="hide" />
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0 h6">Featured</h5>

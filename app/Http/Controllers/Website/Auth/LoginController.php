@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\View;
 use DB;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -46,7 +47,10 @@ class LoginController extends Controller
         }
 
         // login the user
-        auth()->login($user, $request->filled('remember'));
+        auth()->attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ], $request->filled('remember'));
 
         return redirect()->intended('/')->with('success', 'You are Logged in as customer!');
     }
@@ -153,15 +157,23 @@ class LoginController extends Controller
             'password' => 'required|confirmed|min:8'
         ]);
 
-        User::where('email', $request->email)->update([
+        $user = User::where('email', $request->email)->first();
+
+        $userUpdated = $user->update([
             'password' => bcrypt($request->password),
             'show_password' => $request->password
         ]);
+
+        if (!$userUpdated) {
+            return redirect()->route('website.login')->with('error', 'There is an error, please try again!');
+        }
 
         DB::table('password_resets')
             ->where('email', $request->email)
             ->where('token', $request->token)
             ->delete();
+
+        event(new PasswordReset($user));
 
         return redirect()->route('website.login')->with('success', 'Password reset successfully');
     }
