@@ -103,8 +103,8 @@
                             <input type="hidden" name="mobilenumber" id="mobilenumber">
                         </div>
                         <div class="mb-3">
-                            <label>Email<span style="color:#ff0000">*</span></label>
-                            <input type="email" name="email" class="guestcheckinp" required>
+                            <label>Email</label>
+                            <input type="email" name="email" class="guestcheckinp">
                         </div>
                         <div class="mb-3">
                             <label>Unit Number (optional)</label>
