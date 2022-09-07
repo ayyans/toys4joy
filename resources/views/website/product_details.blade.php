@@ -21,11 +21,13 @@
           <div class="for-mobile mbl-banner">
             @include('website.layouts.user_menu')
           </div>
-          <div class="categories">
-            <h2 class="for-desktop">Categories</h2>
-            <ul class="nav nav-pills flex-column mb-auto menu">
-              @include('website.layouts.category_menu')
-            </ul>
+          <div class="categories mb-3">
+                    <h2 class="for-desktop">Categories</h2>
+                    @include('website.layouts.category_btn')
+                    <ul class="nav nav-pills flex-column mb-auto menu for-desktop">
+                     @include('website.layouts.category_menu')
+                      
+                    </ul>
           </div>
         </div>
       </div>
