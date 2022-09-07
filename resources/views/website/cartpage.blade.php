@@ -56,7 +56,7 @@
                 <div class="d-flex pay-as">
                     <div class="member"><a href="{{route('website.payasmember')}}">Pay as Member</a></div>
                     @if(!Auth::check())
-                    <div class="guest"><a href="{{route('website.payasguest')}}">Pay as Guest</a></div>
+                    <div class="guest"><a href="{{route('website.payasguest')}}">Fast Pay</a></div>
                     @endif
                 </div>
             </div>
