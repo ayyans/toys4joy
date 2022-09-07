@@ -1,5 +1,5 @@
-@import url('http://fonts.cdnfonts.com/css/besty');
 @import url('https://fonts.googleapis.com/css?family=Fascinate+Inline&display=swap');
+@import url('http://fonts.cdnfonts.com/css/konigsberg');
 /*body {
   background: none repeat scroll 0 0 #71afdf;
   text-align: center;
@@ -11,25 +11,28 @@
     color: white;
     text-align: center;
     font-size: 20px;
-    font-family: 'Besty', sans-serif;
+    /*font-family: 'Besty', sans-serif !important;*/
+    font-family: 'Königsberg', sans-serif;
+    
+    font-style: normal !important;
     text-decoration: none;
 }
 
 .btn-blue {
-  background: #108fe8;
-  border: 3px solid #fff;
-  border-radius: 20px;
-  box-shadow: 0 -2px 0 3px #0d72b8 inset, 0 5px 5px rgba(3, 25, 41, 0.17),
-    0 15px rgba(255, 255, 255, 0.25) inset;
+  background: #108fe8 !important;
+  border: 3px solid #fff !important;
+  border-radius: 20px !important; 
+  box-shadow: 0 -2px 0 3px #0d72b8 inset, 0 5px 5px rgba(3, 25, 41, 0.17) ,
+    0 15px rgba(255, 255, 255, 0.25) inset !important;
   cursor: pointer;
   display: inline-block;
 }
 .btn-blue:hover {
  /* background: #333333;*/
-  box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17),
-    0 15px rgba(255, 255, 255, 0.32) inset;
-  border-color:blue;
-  filter: brightness(110%);
+  box-shadow: 0 -2px 0 3px #108fe8c1 inset, 0 5px 5px rgba(0, 0, 0, 0.17),
+    0 15px rgba(255, 255, 255, 0.32) inset !important;
+  border-color:blue !important;
+  filter: brightness(110%) !important;
 }
 .btn-blue:active
 {
@@ -38,20 +41,20 @@
 	/*border-bottom: 1px solid;*/
 }
 .btn-red {
-  background: #e53030;
-  border: 3px solid #fff;
-  border-radius: 20px;
-  box-shadow: 0 -2px 0 3px #c91919 inset, 0 5px 5px rgba(65, 8, 8, 0.17),
-    0 15px rgba(255, 255, 255, 0.25) inset;
+  background: #e53030 !important;
+  border: 3px solid #fff !important;
+  border-radius: 20px !important;
+  box-shadow: 0 -2px 0 3px #c91919 inset, 0 5px 5px rgba(68, 58, 58, 0.17),
+    0 15px rgba(255, 255, 255, 0.25) inset !important;
   cursor: pointer;
   display: inline-block;
   /*width:calc(100%/4);*/
 }
 .btn-red:hover {
   /*background: #333333;*/
-  box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17),
-    0 15px rgba(255, 255, 255, 0.32) inset;
-  border-color:red;
+  box-shadow: 0 -2px 0 3px #e53030c1 inset, 0 5px 5px rgba(0, 0, 0, 0.17),
+    0 15px rgba(255, 255, 255, 0.32) inset !important;
+  border-color:red !important;
 }
 .btn-red:active
 {
@@ -60,19 +63,19 @@
 	/*border-bottom: 1px solid;*/
 }
 .btn-green {
-  background: #0ec518;
-  border: 3px solid #fff;
-  border-radius: 20px;
+  background: #0ec518 !important;
+  border: 3px solid #fff !important;
+  border-radius: 20px !important;
   box-shadow: 0 -2px 0 3px #0b9512 inset, 0 5px 5px rgba(0, 7, 1, 0.17),
-    0 15px rgba(255, 255, 255, 0.25) inset;
+    0 15px rgba(255, 255, 255, 0.25) inset !important;
   cursor: pointer;
   display: inline-block;
 }
 .btn-green:hover {
   /*background: #333333;*/
-  box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17),
-    0 15px rgba(255, 255, 255, 0.32) inset;
-  border-color:green;
+  box-shadow: 0 -2px 0 3px #0ec518c1 inset, 0 5px 5px rgba(0, 0, 0, 0.17),
+    0 15px rgba(255, 255, 255, 0.32) inset !important;
+  border-color:green !important;
 }
 .btn-green:active
 {
@@ -81,11 +84,11 @@
 	/*border-bottom: 1px solid;*/
 }
 .btn-yellow {
-  background: #ffc334;
-  border: 3px solid #fff;
-  border-radius: 20px;
+  background: #ffc334 !important;
+  border: 3px solid #fff !important;
+  border-radius: 20px !important;
   box-shadow: 0 -2px 0 3px #ffb401 inset, 0 5px 5px rgba(103, 73, 0, 0.17),
-    0 15px rgba(255, 255, 255, 0.25) inset;
+    0 15px rgba(255, 255, 255, 0.25) inset !important;
   cursor: pointer;
   display: inline-block;
   /*height: 75px;
@@ -93,9 +96,9 @@
 }
 .btn-yellow:hover {
   /*background: #333333;*/
-  box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17),
-    0 15px rgba(255, 255, 255, 0.32) inset;
-  border-color:yellow;
+  box-shadow: 0 -2px 0 3px #ffb401c1 inset, 0 5px 5px rgba(0, 0, 0, 0.17),
+    0 15px rgba(255, 255, 255, 0.32) inset !important;
+  border-color:yellow !important;
 }
 .btn-yellow:active
 {

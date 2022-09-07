@@ -1,5 +1,5 @@
 @import url("fonts/fonts.css");
-
+@import url('http://fonts.cdnfonts.com/css/konigsberg');
 @keyframes horizontal-shaking {
  0% { transform: translateX(0) }
  25% { transform: translateX(5px) }
@@ -322,6 +322,9 @@ header {padding: 15px 20px;}
     right: 0;
     width: fit-content;
     left: 90%;
+}
+.categories h2{
+    font-family: 'Königsberg', sans-serif !important;
 }
 .categories {
     border: 1px solid #dddbdb;
