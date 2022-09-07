@@ -59,7 +59,7 @@
                                                 class="dropdown-item">View</a></li>
                                         @if($order->order_status == 'placed')
 
-                                        <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'confirmed'])}}"
+                                        {{-- <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'confirmed'])}}"
                                                 class="dropdown-item">Confirm</a></li>
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'cancelled'])}}"
                                                 class="dropdown-item">Cancel</a></li>
@@ -75,7 +75,7 @@
                                                 class="dropdown-item">Concel</a></li>
                                         @elseif($order->order_status == 'delivered')
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'cancelled'])}}"
-                                                class="dropdown-item">Concel</a></li>
+                                                class="dropdown-item">Concel</a></li> --}}
                                         {{-- @elseif($order->order_status == 'shipped')
                                         <li><a href="javascript:void(0)" class="dropdown-item">Delivered</a></li> --}}
                                         @endif
