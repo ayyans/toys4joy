@@ -7,6 +7,7 @@ use App\Exports\CustomersReportExport;
 use App\Exports\GeneratedGiftCardsReportExport;
 use App\Exports\GuestsReportExport;
 use App\Exports\InventoryReportExport;
+use App\Exports\ReturnedOrdersReportExport;
 use App\Exports\SalesReportExport;
 use App\Exports\UsedGiftCardsReportExport;
 use App\Imports\ImportProducts;
@@ -1793,6 +1794,39 @@ public function editProcess(Request $request){
         }
 
         return view('admin.reports.used-giftcards-report', compact('giftCards'));
+    }
+
+    public function returnedOrdersReport(Request $request) {
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $orders = Order::where('order_status', 'returned')
+            ->orderByDesc('updated_at')
+            ->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('updated_at', [$start_date, $end_date]);
+            })
+            ->get()
+            ->map(function($order) {
+                return [
+                    'order_number' => $order->order_number,
+                    'order_type' => $order->user_id
+                        ? ($order->is_wishlist ? 'Wishlist' : 'Customer')
+                        : 'Guest',
+                    'payment_type' => strtoupper($order->order_type),
+                    'payment_status' => $order->payment_status,
+                    'total_items' => $order->items->count(),
+                    'total_amount' => $order->total_amount,
+                    'returned_at' => $order->updated_at
+                ];
+            });
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new ReturnedOrdersReportExport($orders), 'returned-orders-report.xlsx');
+        }
+
+        return view('admin.reports.returned-orders-report', compact('orders'));
     }
 
     public function bulkupload()
