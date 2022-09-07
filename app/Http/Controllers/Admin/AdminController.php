@@ -1689,8 +1689,8 @@ public function editProcess(Request $request){
                                     ? $this->formatSiblings($user->siblings)
                                     : $user->siblings,
                     'points' => $user->balance,
-                    'total_orders' => $user->paid_orders_count,
-                    'total_amount' => $user->paid_orders_sum_amount ?? 0,
+                    'total_orders' => $user->delivered_orders_count,
+                    'total_amount' => $user->delivered_orders_sum_total_amount ?? 0,
                 ];
             });
 
