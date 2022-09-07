@@ -1,5 +1,5 @@
 @import url("fonts/fonts.css");
-
+@import url('http://fonts.cdnfonts.com/css/konigsberg');
 @keyframes horizontal-shaking {
  0% { transform: translateX(0) }
  25% { transform: translateX(5px) }
@@ -322,6 +322,9 @@ header {padding: 15px 20px;}
     right: 0;
     width: fit-content;
     left: 90%;
+}
+.categories h2{
+    font-family: 'Königsberg', sans-serif !important;
 }
 .categories {
     border: 1px solid #dddbdb;
@@ -4274,7 +4277,7 @@ main#pay-as-guest .col-6 {width: 100%;}
 .main-title .title {font-size: 24px;width: 250px;}    
 .main-title .icon img {width: 110px;}   
 .main-title .icon button span {top: 6px; left: 24px; font-size: 26px;}    
-.continue-shopping a, .guest a, .member a {padding: 15px 30px;font-size: 16px;}
+.continue-shopping a, .guest a, .member a {padding: 15px 30px;font-size: 17px;}
 .my-wishlist-page .ftr-btn-area {flex-direction: column;} 
 .copy-link {width: 100%;}  
 .add-more a {margin-top: 20px;display: block;} 
@@ -4426,7 +4429,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .main-title .title {font-size: 16px;width: 140px; padding: 5px;margin-right: 5px}
 .main-title .icon img {width: 70px;} 
 .main-title .icon button span {top: 7px;left: 20px;font-size: 16px;}
-.continue-shopping a, .guest a, .member a {padding: 8px 14px;font-size: 13px;}
+.continue-shopping a, .guest a, .member a {padding: 8px 14px;font-size: 16px;}
 .member.cash-on-delivery a {
     max-width: 125px;
     font-size: 13px;
@@ -4574,7 +4577,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .form-check .form-check-label img {margin-left: 0;} 
 .form-check.master-card img {margin-top: -3px;} 
 .pay-as-guest-page .form-check-inline {margin-right: 0.3rem;} 
-.continue-shopping a, .guest a, .member a {padding: 15px; font-size: 14px;}   
+.continue-shopping a, .guest a, .member a {padding: 15px; font-size: 16px;display:block;}   
 .pay-as-guest p {
     width: 140px;
     font-size: 12px;
@@ -4590,6 +4593,9 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
     font-size: 13px;
     line-height: 14px;
 } 
+.pay-as{
+    column-gap: 0px;
+}
 .pay-as-guest {padding: 20px 0;}
 .pay-as-guest-page .cash-on-delivery img {width: 60px;}
 .account.main-bg {margin: 10px 5px 30px;}    
@@ -4603,7 +4609,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
 .input-security input {height: 38px;} 
 .discount-block input, .code-block input {padding: 4px;border-radius: 7px;} 
 .discount-block .btn, .code-block .btn {padding: 6px;} 
-.pay-as .member {margin: 30px 0;} 
+.pay-as .member {margin: 15px 0;} 
 .pay-as {flex-direction: column; text-align: center;}
 .ftr-btn-area {margin: 30px 0;flex-direction: column;}
 .add-more a {padding: 10px 40px;font-size: 14px;}
