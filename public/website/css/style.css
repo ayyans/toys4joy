@@ -4163,7 +4163,7 @@ ul.d-flex.social-media {justify-content: center;margin-top: -15px;}
 .middle-col {width: 100%!important;padding: 15px;}  
 .right-col {width: 100%!important; padding: 0 15px;}    
 .right-sidebar .product-list {display: none;}
-.right-sidebar .age-range {background: #eef7ff;border: 0;} 
+.right-sidebar .age-range {background: #eef7ff;border: 0;float:left} 
 .right-sidebar {background: #fff;box-shadow: none; padding: 0; margin-top: 0%;} 
 .right-sidebar .upload-img {padding: 20px 50px;} 
 .book-your-event h1 {font-size: 18px;margin-bottom: 15px;}
@@ -4198,6 +4198,7 @@ ul.nav-fill .nav-item a {
     width: 175px;
     margin: 8px auto 15px;
     color: #0a67a2;
+    float:left;
     /*border-bottom: 1px solid #0a67a2;*/
 } 
 #my-account .content-block .my-profile a, #my-account .content-block .siblings a {margin: 15px auto;}    
