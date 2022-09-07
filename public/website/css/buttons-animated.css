@@ -7,7 +7,7 @@
 }*/
 
 .treat-wrapper a {
-    padding: 10px;
+   padding: 10px;
     color: white;
     text-align: center;
     font-size: 20px;
@@ -15,6 +15,7 @@
     font-family: 'Königsberg', sans-serif !important;
     font-style: normal !important;
     text-decoration: none;
+    font-weight: 900 !important;
 }
 
 .btn-blue {
