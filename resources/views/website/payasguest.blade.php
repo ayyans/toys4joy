@@ -128,7 +128,7 @@
                 <div class="pay-as-guest row">
                     <div class="text-center col-6">
                         <div class="guest">
-                            <a href="javascript:void(0)" id="payasgueast">Pay as Guest (<span>{{ $total_price
+                            <a href="javascript:void(0)" id="payasgueast">Fast Pay (<span>{{ $total_price
                                     }}</span>)</a>
                         </div>
                         <p>You need to create an account with us to be able to Enter Discount, Corporate Code, or Gift
