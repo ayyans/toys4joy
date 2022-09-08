@@ -412,9 +412,9 @@ class OrderController extends Controller
 
     public function payasguest(Request $request){
 
-        // clear cart conditions if customer tries to add cart condition
-        // form customer side and try to place order at guest side
-        cart()->clearCartConditions();
+        // clear cart conditions for coupons if customer tries to add cart
+        // condition form customer side and try to place order at guest side
+        cart()->removeConditionsByType('coupon');
         // removing out of stock and unavilable items
         removeOutOfStockFromCart();
 
