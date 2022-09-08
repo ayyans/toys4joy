@@ -1747,8 +1747,8 @@ public function editProcess(Request $request){
             ->map(function($userGiftCard) {
                 return [
                     'code' => $userGiftCard->giftCard->code,
-                    'name' => $userGiftCard->user->name,
-                    'mobile' => $userGiftCard->user->mobile,
+                    'name' => $userGiftCard->user_id ? $userGiftCard->user->name : 'Guest',
+                    'mobile' => $userGiftCard->user_id ? $userGiftCard->user->mobile : 'N/A',
                     'type' => $userGiftCard->transaction_number ? 'Purchased' : 'Rewarded',
                     'date_generated' => $userGiftCard->created_at->format('d-m-Y')
                 ];
@@ -1774,15 +1774,14 @@ public function editProcess(Request $request){
                 });
             })
             ->latest()
-            ->whereNotNull('user_id')
             ->select('id', 'user_id', 'order_id', 'code', 'price', 'status', 'created_at')
             ->get()
             ->map(function($giftCard) {
                 return [
                     'code' => $giftCard->code,
                     'price' => $giftCard->price,
-                    'name' => $giftCard->user->name,
-                    'mobile' => $giftCard->user->mobile,
+                    'name' => $giftCard->user_id ? $giftCard->user->name : $giftCard->order->additional_details['name'],
+                    'mobile' => $giftCard->user_id ? $giftCard->user->mobile : $giftCard->order->additional_details['mobile'],
                     'order_number' => $giftCard->order->order_number,
                     'date_used' => $giftCard->order->created_at->format('d-m-Y')
                 ];
