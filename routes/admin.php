@@ -8,6 +8,10 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin\Auth')->prefix('adm
 
 });
 
+Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')->group(function() {
+    Route::post('/addgiftcardsubmit','AdminController@addgiftcardsubmit')->name('addgiftcardsubmit');
+});
+
 Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')->middleware('admin')->group(function(){
     Route::get('/home','AdminController@dashboard')->name('dashboard');
     Route::get('/bulkupload','AdminController@bulkupload')->name('bulkupload');
@@ -145,7 +149,6 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
 
     Route::get('/giftcards','AdminController@giftcards')->name('giftcards');
-    Route::post('/addgiftcardsubmit','AdminController@addgiftcardsubmit')->name('addgiftcardsubmit');
     Route::get('/giftcards-activate/{giftcard}','AdminController@activategiftcards')->name('activategiftcard');
     Route::get('/giftcards-deactivate/{giftcard}','AdminController@deactivategiftcards')->name('deactivategiftcard');
     Route::get('/giftcards-delete/{giftcard}','AdminController@deletegiftcards')->name('deletegiftcard');

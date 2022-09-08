@@ -74,7 +74,7 @@ class UserController extends Controller
 				]);
 			}
 			// check already used
-			if ($giftCard->user_id) {
+			if ($giftCard->order_id) {
 				return response()->json([
 					'status' => false,
 					'message' => 'Code is already used.'
@@ -261,7 +261,7 @@ class UserController extends Controller
 
 		$giftCard = giftcards::create([
 			'name' => 'Gift Card Purchased ' . Str::random(3) . auth()->id(),
-			'code' => 'GIFT' . auth()->id() . Str::random(6),
+			'code' => 'GIFT' . auth()->id() ?? random_int(1, 999) . Str::random(6),
 			'price' => $userGiftCard->price,
 			'status' => 1
 		]);

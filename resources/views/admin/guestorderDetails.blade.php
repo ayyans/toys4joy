@@ -139,6 +139,14 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <td colspan="4" style="text-align:right"><strong>Sub Total</strong></td>
+                            <td>QAR {{ $order->subtotal }}</td>
+                        </tr>
+                        <tr class="giftcard">
+                            <td colspan="4" style="text-align:right"><strong>Giftcard Discount:</strong></td>
+                            <td colspan="3">QAR {{ $order->giftcards->sum('price') }}</td>
+                        </tr>
+                        <tr>
                             <td colspan="4" style="text-align:right"><strong>Total</strong></td>
                             <td>QAR {{$order->total_amount}}</td>
                         </tr>
