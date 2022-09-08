@@ -198,6 +198,14 @@ class OrderController extends Controller
             'additional_details->is_abandoned' => false
         ]);
 
+        $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
+            return $g->getAttributes()['id'];
+        })->values();
+
+        giftcards::whereIn('id', $giftCardIds)->update([
+            'order_id' => $order->id
+        ]);
+
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();
