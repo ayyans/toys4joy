@@ -146,7 +146,7 @@
 </div>
 <div class="col-md-8 middle-col mt-3">
   <!--seection-->
-<div class="section-title"><h3>Back to School</h3></div>
+<div class="section-title"><h3>New Arrival</h3></div>
 <div class="row">
 <div class="owl-carousel-features owl-carousel owl-theme">
 @foreach($bestsellers as $product)
@@ -197,7 +197,7 @@
 <!--section-->
 
 <!--section-->
-<div class="section-title"><h3>New Arrival</h3></div>
+<div class="section-title"><h3>Best Seller</h3></div>
 <div class="row">
 <div class="owl-carousel-features owl-carousel owl-theme">
 @foreach($newarrivals as $product)
