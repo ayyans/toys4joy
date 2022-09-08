@@ -289,13 +289,14 @@ class OrderController extends Controller
                 'total_amount' => $item->getPriceSum()
             ]);
         }
-        // saving guest details
-        // $order->update([
-        //     'additional_details->name' => $request->custname,
-        //     'additional_details->email' => $request->email,
-        //     'additional_details->mobile' => $request->mobilenumber,
-        //     'additional_details->is_new' => true
-        // ]);
+
+        $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
+            return $g->getAttributes()['id'];
+        })->values();
+
+        giftcards::whereIn('id', $giftCardIds)->update([
+            'order_id' => $order->id
+        ]);
 
         DB::commit();
 

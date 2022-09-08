@@ -74,7 +74,7 @@ class UserController extends Controller
 				]);
 			}
 			// check already used
-			if ($giftCard->user_id) {
+			if ($giftCard->order_id) {
 				return response()->json([
 					'status' => false,
 					'message' => 'Code is already used.'
