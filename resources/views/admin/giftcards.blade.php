@@ -68,7 +68,7 @@
                       <td>{{$coupon->code}}</td>
                       <td>QAR {{$coupon->price}}</td>
                       <td>
-                        @if($coupon->user_id)
+                        @if($coupon->order_id)
                         <div class="badge badge-pill badge-primary px-3 py-2">Used</div>
                         @elseif($coupon->status==0)
                         <div class="badge badge-danger">Inactive</div>

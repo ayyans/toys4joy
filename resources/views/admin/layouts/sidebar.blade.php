@@ -248,8 +248,9 @@
             <a class="collapse-item" href="{{ route('admin.report.inventory') }}">Inventory Report</a>
             <a class="collapse-item" href="{{ route('admin.report.customers') }}">Customers Report</a>
             <a class="collapse-item" href="{{ route('admin.report.guests') }}">Guests Report</a>
-            <a class="collapse-item" href="{{ route('admin.report.generatedGiftCards') }}">Generated Gift Cards</a>
-            <a class="collapse-item" href="{{ route('admin.report.usedGiftCards') }}">Used Gift Cards</a>
+            <a class="collapse-item" href="{{ route('admin.report.generatedGiftCards') }}">Generated GC Report</a>
+            <a class="collapse-item" href="{{ route('admin.report.usedGiftCards') }}">Used GC Report</a>
+            <a class="collapse-item" href="{{ route('admin.report.returnedOrders') }}">Returned Orders Report</a>
         </div>
     </div>
 </li>

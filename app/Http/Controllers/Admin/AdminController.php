@@ -7,6 +7,7 @@ use App\Exports\CustomersReportExport;
 use App\Exports\GeneratedGiftCardsReportExport;
 use App\Exports\GuestsReportExport;
 use App\Exports\InventoryReportExport;
+use App\Exports\ReturnedOrdersReportExport;
 use App\Exports\SalesReportExport;
 use App\Exports\UsedGiftCardsReportExport;
 use App\Imports\ImportProducts;
@@ -1689,8 +1690,8 @@ public function editProcess(Request $request){
                                     ? $this->formatSiblings($user->siblings)
                                     : $user->siblings,
                     'points' => $user->balance,
-                    'total_orders' => $user->paid_orders_count,
-                    'total_amount' => $user->paid_orders_sum_amount ?? 0,
+                    'total_orders' => $user->delivered_orders_count,
+                    'total_amount' => $user->delivered_orders_sum_total_amount ?? 0,
                 ];
             });
 
@@ -1746,8 +1747,8 @@ public function editProcess(Request $request){
             ->map(function($userGiftCard) {
                 return [
                     'code' => $userGiftCard->giftCard->code,
-                    'name' => $userGiftCard->user->name,
-                    'mobile' => $userGiftCard->user->mobile,
+                    'name' => $userGiftCard->user_id ? $userGiftCard->user->name : 'Guest',
+                    'mobile' => $userGiftCard->user_id ? $userGiftCard->user->mobile : 'N/A',
                     'type' => $userGiftCard->transaction_number ? 'Purchased' : 'Rewarded',
                     'date_generated' => $userGiftCard->created_at->format('d-m-Y')
                 ];
@@ -1773,15 +1774,14 @@ public function editProcess(Request $request){
                 });
             })
             ->latest()
-            ->whereNotNull('user_id')
             ->select('id', 'user_id', 'order_id', 'code', 'price', 'status', 'created_at')
             ->get()
             ->map(function($giftCard) {
                 return [
                     'code' => $giftCard->code,
                     'price' => $giftCard->price,
-                    'name' => $giftCard->user->name,
-                    'mobile' => $giftCard->user->mobile,
+                    'name' => $giftCard->user_id ? $giftCard->user->name : $giftCard->order->additional_details['name'],
+                    'mobile' => $giftCard->user_id ? $giftCard->user->mobile : $giftCard->order->additional_details['mobile'],
                     'order_number' => $giftCard->order->order_number,
                     'date_used' => $giftCard->order->created_at->format('d-m-Y')
                 ];
@@ -1793,6 +1793,39 @@ public function editProcess(Request $request){
         }
 
         return view('admin.reports.used-giftcards-report', compact('giftCards'));
+    }
+
+    public function returnedOrdersReport(Request $request) {
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $orders = Order::where('order_status', 'returned')
+            ->orderByDesc('updated_at')
+            ->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('updated_at', [$start_date, $end_date]);
+            })
+            ->get()
+            ->map(function($order) {
+                return [
+                    'order_number' => $order->order_number,
+                    'order_type' => $order->user_id
+                        ? ($order->is_wishlist ? 'Wishlist' : 'Customer')
+                        : 'Guest',
+                    'payment_type' => strtoupper($order->order_type),
+                    'payment_status' => $order->payment_status,
+                    'total_items' => $order->items->count(),
+                    'total_amount' => $order->total_amount,
+                    'returned_at' => $order->updated_at
+                ];
+            });
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new ReturnedOrdersReportExport($orders), 'returned-orders-report.xlsx');
+        }
+
+        return view('admin.reports.returned-orders-report', compact('orders'));
     }
 
     public function bulkupload()

@@ -103,7 +103,7 @@
                             <input type="hidden" name="mobilenumber" id="mobilenumber">
                         </div>
                         <div class="mb-3">
-                            <label>Email (Optional)</label>
+                            <label>Email (optional)</label>
                             <input type="email" name="email">
                         </div>
                         <div class="mb-3">
@@ -125,6 +125,23 @@
                         <p>Note: One of our team member will contact you shortly to get your location & necessary information.</p>
                     </div>
                 </form>
+                <div class="code-block">
+                    <div class="mb-3">
+                        <label>Gift-Card Code</label>
+                        <div class="d-flex">
+                            <input type="text" id="giftcard_coupon">
+                            <button class="btn btn-primary giftBtn ms-2">Enter</button>
+                        </div>
+                    </div>
+                    @php $giftCards = cart()->getConditionsByType('giftcard') @endphp
+                    @foreach ($giftCards as $giftCard)
+                    <div class="alert alert-success d-flex justify-content-between px-2 py-1 text-start" role="alert">
+                        <span>You have redeemed {{ abs($giftCard->getValue()) }} QAR</span>
+                        <a href="{{ route('website.removegiftcard', ['id' => $giftCard->getAttributes()['id'], 'name' => $giftCard->getName()]) }}"
+                            class="alert-link">remove</a>
+                    </div>
+                    @endforeach
+                </div>
                 <div class="pay-as-guest row">
                     <div class="text-center col-6">
                         <div class="guest">
@@ -309,5 +326,33 @@ if(isValid!=true){
 }
 })  
 });
+</script>
+<script>
+    $("button.giftBtn").click(function() {
+        const url = "{{ route('website.giftcard_coupon') }}";
+        const _token = $('meta[name="csrf-token"]').attr('content');
+        const giftCard = $("#giftcard_coupon").val();
+
+        $("#cover-spin").show();
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify({ _token, giftCard })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status) {
+                toastr.success(data.message);
+                location.reload();
+            } else {
+                toastr.error(data.message);
+                $("#cover-spin").hide();
+            }
+        })
+        .catch(err => console.log(err));
+    });
 </script>
 @endpush

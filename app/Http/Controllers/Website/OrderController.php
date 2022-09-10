@@ -117,7 +117,7 @@ class OrderController extends Controller
             'address_id' => null,
             'order_type' => 'cc',
             'subtotal' => cart()->getSubTotal(),
-            'discount' => 0,
+            'discount' => cart()->getSubTotal() - cart()->getTotal(),
             'total_amount' => cart()->getTotal(),
             'payment_status' => 'unpaid',
             'order_status' => 'placed',
@@ -198,6 +198,14 @@ class OrderController extends Controller
             'additional_details->is_abandoned' => false
         ]);
 
+        $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
+            return $g->getAttributes()['id'];
+        })->values();
+
+        giftcards::whereIn('id', $giftCardIds)->update([
+            'order_id' => $order->id
+        ]);
+
         // clearing cart
         cart()->clear();
         cart()->clearCartConditions();
@@ -263,7 +271,7 @@ class OrderController extends Controller
             'address_id' => null,
             'order_type' => 'cod',
             'subtotal' => cart()->getSubTotal(),
-            'discount' => 0,
+            'discount' => cart()->getSubTotal() - cart()->getTotal(),
             'total_amount' => cart()->getTotal(),
             'payment_status' => 'unpaid',
             'order_status' => 'placed',
@@ -289,13 +297,14 @@ class OrderController extends Controller
                 'total_amount' => $item->getPriceSum()
             ]);
         }
-        // saving guest details
-        // $order->update([
-        //     'additional_details->name' => $request->custname,
-        //     'additional_details->email' => $request->email,
-        //     'additional_details->mobile' => $request->mobilenumber,
-        //     'additional_details->is_new' => true
-        // ]);
+
+        $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
+            return $g->getAttributes()['id'];
+        })->values();
+
+        giftcards::whereIn('id', $giftCardIds)->update([
+            'order_id' => $order->id
+        ]);
 
         DB::commit();
 
@@ -412,9 +421,9 @@ class OrderController extends Controller
 
     public function payasguest(Request $request){
 
-        // clear cart conditions if customer tries to add cart condition
-        // form customer side and try to place order at guest side
-        cart()->clearCartConditions();
+        // clear cart conditions for coupons if customer tries to add cart
+        // condition form customer side and try to place order at guest side
+        cart()->removeConditionsByType('coupon');
         // removing out of stock and unavilable items
         removeOutOfStockFromCart();
 

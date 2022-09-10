@@ -85,11 +85,13 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/removeDiscountCoupon', 'WebsiteController@removeDiscountCoupon')->name('removeDiscountCoupon');
     Route::post('/giftcard-coupon','UserController@giftcard_coupon')->name('giftcard_coupon');
     Route::get('/removegiftcard','UserController@removegiftcard')->name('removegiftcard');
+    Route::get('/gift-cards','WebsiteController@giftcard')->name('giftcard');
 
 
     Route::get('/placeorderwishlist/{id}/{orderid}','WishlistController@placeorderwishlist');
     Route::post('/wishlistorderconferm','WishlistController@wishlistorderconferm');
     Route::post('/giftcardconfermorder','UserController@giftcardconfermorder')->name('giftcardconfermorder');
+    Route::get('/addgiftcard/{price}/{order_number}','UserController@addgiftcard');
 });
 Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth'])->group(function(){
     Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
@@ -105,7 +107,6 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     
 
     Route::post('/submituserprofile','UserController@submituserprofile')->name('submituserprofile');
-    Route::get('/addgiftcard/{price}/{order_number}','UserController@addgiftcard');
     
 
     Route::post('/customer-address-process','UserController@addAddressProcess')->name('addAddressProcess');
@@ -116,7 +117,6 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware([
     Route::get('/order-history','UserController@orderhistory')->name('orderhistory');
     Route::get('/orderdetail/{id}','UserController@orderdetail');
     Route::get('/my-points','WebsiteController@yourpoints')->name('yourpoints');
-    Route::get('/gift-cards','WebsiteController@giftcard')->name('giftcard');
     Route::get('/my-profile','UserController@myprofile')->name('myprofile');
     Route::get('/change-password','UserController@changepassword')->name('changepassword');
     Route::POST('/updateusersecurity','UserController@updateusersecurity')->name('updateusersecurity');
