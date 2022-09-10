@@ -190,7 +190,7 @@
 <div class="container">
   <div class="row">
     <div class="col text-center">
-      <a href="{{ route('website.bestsellers') }}" class="btn btn-outline-primary outlined">View more</a>
+      <a href="{{ route('website.newarrivals') }}" class="btn btn-outline-primary outlined">View more</a>
     </div>
   </div>
 </div>
@@ -241,7 +241,7 @@
 <div class="container">
   <div class="row">
     <div class="col text-center">
-      <a href="{{ route('website.newarrivals') }}" class="btn btn-outline-primary outlined">View more</a>
+      <a href="{{ route('website.bestsellers') }}" class="btn btn-outline-primary outlined">View more</a>
     </div>
   </div>
 </div>
