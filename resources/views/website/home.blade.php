@@ -7,7 +7,7 @@
             <div class="d-flex flex-column flex-shrink-0" >
              
                 <div class="categories for-desktop">
-                    <h2 class="for-desktop">Categories</h2>
+                    <h2 class="for-desktop">{{ __('Categories') }}</h2>
                     
                     <ul class="nav nav-pills flex-column mb-auto menu">
                      @include('website.layouts.category_menu')
@@ -58,7 +58,7 @@
                   </button>
                 </div>
                 <div class="categories for-mobile mt-3">
-                    <h2 class="for-desktop">Categories</h2>
+                    <h2 class="for-desktop">{{ __('Categories') }}</h2>
                     @include('website.layouts.category_btn')
                     <ul class="nav nav-pills flex-column mb-auto menu">
                      {{--@include('website.layouts.category_menu')--}}
@@ -85,14 +85,14 @@
                 <li><a href="{{ route('website.bestsellers') }}">Best Sellers</a></li>
                 <li><a href="{{ route('website.newarrivals') }}">New Arrivals</a></li>
             </ul>-->
-                <h1 class="for-mobile age-range-title">Select Age Range</h1>
+                <h1 class="for-mobile age-range-title">{{ __('Select Age Range') }}</h1>
             <div class="age-range">
               <form id="filter" action="{{ route('website.products-filter') }}">
-                <h1 class="for-desktop">Age Range</h1>
+                <h1 class="for-desktop">{{ __('Age Range') }}</h1>
                 <ul>
                     <li>
                         <input type="checkbox" id="24months" name="24months">
-                        <label for="24months">Birth to 24 Months</label>
+                        <label for="24months">{{ __('Birth to 24 Months') }}</label>
                     </li>
                     <li>
                         <input type="checkbox" id="2-4years" name="2_4years">
@@ -121,7 +121,7 @@
                     <div class="caption">
                       <span id="slider-range-value2"></span>
                     </div>
-                    <div class="caption-btn"><button class="go" id="filter-go">G0</button></div>
+                    <div class="caption-btn"><button class="go" id="filter-go">{{ __('Go') }}</button></div>
                   </div>
                   <input type="hidden" name="min_value" id="filter-min-value">
                   <input type="hidden" name="max_value" id="filter-max-value">
@@ -190,7 +190,7 @@
 <div class="container">
   <div class="row">
     <div class="col text-center">
-      <a href="{{ route('website.bestsellers') }}" class="btn btn-outline-primary outlined">View more</a>
+      <a href="{{ route('website.bestsellers') }}" class="btn btn-outline-primary outlined">{{ __('View more') }}</a>
     </div>
   </div>
 </div>
@@ -241,7 +241,7 @@
 <div class="container">
   <div class="row">
     <div class="col text-center">
-      <a href="{{ route('website.newarrivals') }}" class="btn btn-outline-primary outlined">View more</a>
+      <a href="{{ route('website.newarrivals') }}" class="btn btn-outline-primary outlined">{{ __('View more') }}</a>
     </div>
   </div>
 </div>
@@ -270,7 +270,7 @@
 <div class="container">
   <div class="row">
     <div class="col text-center">
-      <a href="{{ route('website.brands') }}" class="btn btn-outline-primary outlined">View more</a>
+      <a href="{{ route('website.brands') }}" class="btn btn-outline-primary outlined">{{ __('View more') }}</a>
     </div>
   </div>
 </div>

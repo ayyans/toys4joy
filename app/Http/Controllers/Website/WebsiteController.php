@@ -53,6 +53,13 @@ class WebsiteController extends Controller
 
         return view('website.home',compact('categories','products','newarrivals','bestsellers'));
     }
+
+    public function setLocale($locale) {
+        app()->setLocale($locale);
+        session()->put('locale', $locale);
+        return back();
+    }
+
     public function submitformlookingfor(Request $request)
     {
         $product  = new requiredproducts();

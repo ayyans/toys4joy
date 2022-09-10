@@ -152,10 +152,11 @@ transform: rotate(0deg);
         <div class="col-3 d-flex heades-images">
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                EN
+                {{ strtoupper( app()->getLocale() ) }}
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">AR</a></li>
+                @php $secondaryLocale = app()->isLocale('en') ? 'ar' : 'en' @endphp
+                <li><a class="dropdown-item" href="{{ route('website.set.locale', $secondaryLocale) }}">{{ strtoupper( $secondaryLocale ) }}</a></li>
               </ul>
             </div>
             <a href="https://www.google.com/maps/place/Toys+4+Joy/@25.2806659,51.5007925,17z/data=!3m1!4b1!4m5!3m4!1s0x3e45db08d1dc918d:0xabe71fea30cd8b5b!8m2!3d25.2806659!4d51.5029812" target="_blank">
