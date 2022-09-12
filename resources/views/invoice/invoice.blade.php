@@ -173,6 +173,13 @@
           </table>
         </td>
       </tr>
+      @if ($order->remarks)
+      <tr>
+        <td colspan="4">
+          <b>Remarks: </b><span>{{ $order->remarks }}</span>
+        </td>
+      </tr>
+      @endif
       <tr class="heading">
         <td>Item</td>
         <td style="text-align:center">Item SKU</td>

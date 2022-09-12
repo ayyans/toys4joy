@@ -23,6 +23,7 @@
                             <th>Payement Status</th>
                             <th>Total Amount</th>
                             <th>Order Status</th>
+                            <th>Remarks</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -44,6 +45,7 @@
                             <td>
                                 <div class="badge {{ in_array($order->order_status, ['placed', 'cancelled']) ? 'badge-danger' : 'badge-success' }}">{{ strtoupper($order->order_status) }}</div>
                             </td>
+                            <td>{{ $order->remarks }}</td>
                             <td>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-dark">Info</button>
@@ -55,6 +57,9 @@
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="{{route('admin.custOrdersDetails',[encrypt($order->id)])}}"
                                                 class="dropdown-item">View</a></li>
+                                        <li><a href="#"
+                                            class="dropdown-item" id="add-order-remarks"
+                                            data-remarks="{{ $order->remarks }}" data-order-id="{{ $order->id }}">Remarks</a></li>
                                         @if($order->order_status == 'placed')
 
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'confirmed'])}}"
@@ -91,5 +96,55 @@
         </div>
     </div>
 </div>
-
-@stop
+@endsection
+@push('otherscript')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(function() {
+        $('#add-order-remarks').on('click', function(e) {
+            e.preventDefault();
+            const url = "{{ route('admin.addOrderRemarks') }}";
+            const remarks = $(this).data('remarks');
+            const order_id = $(this).data('order-id');
+            Swal.fire({
+                title: 'Your Remarks',
+                inputValue: remarks,
+                input: 'textarea',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Submit',
+                showLoaderOnConfirm: true,
+                preConfirm: (remarks) => {
+                    return fetch(url, {
+                        method: 'post',
+                        headers: {"Content-type": "application/json; charset=UTF-8"},
+                        body: JSON.stringify({ order_id, remarks })
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error(response.statusText)
+                        return response.json()
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(
+                        `Request failed: ${error}`
+                        )
+                    })
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Remarks updated successfully',
+                        timer: 2000,
+                        timerProgressBar: true
+                    }).then((result) => {
+                        window.location.reload();
+                    })
+                }
+            })
+        });
+    });
+</script>
+@endpush

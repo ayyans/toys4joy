@@ -148,8 +148,7 @@
                             <a href="javascript:void(0)" id="payasgueast">Fast Pay (<span>{{ $total_price
                                     }}</span>)</a>
                         </div>
-                        <p>You need to create an account with us to be able to Enter Discount, Corporate Code, or Gift
-                            Card.</p>
+                        <p>You need to create an account with us to be able to Enter Discount or Corporate Code.</p>
                     </div>
                     <div class="col-6">
                         <div class="yellowbg-img cash-on-delivery">
