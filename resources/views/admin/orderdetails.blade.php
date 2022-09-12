@@ -112,6 +112,13 @@
                         <br />
                     </td>
                 </tr>
+                @if ($order->remarks)
+                <tr>
+                  <td colspan="4" style="padding-top: 10px;">
+                    <b>Remarks: </b><span>{{ $order->remarks }}</span>
+                  </td>
+                </tr>
+                @endif
             </table>
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">

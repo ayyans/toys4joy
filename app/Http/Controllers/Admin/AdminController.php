@@ -1910,4 +1910,19 @@ public function editProcess(Request $request){
             'status' => $status
         ]);
     }
+
+    public function addOrderRemarks(Request $request) {
+        if (!$request->order_id) {
+            return response()->json([
+                'status' => false,
+            ], 400);
+        }
+        $order = Order::find( $request->order_id );
+        $order->update([
+            'remarks' => $request->remarks
+        ]);
+        return response()->json([
+            'status' => true
+        ], 200);
+    }
 }
