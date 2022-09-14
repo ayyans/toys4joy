@@ -252,6 +252,7 @@
             <a class="collapse-item" href="{{ route('admin.report.usedGiftCards') }}">Used GC Report</a>
             <a class="collapse-item" href="{{ route('admin.report.returnedOrders') }}">Returned Orders Report</a>
             <a class="collapse-item" href="{{ route('admin.report.returnedOrderItems') }}">Returned Items Report</a>
+            <a class="collapse-item" href="{{ route('admin.report.abandonedOrdersReport') }}">Abandoned Orders Report</a>
         </div>
     </div>
 </li>
