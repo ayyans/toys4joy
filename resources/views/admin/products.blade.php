@@ -69,7 +69,7 @@
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="javascript:void(0)" class="dropdown-item">View</a></li>
+                                        <li><a href="{{ route('website.productDetails', $product->url) }}" class="dropdown-item" target="_blank">View</a></li>
                                         @if($product->status==1)
 
                                         <li><a href="{{route('admin.activateProd',[encrypt($product->id)])}}"

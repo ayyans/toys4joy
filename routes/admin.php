@@ -177,6 +177,8 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('generated-giftcards-report', 'AdminController@generatedGiftCardsReport')->name('report.generatedGiftCards');
     Route::get('used-giftcards-report', 'AdminController@usedGiftCardsReport')->name('report.usedGiftCards');
     Route::get('returned-orders-report', 'AdminController@returnedOrdersReport')->name('report.returnedOrders');
+    Route::get('returned-order-items-report', 'AdminController@returnOrderItemsReport')->name('report.returnedOrderItems');
+    Route::get('abandoned-orders-report', 'AdminController@abandonedOrdersReport')->name('report.abandonedOrdersReport');
 
     // Points
     Route::get('points', 'AdminController@points')->name('points');
