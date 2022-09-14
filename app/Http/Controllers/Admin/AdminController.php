@@ -7,6 +7,7 @@ use App\Exports\CustomersReportExport;
 use App\Exports\GeneratedGiftCardsReportExport;
 use App\Exports\GuestsReportExport;
 use App\Exports\InventoryReportExport;
+use App\Exports\ReturnedOrderItemsReportExport;
 use App\Exports\ReturnedOrdersReportExport;
 use App\Exports\SalesReportExport;
 use App\Exports\UsedGiftCardsReportExport;
@@ -1178,7 +1179,7 @@ public function orderStatus(Request $request){
 
 public function returnItems(Order $order) {
     $order = $order->load('items.product');
-    $discountPercentage = ($order->discount / $order->subtotal) * 100;
+    $discountPercentage = $order->subtotal > 0 ? ($order->discount / $order->subtotal) * 100 : 0;
     return view('admin.return_items', compact('order', 'discountPercentage'));
 }
 
@@ -1826,6 +1827,41 @@ public function editProcess(Request $request){
         }
 
         return view('admin.reports.returned-orders-report', compact('orders'));
+    }
+
+    public function returnOrderItemsReport(Request $request) {
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $orderItems = OrderItem::with('order')
+            ->where('status', 'returned')
+            ->orderByDesc('updated_at')
+            ->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('updated_at', [$start_date, $end_date]);
+            })
+            ->get()
+            ->map(function($orderItem) {
+                return [
+                    'order_number' => $orderItem->order->order_number,
+                    'order_type' => $orderItem->order->user_id
+                        ? ($orderItem->order->is_wishlist ? 'Wishlist' : 'Customer')
+                        : 'Guest',
+                    'payment_type' => strtoupper($orderItem->order->order_type),
+                    'payment_status' => $orderItem->order->payment_status,
+                    'product_id' => $orderItem->product_id,
+                    'quantity' => $orderItem->quantity,
+                    'total_amount' => $orderItem->total_amount,
+                    'returned_at' => $orderItem->updated_at
+                ];
+            });
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new ReturnedOrderItemsReportExport($orderItems), 'returned-order-items-report.xlsx');
+        }
+
+        return view('admin.reports.returned-order-items-report', compact('orderItems'));
     }
 
     public function bulkupload()
