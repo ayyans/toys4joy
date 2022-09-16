@@ -148,3 +148,85 @@ if ( !function_exists('reduceByPercentage') ) {
     return $value - $discount;
   }
 }
+
+// generate unique order number
+
+if (!function_exists('generateOrderNumber')) {
+  function generateOrderNumber()
+  {
+    if (session()->missing('order_number')) {
+      $orderNumber = rand('123456798' , '987654321');
+      session(['order_number' => $orderNumber]);
+    }
+    return session('order_number');
+  }
+}
+
+// generate sadad checkout form
+
+if (!function_exists('generateSadadForm')) {
+  function generateSadadForm($items, $callback)
+  {
+    $callback = "https://www.toys4joy.com/";
+    $total_price = cart()->getTotal();
+
+    $sadad_checksum_array = [];
+    $sadad__checksum_data = [];
+    $email = auth()->user()->email ?? 'toysforjoyorders@gmail.com';
+
+    $secretKey = 'ewHgg8NgyY5zo59M';
+    $merchantID = '7288803';
+    $order_number = generateOrderNumber();
+    $sadad_checksum_array['merchant_id'] = $merchantID;
+    $sadad_checksum_array['ORDER_ID'] = $order_number;
+    $sadad_checksum_array['WEBSITE'] = url('/');
+    $sadad_checksum_array['VERSION'] = '1.1';
+    $sadad_checksum_array['TXN_AMOUNT'] = $total_price;
+    $sadad_checksum_array['CUST_ID'] = $email;
+    $sadad_checksum_array['EMAIL'] = $email;
+    $sadad_checksum_array['MOBILE_NO'] = '999999999';
+    $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';
+    $sadad_checksum_array['CALLBACK_URL'] = $callback;
+    $sadad_checksum_array['txnDate'] = now();
+
+    foreach ($items as $item) {
+        $allproducts[] = [
+          'order_id' => $order_number,
+          'itemname' => $item->name,
+          'quantity' => $item->quantity,
+          'amount' =>$item->price
+        ];
+    }
+
+    $sadad_checksum_array['productdetail'] = $allproducts;
+    $sadad__checksum_data['postData'] = $sadad_checksum_array;
+    $sadad__checksum_data['secretKey'] = $secretKey;
+
+    $sAry1 = [];
+    $sadad_checksum_array1 = array();
+
+    foreach($sadad_checksum_array as $pK => $pV) {
+      if($pK=='checksumhash') continue;
+      if(is_array($pV)) {
+          $prodSize = sizeof($pV);
+          for($i=0;$i<$prodSize;$i++) {
+              foreach($pV[$i] as $innK => $innV) {
+                  $sAry1[] = "<input type='hidden' name='productdetail[$i][". $innK ."]' value='" . trim($innV) . "'/>";
+                  $sadad_checksum_array1['productdetail'][$i][$innK] = trim($innV);
+              }
+          }
+      } else {
+          $sAry1[] = "<input type='hidden' name='". $pK ."' id='". $pK ."' value='" . trim($pV) . "'/>";
+          $sadad_checksum_array1[$pK] = trim($pV);
+      }
+    }
+
+    $sadad__checksum_data['postData'] = $sadad_checksum_array1;
+    $sadad__checksum_data['secretKey'] = $secretKey;  $checksum = getChecksumFromString(json_encode($sadad__checksum_data), $secretKey . $merchantID);
+    $sAry1[] = "<input type='hidden'  name='checksumhash' value='" . $checksum . "'/>";
+
+    $form = '<form action="https://sadadqa.com/webpurchase" method="post" id="paymentform" name="paymentform" data-link="https://sadadqa.com/webpurchase">' . implode('', $sAry1) . '</form>';
+
+    return $form;
+  }
+}

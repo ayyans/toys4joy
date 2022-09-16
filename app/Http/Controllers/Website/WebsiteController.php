@@ -671,8 +671,17 @@ class WebsiteController extends Controller
 
     // pay as member
 
-    public function payasmember(Request $request){
-        $cust_id = Cmf::ipaddress();
+    public function payasmember(Request $request)
+    {
+        if (cart()->isEmpty())
+            return redirect()->route('website.home')
+                ->with('error','Cart Is Empty!');
+
+        $addressDoesntExist = CustomerAddress::where('cust_id' , auth()->id())->doesntExist();
+
+        if ($addressDoesntExist)
+            return redirect()->route('website.addAddressInfo')
+                ->with('error','Add Address First');
 
         // removing out of stock and unavilable items
         removeOutOfStockFromCart();
@@ -681,21 +690,8 @@ class WebsiteController extends Controller
         // if expired please detach
 
         $items = cart()->getContent();
-        if(! cart()->isEmpty())
-        {
-            $checkaddres = CustomerAddress::where('cust_id' , Auth::user()->id)->count();
-            if($checkaddres > 0)
-            {
-                // return view('website.payasmember',compact('products','giftcoupencode'));
-                return view('website.payasmember',compact('items'));
-            }else{
-                
-                return redirect()->route('website.addAddressInfo')->with('error','Add Address First');
-            }
-        }else{
-            return redirect()->route('website.home')->with('error','Cart Is Empty!');
-        }
-        
+
+        return view('website.payasmember', compact('items'));
     }
 
 
@@ -1023,7 +1019,7 @@ class WebsiteController extends Controller
     {
         $items = cart()->getContent();
         $user = auth()->user()->load('address');
-        $order_number = mt_rand(100000000, 999999999);
+        $order_number = generateOrderNumber();
 
         DB::beginTransaction();
 
