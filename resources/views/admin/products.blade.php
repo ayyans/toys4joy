@@ -20,6 +20,7 @@
                         <tr>
                             <th>Product ID</th>
                             <th>SKU</th>
+                            <th>Barcode</th>
                             <th>Name</th>
                             <th>Brand</th>
                             <th>New Arrival</th>
@@ -38,6 +39,7 @@
                         <tr>
                             <td>{{ $product->id }}</td>
                             <td>{{ $product->sku }}</td>
+                            <td>{{ $product->barcode }}</td>
                             <td>{{ $product->title }}</td>
                             <td>{{ $product->brand->brand_name }}</td>
                             <td>
