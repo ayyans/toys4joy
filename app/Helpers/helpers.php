@@ -167,7 +167,6 @@ if (!function_exists('generateOrderNumber')) {
 if (!function_exists('generateSadadForm')) {
   function generateSadadForm($items, $callback)
   {
-    $callback = "https://www.toys4joy.com/";
     $total_price = cart()->getTotal();
 
     $sadad_checksum_array = [];

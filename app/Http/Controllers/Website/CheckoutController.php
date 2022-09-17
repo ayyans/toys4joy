@@ -93,8 +93,8 @@ class CheckoutController extends Controller
             // forget session
             session()->forget('order_number');
 
-            // event(new OrderPlaced($order));
-            // Cmf::sendordersms($order->order_number);
+            event(new OrderPlaced($order));
+            Cmf::sendordersms($order->order_number);
 
             return view('website.guestthanks', compact('order_number'));
         }
@@ -154,8 +154,8 @@ class CheckoutController extends Controller
         // forget session
         session()->forget('order_number');
 
-        // event(new OrderPlaced($order));
-        // Cmf::sendordersms($order->order_number);
+        event(new OrderPlaced($order));
+        Cmf::sendordersms($order->order_number);
 
         return view('website.guestthanks', compact('order_number'));
     }
