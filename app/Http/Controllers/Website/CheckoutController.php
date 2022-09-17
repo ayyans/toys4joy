@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Events\OrderPlaced;
+use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
 use App\Models\giftcards;
 use App\Models\Order;
@@ -13,22 +15,16 @@ class CheckoutController extends Controller
 {
     public function placeOrder(Request $request) {
         $items = cart()->getContent();
-        $user = null;
-        if (auth()->check()) {
-            $user = auth()->user()->load('address');
-        }
-
         $order_number = generateOrderNumber();
-        $user_id = $user ? $user->id : null;
-        $address_id = $user ? $user->address->id : null;
+        $address_id = auth()->check() ? auth()->user()->address->id : null;
         $order_type = $request->order_type;
-        $is_abandoned = $order_type === 'cod' ? false : true;
+        $is_abandoned = $order_type === 'cc';
 
         DB::beginTransaction();
 
         // order details
         $orderDetails = [
-            'user_id' => $user_id,
+            'user_id' => auth()->id(),
             'order_number' => $order_number,
             'address_id' => $address_id,
             'order_type' => $order_type,
@@ -100,15 +96,67 @@ class CheckoutController extends Controller
             // event(new OrderPlaced($order));
             // Cmf::sendordersms($order->order_number);
 
-            return auth()->check()
-                ? redirect()->route('website.confermordercod', $order_number)
-                : redirect()->route('website.guestthankorder', $order_number);
+            return view('website.guestthanks', compact('order_number'));
         }
 
-        $form = auth()->check()
-            ? generateSadadForm($items, url('orderconferm'))
-            : generateSadadForm($items, url('orderconfermasguest'));
+        // for testing confirmOrder directly
+        // return self::confirmOrder($request->merge([
+        //     'STATUS' => 'TXN_SUCCESS',
+        //     'ORDERID' => $order_number,
+        //     'transaction_number' => random_int(110, 999)
+        // ]));
+
+        $form = generateSadadForm($items, route('website.confirm-order'));
 
         return view('website.sadad-checkout', compact('form'));
+    }
+
+    public function confirmOrder(Request $request) {
+        $data =  $request->all();
+
+        $status = $data['STATUS'];
+
+        if ($status != 'TXN_SUCCESS') {
+            $redirect = auth()->check()
+                ? redirect()->route('website.payasmember')
+                : redirect()->route('website.payasguest');
+            return $redirect->with('error','Payment failed!');
+        }
+
+        $order_number = $data['ORDERID'];
+        $transaction_number = $data['transaction_number'];
+
+        $coupon_id = cart()->getConditionsByType('coupon')->first();
+        if ($coupon_id) {
+            $coupon_id = $coupon_id->getAttributes()['id'];
+        }
+
+        $order = Order::where('order_number', $order_number)->first();
+        $order->update([
+            'coupon_id' => $coupon_id,
+            'payment_status' => 'paid',
+            'transaction_number' => $transaction_number,
+            'additional_details->is_abandoned' => false,
+        ]);
+
+        $giftCardIds = cart()->getConditionsByType('giftcard')->map(function($g) {
+            return $g->getAttributes()['id'];
+        })->values();
+
+        giftcards::whereIn('id', $giftCardIds)->update([
+            'user_id' => auth()->id(),
+            'order_id' => $order->id
+        ]);
+
+        // clearing cart
+        cart()->clear();
+        cart()->clearCartConditions();
+        // forget session
+        session()->forget('order_number');
+
+        // event(new OrderPlaced($order));
+        // Cmf::sendordersms($order->order_number);
+
+        return view('website.guestthanks', compact('order_number'));
     }
 }

@@ -94,6 +94,7 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::get('/addgiftcard/{price}/{order_number}','UserController@addgiftcard');
 
     Route::post('/place-order', 'CheckoutController@placeOrder')->name('place-order');
+    Route::post('/confirm-order', 'CheckoutController@confirmOrder')->name('confirm-order');
 });
 Route::name('website.')->namespace('App\Http\Controllers\Website')->middleware(['auth'])->group(function(){
     Route::get('/ordeconferm','WebsiteController@ordeconferm')->name('ordeconferm');
