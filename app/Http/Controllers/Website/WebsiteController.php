@@ -675,7 +675,7 @@ class WebsiteController extends Controller
     {
         if (cart()->isEmpty())
             return redirect()->route('website.home')
-                ->with('error','Cart Is Empty!');
+                ->with('error','Cart is empty!');
 
         $addressDoesntExist = CustomerAddress::where('cust_id' , auth()->id())->doesntExist();
 

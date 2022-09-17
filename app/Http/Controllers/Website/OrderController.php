@@ -419,7 +419,13 @@ class OrderController extends Controller
     }
      // pay as guest checkout 
 
-    public function payasguest(Request $request){
+    public function payasguest(Request $request) {
+        // if (auth()->check())
+        //     return redirect()->route('website.payasmember');
+
+        if (cart()->isEmpty())
+            return redirect()->route('website.home')
+                ->with('error','Cart is empty!');
 
         // clear cart conditions for coupons if customer tries to add cart
         // condition form customer side and try to place order at guest side
@@ -428,11 +434,6 @@ class OrderController extends Controller
         removeOutOfStockFromCart();
 
         $items = cart()->getContent();
-        if(! cart()->isEmpty())
-        {
-            return view('website.payasguest',compact('items'));
-        }else{
-            return redirect()->route('website.home')->with('error','Cart Is Empty!');
-        }        
+        return view('website.payasguest',compact('items'));
     }
 }

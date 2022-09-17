@@ -22,6 +22,7 @@ class CheckoutController extends Controller
         $user_id = $user ? $user->id : null;
         $address_id = $user ? $user->address->id : null;
         $order_type = $request->order_type;
+        $is_abandoned = $order_type === 'cod' ? false : true;
 
         DB::beginTransaction();
 
@@ -37,6 +38,7 @@ class CheckoutController extends Controller
             'payment_status' => 'unpaid',
             'order_status' => 'placed',
             'transaction_number' => null,
+            'additional_details->is_abandoned' => $is_abandoned,
             'additional_details->is_new' => true
         ];
         // if it's guest
@@ -44,7 +46,7 @@ class CheckoutController extends Controller
             $orderDetails = array_merge($orderDetails, [
                 'additional_details->name' => $request->custname,
                 'additional_details->email' => $request->email,
-                'additional_details->mobile' => $request->mobilenumber,
+                'additional_details->mobile' => $request->mobile,
                 'additional_details->unit_no' => $request->unit_no,
                 'additional_details->building_no' => $request->building_no,
                 'additional_details->zone' => $request->zone,
@@ -59,9 +61,9 @@ class CheckoutController extends Controller
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $item->id,
-                'price' => $item->associatedModel->unit_price,
+                'price' => $item->associatedModel['unit_price'],
                 'quantity' => $item->quantity,
-                'discount' => $item->associatedModel->unit_price - $item->price,
+                'discount' => $item->associatedModel['unit_price'] - $item->price,
                 'total_amount' => $item->getPriceSum()
             ]);
         }
@@ -98,10 +100,14 @@ class CheckoutController extends Controller
             // event(new OrderPlaced($order));
             // Cmf::sendordersms($order->order_number);
 
-            return redirect()->route('website.confermordercod', $order_number);
+            return auth()->check()
+                ? redirect()->route('website.confermordercod', $order_number)
+                : redirect()->route('website.guestthankorder', $order_number);
         }
 
-        $form = generateSadadForm($items, url('orderconferm'));
+        $form = auth()->check()
+            ? generateSadadForm($items, url('orderconferm'))
+            : generateSadadForm($items, url('orderconfermasguest'));
 
         return view('website.sadad-checkout', compact('form'));
     }
