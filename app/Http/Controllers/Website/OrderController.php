@@ -420,8 +420,8 @@ class OrderController extends Controller
      // pay as guest checkout 
 
     public function payasguest(Request $request) {
-        // if (auth()->check())
-        //     return redirect()->route('website.payasmember');
+        if (auth()->check())
+            return redirect()->route('website.payasmember');
 
         if (cart()->isEmpty())
             return redirect()->route('website.home')
