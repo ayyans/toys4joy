@@ -1,74 +1,18 @@
 @extends('website.layouts.master')
-@section('content')
-<?php
-
-    $sadad_checksum_array = array();
-    $sadad__checksum_data = array();
-    $txnDate = date('Y-m-d H:i:s');
-    $email = auth()->check() ? auth()->user()->email : 'toysforjoyorders@gmail.com';
-
-    $secretKey = 'ewHgg8NgyY5zo59M';
-    $merchantID = '7288803';
-    $sadad_checksum_array['merchant_id'] = $merchantID;
-    $orderid = rand('123456798' , '987654321');
-    $sadad_checksum_array['ORDER_ID'] = $orderid;
-    $sadad_checksum_array['WEBSITE'] = url('');
-    $sadad_checksum_array['TXN_AMOUNT'] = '50.00';
-    $sadad_checksum_array['CUST_ID'] = $email;
-    $sadad_checksum_array['EMAIL'] = $email;
-    $sadad_checksum_array['MOBILE_NO'] = '999999999';
-    $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';
-    $sadad_checksum_array['CALLBACK_URL'] = url('orderconfermasguest');
-    $sadad_checksum_array['txnDate'] = $txnDate;
-
-    foreach ($items as $item) {
-        $json_decoded = json_decode($item);
-        $allproducts[] = array('order_id' => $orderid, 'itemname' => $item->name, 'amount' => $item->price, 'quantity' => $item->quantity);
-    }
-
-    $sadad_checksum_array['productdetail'] = $allproducts;
-    $sadad__checksum_data['postData'] = $sadad_checksum_array;
-    $sadad__checksum_data['secretKey'] = $secretKey;
-
-    $sAry1 = array();
-    $sadad_checksum_array1 = array();
-    foreach($sadad_checksum_array as $pK => $pV) {
-        if($pK=='checksumhash') continue;
-        if(is_array($pV)) {
-            $prodSize = sizeof($pV);
-            for($i=0;$i<$prodSize;$i++) {
-                foreach($pV[$i] as $innK => $innV){
-                    $sAry1[] = "<input type='hidden' name='productdetail[$i][". $innK ."]' value='" . trim($innV) . "'/>";
-                    $sadad_checksum_array1['productdetail'][$i][$innK] = trim($innV);
-                }
-            }
-        } else {
-            $sAry1[] = "<input type='hidden' name='". $pK ."' id='". $pK ."' value='" . trim($pV) . "'/>";
-            $sadad_checksum_array1[$pK] = trim($pV);
-        }
-    }
-    $sadad__checksum_data['postData'] = $sadad_checksum_array1;
-    $sadad__checksum_data['secretKey'] = $secretKey;  $checksum = getChecksumFromString(json_encode($sadad__checksum_data), $secretKey . $merchantID);
-    $sAry1[] = "<input type='hidden'  name='checksumhash' value='" . $checksum . "'/>";
-
-    $action_url = 'https://sadadqa.com/webpurchase';
-    echo '<form action="' . $action_url . '" method="post" id="paymentform" name="paymentform" data-link="' . $action_url .'">' . implode('', $sAry1) . '</form>';
-?>
-<style type="text/css">
+@push('otherstyle')
+<link rel="stylesheet" href="{{ url('website/phone/css/intlTelInput.css') }}">
+<style>
     .iti {
         width: 100%;
     }
 </style>
-<link rel="stylesheet" href="{{ url('website/phone/css/intlTelInput.css') }}">
+@endpush
+@section('content')
 <main class="pay-as-guest-page" id="pay-as-guest">
     <div class="container-fluid">
         <div class="row">
             <div class="col-6">
-                @php $total_price = \Cart::getTotal() @endphp
                 @foreach($items as $item)
-                <input type="hidden" id="prod_id" value="{{$item->id}}" name="prodid[]" />
-                <input type="hidden" id="cart_qty" value="{{$item->quantity}}" name="cartQty[]" />
-                <input type="hidden" id="cart_amount" value="{{$item->price}}" name="cart_amount[]" />
                 <div class="d-flex cart-products">
                     <div class="cart-image"><img src="{{asset('products/'.$item->associatedModel['featured_img'])}}" />
                     </div>
@@ -77,30 +21,28 @@
                         <h4 class="price">QAR {{$item->price}}</h4>
                         <div class="qty">Quantity : {{$item->quantity}}</div>
                         <div class="d-flex rmv-or-edit">
-                            <div class="remove icon"><a href="javascript:void(0)"
-                                    onclick="removecart({{$item->id}})"><img
-                                        src="{{asset('website/img/delete.png')}}" /></a></div>
-                            <!-- <div class="edit icon"><a href="#"><img src="{{asset('website/img/edit.png')}}"/></a></div> -->
+                            <div class="remove icon">
+                                <a href="javascript:void(0)" onclick="removecart( {{$item->id}} , true )">
+                                    <img src="{{asset('website/img/delete.png')}}" />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 @endforeach
-
             </div>
+
             <div class="col-6 text-center">
-                <form action="#" method="POST" id="guestcheckoutFrm">
-                    @csrf
-                    <input type="hidden" name="prod_id" value="" />
-                    <input type="hidden" name="prod_qty" value="" />
+                <form action="{{ route('website.place-order') }}" method="post" id="place-order">
+                    <input type="hidden" name="order_type" id="order_type" value="cod">
                     <div style="margin-top: 0px;" class="discount-block">
                         <div class="mb-3">
-                            <label>Name <span style="color:#ff0000">*</span></label>
-                            <input type="text" name="custname" id="custname" class="guestcheckinp" required>
+                            <label>Name <span class="text-danger">*</span></label>
+                            <input type="text" name="custname" id="custname" required>
                         </div>
                         <div class="mb-3">
-                            <label>Mobile Number <span style="color:#ff0000">*</span></label>
-                            <input id="phone" class="guestcheckinp" name="phone" type="tel">
-                            <input type="hidden" name="mobilenumber" id="mobilenumber">
+                            <label>Mobile Number <span class="text-danger">*</span></label>
+                            <input type="tel" name="phone" id="phone" required>
                         </div>
                         <div class="mb-3">
                             <label>Email (optional)</label>
@@ -125,6 +67,7 @@
                         <p>Note: One of our team member will contact you shortly to get your location & necessary information.</p>
                     </div>
                 </form>
+
                 <div class="code-block">
                     <div class="mb-3">
                         <label>Gift-Card Code</label>
@@ -142,17 +85,19 @@
                     </div>
                     @endforeach
                 </div>
+
                 <div class="pay-as-guest row">
                     <div class="text-center col-6">
                         <div class="guest">
-                            <a href="javascript:void(0)" id="payasgueast">Fast Pay (<span>{{ $total_price
-                                    }}</span>)</a>
+                            <a href="javascript:;" class="pay" data-type="cc">
+                                Fast Pay ({{ cart()->getTotal()}})
+                            </a>
                         </div>
                         <p>You need to create an account with us to be able to Enter Discount or Corporate Code.</p>
                     </div>
                     <div class="col-6">
                         <div class="yellowbg-img cash-on-delivery">
-                            <a href="javascript:void(0)" id="cashonD">Cash or Credit<br>on Delivery</a>
+                            <a href="javascript:;" class="pay" data-type="cod">Cash or Credit<br>on Delivery</a>
                             <img src="{{asset('website/img/cash-on-delievery.png')}}" />
                         </div>
                     </div>
@@ -162,171 +107,34 @@
     </div>
 
 </main>
+@endsection
+@push('otherscript')
 <script src="{{ url('website/phone/js/intlTelInput.js') }}"></script>
 <script>
-    var input = document.querySelector("#phone");
-    window.intlTelInput(input, {
-      autoHideDialCode: false,
+    const phone = document.querySelector("#phone");
+    const iti = intlTelInput(phone, {
+      autoHideDialCode: true,
       formatOnDisplay: true,
-      hiddenInput: "full_phone",
+      hiddenInput: "mobile",
       placeholderNumberType: "MOBILE",
       preferredCountries: ['qa'],
       separateDialCode: true,
-      utilsScript: "{{ url('website/phone/js/utils.js') }}?1638200991544",
+      utilsScript: "{{ url('website/phone/js/utils.js') }}",
     });
-</script>
-@stop
-
-
-@push('otherscript')
-<script>
-    $(function(){
-        var price = $("#initprice").val();
-        var fnlQty= $("#fnlqty").val();
-        var total_amount = parseInt(price)*parseInt(fnlQty);
-        $("#payment_amount").val(total_amount);
-        $("#total_amount").text('QAR' +total_amount);
-    })
-</script>
-<script type="text/javascript">
-    $(function() {
-$("#payasgueast").click(function(e){
-e.preventDefault();
-var isValid = true;
-$("input.guestcheckinp").each(function(){
-    if ($.trim($(this).val()) == '') {
-        isValid = false;
-        $(this).css({
-            "border": "1px solid red",
-            "background": "#FFCECE",
-        });
-    }
-    else {
-        $(this).css({
-            "border": "",
-            "background": ""
-        });
-    }
-});
-$("textarea.guestcheckinp").each(function(){
-    if ($.trim($(this).val()) == '') {
-        isValid = false;
-        $(this).css({
-            "border": "1px solid red",
-            "background": "#FFCECE",
-        });
-    }
-    else {
-        $(this).css({
-            "border": "",
-            "background": ""
-        });
-    }
-});
-if(isValid!=true){
-    e.preventDefault();
-    return false;
-}else{
-
-    var txt = $('.iti__selected-dial-code').text();
-    var phone = $('#phone').val();
-    $('#mobilenumber').val(txt+phone);
-    e.preventDefault();
-    var form = $("form#guestcheckoutFrm")[0];
-    var form2 = new FormData(form);
-    form2.append('mode','2');
-    form2.append('order_id','{{ $orderid }}');
-    $("#cover-spin").show();
-    $.ajax({
-        url:"{{route('website.payasguestordergenerate')}}",
-        type:"POST",
-        data:form2,
-        cache:false,
-        contentType:false,
-        processData:false,
-        success:function(res){
-            var js_data = JSON.parse(JSON.stringify(res));
-            $("#cover-spin").hide();
-            if(js_data.status){
-                 $('#paymentform').submit();
+    // required fields
+    const requiredFields = query => {
+        return query.every(q => {
+            const el = $(q);
+            if (! el.val()) {
+                toastr.error("Field is required");
+                el[0].scrollIntoView(false);
+                el.focus();
+                return false;
             }
-        }
-    })
-
-}
-})  
-});
-</script>
-
-<script type="text/javascript">
-    $(function() {
-$("#cashonD").click(function(e){
-e.preventDefault();
-var isValid = true;
-$("input.guestcheckinp").each(function(){
-    if ($.trim($(this).val()) == '') {
-        isValid = false;
-        $(this).css({
-            "border": "1px solid red",
-            "background": "#FFCECE",
+            return true;
         });
     }
-    else {
-        $(this).css({
-            "border": "",
-            "background": ""
-        });
-    }
-});
-$("textarea.guestcheckinp").each(function(){
-    if ($.trim($(this).val()) == '') {
-        isValid = false;
-        $(this).css({
-            "border": "1px solid red",
-            "background": "#FFCECE",
-        });
-    }
-    else {
-        $(this).css({
-            "border": "",
-            "background": ""
-        });
-    }
-});
-if(isValid!=true){
-    e.preventDefault();
-    return false;
-}else{
-    var txt = $('.iti__selected-dial-code').text();
-    var phone = $('#phone').val();
-    $('#mobilenumber').val(txt+phone);
-    e.preventDefault();
-    var form = $("form#guestcheckoutFrm")[0];
-    var form2 = new FormData(form);
-    form2.append('mode','2');
-    form2.append('order_id','{{ $orderid }}');
-    $("#cover-spin").show();
-    $.ajax({
-        url:"{{route('website.saveCustDetails')}}",
-        type:"POST",
-        data:form2,
-        cache:false,
-        contentType:false,
-        processData:false,
-        success:function(res){
-            var js_data = JSON.parse(JSON.stringify(res));
-            $("#cover-spin").hide();
-            if(js_data.status){
-                var url = "{{ url('guestthankorder') }}";
-                window.location.href=url+'/'+js_data.order_number;
-            }
-        }
-    })
-}
-})  
-});
-</script>
-<script>
+    // gift card counpon
     $("button.giftBtn").click(function() {
         const url = "{{ route('website.giftcard_coupon') }}";
         const _token = $('meta[name="csrf-token"]').attr('content');
@@ -352,6 +160,16 @@ if(isValid!=true){
             }
         })
         .catch(err => console.log(err));
+    });
+    // pay
+    $(".pay").click(function() {
+        if(! requiredFields(['#custname', '#phone']) ) return;
+
+        $('input[name=mobile]').val( iti.getNumber() );
+
+        const type = $(this).data('type');
+        $('#order_type').val(type);
+        $('#place-order').submit();
     });
 </script>
 @endpush

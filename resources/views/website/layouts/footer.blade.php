@@ -276,7 +276,7 @@
 </script>
 
 <script>
-    function removecart(cartid){
+    function removecart(cartid, refresh = false){
         $("#cover-spin").show();
         var form = new FormData();
         form.append('cartid',cartid);
@@ -292,6 +292,7 @@
                 $("#cover-spin").hide();
                 if(js_data.status==200){
                     toastr.success('Product removed from cart');
+                    if (refresh) window.location.reload();
                     headercart();
                     showcart();
                 }else{
