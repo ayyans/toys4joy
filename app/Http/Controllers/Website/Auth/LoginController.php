@@ -42,8 +42,10 @@ class LoginController extends Controller
 
         // phone not verified
         if ($user->status == 1) {
-            sendOTPCode($user);
-            return redirect()->route('website.otp')->with('warning', 'Please Enter Code!');
+            sendOTPCode($user->mobile, 'register');
+            return redirect()->route('website.otp')
+                ->with('warning', 'Please Enter Code!')
+                ->with('mobile', $user->mobile);
         }
 
         // login the user
@@ -56,19 +58,21 @@ class LoginController extends Controller
     }
     public function verificationotp()
     {
+        session()->keep('mobile');
         return view('website.verifyotp');
     }
     public function confermotp(Request $request)
     {
-        $user = User::where('otp', $request->otp)->first();
-        if ($user) {
-            $user->forceFill(['status' => 2])->save();
-            event(new Registered($user)); // Registered event fired
-            auth()->login($user, true);
-            return redirect()->route('website.home')->with('success', 'Your Account is Approved');
-        } else {
-            return back()->with('error', 'Invalid OTP');
-        }
+        session()->keep('mobile');
+        $mobile = $request->mobile;
+        $otp = $request->otp;
+        $otpVerification = verifyOTPCode($mobile, $otp, 'register');
+        if (! $otpVerification) return back()->with('error', 'Invalid OTP');
+        $user = User::where('mobile', $mobile)->first();
+        $user->update(['status' => 2]);
+        event(new Registered($user)); // Registered event fired
+        auth()->login($user, true);
+        return redirect()->route('website.home')->with('success', 'Your Account is Approved');
     }
     /**
      * Logout the admin.

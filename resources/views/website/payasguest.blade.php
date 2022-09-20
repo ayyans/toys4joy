@@ -109,6 +109,7 @@
 </main>
 @endsection
 @push('otherscript')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ url('website/phone/js/intlTelInput.js') }}"></script>
 <script>
     const phone = document.querySelector("#phone");
@@ -161,15 +162,76 @@
         })
         .catch(err => console.log(err));
     });
+    // send otp code
+    const sendOTPCode = async phone => {
+        const url = "{{ route('website.send-otp-code') }}";
+        const response = await fetch(url, {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phone })
+        })
+
+        return response.ok;
+    }
     // pay
     $(".pay").click(function() {
         if(! requiredFields(['#custname', '#phone']) ) return;
 
-        $('input[name=mobile]').val( iti.getNumber() );
-
         const type = $(this).data('type');
-        $('#order_type').val(type);
-        $('#place-order').submit();
+        const phone = iti.getNumber();
+        $('input[name=mobile]').val( phone );
+
+        sendOTPCode(phone).then(ok => {
+            if (! ok) {
+                toastr.error('There is an error in sending OTP code!');
+                return;
+            }
+
+            Swal.fire({
+                title: 'Verification',
+                html: `Please enter the OTP send on <b>${phone}</b> to complete the order.`,
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                backdrop: true,
+                showCancelButton: true,
+                confirmButtonText: 'Verify',
+                showLoaderOnConfirm: true,
+                preConfirm: (otp) => {
+                    const url = "{{ route('website.verify-otp-code') }}";
+                    return fetch(url, {
+                        method: 'post',
+                        headers: {'Content-type': 'application/json'},
+                        body: JSON.stringify({ phone, otp })
+                    })
+                    .then(response => {
+                        if (! response.ok){
+                            if (response.status === 401)
+                                throw new Error("You have entered wrong OTP code");
+
+                            throw new Error(response.statusText);
+                        }
+                        return response.json()
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(error)
+                    })
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Order placed successfully',
+                        timer: 2000,
+                        timerProgressBar: true
+                    }).then((result) => {
+                        $('#order_type').val(type);
+                        $('#place-order').submit();
+                    })
+                }
+            })
+        });
     });
 </script>
 @endpush

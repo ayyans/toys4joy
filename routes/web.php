@@ -86,6 +86,8 @@ Route::name('website.')->namespace('App\Http\Controllers\Website')->group(functi
     Route::post('/giftcard-coupon','UserController@giftcard_coupon')->name('giftcard_coupon');
     Route::get('/removegiftcard','UserController@removegiftcard')->name('removegiftcard');
     Route::get('/gift-cards','WebsiteController@giftcard')->name('giftcard');
+    Route::post('/send-otp-code', 'WebsiteController@sendOtpCode')->name('send-otp-code');
+    Route::post('/verify-otp-code', 'WebsiteController@verifyOtpCode')->name('verify-otp-code');
 
 
     Route::get('/placeorderwishlist/{id}/{orderid}','WishlistController@placeorderwishlist');
