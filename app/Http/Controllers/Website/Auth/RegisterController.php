@@ -50,7 +50,7 @@ class RegisterController extends Controller
         $savecustomers = new User;
         $savecustomers->name = $request->name;
         $savecustomers->email = $request->email;
-        $savecustomers->mobile = $request->mobilenumber;
+        $savecustomers->mobile = $request->mobile;
         $savecustomers->status = 1;
         $savecustomers->type = 'customer';
         // $savecustomers->otp = $otp;
