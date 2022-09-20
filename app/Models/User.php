@@ -26,7 +26,8 @@ class User extends Authenticatable implements Wallet, Customer
         'name',
         'email',
         'password',
-        'show_password'
+        'show_password',
+        'status'
     ];
 
     /**

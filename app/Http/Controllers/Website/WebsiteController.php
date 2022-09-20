@@ -1293,4 +1293,19 @@ public function giftcard() {
         ]);
     }
 
+    public function sendOtpCode(Request $request) {
+        $otpSent = sendOTPCode($request->phone, 'order');
+
+        return response()->json([
+            'status' => $otpSent
+        ], $otpSent ? 200 : 500);
+    }
+
+    public function verifyOtpCode(Request $request) {
+        $otpVerified = verifyOTPCode($request->phone, $request->otp, 'order');
+
+        return response()->json([
+            'status' => $otpVerified
+        ], $otpVerified ? 200 : 401);
+    }
 }

@@ -2,6 +2,7 @@
 
 // sadad functions
 
+use App\Models\OtpVerification;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Twilio\Rest\Client;
@@ -69,11 +70,25 @@ if ( !function_exists('sendMessage') ) {
 // send otp
 
 if ( !function_exists('sendOTPCode') ) {
-  function sendOTPCode($user) {
+  function sendOTPCode($phone, $type) {
     $otp = rand(123456, 654321);
-    $updated = $user->forceFill([ 'otp' => $otp ])->save();
-    $sent = sendMessage($user->mobile, "Your one time pin is ${otp}. Use this pin for verification on Toys4Joy.");
-    return $updated && $sent;
+    $otpVerification = OtpVerification::updateOrCreate(
+      compact('phone', 'type'),
+      compact('otp')
+    );
+    $sent = sendMessage($phone, "Your one time pin is ${otp}. Use this pin for verification on Toys4Joy.");
+    return $otpVerification && $sent;
+  }
+}
+
+// verify otp
+
+if ( !function_exists('verifyOTPCode') ) {
+  function verifyOTPCode($phone, $otp, $type) {
+    $otpVerification = OtpVerification::where( compact('phone', 'otp', 'type') )->first();
+    if (! $otpVerification) return false;
+    $otpVerification->delete();
+    return true;
   }
 }
 
@@ -183,7 +198,7 @@ if (!function_exists('generateSadadForm')) {
     $sadad_checksum_array['TXN_AMOUNT'] = $total_price;
     $sadad_checksum_array['CUST_ID'] = $email;
     $sadad_checksum_array['EMAIL'] = $email;
-    $sadad_checksum_array['MOBILE_NO'] = '999999999';
+    $sadad_checksum_array['MOBILE_NO'] = auth()->user()->mobile ?: '999999999';
     $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';
     $sadad_checksum_array['CALLBACK_URL'] = $callback;
     $sadad_checksum_array['txnDate'] = now();

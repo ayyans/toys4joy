@@ -42,6 +42,7 @@ class RegisterController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
+            'mobile' => 'required|unique:users',
             'password' => 'required|min:6',
         ]);
         // $otp=rand('132456' , '654321');
@@ -57,8 +58,10 @@ class RegisterController extends Controller
         $savecustomers->show_password = $request->password;
         $savecustomers->save();
         // $this->sendMessage('Your One Time Pin Is '.$otp.'. Use this Pin for Verification On TOYS 4 JOY.', $request->mobilenumber);
-        sendOTPCode($savecustomers);
+        sendOTPCode($savecustomers->mobile, 'register');
         // Auth::login($savecustomers);
-        return redirect()->route('website.otp')->with('warning', 'Please Enter Code!');
+        return redirect()->route('website.otp')
+            ->with('warning', 'Please Enter Code!')
+            ->with('mobile', $savecustomers->mobile);
     }
 }

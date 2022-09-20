@@ -57,7 +57,11 @@
                     <div class="col-12">
                         <label style="margin-bottom: 5px;">Phone<span>*</span></label>
                         <input id="phone" class="customerReg" name="phone" type="tel">
-                        <input type="hidden" name="mobilenumber" id="mobilenumber">
+                        @if($errors->has('mobile'))
+                        <span style="display: block;text-align: left;" class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('mobile') }}</strong>
+                        </span>
+                        @endif
                     </div>
                     <div class="col-12">
                         <label>Password<span>*</span></label>
@@ -83,42 +87,24 @@
 <script src="{{ url('website/phone/js/intlTelInput.js') }}"></script>
 <script>
     var input = document.querySelector("#phone");
-    window.intlTelInput(input, {
-      // allowDropdown: false,
-       autoHideDialCode: false,
-      // autoPlaceholder: "off",
-      // dropdownContainer: document.body,
-      // excludeCountries: ["us"],
-      formatOnDisplay: true,
-      // geoIpLookup: function(callback) {
-      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-      //     var countryCode = (resp && resp.country) ? resp.country : "";
-      //     callback(countryCode);
-      //   });
-      // },
-      hiddenInput: "full_phone",
-      // initialCountry: "auto",
-      // localizedCountries: { 'de': 'Deutschland' },
-      // nationalMode: false,
-      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-      placeholderNumberType: "MOBILE",
-      preferredCountries: ['qa'],
-      separateDialCode: true,
-      utilsScript: "{{ url('website/phone/js/utils.js') }}?1638200991544",
+    const iti = window.intlTelInput(input, {
+        autoHideDialCode: true,
+        formatOnDisplay: true,
+        hiddenInput: "mobile",
+        placeholderNumberType: "MOBILE",
+        preferredCountries: ['qa'],
+        separateDialCode: true,
+        utilsScript: "{{ url('website/phone/js/utils.js') }}",
     });
   </script>
-@stop
+@endscript
 
 
 @push('otherscript')
 <script>
   $(function(){
     $("button.registerbtn").click(function(e){
-        var txt = $('.iti__selected-dial-code').text();
-        var phone = $('#phone').val();
-
-
-        $('#mobilenumber').val(txt+phone);
+        $('input[name=mobile]').val( iti.getNumber() );
             e.preventDefault();
             var isValid = true;
         $('input.customerReg').each(function() {
