@@ -186,7 +186,7 @@ if (!function_exists('generateSadadForm')) {
 
     $sadad_checksum_array = [];
     $sadad__checksum_data = [];
-    $email = auth()->user()->email ?? 'toysforjoyorders@gmail.com';
+    $email = auth()->check() ? auth()->user()->email : 'toysforjoyorders@gmail.com';
 
     $secretKey = 'ewHgg8NgyY5zo59M';
     $merchantID = '7288803';
@@ -198,7 +198,7 @@ if (!function_exists('generateSadadForm')) {
     $sadad_checksum_array['TXN_AMOUNT'] = $total_price;
     $sadad_checksum_array['CUST_ID'] = $email;
     $sadad_checksum_array['EMAIL'] = $email;
-    $sadad_checksum_array['MOBILE_NO'] = auth()->user()->mobile ?: '999999999';
+    $sadad_checksum_array['MOBILE_NO'] = auth()->check() ? auth()->user()->mobile : '999999999';
     $sadad_checksum_array['SADAD_WEBCHECKOUT_PAGE_LANGUAGE'] = 'ENG';
     $sadad_checksum_array['CALLBACK_URL'] = $callback;
     $sadad_checksum_array['txnDate'] = now();
