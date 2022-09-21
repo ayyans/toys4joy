@@ -11,6 +11,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin\Auth')->prefix('adm
 Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')->group(function() {
     Route::post('/addgiftcardsubmit','AdminController@addgiftcardsubmit')->name('addgiftcardsubmit');
     Route::post('/ajax/add-order-remarks', 'AdminController@addOrderRemarks')->name('addOrderRemarks');
+    Route::post('/ajax/get-new-orders-count', 'AdminController@getNewOrdersCount')->name('get-new-orders-count');
 });
 
 Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')->middleware('admin')->group(function(){
