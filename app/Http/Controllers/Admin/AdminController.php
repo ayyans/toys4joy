@@ -12,7 +12,6 @@ use App\Exports\ReturnedOrderItemsReportExport;
 use App\Exports\ReturnedOrdersReportExport;
 use App\Exports\SalesReportExport;
 use App\Exports\UsedGiftCardsReportExport;
-use App\Imports\ImportProducts;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -23,7 +22,6 @@ use App\Models\Attribute;
 use App\Models\AttrValue;
 use App\Models\Product;
 use App\Models\ProductImage;
-use App\Models\ProdAttr;
 use App\Models\GuestOrder;
 use App\Models\Customer;
 use App\Models\Coupon;
@@ -40,7 +38,6 @@ use Bavix\Wallet\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use PDO;
 
 class AdminController extends Controller
 {
@@ -1994,5 +1991,18 @@ public function editProcess(Request $request){
         return response()->json([
             'status' => true
         ], 200);
+    }
+
+    public function getNewOrdersCount(Request $request) {
+        $time = Carbon::parse($request->time) ?? now();
+        $count = Order::where('created_at', '>=', $time)
+            ->where([
+                'additional_details->is_new' => true,
+                'additional_details->is_abandoned' => false
+            ])->count();
+        return response()->json([
+            'status' => true,
+            'count' => $count
+        ]);
     }
 }

@@ -109,15 +109,7 @@
     <!-- Custom scripts for all pages-->
     <script src="{{asset('dashboard/js/sb-admin-2.min.js')}}"></script>
 
-    <!-- Page level plugins -->
-    <script src="{{asset('dashboard/vendor/chart.js/Chart.min.js')}}"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="{{asset('dashboard/js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{asset('dashboard/js/demo/chart-pie-demo.js')}}"></script>
-
-
-    
     <!-- Page level plugins -->
     <script src="{{asset('dashboard/vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
@@ -126,7 +118,6 @@
     <script src="{{asset('dashboard/js/demo/datatables-demo.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-
     <script>
         $(document).ready(function() {
             toastr.options.timeOut = 10000; 
@@ -134,20 +125,13 @@
                 toastr.error('{{ Session::get('error') }}');
             @elseif(Session::has('success'))
                 toastr.success('{{ Session::get('success') }}');
-            @endif          
+            @endif
         });
-
+        // global
+        const checkForNewOrderUrl = "{{ route('admin.get-new-orders-count') }}";
+        const notificationSound = "{{ asset('dashboard/sounds/notification.wav') }}";
     </script>
-     <script>
-             $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-    </script>
-
-@stack('otherscript')
-
+    <script src="{{ asset('dashboard/js/custom.js') }}"></script>
+    @stack('otherscript')
 </body>
-
 </html>
