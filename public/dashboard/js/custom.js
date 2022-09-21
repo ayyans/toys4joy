@@ -18,8 +18,14 @@ const checkForNewOrder = time => {
   .then(res => {
     if (res.count !== newOrdersCount) {
       new Audio(notificationSound).play()
-      .then(() => newOrdersCount = res.count)
-      .catch(() => toastr.warning('Please interact with the browser to play notification sound'));
+      .then(() => {
+        newOrdersCount = res.count;
+        toastr.info('You have received a new order');
+      })
+      .catch(err => {
+        toastr.warning('Please interact with the browser to play notification sound');
+        console.log(err);
+      });
     }
   })
   .catch(err => console.log(err));
