@@ -12,6 +12,10 @@
     -o-transition: none;
     transition: none;
   }
+  .xzoom-gallery{
+    width: 100px;
+    height: 100px;
+  }
 </style>
 <main class="product-detail-page">
   <div class="container-fluid">
@@ -44,9 +48,12 @@
               </div>
               <div class="thumbnail text-center xzoom-thumbs">
                 @foreach($gallery as $photos)
-                <img class="xzoom-gallery" onclick="change_image(this)"
+                @php
+                 $link=asset("products/".$photos->gallery_img);
+                @endphp
+                <img class="xzoom-gallery" Onclick="change_image('{{$link}}')"
                   src="{{asset('products/'.$photos->gallery_img)}}" width="150"
-                  xpreview="{{asset('products/'.$photos->gallery_img)}}">
+                  xpreview="{{asset('products/'.$photos->gallery_img)}}" style="cursor: pointer;">
                 @endforeach
               </div>
             </div>
@@ -305,7 +312,7 @@
 <script id="rendered-js">
   (function ($) {
   $(document).ready(function () {
-    $('.xzoom, .xzoom-gallery').xzoom({  title: true, tint: '#333', Xoffset: 15, lensShape: "circle",defaultScale:-1 });
+   // $('.xzoom, .xzoom-gallery').xzoom({  title: true, tint: '#333', Xoffset: 15, lensShape: "circle",defaultScale:-1 });
     /*$('.xzoom2, .xzoom-gallery2').xzoom({ position: '#xzoom2-id', tint: '#ffa200' });
     $('.xzoom3, .xzoom-gallery3').xzoom({ position: 'lens', lensShape: 'circle', sourceClass: 'xzoom-hidden' });
     $('.xzoom4, .xzoom-gallery4').xzoom({ tint: '#006699', Xoffset: 15 });
