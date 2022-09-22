@@ -13,8 +13,8 @@
     transition: none;
   }
   .xzoom-gallery{
-    width: 120px;
-    height: auto;
+    width: 100px;
+    height: 100px;
   }
 </style>
 <main class="product-detail-page">
