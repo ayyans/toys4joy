@@ -12,6 +12,10 @@
     -o-transition: none;
     transition: none;
   }
+  .xzoom-gallery{
+    width: 120px;
+    height: auto;
+  }
 </style>
 <main class="product-detail-page">
   <div class="container-fluid">
