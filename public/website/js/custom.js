@@ -2267,3 +2267,6 @@ const animateCSS = (element, animation, prefix = 'animate__') =>
     /** @export */
   window.wNumb = wNumb;
 }());
+function change_image(url){
+$('#main-image').attr('src',url);
+}
