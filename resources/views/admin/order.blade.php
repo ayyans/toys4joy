@@ -63,24 +63,24 @@
                                         @if($order->order_status == 'placed')
 
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'confirmed'])}}"
-                                                class="dropdown-item">Confirm</a></li>
+                                                class="dropdown-item" onclick="return confirm('Are you sure you want to change the status on an order?')">Confirm</a></li>
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'cancelled'])}}"
-                                                class="dropdown-item">Concelled</a></li>
+                                                class="dropdown-item" onclick="return confirm('Are you sure you want to change the status on an order?')">Concelled</a></li>
                                         @elseif($order->order_status == 'confirmed')
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'shipped'])}}"
-                                                class="dropdown-item">Shipped</a></li>
+                                                class="dropdown-item" onclick="return confirm('Are you sure you want to change the status on an order?')">Shipped</a></li>
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'cancelled'])}}"
-                                                class="dropdown-item">Concelled</a></li>
+                                                class="dropdown-item" onclick="return confirm('Are you sure you want to change the status on an order?')">Concelled</a></li>
                                         @elseif($order->order_status == 'shipped')
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'delivered'])}}"
-                                                class="dropdown-item">Delivered</a></li>
+                                                class="dropdown-item" onclick="return confirm('Are you sure you want to change the status on an order?')">Delivered</a></li>
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'cancelled'])}}"
-                                                class="dropdown-item">Concelled</a></li>
+                                                class="dropdown-item" onclick="return confirm('Are you sure you want to change the status on an order?')">Concelled</a></li>
                                         @elseif($order->order_status == 'delivered')
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'returned'])}}"
-                                                class="dropdown-item">Returned</a></li>
+                                                class="dropdown-item" onclick="return confirm('Are you sure you want to change the status on an order?')">Returned</a></li>
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'cancelled'])}}"
-                                                class="dropdown-item">Concelled</a></li>
+                                                class="dropdown-item" onclick="return confirm('Are you sure you want to change the status on an order?')">Concelled</a></li>
                                         <li><a href="{{route('admin.returnItems', ['order' => $order->id])}}"
                                                 class="dropdown-item">Return Items</a></li>
                                         @endif
