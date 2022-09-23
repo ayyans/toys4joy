@@ -62,7 +62,7 @@
                                         <li><a href="{{route('admin.guestOrdersDetails',[encrypt($order->id)])}}"
                                                 class="dropdown-item">View</a></li>
                                         <li><a href="#"
-                                            class="dropdown-item" id="add-order-remarks"
+                                            class="dropdown-item add-order-remarks"
                                             data-remarks="{{ $order->remarks }}" data-order-id="{{ $order->id }}">Remarks</a></li>
                                         @if($order->order_status == 'placed')
                                         <li><a href="{{route('admin.changeOrderStatus', ['order_id' => $order->id, 'status' => 'confirmed'])}}"
@@ -104,7 +104,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(function() {
-        $('#add-order-remarks').on('click', function(e) {
+        $('.add-order-remarks').on('click', function(e) {
             e.preventDefault();
             const url = "{{ route('admin.addOrderRemarks') }}";
             const remarks = $(this).data('remarks');
