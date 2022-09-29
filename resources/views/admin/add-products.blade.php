@@ -1,4 +1,8 @@
 @extends('admin.layouts.master')
+@push('otherstyle')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+@endpush
 @section('content')
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -37,6 +41,17 @@
                             <div class="col-md-8">
                                 <select class="form-control addprodfrm" name="sub_cat" id="subcat_id">
                                     <option>Select Subcategory</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-from-label">Linked Categories</label>
+                            <div class="col-md-8">
+                                <select class="form-control addprodfrm" name="linked_categories[]" id="linked_categories" multiple>
+                                    <option></option>
+                                    @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -528,11 +543,17 @@
 @endpush
 
 @push('otherscript')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $('#linked_categories').select2({
+        theme: 'bootstrap4',
+        placeholder: 'Link Categories'
+    });
+</script>
 <script>
     tinymce.init({
         selector:'textarea#longdesc', 
-        plugins: 'lists',              
-             
+        plugins: 'lists',
     });
 </script>
 <script>

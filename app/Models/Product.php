@@ -10,6 +10,10 @@ class Product extends Model
     use HasFactory;
     protected $guarded = [];
 
+    protected $casts = [
+        'linked_categories' => 'json',
+    ];
+
     public function formatRecommendedAge($age) {
         $years = floor($age / 12);
         $months = $age % 12;
