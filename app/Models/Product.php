@@ -10,15 +10,6 @@ class Product extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function formatRecommendedAge($age) {
-        $years = floor($age / 12);
-        $months = $age % 12;
-        $result = $years >= 1 ? $years . ($years == 1 ? ' year' : ' years') : '';
-        $result .= $years >= 1 && $months >= 1 ? ' ' : '';
-        $result .= $months >= 1 ? $months . ($months == 1 ? ' month' : ' months') : '';
-        return $result ?: '0 month';
-    }
-
     public function getRewardPointsAttribute() {
         $qarInPoints = Setting::where('name', 'qar_in_points')->value('value') ?? 2;
         $price = $this->discount ?: $this->unit_price;

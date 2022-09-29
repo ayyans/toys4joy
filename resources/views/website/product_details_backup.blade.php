@@ -86,7 +86,7 @@
             @if(!empty($products->unit))
             <div class="suitable-age">
               <img src="{{asset('website/img/boy.svg')}}" /> <span>Recommended Age: {{ $products->recommended_age !==
-                null ? "{$products->formatRecommendedAge($products->recommended_age)} +" : 'All' }} </span>
+                null ? formatRecommendedAge($products->recommended_age)." +" : 'All' }} </span>
             </div>
             @endif
             <p class="product-desc"><span>Description</span> : {!! $products->long_desc !!}</p>

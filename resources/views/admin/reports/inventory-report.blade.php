@@ -74,6 +74,7 @@
           <th>Category</th>
           <th>Subcategory</th>
           <th>Brand</th>
+          <th>Recommended Age</th>
           <th>Description</th>
           <th>Status</th>
         </tr>
@@ -88,6 +89,7 @@
             <td>{{ $product->category_id }}</td>
             <td>{{ $product->sub_cat }}</td>
             <td>{{ $product->brand_id }}</td>
+            <td>{{ $product->recommended_age }}</td>
             <td><a href="#" class="text-decoration-none" data-description="{{ $product->long_desc }}" data-toggle="modal" data-target="#descriptionModal">view</a></td>
             <td>{{ $product->status }}</td>
           </tr>

@@ -244,3 +244,14 @@ if (!function_exists('generateSadadForm')) {
     return $form;
   }
 }
+
+if (! function_exists('formatRecommendedAge')) {
+  function formatRecommendedAge($age) {
+    $years = floor($age / 12);
+    $months = $age % 12;
+    $result = $years >= 1 ? $years . ($years == 1 ? ' year' : ' years') : '';
+    $result .= $years >= 1 && $months >= 1 ? ' ' : '';
+    $result .= $months >= 1 ? $months . ($months == 1 ? ' month' : ' months') : '';
+    return $result ?: '0 month';
+  }
+}

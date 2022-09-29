@@ -46,6 +46,7 @@ class InventoryReportExport implements FromCollection, WithHeadings, ShouldAutoS
             'Category',
             'Subcategory',
             'Brand',
+            'Recommended Age',
             'Description',
             'Status'
         ];
