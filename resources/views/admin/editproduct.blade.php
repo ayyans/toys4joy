@@ -1,4 +1,8 @@
 @extends('admin.layouts.master')
+@push('otherstyle')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+@endpush
 @section('content')
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -42,6 +46,17 @@
                                     <option value="">Select Sub Category</option>
                                     @foreach(DB::table('sub_categories')->where('parent_cat' , $products->category_id)->get() as $r)
                                     <option @if($products->sub_cat == $r->id) selected @endif value="{{ $r->id }}">{{ $r->subcat_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-from-label">Linked Categories</label>
+                            <div class="col-md-8">
+                                <select class="form-control addprodfrm" name="linked_categories[]" id="linked_categories" multiple>
+                                    <option></option>
+                                    @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ in_array($category->id, $products->linked_categories ?? []) ? 'selected' : '' }} >{{ $category->category_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -580,6 +595,13 @@ url(https://fonts.googleapis.com/icon?family=Material+Icons);
 @endpush
 
 @push('otherscript')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $('#linked_categories').select2({
+        theme: 'bootstrap4',
+        placeholder: 'Link Categories'
+    });
+</script>
 <script>
     tinymce.init({
         selector:'textarea#longdesc', 

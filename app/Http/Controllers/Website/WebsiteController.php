@@ -145,7 +145,11 @@ class WebsiteController extends Controller
     public function listproducts($url){
         $categories = $this->listCategory();
         $catid = Category::where('url' , $url)->get()->first();
-        $products = Product::where('category_id','=',$catid->id)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        $products = Product::where('category_id','=',$catid->id)
+            ->orWhereJsonContains('linked_categories', strval($catid->id))
+            ->where('status','=','2')
+            ->orderBy('id','desc')
+            ->paginate(12);
         return view('website.product-list',compact('categories','products','catid'));
     }
 

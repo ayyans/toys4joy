@@ -781,6 +781,7 @@ public function deleteBrands(Request $request){
             $addproduct = new Product;
             $addproduct->title=$request->prodname;
             $addproduct->category_id=$request->category_id;
+            $addproduct->linked_categories=$request->linked_categories;
             $addproduct->brand_id=$request->brand_id;
             $addproduct->unit=$request->unit;
             $addproduct->min_qty=$request->min_qty;
@@ -1503,6 +1504,7 @@ public function editProcess(Request $request){
         'title'=>$request->prodname,
         'category_id'=>$request->category_id,
         'brand_id'=>$request->brand_id,
+        'linked_categories'=>$request->linked_categories,
         'url'=>$this->shorten_url($request->prodname),
         'unit'=>$request->unit,
         'min_qty'=>$request->min_qty,
@@ -1534,6 +1536,7 @@ public function editProcess(Request $request){
         'title'=>$request->prodname,
         'category_id'=>$request->category_id,
         'brand_id'=>$request->brand_id,
+        'linked_categories'=>$request->linked_categories,
         'unit'=>$request->unit,
         'min_qty'=>$request->min_qty,
         'sub_cat'=>$request->sub_cat,
