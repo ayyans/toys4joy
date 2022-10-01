@@ -12,15 +12,15 @@
         <div class="col-3"></div>
     	<div class="col-6">
             <div class="discount-block">
-                <h4>Change your mobile number</h4>
+                <h4>{{__('trans.Change your mobile number')}}</h4>
                 <div class="mb-3">
                     <form id="updatemobileform" method="POST" action="{{ url('updatemobilenumber') }}">
-                	   <label>New Mobile Number <span style="color:#ff0000">*</span></label>
+                	   <label>{{__('trans.New Mobile Number')}} <span style="color:#ff0000">*</span></label>
                 	   <input id="phone" class="customerReg" name="phone" type="tel">
                         <input type="hidden" name="mobilenumber" id="mobilenumber">
                     </form>
                 </div>
-                <div class="btn pinkbg-img"><a onclick="submitformmobilenumber()">Update</a></div>
+                <div class="btn pinkbg-img"><a onclick="submitformmobilenumber()">{{__('trans.Update')}}</a></div>
             </div>
         </div>
         <div class="col-3"></div>
