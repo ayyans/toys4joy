@@ -12,6 +12,10 @@
     -o-transition: none;
     transition: none;
   }
+  .xzoom-gallery{
+    width: 100px;
+    height: 100px;
+  }
 </style>
 <main class="product-detail-page">
   <div class="container-fluid">
@@ -22,7 +26,7 @@
             @include('website.layouts.user_menu')
           </div>
           <div class="categories mb-3">
-                    <h2 class="for-desktop">Categories</h2>
+                    <h2 class="for-desktop">{{__('trans.Categories')}}</h2>
                     @include('website.layouts.category_btn')
                     <ul class="nav nav-pills flex-column mb-auto menu for-desktop">
                      @include('website.layouts.category_menu')
@@ -35,7 +39,7 @@
         <div class="for-desktop">
           @include('website.layouts.user_menu')
         </div>
-        <div class="d-flex products-detail">
+        <div class="d-flex products-detail" >
           <div class="product-gallery">
             <div class="images p-3">
               <div class="text-center p-4">
@@ -44,16 +48,19 @@
               </div>
               <div class="thumbnail text-center xzoom-thumbs">
                 @foreach($gallery as $photos)
-                <img class="xzoom-gallery" onclick="change_image(this)"
+                @php
+                 $link=asset("products/".$photos->gallery_img);
+                @endphp
+                <img class="xzoom-gallery" Onclick="change_image('{{$link}}')"
                   src="{{asset('products/'.$photos->gallery_img)}}" width="150"
-                  xpreview="{{asset('products/'.$photos->gallery_img)}}">
+                  xpreview="{{asset('products/'.$photos->gallery_img)}}" style="cursor: pointer;">
                 @endforeach
               </div>
             </div>
           </div>
           <div class="product-detail">
             <div class="brand">
-              <h5>Brand : {{$products->brand_name}}</h5>
+              <h5>{{__('trans.Brand')}} : {{$products->brand_name}}</h5>
             </div>
             <div class="title">
               <h2>{{$products->title}}</h2>
@@ -80,16 +87,16 @@
             @endif
 
             <div class="earn-points">
-              <h5>Earn Reward Points Worth {{$products->rewardPoints}} Points<span>(Only for registered users)</span>
+              <h5>{{__('trans.Earn Reward Points Worth')}} {{$products->rewardPoints}} {{__('trans.Points')}}<span>({{__('trans.Only for registered users')}})</span>
               </h5>
             </div>
             @if(!empty($products->unit))
             <div class="suitable-age">
-              <img src="{{asset('website/img/boy.svg')}}" /> <span>Recommended Age: {{ $products->recommended_age !==
+              <img src="{{asset('website/img/boy.svg')}}" /> <span>{{__('trans.Recommended Age')}}: {{ $products->recommended_age !==
                 null ? "{$products->formatRecommendedAge($products->recommended_age)} +" : 'All' }} </span>
             </div>
             @endif
-            <p class="product-desc"><span>Description</span> : {!! $products->long_desc !!}</p>
+            <p class="product-desc"><span>{{__('trans.Description')}}</span> : {!! $products->long_desc !!}</p>
             @if($products->qty!=0)
             <div class="d-flex icons-area">
 
@@ -97,7 +104,7 @@
                 @csrf
                 <input type="hidden" name="product_id" value="{{$products->id}}" id="prod_id" />
                 <div class="qty block">
-                  <label for="quantity">Quantity</label>
+                  <label for="quantity">{{__('trans.Quantity')}}</label>
                   <input type="number" value="1" id="quantity" name="quantity" min="{{$products->min_qty}}"
                     max="{{$products->qty}}">
                 </div>
@@ -113,24 +120,24 @@
                         </div>-->
               @if(Auth::check())
               <div class="wishlist block">
-                <label>Wish List</label>
+                <label>{{__('trans.Wish List')}}</label>
                 <div class="icon" id="addwishlist"><img src="{{asset('website/img/bi_heart.svg')}}" /></div>
               </div>
               @else
               <a href="{{ url('login') }}">
                 <div class="wishlist block">
-                  <label>Wish List</label>
+                  <label>{{__('trans.Wish List')}}</label>
                   <div class="icon"><img src="{{asset('website/img/bi_heart.svg')}}" /></div>
                 </div>
               </a>
               @endif
             </div>
             <div class="d-flex btn-area">
-              <div class="guest"><a href="javascript:void(0)" id="checkoutaddtocart"><span>Checkout</span></a></div>
-              <div class="member"><a href="javascript:void(0)" id="addtocart"><span>Add to Cart</span></a></div>
+              <div class="guest"><a href="javascript:void(0)" id="checkoutaddtocart"><span>{{__('trans.Checkout')}}</span></a></div>
+              <div class="member"><a href="javascript:void(0)" id="addtocart"><span>{{__('trans.Add to Cart')}}</span></a></div>
             </div>
             @else
-            <p style="color:red"><strong>Out of stock</strong></p>
+            <p style="color:red"><strong>{{__('trans.Out of stock')}}</strong></p>
             @endif
           </div>
         </div>
@@ -305,7 +312,7 @@
 <script id="rendered-js">
   (function ($) {
   $(document).ready(function () {
-    $('.xzoom, .xzoom-gallery').xzoom({  title: true, tint: '#333', Xoffset: 15, lensShape: "circle",defaultScale:-1 });
+   // $('.xzoom, .xzoom-gallery').xzoom({  title: true, tint: '#333', Xoffset: 15, lensShape: "circle",defaultScale:-1 });
     /*$('.xzoom2, .xzoom-gallery2').xzoom({ position: '#xzoom2-id', tint: '#ffa200' });
     $('.xzoom3, .xzoom-gallery3').xzoom({ position: 'lens', lensShape: 'circle', sourceClass: 'xzoom-hidden' });
     $('.xzoom4, .xzoom-gallery4').xzoom({ tint: '#006699', Xoffset: 15 });
