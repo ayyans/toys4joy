@@ -88,31 +88,31 @@
                 <h1 class="for-mobile age-range-title">{{ __('Select Age Range') }}</h1>
             <div class="age-range">
               <form id="filter" action="{{ route('website.products-filter') }}">
-                <h1 class="for-desktop">{{ __('Age Range') }}</h1>
+                <h1 class="for-desktop">{{ __('trans.Age Range') }}</h1>
                 <ul>
                     <li>
                         <input type="checkbox" id="24months" name="24months">
-                        <label for="24months">{{ __('Birth to 24 Months') }}</label>
+                        <label for="24months">{{ __('trans.Birth to 24 Months') }}</label>
                     </li>
                     <li>
                         <input type="checkbox" id="2-4years" name="2_4years">
-                        <label for="2-4years">02 to 04 Years</label>
+                        <label for="2-4years">{{ __('trans.02 to 04 Years') }}</label>
                     </li>
                     <li>
                         <input type="checkbox" id="5-7years" name="5_7years">
-                        <label for="5-7years">05 to 07 Years</label>
+                        <label for="5-7years">{{ __('trans.05 to 07 Years') }}</label>
                     </li>
                     <li>
                         <input type="checkbox" id="8-13years" name="8_13years">
-                        <label for="8-13years">08 to 13 Years</label>
+                        <label for="8-13years">{{ __('trans.08 to 13 Years') }}</label>
                     </li>
                     <li>
                         <input type="checkbox" id="14years" name="14years">
-                        <label for="14years">14 Years & Up</label>
+                        <label for="14years">{{ __('trans.14 Years & Up') }}</label>
                     </li>
                 </ul>
                 <div class="price-range">
-                  <h1>Select Price</h1>
+                  <h1>{{ __('trans.Select Price') }}</h1>
                   <div id="slider-range"></div>
                   <div class="slider-labels">
                     <div class="caption">
@@ -136,7 +136,7 @@
 <section class="row mt-3">
 <div class="col-sm-2 col-md-2 col-xl-2 mb-5">
 <div class="row">
-<div class="owl-carousel-single-picture owl-carousel owl-theme mt-3" style="height: fit-content;">
+<div class="owl-carousel-single-picture owl-carousel owl-theme mt-3" style="height: fit-content;direction:ltr;">
 <div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-1.png')}}"></div>
 <div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-3.png')}}"></div>
 <div class="item "><img class="img-widget img-animate" src="{{asset('uploads/ad-4.png')}}"></div>
@@ -146,9 +146,9 @@
 </div>
 <div class="col-md-8 middle-col mt-3">
   <!--seection-->
-<div class="section-title"><h3>New Arrival</h3></div>
+<div class="section-title"><h3>{{ __('trans.New Arrival') }}</h3></div>
 <div class="row">
-<div class="owl-carousel-features owl-carousel owl-theme">
+<div class="owl-carousel-features owl-carousel owl-theme" style="direction:ltr;">
 @foreach($bestsellers as $product)
   <div class="item single single-home-card">
       @if($product->qty == 0)
@@ -197,9 +197,9 @@
 <!--section-->
 
 <!--section-->
-<div class="section-title"><h3>Best Seller</h3></div>
+<div class="section-title"><h3>{{ __('trans.Best Seller') }}</h3></div>
 <div class="row">
-<div class="owl-carousel-features owl-carousel owl-theme">
+<div class="owl-carousel-features owl-carousel owl-theme" style="direction:ltr;">
 @foreach($newarrivals as $product)
   <div class="item single single-home-card">
       @if($product->qty == 0)
@@ -247,9 +247,9 @@
 </div>
 <!--section-->
  <!--seection-->
- <div class="section-title"><h3>Our Brands</h3></div>
+ <div class="section-title"><h3>{{ __('trans.Our Brands') }}</h3></div>
 <div class="row">
-<div class="owl-carousel-brands owl-carousel owl-theme">
+<div class="owl-carousel-brands owl-carousel owl-theme" style="direction:ltr;">
 @foreach(DB::table('brands')->where('status' , 2)->limit(10)->get() as $r)
 <div class="single">
     <a style="color: black;text-decoration: none;" href="{{ url('brand') }}/{{ $r->brand_name }}">
@@ -279,7 +279,7 @@
 <!--banner-->
 <div class="row">
   <div class="banner-desktop">
-  <div class="owl-carousel-single-banner owl-carousel owl-theme ">
+  <div class="owl-carousel-single-banner owl-carousel owl-theme " style="direction:ltr;">
 <div class="item single"><img class="img-widget lazyload" style="height: fit-content;;" src="{{asset('uploads/banner1-01.png')}}" data-src="{{asset('uploads/banner1-01.png')}}"></div>
   </div>
 
@@ -296,7 +296,7 @@
                         <button type="button" class="btn btn-primary modal-toggle share-price-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <img src="{{asset('website/img/upload-image.png')}}" class="img-fluid camera-animated">
                         </button>    
-                        <span class="row tooltiptext_fixed">Share products & prices you wish</span>
+                        <span class="row tooltiptext_fixed">{{ __('trans.Share products & prices you wish') }}</span>
                     </a>
                 </div>
                 
@@ -305,33 +305,33 @@
                   <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Please Fill out the Form Below</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{ __('trans.Please Fill out the Form Below') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
                         <form enctype="multipart/form-data" method="POST" action="{{ route('website.submitformlookingfor') }}">
                             @csrf
                           <div class="mb-3">
-                            <label for="exampleInputName1" class="form-label">Your Name</label>
+                            <label for="exampleInputName1" class="form-label">{{ __('trans.Your Name') }}</label>
                             <input type="text" required class="form-control" name="name" aria-describedby="nameHelp">
                           </div>
                           <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <label for="exampleInputEmail1" class="form-label">{{ __('trans.Email Address') }}</label>
                             <input type="email" required class="form-control" name="email" aria-describedby="emailHelp">
                           </div>
                           <div class="mb-3">
-                            <label for="exampleInputPhone1" class="form-label">Phone Number</label>
+                            <label for="exampleInputPhone1" class="form-label">{{ __('trans.Phone Number') }}</label>
                             <input type="tel" required class="form-control" name="phonenumber">
                           </div>
                           <div class="mb-3">
-                            <label for="exampleInputMessage1" class="form-label">Your Message</label>
+                            <label for="exampleInputMessage1" class="form-label">{{ __('trans.Your Message') }}</label>
                               <textarea class="form-control" name="message"></textarea>
                           </div>
                           <div class="mb-3">
-                            <label for="exampleInputUpload1" class="form-label">Upload Image</label>
+                            <label for="exampleInputUpload1" class="form-label">{{ __('trans.Upload Image') }}</label>
                             <input required type="file" class="form-control" name="image">
                           </div>
-                          <button type="submit" class="btn btn-primary guest">Submit</button>
+                          <button type="submit" class="btn btn-primary guest">{{ __('trans.Submit') }}</button>
                         </form>
                       </div>
                     </div>
