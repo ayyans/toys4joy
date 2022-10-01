@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-6 member-col left">
+            <div class="col-6 member-col left" style="direction:ltr;">
                 <form action="{{ url('place-order-process') }}" method="POST" id="checkoutFrm">
                     <?php //$total_price = 0; ?>
                     @php $total_price = \Cart::getTotal() @endphp
@@ -28,7 +28,7 @@
                         <div class="product-detail">
                             <h2 class="title">{{$item->name}}</h2>
                             <h4 class="price">QAR {{$item->price}}</h4>
-                            <div class="qty">Quantity : {{$item->quantity}}</div>
+                            <div class="qty">{{__('trans.Quantity')}} : {{$item->quantity}}</div>
                             <div class="d-flex rmv-or-edit">
                                 <div class="remove icon"><a href="javascript:void(0)"
                                         onclick="removecart({{$item->id}})"><img
@@ -46,16 +46,16 @@
                 @php $coupon = cart()->getConditionsByType('coupon')->first() @endphp
                 <div style="margin-top: 0px;" class="discount-block">
                     <div class="mb-3">
-                        <label>Discount Code</label>
+                        <label>{{__('trans.Discount Code')}}</label>
                         @if ($coupon && $coupon->getName() == 'Discount Coupon')
                         <input style="background-color: #ddd" readonly
                             value="Congratulations! You have redeemed {{ substr($coupon->getValue(), 1) }} discount coupon"
                             type="text">
                         <a href="{{ route('website.removeDiscountCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}"
-                            class="btn btn-primary discountBtn">Remove</a>
+                            class="btn btn-primary discountBtn">{{__('trans.Remove')}}</a>
                         @else
                         <input type="text" id="discount_coupon" @if ($coupon) disabled @endif>
-                        <button class="btn btn-primary discountBtn" @if ($coupon) disabled @endif>Enter</button>
+                        <button class="btn btn-primary discountBtn" @if ($coupon) disabled @endif>{{__('trans.Enter')}}</button>
                         @endif
                     </div>
                     {{-- @php $giftCardCondition = \Cart::getCondition('Gift Card') @endphp
@@ -67,64 +67,64 @@
                     $total_price = $total_price-$giftcard->price;
                     @endphp
                     <div class="mb-3">
-                        <label>Gift-Card Redeemed</label>
+                        <label>{{__('trans.Gift-Card Redeemed')}}</label>
                         <input style="background-color: #ddd" readonly
                             value="Congratulations! You have redeemed ({{ abs($giftCardCondition->getValue()) }})"
                             type="text" id="giftcard_coupon">
-                        <a href="{{ url('removegiftcard') }}" class="btn btn-primary giftBtn">Remove</a>
+                        <a href="{{ url('removegiftcard') }}" class="btn btn-primary giftBtn">{{__('trans.Remove')}}</a>
                     </div>
                     @else --}}
                     <div class="mb-3">
-                        <label>Gift-Card Code</label>
+                        <label>{{__('trans.Gift-Card Code')}}</label>
                         <input type="text" id="giftcard_coupon">
-                        <button class="btn btn-primary giftBtn">Enter</button>
+                        <button class="btn btn-primary giftBtn">{{__('trans.Enter')}}</button>
                     </div>
                     @php $giftCards = cart()->getConditionsByType('giftcard') @endphp
                     @foreach ($giftCards as $giftCard)
                     <div class="alert alert-success d-flex justify-content-between px-2 py-1 text-start" role="alert">
                         <span>You have redeemed {{ abs($giftCard->getValue()) }} QAR</span>
                         <a href="{{ route('website.removegiftcard', ['id' => $giftCard->getAttributes()['id'], 'name' => $giftCard->getName()]) }}"
-                            class="alert-link">remove</a>
+                            class="alert-link">{{__('trans.Remove')}}</a>
                     </div>
                     @endforeach
                     {{-- @endif --}}
                 </div>
                 <div class="code-block">
                     <div class="mb-3">
-                        <label>Corporate Code</label>
+                        <label>{{__('trans.Corporate Code')}}</label>
                         @if ($coupon && $coupon->getName() == 'Corporate Coupon')
                         <input style="background-color: #ddd" readonly
                             value="Congratulations! You have redeemed {{ substr($coupon->getValue(), 1) }} corporate coupon"
                             type="text">
                         <a href="{{ route('website.removeCorporateCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}"
-                            class="btn btn-primary corporateBtn">Remove</a>
+                            class="btn btn-primary corporateBtn">{{__('trans.Remove')}}</a>
                         @else
                         <input type="text" id="corporate_code" @if ($coupon) disabled @endif>
-                        <button class="btn btn-primary corporateBtn" @if ($coupon) disabled @endif>Enter</button>
+                        <button class="btn btn-primary corporateBtn" @if ($coupon) disabled @endif>{{__('trans.Enter')}}</button>
                         @endif
                     </div>
                     <div class="mb-3">
-                        <label>Verify the OTP Code</label>
+                        <label>{{__('trans.Verify the OTP Code')}}</label>
                         <input type="text" id="verifyotp">
-                        <button class="btn btn-primary">Submit</button>
+                        <button class="btn btn-primary">{{__('trans.Submit')}}</button>
                     </div>
                 </div>
                 <input type="hidden" id="total_amt" value="{{$total_price}}" />
                 <input type="hidden" id="prev_amt" value="{{$total_price}}" />
-                <div class="final-price">Your Final Price : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
+                <div class="final-price">{{__('trans.Your Final Price')}} : <span id="total_offer_amt">{{$total_price}}</span> QAR</div>
                 @if($total_price == 0)
                 <div class="yellowbg-img cash-on-delivery">
                     <img src="{{asset('website/img/cash-on-delievery.png')}}" />
-                    <a id="cashondelivery" href="javascript:void(0)">Complete Your<br>Order</a>
+                    <a id="cashondelivery" href="javascript:void(0)">{{__('trans.Complete Your')}}<br>{{__('trans.Order')}}</a>
                 </div>
 
                 @else
                 <div class="yellowbg-img cash-on-delivery">
                     <div class="member">
-                        <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD" class="pay-btn">Pay</a>
+                        <a onclick="submitpayementform()" href="javascript:void(0)" id="cashOnD" class="pay-btn">{{__('trans.Pay')}}</a>
                     </div>
                     <img src="{{asset('website/img/cash-on-delievery.png')}}" />
-                    <a id="cashondelivery" href="javascript:void(0)">Cash or Credit<br>on Delivery</a>
+                    <a id="cashondelivery" href="javascript:void(0)">{{__('trans.Zone')}}<br>{{__('trans.on Delivery')}}</a>
                 </div>
                 @endif
             </div>
