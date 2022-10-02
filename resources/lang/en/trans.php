@@ -206,9 +206,40 @@ return [
 //thanks messages
 "You will receive an email shortly to confirm this registration"=>"You will receive an email shortly to confirm this registration",
 "Thanks for registering with"=>"Thanks for registering with",
-""=>"",
-""=>"",
-""=>"",
-
+//card info
+"Select Your Credit Card"=>"Select Your Credit Card",
+"Cardholder's Name"=>"Cardholder's Name",
+"Card Number"=>"Card Number",
+"Expiry Month"=>"Expiry Month",
+"Expiry year"=>"Expiry year",
+"Security code"=>"Security code",
+//contact page
+"Contact Detail"=>"Contact Detail",
+"Address"=>"Address",
+"coordinations"=>"coordinations",
+"Email ID"=>"Email ID",
+//thank you msg guest
+"Thanks for shopping with"=>"Thanks for shopping with",
+"One of our team member will contact you shortly to get your location & necessary information"=>"One of our team member will contact you shortly to get your location & necessary information",
+"Print my Receipt"=>"Print my Receipt",
+//thanks msg giftcard
+"Thanks for Purchasing Gift Card"=>"Thanks for Purchasing Gift Card",
+//pagination
+"Next"=>"Next",
+"Previous"=>"Previous",
+//share wishlist
+"Payer Name"=>"Payer Name",
+"Mobile Number"=>"Mobile Number",
+"Your Message"=>"Your Message",
+"Pay With Card"=>"Pay With Card",
+"Place Order"=>"Place Order",
+//rturn msg
+"Thanks You!"=>"Thanks You!",
+"Thank you for submitting the request one of our team members will get back to you shortly"=>"Thank you for submitting the request one of our team members will get back to you shortly",
+//verify otp
+"Please verify the OTP code you received by SMS"=>"Please verify the OTP code you received by SMS",
+//reset password
+"Reset Password"=>"Reset Password",
+"Please enter your new password."=>"Please enter your new password.",
 ];
 ?>
