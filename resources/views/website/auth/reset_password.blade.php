@@ -26,8 +26,8 @@
             
             <div class="form-group">
                 <div class="form-inner">
-              <h3 class="text-center">Reset Password!</h3>
-              <p class="text-center">Please enter your new password.</p>
+              <h3 class="text-center">{{__('trans.Reset Password')}}!</h3>
+              <p class="text-center">{{__('trans.Please enter your new password')}}.</p>
               <form action="{{route('website.set_reset_password')}}" method="POST" id="loginFrmH">
                 @csrf
                 <input type="hidden" name="email" value="{{ $email }}">
@@ -44,7 +44,7 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-              <button class="loginbtn">Reset Password</button>
+              <button class="loginbtn">{{__('trans.Reset Password')}}</button>
             </form>
             </div>
             </div>    
