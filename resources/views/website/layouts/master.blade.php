@@ -1,4 +1,10 @@
-<html>
+@php 
+$dir='';
+//for all website dir
+app()->isLocale('en') ? $dir='dir="ltr"' : $dir='dir="rtl"' 
+@endphp
+
+<html <?php echo $dir ?> >
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -63,8 +69,15 @@ src="https://www.facebook.com/tr?id=1199770164191927&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 <meta name="facebook-domain-verification" content="8365pig04unbnybla9i6f5r5z0189u" />
 </head>
-<body>
 
+
+<body >
+<?php 
+//for slider dir
+$dir_false="<script> var rtl=false</script>";
+$dir_true="<script> var rtl=true</script>";
+echo app()->isLocale('en') ? $dir_true : $dir_false;
+?>
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N8WPWL4"
