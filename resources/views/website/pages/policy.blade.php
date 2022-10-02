@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-2 text-center for-mobile">
             <div class="com-policy-col">
-                <h2>Company Policy</h2>
+                <h2>{{__('trans.Company Policy')}}</h2>
             	<img src="{{ url('website/img/cartoon.png') }}"/>
             </div>
         </div>
@@ -13,19 +13,19 @@
             <a href="{{ url('return-policy') }}">
                 <div class="vertical-shake text-center icon-block">
                     <div class="icon"><img src="{{ url('website/img/return-money.png') }}"/></div>
-                    <h2>Return and Exchange</h2>
+                    <h2>{{__('trans.Return and Exchange')}}</h2>
                 </div>
             </a>
             <a href="{{ url('rewards-policy') }}">
                 <div class="vertical-shake text-center icon-block">
                     <div class="icon"><img src="{{ url('website/img/reward-poiints.png') }}"/></div>
-                    <h2>Rewards Points Policy</h2>
+                    <h2>{{__('trans.Rewards Points Policy')}}</h2>
                 </div>
             </a>
         </div>
         <div class="col-2 text-center for-desktop">
             <div class="com-policy-col">
-                <h2>Company Policy</h2>
+                <h2>{{__('trans.Company Policy')}}</h2>
             	<img src="{{ url('website/img/cartoon.png') }}"/>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <a href="{{ url('delivery-policy') }}">
             <div class="vertical-shake text-center icon-block">
                 <div class="icon"><img src="{{ url('website/img/truck.png') }}"/></div>
-                <h2>Delivery Policy</h2>
+                <h2>{{__('trans.Delivery Policy')}}</h2>
             </div>
             </a>
             <a href="{{ url('privacy-policy') }}">
@@ -42,7 +42,7 @@
                 <div class="icon">
                     <img src="{{ url('website/img/privacy-policy.png') }}"/>
                 </div>
-                <h2>Privacy Policy</h2>
+                <h2>{{__('trans.privacy Policy')}}</h2>
             </div>
             </a>
         </div>
