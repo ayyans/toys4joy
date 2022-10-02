@@ -199,8 +199,38 @@ return [
 //thanks messages
 "You will receive an email shortly to confirm this registration"=>"ستتلقى رسالة بريد إلكتروني قريبًا لتأكيد هذا التسجيل",
 "Thanks for registering with"=>"شكرا للتسجيل مع",
-""=>"",
-""=>"",
-""=>"",
+//card info
+"Select Your Credit Card"=>"اختر بطاقة الائتمان الخاصة بك",
+"Cardholder's Name"=>"اسم حامل البطاقة",
+"Card Number"=>"رقم البطاقة",
+"Expiry Month"=>"شهر انتهاء الصلاحية",
+"Expiry year"=>"سنة انتهاء الصلاحية",
+"Security code"=>"رمز الحماية",
+//contact page
+"Contact Detail"=>"تفاصيل الإتصال",
+"Address"=>"عنوان",
+"coordinations"=>"التنسيقات",
+"Email ID"=>"عنوان الايميل",
+//thank you msg guest
+"Thanks for shopping with"=>"شكرا للتسوق مع",
+"One of our team member will contact you shortly to get your location & necessary information"=>"سيتصل بك أحد أعضاء فريقنا قريبًا للحصول على موقعك والمعلومات الضرورية",
+"Print my Receipt"=>"اطبع الإيصال الخاص بي",
+//thanks msg giftcard
+"Thanks for Purchasing Gift Card"=>"شكرا لشرائك بطاقة الهدايا",
+//pagination
+"Next"=>"التالي",
+"Previous"=>"سابق",
+//share wishlist
+"Payer Name"=>"اسم الدافع",
+"Pay With Card"=>"الدفع بالبطاقة",
+"Place Order"=>"اكمل الطلب",
+//rturn msg
+"Thanks You!"=>"شكرا لك!",
+"Thank you for submitting the request one of our team members will get back to you shortly"=>"شكرًا لك على إرسال الطلب ، وسيرد عليك أحد أعضاء فريقنا قريبًا",
+//verify otp
+"Please verify the OTP code you received by SMS"=>"يرجى التحقق من رمز OTP الذي تلقيته عن طريق الرسائل القصيرة",
+//reset password
+"Reset Password"=>"إعادة تعيين كلمة المرور",
+"Please enter your new password"=>"الرجاء إدخال كلمة المرور الجديدة الخاصة بك",
 ];
 ?>
