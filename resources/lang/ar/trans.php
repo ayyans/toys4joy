@@ -22,12 +22,12 @@ return [
 'Select Age Range'=>'حدد الفئة العمرية',
 'Select Price'=>'حدد السعر',
 //titles
-'New Arrival'=>'قادم جديد',
+'New Arrival'=>'حديث الوصول',
 'Best Seller'=>'الأكثر مبيعًا',
 'Our Brands'=>'علاماتنا التجارية',
 //header
 'login_home_button'=>'تسجيل الدخول | حساب جديد',
-'Search store for fun...'=>'ابحث في المتجر من أجل المتعة ...',
+'Search store for fun...'=>'ابحث في المتجر من أجل الم ...',
 'My Account'=>'حسابي',
 'Logout'=>'تسجيل خروج',
 'Follow us'=>'تابعنا',
@@ -39,7 +39,7 @@ return [
 'contact_us'=>'اتصل بنا',
 'Home'=>'الصفحة الرئيسبة',
 'Browse Our Policies'=>'تصفح سياساتنا',
-'Return Policy'=>'سياسة العائدات',
+'Return Policy'=>'سياسة المرتجعات',
 'Rewards Policy'=>'سياسة المكافآت',
 'Delivery Policy'=>'سياسة التوصيل',
 'privacy Policy'=>'سياسة الخصوصية',
@@ -64,7 +64,7 @@ return [
 //buttons
 'View more'=>'عرض المزيد',
 	'Go'=>'بحث',
-	'Special Prices'=>'الجوائز الخاصة',
+	'Special Prices'=>'اسعار مميزة',
     'Wish List'=>'قائمة الرغبات',
     'E-Gift Cards'=>'بطاقات الهدايا الإلكترونية',
     'Your Points'=>'نقاطك',
@@ -232,5 +232,9 @@ return [
 //reset password
 "Reset Password"=>"إعادة تعيين كلمة المرور",
 "Please enter your new password"=>"الرجاء إدخال كلمة المرور الجديدة الخاصة بك",
+"You have redeemed"=>"لقد استردت",
+""=>"",
+""=>"",
+""=>"",
 ];
 ?>
