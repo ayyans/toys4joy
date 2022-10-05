@@ -206,7 +206,7 @@ border-radius: 50%;
 cursor: pointer;
 }
 .mbl-menu-list ul {text-align: left;padding: 0;}
-.mbl-menu-list ul img {width: 30px;margin-right: 5px;}
+.mbl-menu-list ul img {width: 45px;margin-right: 5px;}
 .mbl-menu-list ul li a span {
     color: #2972bc;
     font-weight: 700;
@@ -4086,9 +4086,9 @@ img.g-play-store {width: 82px;}
    
 
 #main-header {position: relative; padding:10px 0 70px;}    
-.logo-col {width: 64%!important;}    
+.logo-col {width: 20%!important;}    
 .logo-here img {width: 70px;}
-.heades-images .dropdown {display: none;}  
+.heades-images .dropdown {}  
 .mobile-menu .offcanvas {width: 240px;bottom: auto;}    
 .for-desktop{display: none;}     
 .for-mobile{display: block;}  
@@ -4351,8 +4351,8 @@ img.why-logo {width: 55px;margin-left: 15px;}
 #search-dropdown .lead a, #search-dropdown small.fst-italic, #search-dropdown p.fw-bold {font-size: 12px;}    
 .heades-images .map-pin {margin-top: -8px;height: 40px;} 
 .heades-images .cart {width: 40px;margin-left: 0;}
-.heades-images {width: 18%;} 
-.account-buttons {width: 15%;}   
+.heades-images {width: 60%;justify-content: normal;} 
+.account-buttons {width: 20%;}   
 .menu > li > .megadrop {left: -220px;}     
 .cart-icon span {left: 4px;top: 0;font-size: 10px;}    
 .products-list .single, .home-prod.products-list .single {width: 46%;}
