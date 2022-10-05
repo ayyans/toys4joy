@@ -60,7 +60,9 @@ class WebsiteController extends Controller
         $product->email = $request->email;
         $product->phonenumber = $request->phonenumber; 
         $product->message = $request->message;
-        $product->image = Cmf::sendimagetodirectory($request->image);
+        if ($request->hasFile('image')) {
+            $product->image = Cmf::sendimagetodirectory($request->image);
+        }
         $product->save();
         return back()->with('success','Request Submited Successfully');
     }
