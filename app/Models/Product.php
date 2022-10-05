@@ -10,6 +10,10 @@ class Product extends Model
     use HasFactory;
     protected $guarded = [];
 
+    protected $casts = [
+        'linked_categories' => 'json',
+    ];
+
     public function getRewardPointsAttribute() {
         $qarInPoints = Setting::where('name', 'qar_in_points')->value('value') ?? 2;
         $price = $this->discount ?: $this->unit_price;
