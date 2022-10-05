@@ -40,7 +40,7 @@
                       @elseif($order->orderStatus==2)
                       <div class="odr-btn inprogress"><a class="vertical-shake" href="javascript:void(0)">{{__('trans.Order Confirm')}}</a></div>
                       @elseif($order->orderStatus==1)
-                      <div class="odr-btn inprogress"><a class="vertical-shake" href="javascript:void(0)">{{__('trans.Your Points')}}</a></div>
+                      <div class="odr-btn inprogress"><a class="vertical-shake" href="javascript:void(0)">{{__('trans.Order Pending')}}</a></div>
                       @endif --}}
                   </td>
                 </tr>
