@@ -9,7 +9,7 @@
                 <div class="row progres-bar gap-4 gap-md-0">
                     <div class="col-md-2">
                         <div class="your-points">
-                            <span>Your Points</span>
+                            <span>{{__('trans.Your Points')}}</span>
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -25,9 +25,9 @@
                 <div class="row party-includes">
                     <div class="col-xl-12 col-sm-12 col-md-6 left-col">
                         <div class="content-box">
-                           <p>1 QR = 2 Points.</p>
-                          <p>2500 QR = 5000 Points.</p>
-                          <p>When you reach 5000 Points you gain E Gift card in amount of 100 QR</p>
+                           <p>{{__('policies.1 QR = 2 Points.')}}</p>
+                          <p>{{__('policies.2500 QR = 5000 Points.')}}</p>
+                          <p>{{__('policies.When you reach 5000 Points you gain E Gift card in amount of 100 QR')}}</p>
                         </div>
                     </div>
                     <!--<div class="col-6 right-col">

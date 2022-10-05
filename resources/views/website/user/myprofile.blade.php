@@ -13,15 +13,15 @@
             <div class="main-content-box">
             <div class="row birthday">
                 <div class="col-6">
-                    <div class="outline-box gender">My Birthday</div>
+                    <div class="outline-box gender">{{__('trans.My Birthday')}}</div>
                 </div>
 
                 <div class="col-6">
                     
                     <div class="d-flex date">
-                        <div class="outline-box">Day</div>
-                        <div class="outline-box">Month</div>
-                        <div class="outline-box">Year</div>
+                        <div class="outline-box">{{__('trans.Day')}}</div>
+                        <div class="outline-box">{{__('trans.Month')}}</div>
+                        <div class="outline-box">{{__('trans.Year')}}</div>
                     </div>
                     <div class="d-flex date-numbering">
                         <div class="d-flex day">
@@ -68,7 +68,7 @@
             </style>
             <div class="row gender">
                 <div class="col-6">
-                    <div class="outline-box gender">My Gender</div>
+                    <div class="outline-box gender">{{__('trans.My Points')}}</div>
                 </div>
                 <div class="col-6">
                     <div class="d-flex select-gender">
@@ -81,7 +81,7 @@
             </div>
             </div>    
             <div class="btn add-more">
-                <a class="vertical-shake" onclick="formsubmitprofile()" href="#">Submit</a>
+                <a class="vertical-shake" onclick="formsubmitprofile()" href="#">{{__('trans.Submit')}}</a>
             </div>
         </div>
         <div class="col-1"></div>

@@ -11,7 +11,7 @@
                     <!--<img src="{{asset('website/img/t1.png')}}" class="img-fluid">-->
                 </div>
                 <div class="categories mb-3">
-                    <h2 class="for-desktop">Categories</h2>
+                    <h2 class="for-desktop">{{__('trans.Categories')}}</h2>
                     @include('website.layouts.category_btn')
                     <ul class="nav nav-pills flex-column mb-auto menu for-desktop">
                      @include('website.layouts.category_menu')
@@ -26,25 +26,25 @@
             </div>
             <div class="row contact-info">
                     <div class="col-md-8 col-sm-12 content-block detail">
-                        <h3>Contact Detail</h3>
+                        <h3>{{__('trans.Contact Detail')}}</h3>
                         <ul>
-                            <li><strong>What'sapp Number:</strong> +974 6000 5970</li>
+                            <li><strong>{{__('trans.Whatsapp Number')}}:</strong> +974 6000 5970</li>
                             <!--<li><strong>Customer Service:</strong> +974 6000 5370</li>
                             <li><strong>Customer Service:</strong> +974 6000 5870</li>
                             <li><strong>Customer Service:</strong> +974 6000 4870</li>-->
-                            <li><strong>Customer Service:</strong> 
+                            <li><strong>{{__('trans.Customer Service')}}:</strong> 
                             <span>+974 6000 5370</span>
                             <span>+974 6000 5870</span>
                             <span>+974 6000 4870</span>
                         </li>
-                            <li><strong>Land Line:</strong> +974 4441 4215</li>
-                            <li><strong>Email ID:</strong>
+                            <li><strong>{{__('trans.Land Line')}}:</strong> +974 4441 4215</li>
+                            <li><strong>{{__('trans.Email ID')}}:</strong>
                                 marketing@toys4joy.com
                                 <span>operation@toys4joy.com</span>
                                 <span>info@toys4joy.com</span>
                             </li>
-                            <li><strong>coordinations:</strong> 7GJ3+75 Doha</li>
-                            <li><strong>Address:</strong> Building 25, zone 39, street 343, 4th floor, office 31, P.O 13920, Doha</li>
+                            <li><strong>{{__('trans.coordinations')}}:</strong> 7GJ3+75 Doha</li>
+                            <li><strong>{{__('trans.Address')}}:</strong> Building 25, zone 39, street 343, 4th floor, office 31, P.O 13920, Doha</li>
                             
                         </ul>
                     </div>

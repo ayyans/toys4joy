@@ -19,7 +19,7 @@
                     <div class="product-detail">
                         <h2 class="title">{{$item->name}}</h2>
                         <h4 class="price">QAR {{$item->price}}</h4>
-                        <div class="qty">Quantity : {{$item->quantity}}</div>
+                        <div class="qty">{{__('trans.Quantity')}} : {{$item->quantity}}</div>
                         <div class="d-flex rmv-or-edit">
                             <div class="remove icon">
                                 <a href="javascript:void(0)" onclick="removecart( {{$item->id}} , true )">
@@ -45,35 +45,35 @@
                             <input type="tel" name="phone" id="phone" required>
                         </div>
                         <div class="mb-3">
-                            <label>Email (optional)</label>
+                            <label>{{__('trans.Email Address')}} (optional)</label>
                             <input type="email" name="email">
                         </div>
                         <div class="mb-3">
-                            <label>Unit Number (optional)</label>
+                            <label>{{__('trans.Unit Number')}} (optional)</label>
                             <input type="number" name="unit_no">
                         </div>
                         <div class="mb-3">
-                            <label>Building Number (optional)</label>
+                            <label>{{__('trans.Building Number')}} (optional)</label>
                             <input type="number" name="building_no">
                         </div>
                         <div class="mb-3">
-                            <label>Zone (optional)</label>
+                            <label>{{__('trans.Zone')}} (optional)</label>
                             <input type="number" name="zone">
                         </div>
                         <div class="mb-3">
-                            <label>Street (optional)</label>
+                            <label>{{__('trans.Street')}} (optional)</label>
                             <input type="number" name="street">
                         </div>
-                        <p>Note: One of our team member will contact you shortly to get your location & necessary information.</p>
+                        <p>{{__('trans.Note: One of our team member will contact you shortly to get your location & necessary information.')}}</p>
                     </div>
                 </form>
 
                 <div class="code-block">
                     <div class="mb-3">
-                        <label>Gift-Card Code</label>
+                        <label>{{__('trans.Gift-Card Code')}}</label>
                         <div class="d-flex">
                             <input type="text" id="giftcard_coupon">
-                            <button class="btn btn-primary giftBtn ms-2">Enter</button>
+                            <button class="btn btn-primary giftBtn ms-2">{{__('trans.Enter')}}</button>
                         </div>
                     </div>
                     @php $giftCards = cart()->getConditionsByType('giftcard') @endphp
@@ -81,7 +81,7 @@
                     <div class="alert alert-success d-flex justify-content-between px-2 py-1 text-start" role="alert">
                         <span>You have redeemed {{ abs($giftCard->getValue()) }} QAR</span>
                         <a href="{{ route('website.removegiftcard', ['id' => $giftCard->getAttributes()['id'], 'name' => $giftCard->getName()]) }}"
-                            class="alert-link">remove</a>
+                            class="alert-link">{{__('trans.Remove')}}</a>
                     </div>
                     @endforeach
                 </div>

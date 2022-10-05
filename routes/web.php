@@ -34,8 +34,8 @@ Route::name('website.')->namespace('App\Http\Controllers\Website\Auth')->group(f
 
 Route::name('website.')->namespace('App\Http\Controllers\Website')->group(function(){
     Route::get('/','WebsiteController@index')->name('home');
+    Route::get('/language/{locale}', 'WebsiteController@setLocale')->name('set.locale');
     Route::get('brand/{id}','WebsiteController@brandshow');
-
     Route::get('/showcart','WebsiteController@showcart');
     Route::get('/cartpagecontent','WebsiteController@cartPageContent');
     Route::get('/why-us','WebsiteController@whyus')->name('whyus');

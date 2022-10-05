@@ -68,7 +68,7 @@ transform: rotate(0deg);
 </a>-->
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasLeft-cats" aria-labelledby="offcanvasLeftLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title cat-title-sidebar" id="offcanvasLeftLabel">Categories</h5>
+    <h5 class="offcanvas-title cat-title-sidebar" id="offcanvasLeftLabel">{{ __('trans.Categories') }}</h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
@@ -121,7 +121,7 @@ transform: rotate(0deg);
         <div class="col-5 search-col">
             <div class="search">
                 <form action="{{ route('website.products-filter') }}" method="get">
-                    <input type="text" class="form-control" id="search" name="search" placeholder="Search store for fun..." autocomplete="off" data-url="{{ route('website.search') }}">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="{{ __('trans.Search store for fun...') }}" autocomplete="off" data-url="{{ route('website.search') }}">
                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                 </form>
             </div>
@@ -152,10 +152,11 @@ transform: rotate(0deg);
         <div class="col-3 d-flex heades-images">
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                EN
+                {{ strtoupper( app()->getLocale() ) }}
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">AR</a></li>
+                @php $secondaryLocale = app()->isLocale('en') ? 'ar' : 'en' @endphp
+                <li><a class="dropdown-item" href="{{ route('website.set.locale', $secondaryLocale) }}">{{ strtoupper( $secondaryLocale ) }}</a></li>
               </ul>
             </div>
             <a href="https://www.google.com/maps/place/Toys+4+Joy/@25.2806659,51.5007925,17z/data=!3m1!4b1!4m5!3m4!1s0x3e45db08d1dc918d:0xabe71fea30cd8b5b!8m2!3d25.2806659!4d51.5029812" target="_blank">
@@ -166,7 +167,7 @@ transform: rotate(0deg);
                 <button onclick="showcart()" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span id="cartno">{{ cart()->getContent()->count() }}</span><img src="{{asset('website/img/cart.png')}}" class="cart"></button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close">Close</button>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close">{{ __('trans.Close') }}</button>
                     </div>
                     <div class="offcanvas-body showcart">
                        
@@ -178,9 +179,9 @@ transform: rotate(0deg);
         <div class="col-2 account-buttons">
             <div class="navbar-nav for-desktop">
                 @if(Auth::check())
-                <div class="my-account"><a href="{{route('website.myaccount')}}" class="btn">My Account</a></div>
+                <div class="my-account"><a href="{{route('website.myaccount')}}" class="btn">{{ __('trans.My Account') }}</a></div>
                 @else
-                <div class="login"><a href="{{route('website.login')}}" class="btn">Login | Signup</a></div>
+                <div class="login"><a href="{{route('website.login')}}" class="btn">{{__('trans.login_home_button')}}</a></div>
               @endif
             </div>
             
@@ -197,22 +198,22 @@ transform: rotate(0deg);
                   <div class="mbl-menu-list">
                       <ul style="list-style:none">
                         <li> <a href="{{ route('website.bestsellers') }}" class="nav-link text-dark">
-                            <img src="{{asset('website/img/best-seller.png')}}"><span class="ms-2">Best Sellers</span>
+                            <img src="{{asset('website/img/best-seller.png')}}"><span class="ms-2">{{ __('trans.Best Sellers') }}</span>
                             </a>
                         </li>
                         <li> <a href="{{ route('website.newarrivals') }}" class="nav-link text-dark">
-                            <img src="{{asset('website/img/new-arrivals.png')}}"><span class="ms-2">New Arrivals</span>
+                            <img src="{{asset('website/img/new-arrivals.png')}}"><span class="ms-2">{{ __('trans.New Arrival') }}</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('website.brands') }}" class="nav-link text-dark">
-                                <img src="{{asset('website/img/brands.png')}}"><span class="ms-2">Brands</span>
+                                <img src="{{asset('website/img/brands.png')}}"><span class="ms-2">{{ __('trans.Brands') }}</span>
                             </a>
                         </li>
                         @auth
                         <li>
                             <a href="{{ route('website.myaccount') }}" class="nav-link text-dark">
-                                <img src="{{asset('website/img/my-account.png')}}"><span class="ms-2">My Account</span>
+                                <img src="{{asset('website/img/my-account.png')}}"><span class="ms-2">{{ __('trans.My Account') }}</span>
                             </a>
                         </li>
                         @endauth
@@ -226,7 +227,7 @@ transform: rotate(0deg);
                         @guest
                         <li>
                             <a href="{{route('website.login')}}" class="nav-link text-dark">
-                                <img src="{{asset('website/img/login-register.png')}}"><span class="ms-2">Login/SignUp</span>
+                                <img src="{{asset('website/img/login-register.png')}}"><span class="ms-2">{{ __('trans.Login/SignUp') }}</span>
                             </a>
                         </li>
                         @endguest
@@ -234,7 +235,7 @@ transform: rotate(0deg);
                         @auth
                         <li>
                             <a href="{{ route('website.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="nav-link text-dark">
-                                <img src="{{asset('website/img/logout.png')}}"><span class="ms-2">Logout</span>
+                                <img src="{{asset('website/img/logout.png')}}"><span class="ms-2">{{ __('trans.Logout') }}</span>
                             </a>
                             <form id="logout-form" action="{{ route('website.logout') }}" method="POST" class="d-none">
                                 @csrf

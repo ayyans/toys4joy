@@ -5,7 +5,7 @@
     <div class="row">
     	<div class="col-12">
             <div class="d-flex main-title">
-                <div class="title">My Wish List</div>
+                <div class="title">{{__('trans.My Wish List')}}</div>
                 <div class="icon">
                     <button class="btn btn-primary" type="button"><img src="{{asset('website/img/wishlist-heart.png')}}" class="wishlist"></button>
                 </div>
@@ -14,9 +14,9 @@
               <thead>
                 <tr>
                   <th class="first"></th>
-                  <th>Name</th>
-                  <th>Images</th>
-                  <th>Prices</th>
+                  <th>{{__('trans.Name')}}</th>
+                  <th>{{__('trans.Images')}}</th>
+                  <th>{{__('trans.Prices')}}</th>
                   <th class="last"></th>
                   <th></th>
                 </tr>
@@ -44,7 +44,7 @@
                     <td><div class="img-box"><a href="{{route('website.productDetails',[encrypt($wishlist->category_id),encrypt($wishlist->id)])}}"><img src="{{asset('products/'.$wishlist->featured_img)}}"/></a></div></td>
                     <td class="price"><span>{{$price}} QAR</span></td>
                     <td class="delete"><div class="rmv-icon"><a href="{{route('website.removeWishlist',[encrypt($wishlist->wish_id)])}}"><img src="{{asset('website/img/delete-product.png')}}"/></a></div></td>
-                    <td><button class="btn btn-success addtocartBtn{{$wishlist->id}}" onclick="addtocart({{$wishlist->id}},1)" >Add to cart</button></td>
+                    <td><button class="btn btn-success addtocartBtn{{$wishlist->id}}" onclick="addtocart({{$wishlist->id}},1)" >{{__('trans.Add to cart')}}</button></td>
                 </tr>
                 @endforeach
                
@@ -52,7 +52,7 @@
               </tbody>
               <tfoot>
                 <tr>
-                    <td colspan="2">Total Price</td>
+                    <td colspan="2">{{__('trans.Total Price')}}</td>
                    
                     <td colspan="4">{{$total_price}} QAR</td>
   
@@ -67,10 +67,10 @@
                    
                     <img src="{{asset('website/img/link.png')}}" onclick="copyToClipboard()">
                    
-                    <div>Copy this link, and share it with the ones you love to help them buying your favorite toys.</div>
+                    <div>{{__('trans.Copy this link, and share it with the ones you love to help them buying your favorite toys.')}}</div>
                 </div>
                 <div class="d-flex pay-as">
-                    <div class="vertical-shake add-more"><a href="{{route('website.home')}}">Add More</a></div>
+                    <div class="vertical-shake add-more"><a href="{{route('website.home')}}">{{__('trans.Add More')}}</a></div>
                 </div>
             </div>
             @else
@@ -78,10 +78,10 @@
             <p id="copied"></p>
                 <div class="d-flex copy-link">
                     <img src="{{asset('website/img/link.png')}}" onclick="addresserror()">
-                    <div>Copy this link, and share it with the ones you love to help them buying your favorite toys.</div>
+                    <div>{{__('trans.My Wish List')}}</div>
                 </div>
                 <div class="d-flex pay-as">
-                    <div class="vertical-shake add-more"><a href="{{route('website.home')}}">Add More</a></div>
+                    <div class="vertical-shake add-more"><a href="{{route('website.home')}}">{{__('trans.Add More')}}</a></div>
                 </div>
             </div>
             @endif

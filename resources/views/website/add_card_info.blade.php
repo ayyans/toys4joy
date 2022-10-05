@@ -7,7 +7,7 @@
     	<div class="col-3"></div>
         <div class="col-6 text-center">
             <div class="select-credit-card">
-                <h4>Select Your Credit Card</h4>
+                <h4>{{__('trans.Select Your Credit Card')}}</h4>
                 <form id="cardinfoFrm" action="#">
                 <div class="payment-opt">
                     <div class="form-check form-check-inline visa">
@@ -30,37 +30,37 @@
                 <div class="row card-info">
                 <div class="col-8">
                     <div class="mb-3">
-                	<label>Cardholder's Name <span style="color:#ff0000">*</span></label>
+                	<label>{{__('trans.Cardholder's Name')}} <span style="color:#ff0000">*</span></label>
                 	<input type="text" name="card_holder" class="carddetails">
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="mb-3">
-                	<label>Card Number <span style="color:#ff0000">*</span></label>
+                	<label>{{__('trans.Card Number')}} <span style="color:#ff0000">*</span></label>
                 	<input type="text" class="carddetails card-number" maxlength="16" name="card_no">
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="mb-3">
-                	<label>Expiry Month <span style="color:#ff0000">*</span></label>
+                	<label>{{__('trans.Expiry Month')}} <span style="color:#ff0000">*</span></label>
                 	<input type="text" class="carddetails card-expiry-month" placeholder="MM" maxlength="2" name="card_exp_month">
                     </div>
                 </div>
                 <div class="col-4">
                 <div class="mb-3">
-                	<label>Expiry year <span style="color:#ff0000">*</span></label>
+                	<label>{{__('trans.Expiry year')}} <span style="color:#ff0000">*</span></label>
                 	<input type="text" class="carddetails card-expiry-year" placeholder="YYYY" maxlength="4" name="card_exp_year">
                     </div>
                 </div>
                 <div class="col-4">
-                    <label>Security code <span style="color:#ff0000">*</span></label>
+                    <label>{{__('trans.Security code')}} <span style="color:#ff0000">*</span></label>
                     <div class="d-flex security-field">               
                         <input type="text" class="carddetails card-cvc" maxlength="3" name="cvv">
                         <img src="{{asset('website/img/cvv.png')}}"/>
                     </div>
                 </div>
                 <div class="btn pinkbg-img update">
-                    <a href="javascript:void(0)" id="cardinfoBtn">Update</a>
+                    <a href="javascript:void(0)" id="cardinfoBtn">{{__('trans.Update')}}</a>
                 </div>
             </div>
             </div>
