@@ -12,7 +12,7 @@
                     <div class="product-detail">
                         <h2 class="title">{{$item->name}}</h2>
                         <h4 class="price">QAR {{$item->price}}</h4>
-                        <div class="qty">Quantity : {{$item->quantity}}</div>
+                        <div class="qty">{{__('trans.Quantity')}} : {{$item->quantity}}</div>
                         <div class="d-flex rmv-or-edit">
                             <div class="remove icon">
                                 <a href="javascript:void(0)" onclick="removecart( {{ $item->id }}, true )">
@@ -49,7 +49,7 @@
                     @php $giftCards = cart()->getConditionsByType('giftcard') @endphp
                     @foreach ($giftCards as $giftCard)
                     <div class="alert alert-success d-flex justify-content-between px-2 py-1 text-start" role="alert">
-                        <span>You have redeemed {{ abs($giftCard->getValue()) }} QAR</span>
+                        <span>{{__('trans.You have redeemed')}} {{ abs($giftCard->getValue()) }} QAR</span>
                         <a href="{{ route('website.removegiftcard', ['id' => $giftCard->getAttributes()['id'], 'name' => $giftCard->getName()]) }}"
                             class="alert-link">{{__('trans.Remove')}}</a>
                     </div>
@@ -79,21 +79,21 @@
                 </div>
 
                 <div class="final-price">
-                    Your Final Price : {{ cart()->getTotal() }} QAR
+                {{__('trans.Your Final Price')}} : {{ cart()->getTotal() }} QAR
                 </div>
 
                 @if( cart()->getTotal() === 0 )
                 <div class="yellowbg-img cash-on-delivery">
                     <img src="{{asset('website/img/cash-on-delievery.png')}}" />
-                    <a id="cashondelivery" href="javascript:;">Complete Your<br>Order</a>
+                    <a id="cashondelivery" href="javascript:;">{{__('trans.Complete Your')}}<br>{{__('trans.Order')}}</a>
                 </div>
                 @else
                 <div class="yellowbg-img cash-on-delivery">
                     <div class="member">
-                        <a href="javascript:;" class="pay" data-type="cc">Pay</a>
+                        <a href="javascript:;" class="pay" data-type="cc">{{__('trans.Pay')}}</a>
                     </div>
                     <img src="{{asset('website/img/cash-on-delievery.png')}}" />
-                    <a href="javascript:;" class="pay" data-type="cod">Cash or Credit<br>on Delivery</a>
+                    <a href="javascript:;" class="pay" data-type="cod">{{__('trans.Cash or Credit')}}<br>{{__('trans.on Delivery')}}</a>
                 </div>
                 @endif
                 <form action="{{ route('website.place-order') }}" method="post" id="place-order">
