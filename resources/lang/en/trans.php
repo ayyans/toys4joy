@@ -241,5 +241,10 @@ return [
 //reset password
 "Reset Password"=>"Reset Password",
 "Please enter your new password."=>"Please enter your new password.",
+"You have redeemed"=>"You have redeemed",
+""=>"",
+""=>"",
+""=>"",
+
 ];
 ?>
