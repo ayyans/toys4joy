@@ -1,4 +1,4 @@
-<ul class="nav nav-pills nav-fill treat-wrapper">
+<ul class="nav nav-pills nav-fill treat-wrapper" style="padding-right: 0;">
   <li class="nav-item">
     <?php //{{ route('website.newarrivals') }} ?>
     <a class="nav-link btn-red treat-button" aria-current="page" href="{{ route('website.bestoffers') }}">{{ __('Special Prices') }}</a>
