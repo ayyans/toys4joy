@@ -18,7 +18,7 @@
                             <th>Mobile</th>
                             <th>Status</th>
                             <th>Registration</th>
-                            {{-- <th>Action</th> --}}
+                            <th>Action</th>
                         </tr>
                     </thead>
 
@@ -38,7 +38,7 @@
                                 @endif
                             </td>
                             <td>{{ $customer->created_at->format('Y-m-d') }}</td>
-                            {{-- <td>
+                            <td>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-dark">Info</button>
                                     <button type="button" class="btn btn-success dropdown-toggle"
@@ -61,11 +61,11 @@
                                                 class="dropdown-item">Activate</a></li>
 
                                         @endif
-                                        <li><a href="{{route('admin.deleteCust',[encrypt($customer->id)])}}"
-                                                class="dropdown-item">Delete</a></li>
+                                        {{-- <li><a href="{{route('admin.deleteCust',[encrypt($customer->id)])}}"
+                                                class="dropdown-item">Delete</a></li> --}}
                                     </ul>
                                 </div>
-                            </td> --}}
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
