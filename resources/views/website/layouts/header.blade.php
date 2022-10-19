@@ -245,7 +245,7 @@ transform: rotate(0deg);
                       </ul>
                   </div>
                   <div class="text-center follow-us">
-                    <h5>Follow us</h5>
+                    <h5>{{__('trans.Follow us')}}</h5>
                     <ul class="d-flex social-media">
                         <li><a href="https://www.facebook.com/Toys4joyqatar/" target="_blank">
                             <img src="{{asset('website/img/fb.png')}}">
