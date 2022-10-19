@@ -27,7 +27,7 @@ return [
 'Our Brands'=>'علاماتنا التجارية',
 //header
 'login_home_button'=>'تسجيل الدخول | حساب جديد',
-'Search store for fun...'=>'ابحث في المتجر من أجل الم ...',
+'Search store for fun...'=>'ابحث في المتجر من أجل المرح...',
 'My Account'=>'حسابي',
 'Logout'=>'تسجيل خروج',
 'Follow us'=>'تابعنا',
@@ -45,7 +45,7 @@ return [
 'privacy Policy'=>'سياسة الخصوصية',
 'Number one Toys E-Commerce by providing best smooth shopping experience with easy checkout, free and fastest delivery, and unique online shopping features such as Loyalty Program, Wish List, and E-Gift Cards.'=>'رقم واحد في التجارة الإلكترونية لـ Toys من خلال توفير أفضل تجربة تسوق سلسة مع سهولة الدفع ، والتسليم المجاني والأسرع ، وميزات التسوق الفريدة عبر الإنترنت مثل برنامج الولاء ، وقائمة الرغبات ، وبطاقات الهدايا الإلكترونية.',
 'BE THE FIRST TO KNOW'=>'كن أول من يعرف',
-'Get all the latest information on Triedge Services, Events, Jobs and Fairs. Sign up for our newsletter today.'=>'احصل على أحدث المعلومات حول Triedge Services والأحداث والوظائف والمعارض. سجل اليوم لتحصل على رسائل أخبارية.',
+'Get all the latest information on Toys4joy, Events, Jobs and Fairs. Sign up for our newsletter today.'=>'احصل على أحدث المعلومات حول Toys4joy والأحداث والوظائف والمعارض. سجل اليوم لتحصل على رسائل أخبارية.',
 'STAY CONNECTED'=>'تابعنا على',
 'More Info'=>'مزيد من المعلومات',
 'Customer Service'=>'خدمة الزبائن',
