@@ -46,10 +46,10 @@ class WebsiteController extends Controller
     }
     public function index(){
         $categories = $this->listCategory();
-        $products = Product::where('status','=','2')->orderBy('id','desc')->limit(4)->get();
+        $products = Product::active()->orderBy('id','desc')->limit(4)->get();
 
-        $newarrivals = Product::where('new_arrival','=',1)->where('status','=','2')->orderBy('id','desc')->limit(10)->get();
-        $bestsellers = Product::where('best_seller','=',1)->where('status','=','2')->orderBy('id','desc')->limit(10)->get();
+        $newarrivals = Product::where('new_arrival','=',1)->active()->orderBy('id','desc')->limit(10)->get();
+        $bestsellers = Product::where('best_seller','=',1)->active()->orderBy('id','desc')->limit(10)->get();
 
         return view('website.home',compact('categories','products','newarrivals','bestsellers'));
     }
@@ -60,7 +60,9 @@ class WebsiteController extends Controller
         $product->email = $request->email;
         $product->phonenumber = $request->phonenumber; 
         $product->message = $request->message;
-        $product->image = Cmf::sendimagetodirectory($request->image);
+        if ($request->hasFile('image')) {
+            $product->image = Cmf::sendimagetodirectory($request->image);
+        }
         $product->save();
         return back()->with('success','Request Submited Successfully');
     }
@@ -105,25 +107,25 @@ class WebsiteController extends Controller
         $categories = $this->listCategory();
         $brand = Brand::where('brand_name' , $id)->first();
         abort_if(!$brand, 404);
-        $products = Product::where('brand_id','=',$brand->id)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        $products = Product::where('brand_id','=',$brand->id)->active()->orderBy('id','desc')->paginate(12);
         return view('website.product-list',compact('categories','products'));
     }
     public function newarrivals()
     {
         $categories = $this->listCategory();
-        $products = Product::where('new_arrival','=',1)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        $products = Product::where('new_arrival','=',1)->active()->orderBy('id','desc')->paginate(12);
         return view('website.product-list',compact('categories','products'));
     }
     public function bestoffers()
     {
         $categories = $this->listCategory();
-        $products = Product::where('best_offer','=',1)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        $products = Product::where('best_offer','=',1)->active()->orderBy('id','desc')->paginate(12);
         return view('website.product-list',compact('categories','products'));
     }
     public function bestsellers()
     {
         $categories = $this->listCategory();
-        $products = Product::where('best_seller','=',1)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        $products = Product::where('best_seller','=',1)->active()->orderBy('id','desc')->paginate(12);
         return view('website.product-list',compact('categories','products'));
     }
 
@@ -147,7 +149,7 @@ class WebsiteController extends Controller
         $catid = Category::where('url' , $url)->get()->first();
         $products = Product::where('category_id','=',$catid->id)
             ->orWhereJsonContains('linked_categories', strval($catid->id))
-            ->where('status','=','2')
+            ->active()
             ->orderBy('id','desc')
             ->paginate(12);
         return view('website.product-list',compact('categories','products','catid'));
@@ -158,7 +160,7 @@ class WebsiteController extends Controller
         $categories = $this->listCategory();
         $catid = Category::where('url' , $main)->get()->first();
         $subcatid = SubCategory::where('url' , $sub)->get()->first();
-        $products = Product::where('category_id','=',$catid->id)->where('sub_cat','=',$subcatid->id)->where('status','=','2')->orderBy('id','desc')->paginate(12);
+        $products = Product::where('category_id','=',$catid->id)->where('sub_cat','=',$subcatid->id)->active()->orderBy('id','desc')->paginate(12);
         return view('website.product-list',compact('categories','products','catid'));
     }
 
@@ -1269,7 +1271,7 @@ public function giftcard() {
     }
 
     public function search(Request $request) {
-        $products = Product::with('category', 'subCategory')->where('status', 2);
+        $products = Product::with('category', 'subCategory')->active();
         $categories = Category::query();
         $subCategories = SubCategory::with(['parentCategory' => fn($q) => $q->select('id', 'url')]);
         $request->whenFilled('search', function($search) use ($products, $categories, $subCategories) {
