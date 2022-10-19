@@ -9,7 +9,7 @@
                 @include('website.layouts.user_menu')
                 </div>
                 <div class="categories mb-3">
-                    <h2 class="for-desktop">Categories</h2>
+                    <h2 class="for-desktop">{{__('trans.Categories')}}</h2>
                     @include('website.layouts.category_btn')
                     <ul class="nav nav-pills flex-column mb-auto menu for-desktop">
                      @include('website.layouts.category_menu')
@@ -26,7 +26,7 @@
               @foreach($products as $product)
                 <div class="single">
                     @if($product->qty == 0)
-                    <div class="availbility"><span>Out of Stock</span></div>
+                    <div class="availbility"><span>{{__('trans.Out of Stock')}}</span></div>
                     @elseif($product->best_offer)
                     {{-- @php
                       $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;

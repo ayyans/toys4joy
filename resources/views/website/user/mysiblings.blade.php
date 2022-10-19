@@ -7,21 +7,21 @@
     	<div class="col-10 content-block">
             <div class="d-flex welcome-block">
                 <img src="{{ url('website/img/user-pic.png') }}"/>
-                <h2>Welcome Back {{ Auth::user()->name }}</h2>
+                <h2>{{__('trans.Welcome Back')}} {{ Auth::user()->name }}</h2>
             </div>
             <form id="siblingsupdate" method="POST" action="{{ url('siblingsupdate') }}">
             <div class="siblings-table row">
                     <div class="col-6">
                         <div class="text-center sibling my-sister">
                             <div class="sib-img">
-                                <h4>My Sisters</h4>
+                                <h4>{{__('trans.My Sisters')}}</h4>
                                 <img src="{{ url('website/img/sisters.png') }}"/>
                             </div>
                             <table class="table">
                               <thead>
                                 <tr>
-                                  <th class="first">Name</th>
-                                  <th class="last">Date of Birth</th>
+                                  <th class="first">{{__('trans.Name')}}</th>
+                                  <th class="last">{{__('trans.Date of Birth')}}</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -53,14 +53,14 @@
                     <div class="col-6">
                         <div class="text-center sibling my-brother">
                             <div class="sib-img">
-                                <h4>My Brothers</h4>
+                                <h4>{{__('trans.My Brothers')}}</h4>
                                 <img src="{{ url('website/img/brothers.png') }}"/>
                             </div>
                             <table class="table">
                               <thead>
                                 <tr>
-                                  <th class="first">Name</th>
-                                  <th class="last">Date of Birth</th>
+                                  <th class="first">{{__('trans.Name')}}</th>
+                                  <th class="last">{{__('trans.Date of Birth')}}</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -93,7 +93,7 @@
                 </div>
                 </form>
             <div class="btn pinkbg-img">
-                <a onclick="siblingsupdate()">Submit</a>
+                <a onclick="siblingsupdate()">{{__('trans.Submit')}}</a>
             </div>
         </div>
         <div class="col-1"></div>

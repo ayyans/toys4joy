@@ -157,17 +157,17 @@ $action_url = 'https://sadadqa.com/webpurchase';
         <div class="row content-block">
             <div class="col-md-6 col-xl-6 col-sm-12 mt-3">
                 <label class="star-lable">*</label>
-                <label class="lable-area">Payer Name</label>
+                <label class="lable-area">{{__('trans.Payer Name')}}</label>
                 <input class="input-areas code-block" type="text" id="name">
             </div>
             <div class="col-md-6 col-lg-6 mt-3">
                 <label class="star-lable">*</label>
-                <label class="lable-area">Mobile Number</label>
+                <label class="lable-area">{{__('trans.Mobile Number')}}</label>
                 <input class=" input-area code-block" type="number" id="mobilenumber">
             </div>
             <div class="col-md-1 col-lg-1 mt-3">
                 
-                <label class="lable-area message-area">Your Message</label>
+                <label class="lable-area message-area">{{__('trans.Your Message')}}</label>
             </div>
             <div class="col-md-11 col-lg-11 mt-3">
                 <textarea class="input-area code-block" id="message" rows="5" style="width: 100%;"></textarea>
@@ -175,7 +175,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
             <div style="margin-top: 50px;" class="d-flex ftr-btn-area">
                 <div class="vertical-shake continue-shopping"></div>
                 <div class="d-flex pay-as">
-                    <div onclick="submitpayementform()" class="guest"><a href="javascript:void(0)">Pay With Card</a></div>
+                    <div onclick="submitpayementform()" class="guest"><a href="javascript:void(0)">{{__('trans.Pay With Card')}}</a></div>
                 </div>
             </div>
            
@@ -188,7 +188,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
     <div class="row">
     	<div class="col-12">
             <div class="d-flex main-title">
-                <div class="title">{{ $wshlists->first()->name }} Wish List</div>
+                <div class="title">{{ $wshlists->first()->name }} {{__('trans.Wish List')}}</div>
                 <div class="icon">
                     <button class="btn btn-primary" type="button"><img src="{{asset('website/img/wishlist-heart.png')}}" class="wishlist"></button>
                 </div>
@@ -197,9 +197,9 @@ $action_url = 'https://sadadqa.com/webpurchase';
               <thead>
                 <tr>
                   <th class="first"></th>
-                  <th>Name</th>
-                  <th>Images</th>
-                  <th>Prices</th>
+                  <th>{{__('trans.Name')}}</th>
+                  <th>{{__('trans.Images')}}</th>
+                  <th>{{__('trans.Prices')}}</th>
                     <th></th>
                 </tr>
               </thead>
@@ -249,7 +249,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
               </tbody>
               <tfoot>
                 <tr>
-                    <td colspan="2">Total Price</td>
+                    <td colspan="2">{{__('trans.Total Price')}}</td>
                     <td colspan="4">{{$total_price}} QAR</td>
                 </tr>
               </tfoot>    
@@ -257,7 +257,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
             <div class="d-flex ftr-btn-area">
                 <div class="vertical-shake continue-shopping"></div>
                 <div class="d-flex pay-as">
-                    <div onclick="placeorderwishlist()" class="guest"><a href="javascript:void(0)">Place Order (QAR{{$total_price}})</a></div>
+                    <div onclick="placeorderwishlist()" class="guest"><a href="javascript:void(0)">{{__('trans.Place Order')}} (QAR{{$total_price}})</a></div>
                 </div>
             </div>
         </div>
@@ -270,7 +270,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
     <div class="row">
         <div class="col-12">
             <div class="d-flex main-title">
-                <div class="title">{{ $wshlists->first()->name }} Wish List</div>
+                <div class="title">{{ $wshlists->first()->name }} {{__('trans.Wish List')}}</div>
                 <div class="icon">
                     <button class="btn btn-primary" type="button"><img src="{{asset('website/img/wishlist-heart.png')}}" class="wishlist"></button>
                 </div>
@@ -279,9 +279,9 @@ $action_url = 'https://sadadqa.com/webpurchase';
               <thead>
                 <tr>
                   <th class="first"></th>
-                  <th>Name</th>
-                  <th>Images</th>
-                  <th>Prices</th>
+                  <th>{{__('trans.Name')}}</th>
+                  <th>{{__('trans.Images')}}</th>
+                  <th>{{__('trans.Prices')}}</th>
                     <th></th>
                 </tr>
               </thead>
@@ -319,7 +319,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
               </tbody>
               <tfoot>
                 <tr>
-                    <td colspan="2">Total Price</td>
+                    <td colspan="2">{{__('trans.Total Price')}}</td>
                     <td colspan="4">{{$total_price}} QAR</td>
                 </tr>
               </tfoot>    
@@ -327,7 +327,7 @@ $action_url = 'https://sadadqa.com/webpurchase';
             <div class="d-flex ftr-btn-area">
                 <div class="vertical-shake continue-shopping"></div>
                 <div class="d-flex pay-as">
-                    <div onclick="placeorderzerowishlist()" class="guest"><a href="javascript:void(0)">Place Order (QAR{{$total_price}})</a></div>
+                    <div onclick="placeorderzerowishlist()" class="guest"><a href="javascript:void(0)">{{__('trans.Place Order')}} (QAR{{$total_price}})</a></div>
                 </div>
             </div>
         </div>

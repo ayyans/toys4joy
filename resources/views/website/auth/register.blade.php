@@ -35,11 +35,11 @@
             @csrf
             <div class="form-group">
               <div class="form-inner">
-                <h3 class="text-center">Register Now!</h3>
+                <h3 class="text-center">{{__("trans.Register Now!")}}</h3>
                 <div class="row">
                   <div class="col-12">
-                    <label>Name<span>*</span></label>
-                    <input type="text" name="name" placeholder="Write name here" class="customerReg">
+                    <label>{{__('trans.Write name here')}}<span>*</span></label>
+                    <input type="text" name="name" placeholder="{{__('trans.Write name here')}}" class="customerReg">
                     @error('name')
                       <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -48,8 +48,8 @@
                   </div>
 
                   <div class="col-12">
-                    <label>Email<span>*</span></label>
-                    <input type="email" name="email" placeholder="Write email here" class="customerReg">
+                    <label>{{__('trans.Email Address')}}<span>*</span></label>
+                    <input type="email" name="email" placeholder="{{__('trans.Email Address')}}" class="customerReg">
                     @if ($errors->has('email'))
                       <span style="display: block;text-align: left;" class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('email') }}</strong>
@@ -57,7 +57,7 @@
                     @endif
                   </div>
                   <div class="col-12">
-                    <label style="margin-bottom: 5px;">Phone<span>*</span></label>
+                    <label style="margin-bottom: 5px;">{{__('trans.Phone Number')}}<span>*</span></label>
                     <input id="phone" class="customerReg" name="phone" type="tel">
                     @if ($errors->has('mobile'))
                       <span style="display: block;text-align: left;" class="invalid-feedback" role="alert">
@@ -66,17 +66,17 @@
                     @endif
                   </div>
                   <div class="col-12">
-                    <label>Password<span>*</span></label>
-                    <input type="password" name="password" placeholder="Password" class="customerReg" id="password">
+                    <label>{{__('trans.Password')}}<span>*</span></label>
+                    <input type="password" name="password" placeholder="{{__('trans.Password')}}" class="customerReg" id="password">
                   </div>
                   <div class="col-12">
-                    <label>Confirm Password<span>*</span></label>
-                    <input type="password" name="cnfpassword" placeholder="Password" class="customerReg" id="cnfpassword">
+                    <label>{{__('trans.Confirm Password')}}<span>*</span></label>
+                    <input type="password" name="cnfpassword" placeholder="{{__('trans.Password')}}" class="customerReg" id="cnfpassword">
                     <div id="wrngpsw"></div>
                   </div>
                 </div>
 
-                <button class="registerbtn">Register</button>
+                <button class="registerbtn">{{__('trans.Register')}}</button>
               </div>
           </form>
         </div>
@@ -113,7 +113,6 @@
             $(this).css({
               "border": "1px solid red",
               "background": "#FFCECE",
-
             });
           } else {
             $(this).css({
@@ -122,17 +121,12 @@
             });
           }
         });
-
-
         var password = $("#password").val();
         var cnfpassword = $("#cnfpassword").val();
-
         if (password != cnfpassword) {
-
           $("#cnfpassword").css({
             "border": "1px solid red",
             "background": "#FFCECE",
-
           });
           $("#wrngpsw").append('<p style="color:red">confirm password should be same as password</p>')
           return false;
@@ -140,12 +134,9 @@
           $("#cnfpassword").css({
             "border": "",
             "background": "",
-
           });
           $("#wrngpsw").remove();
         }
-
-
         if (isValid == false) {
           e.preventDefault();
         } else {
@@ -159,13 +150,10 @@
     $("input#cnfpassword").blur(function() {
       var password = $("#password").val();
       var cnfpassword = $(this).val();
-
       if (password != cnfpassword) {
-
         $(this).css({
           "border": "1px solid red",
           "background": "#FFCECE",
-
         });
         $("#wrngpsw").html('<p style="color:red">confirm password should be same as password</p>')
         return false;
@@ -173,7 +161,6 @@
         $(this).css({
           "border": "",
           "background": "",
-
         });
         $("#wrngpsw").remove();
       }

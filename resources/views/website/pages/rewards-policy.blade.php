@@ -10,7 +10,7 @@
                 
                 </div>
                 <div class="categories mb-3">
-                    <h2 class="for-desktop">Categories</h2>
+                    <h2 class="for-desktop">{{__('trans.Categories')}}</h2>
                     @include('website.layouts.category_btn')
                     <ul class="nav nav-pills flex-column mb-auto menu for-desktop">
                      @include('website.layouts.category_menu')
@@ -25,14 +25,14 @@
             </div>
             <div class="t-and-c-text">
                 <div class="content">
-                    <h4>Rewards Points</h4>
-                    <p>Toys 4 Joy offer unique Reward points in a great way to treat yourself!</p>
-                    <p>Our point system is easy!</p>
-                    <p>1 QR = 2 Points.</p>
-                    <p>2500 QR = 5000 Points.</p>
-                    <p>When you reach 5000 Points you gain E Gift card in amount of 100 QR</p>
+                    <h4>{{__('policies.Rewards Points')}}</h4>
+                    <p>{{__('policies.Toys 4 Joy offer unique Reward points in a great way to treat yourself!')}}</p>
+                    <p>{{__('policies.Our point system is easy!')}}</p>
+                    <p>{{__('policies.1 QR = 2 Points.')}}</p>
+                    <p>{{__('policies.2500 QR = 5000 Points.')}}</p>
+                    <p>{{__('policies.When you reach 5000 Points you gain E Gift card in amount of 100 QR')}}</p>
                     
-                    <p>Start your purchase and earn reward points now!</p> 
+                    <p>{{__('policies.Start your purchase and earn reward points now!')}}</p> 
 
                 </div>
             </div>

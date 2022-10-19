@@ -42,9 +42,9 @@
             @endif
             <form id="passwordchange" action="{{ route('website.updateusersecurity') }}" method="POST">
             <div class="discount-block">
-                <h4>Change your password</h4>
+                <h4>{{__('trans.Change your password')}}</h4>
                 <div class="mb-3">
-                	<label>Old Password <span style="color:#ff0000">*</span></label>
+                	<label>{{__('trans.Old Password')}} <span style="color:#ff0000">*</span></label>
                 	<div class="d-flex phone-dropdown">
                         <div class="col-2">
                             <div class="lock"><img src="{{asset('website/img/lock.png')}}"></div>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                	<label>New Password <span style="color:#ff0000">*</span></label>
+                	<label>{{__('trans.New Password')}} <span style="color:#ff0000">*</span></label>
                 	<div class="d-flex phone-dropdown">
                         <div class="col-2">
                             <div class="lock"><img src="{{asset('website/img/lock.png')}}"></div>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                	<label>Confirm Password <span style="color:#ff0000">*</span></label>
+                	<label>{{__('trans.Confirm Password')}} <span style="color:#ff0000">*</span></label>
                 	<div class="d-flex phone-dropdown">
                         <div class="col-2">
                             <div class="lock"><img src="{{asset('website/img/lock.png')}}"></div>
@@ -70,7 +70,7 @@
                         <div class="col-10 pswrd-input"><input name="password_confirmed" type="password" id="password_confirmed"><img class="eye cursor-pointer" src="{{asset('website/img/eye.png')}}"></div>
                     </div>
                 </div>
-                <div class="btn pinkbg-img"><a onclick="passwordchange()"  href="javascript:void(0)">Update</a></div>
+                <div class="btn pinkbg-img"><a onclick="passwordchange()"  href="javascript:void(0)">{{__('trans.Update')}}</a></div>
             </div>
             </form>
         </div>

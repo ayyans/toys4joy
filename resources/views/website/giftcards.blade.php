@@ -8,7 +8,7 @@ $order_number = rand('123456798' , '987654321');
         <div class="container-fluid">
             <div class="row">
                 <div class="text-center green-text title">
-                    <h2>Buy E-Gift Cards to the ones you loved.</h2>
+                    <h2>{{__("trans.Buy E-Gift Cards to the ones you loved.")}}</h2>
                 </div>
                 {{-- <div class="col-4">
                     <div class="img-box">
@@ -54,7 +54,7 @@ $order_number = rand('123456798' , '987654321');
                             <div class="pay-as-member">
                                 <div class="text-center">
                                     <div class="gift-cards member">
-                                        <a onclick="paymentsubmit()">Pay by Debit/Credit Card</a>
+                                        <a onclick="paymentsubmit()">{{__("trans.Pay by Debit/Credit Card")}}</a>
                                     </div>
                                 </div>
                             </div>

@@ -70,22 +70,22 @@
 	    <div class="row content-block">
 	        <div class="col-md-6 mt-3">
 	            <label class="star-lable">*</label>
-	            <label class="lable-area">Your Name</label>
+	            <label class="lable-area">{{__('trans.Your Name')}}</label>
 	            <input class="input-areas" type="text" name="name">
 	        </div>
 	        <div class="col-md-6 col-lg-6 mt-3">
 	            <label class="star-lable">*</label>
-	            <label class="lable-area">Mobile Number</label>
+	            <label class="lable-area">{{__('trans.Mobile Number')}}</label>
 	            <input class=" input-area" type="number" name="mobile">
 	        </div>
 	        <div class="col-md-1 col-lg-1 mt-3">
 	            
-	            <label class="lable-area message-area">Your Message</label>
+	            <label class="lable-area message-area">{{__('trans.Your Message')}}</label>
 	        </div>
 	        <div class="col-md-11 col-lg-11 mt-3">
 	            <textarea class="textarea"  rows="5"></textarea>
 	        </div>
-	       <div class="btn pinkbg-img"><a  href="javascript:void(0)">Update</a></div>
+	       <div class="btn pinkbg-img"><a  href="javascript:void(0)">{{__('trans.Update')}}</a></div>
 	    </div>
 	</div>
 </main>

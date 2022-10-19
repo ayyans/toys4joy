@@ -26,26 +26,26 @@
             
             <div class="form-group">
                 <div class="form-inner">
-              <h3 class="text-center">Joy is yet to begin!</h3>
-              <p class="text-center">Enter your username & password to enjoy the bunch of awesome benefits!</p>
+              <h3 class="text-center">{{__('trans.Joy is yet to begin!')}} </h3>
+              <p class="text-center">{{__('trans.Enter your username & password to enjoy the bunch of awesome benefits!')}}</p>
               <form action="{{route('website.login_process')}}" method="POST" id="loginFrmH">
                 @csrf
-                <input type="text" name="email" placeholder="Username" class="logininp @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
+                <input type="text" name="email" placeholder="{{__('trans.Username')}}" class="logininp @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                <input type="password" name="password" placeholder="Password" class="logininp @error('password') is-invalid @enderror" value="{{ old('password') }}" required>
+                <input type="password" name="password" placeholder="{{__('trans.Password')}}" class="logininp @error('password') is-invalid @enderror" value="{{ old('password') }}" required>
                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                <div class="forgot-password"><a href="{{ route('website.forgot_password') }}">Forgot Password?</a></div>
-              <button class="loginbtn">Login</button>
+                <div class="forgot-password"><a href="{{ route('website.forgot_password') }}">{{__('trans.Forgot Password?')}}</a></div>
+              <button class="loginbtn">{{__("trans.Login")}}</button>
             </form>
-            <div class="dnt-account"><span>Don't have an account? <a href="{{route('website.register')}}">Register Now.</a></span></div>
+            <div class="dnt-account"><span>{{__("trans.Don't have an account?") }} <a href="{{route('website.register')}}">{{__('trans.Register Now.') }}</a></span></div>
             </div>
             </div>    
         </div>

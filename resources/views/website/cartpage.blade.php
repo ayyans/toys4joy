@@ -6,15 +6,15 @@
     <div class="row">
     	<div class="col-12">
             <div class="d-flex main-title">
-                <div class="title">My Basket</div>
+                <div class="title">{{ __('trans.My Basket') }}</div>
             </div>
             <table class="table">
               <thead>
                 <tr>
-                  <th class="first">Qty</th>
-                  <th>Name</th>
-                  <th>Images</th>
-                  <th>Prices</th>
+                  <th class="first">{{ __('trans.Quantity') }}</th>
+                  <th>{{ __('trans.Name') }}</th>
+                  <th>{{ __('trans.Images') }}</th>
+                  <th>{{ __('trans.Prices') }}</th>
                   <th class="last"></th>
                 </tr>
               </thead>
@@ -43,7 +43,7 @@
               </tbody>
               <tfoot>
                 <tr>
-                    <td colspan="2">Total Price</td>
+                    <td colspan="2">{{ __('trans.Total Price') }}</td>
                     <td></td>
                     {{-- <td>QAR {{$total_price}}</td> --}}
                     <td>QAR <span id="total"></span></td>
@@ -52,11 +52,11 @@
               </tfoot>    
             </table>
             <div class="d-flex ftr-btn-area">
-                <div class="vertical-shake continue-shopping"><a href="{{ url('') }}">Continue Shopping</a></div>
+                <div class="vertical-shake continue-shopping"><a href="{{ url('') }}">{{ __('trans.Continue Shopping') }}</a></div>
                 <div class="d-flex pay-as">
-                    <div class="member"><a href="{{route('website.payasmember')}}">Pay as Member</a></div>
+                    <div class="member"><a href="{{route('website.payasmember')}}">{{ __('trans.Pay as Member') }}</a></div>
                     @if(!Auth::check())
-                    <div class="guest"><a href="{{route('website.payasguest')}}">Fast Pay</a></div>
+                    <div class="guest"><a href="{{route('website.payasguest')}}">{{ __('trans.Fast Pay') }}</a></div>
                     @endif
                 </div>
             </div>

@@ -5,14 +5,13 @@
   <div class="container first_class">
       <div class="row">
         <div class="col-md-4 col-sm-6">
-          <h3>BE THE FIRST TO KNOW</h3>
-          <p>Get all the latest information on  Triedge Services, Events, Jobs
-            and Fairs. Sign up for our newsletter today.</p>
+          <h3>{{__('trans.BE THE FIRST TO KNOW')}}</h3>
+          <p>{{__('trans.Get all the latest information on Triedge Services, Events, Jobs and Fairs. Sign up for our newsletter today.')}}</p>
         </div>
         <div class="col-md-4 col-sm-6">
         <form class="newsletter">
             <div class="input-group">
-            <input type="text" placeholder="Email Address"> 
+            <input type="text" placeholder="{{__('trans.Email Address')}}"> 
                 <button class="newsletter_submit_btn" type="submit"><i class="fa fa-paper-plane"></i></button> 
             </div>
             
@@ -48,7 +47,7 @@
       </div>  
         </div>
           <div class="clearfix"></div>
-        <div class="col-md-12 for-desktop"><h3 style="text-align: right;">Stay Connected</h3></div>
+        <div class="col-md-12 for-desktop"><h3 style="text-align: right;">{{__('trans.STAY CONNECTED')}}</h3></div>
         </div>
       </div>
   </div>
@@ -63,55 +62,54 @@
                         <img src="{{asset('website/img/logowhiteline.png')}}" class="why-logo">
             </a>
           </div>
-          <p>Number one Toys E-Commerce by providing best smooth shopping experience with easy checkout, free and fastest delivery, and unique online shopping features such as Loyalty Program, Wish List, and E-Gift Cards.</p>
+          <p>{{__('trans.Number one Toys E-Commerce by providing best smooth shopping experience with easy checkout, free and fastest delivery, and unique online shopping features such as Loyalty Program, Wish List, and E-Gift Cards.')}}</p>
         </div>
         <div class="col-md-2 col-sm-6">
-          <h3>Sitemap</h3>
+          <h3>{{__('trans.sitemap')}}</h3>
           <ul class="footer-links">
-            <li><a href="/">Home</a>
+            <li><a href="/">{{__('trans.Home')}}</a>
             </li>
-            <li><a href="{{ route('website.bestoffers') }}">Special prices</a>
+            <li><a href="{{ route('website.bestoffers') }}">{{__('trans.Special Prices')}}</a>
             </li>
-            <li><a href="@if(Auth::check())  {{route('website.mywishlist',[encrypt(Auth::user()->id)])}} @else {{ url('login') }} @endif">Wishlist</a>
+            <li><a href="@if(Auth::check())  {{route('website.mywishlist',[encrypt(Auth::user()->id)])}} @else {{ url('login') }} @endif">{{__('trans.Wish List')}}</a>
             </li>
-            <li><a href="{{route('website.giftcard')}}">E-gift cards</a>
+            <li><a href="{{route('website.giftcard')}}">{{__('trans.E-Gift Cards')}}</a>
             </li>
-            <li><a href="{{route('website.yourpoints')}}">Points</a>
+            <li><a href="{{route('website.yourpoints')}}">{{__('trans.Your Points')}}</a>
             </li>
           </ul>
         </div>
         <div class="col-md-3 col-sm-6">
-          <h3>Policy</h3>
+          <h3>{{__('trans.policy')}}</h3>
           <ul class="footer-category">
-            <li><a href="{{ route('website.policy') }}">Browse Our Policies</a>
+            <li><a href="{{ route('website.policy') }}">{{__('trans.Browse Our Policies')}}</a>
             </li>
-            <li><a href="{{ url('return-policy') }}">Return Policy</a>
+            <li><a href="{{ url('return-policy') }}">{{__('trans.Return Policy')}}</a>
             </li>
-            <li><a href="{{ url('rewards-policy') }}">Rewards Policy</a>
+            <li><a href="{{ url('rewards-policy') }}">{{__('trans.Rewards Policy')}}</a>
             </li>
-            <li><a href="{{ url('delivery-policy') }}">Delivery Policy</a>
+            <li><a href="{{ url('delivery-policy') }}">{{__('trans.Delivery Policy')}}</a>
             </li>
-            <li><a href="{{ url('privacy-policy') }}">privacy Policy</a>
+            <li><a href="{{ url('privacy-policy') }}">{{__('trans.privacy Policy')}}</a>
             </li>
           </ul>
           <div class="clearfix"></div>
         </div>
         <div class="col-md-3 col-sm-6">
-          <h3>Contact Us</h3>
+          <h3>{{__('trans.contact_us')}}</h3>
           
           <ul class="footer-contact footer-links">
-          <li>
-            <a href="mailto:info@toys4joy.com"><i class="fa fa-envelope"></i> info@toys4joy.com</a></li>
-            <li><a href="tel:+974 6000 5970"><i class="fa fa-whatsapp"></i> <strong>What'sapp Number:</strong> +974 6000 5970</a></li>
-            <li><i class="fa fa-phone"></i> <strong>Customer Service:</strong> +974 6000 5370</li>
-            <li><i class="fa fa-phone"></i> <strong>Land Line:</strong> +974 4441 4215</li>
+            <li><a href="mailto:info@toys4joy.com"><i class="fa fa-envelope"></i> <strong>info@toys4joy.com</strong></a></li>
+            <li><a href="whatsapp:+974 6000 5970"><i class="fa fa-whatsapp"></i> <strong>{{__('trans.Whatsapp Number')}}:</strong> <span style="direction:ltr!important;display:inline-block"> +974 6000 5970</span></a></li>
+            <li><a href="tel:+974 6000 5370"><i class="fa fa-phone"></i> <strong>{{__('trans.Customer Service')}}:</strong><span style="direction:ltr!important;display:inline-block"> +974 6000 5370</span></a></li>
+            <li><a href="tel:+974 4441 4215"><i class="fa fa-phone"></i> <strong>{{__('trans.Land Line')}}:</strong><span style="direction:ltr!important;display:inline-block"> +974 4441 4215</span></a></li>
           </ul>
           
           <a href="{{ url('contact-us') }}" class="pushable pushable-contact">
           <span class="shadow"></span>
           <span class="edge"></span>
            <span class="front front-contact">
-             More info
+           {{__('trans.More Info')}}
            </span>
 </a>
           <!--<div class="google-play" >
@@ -127,7 +125,7 @@
     <div class="row">
       
       <div class="container-fluid">
-      <div class="copyright"> Copyright 2022 | All Rights Reserved by Toys4joy.com.</div>
+      <div class="copyright">{{__('trans.Copyright 2022 | All Rights Reserved by Toys4joy.com.')}}</div>
       </div>
       
     </div>

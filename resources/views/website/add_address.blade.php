@@ -27,20 +27,20 @@
                 <div class="form-group">
                     <div class="form-inner">
                         <div class="input-block unit-num">
-                            <label>Unit Number</label>
+                            <label>{{__('trans.Unit Number')}}</label>
                             <input @if($address) value="{{ $address->unit_no }}" @endif type="text" name="unit_no" class="cust_address">
                         </div>
                         <div class="input-block building-num">
-                            <label>Building Number</label>
+                            <label>{{__('trans.Building Number')}}</label>
                             <input @if($address) value="{{ $address->building_no }}" @endif type="text" name="buid_no" class="cust_address">
                         </div>
                         <div class="d-flex zone-street">
                             <div class="input-block zone">
-                                <label>Zone</label>
+                                <label>{{__('trans.Zone')}}</label>
                                 <input @if($address) value="{{ $address->zone }}" @endif type="text" name="zone"  class="cust_address">
                             </div>
                             <div class="input-block street">
-                                <label>Street</label>
+                                <label>{{__('trans.Street')}}</label>
                                 <input @if($address) value="{{ $address->street }}" @endif type="text" name="street" class="cust_address">
                             </div>
                         </div>    
@@ -48,7 +48,7 @@
                 </div>
             </form>
                 <div class="d-flex google-location">
-                    <div class="guest"><a href="javascript:void(0)" id="saveAddress">Save Address</a></div>
+                    <div class="guest"><a href="javascript:void(0)" id="saveAddress">{{__('trans.Save Address')}}</a></div>
                 </div>
             </div>
        </div>      
