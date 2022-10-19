@@ -45,7 +45,7 @@ return [
 	'privacy Policy'=>'privacy Policy',
 	'Number one Toys E-Commerce by providing best smooth shopping experience with easy checkout, free and fastest delivery, and unique online shopping features such as Loyalty Program, Wish List, and E-Gift Cards.'=>'Number one Toys E-Commerce by providing best smooth shopping experience with easy checkout, free and fastest delivery, and unique online shopping features such as Loyalty Program, Wish List, and E-Gift Cards.',
 	'BE THE FIRST TO KNOW'=>'BE THE FIRST TO KNOW',
-	'Get all the latest information on Triedge Services, Events, Jobs and Fairs. Sign up for our newsletter today.'=>'Get all the latest information on Triedge Services, Events, Jobs and Fairs. Sign up for our newsletter today.',
+	'Get all the latest information on Toys4joy, Events, Jobs and Fairs. Sign up for our newsletter today.'=>'Get all the latest information on Toys4joy, Events, Jobs and Fairs. Sign up for our newsletter today.',
 	'STAY CONNECTED'=>'STAY CONNECTED',
 	'More Info'=>'More Info',
 	'Customer Service'=>'Customer Service',
