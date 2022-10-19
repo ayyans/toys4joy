@@ -313,15 +313,15 @@
                             @csrf
                           <div class="mb-3">
                             <label for="exampleInputName1" class="form-label">{{ __('trans.Your Name') }}</label>
-                            <input type="text" required class="form-control" name="name" aria-describedby="nameHelp">
+                            <input type="text" required class="form-control" name="name" aria-describedby="nameHelp" required>
                           </div>
                           <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">{{ __('trans.Email Address') }}</label>
-                            <input type="email" required class="form-control" name="email" aria-describedby="emailHelp">
+                            <input type="email" required class="form-control" name="email" aria-describedby="emailHelp" required>
                           </div>
                           <div class="mb-3">
                             <label for="exampleInputPhone1" class="form-label">{{ __('trans.Phone Number') }}</label>
-                            <input type="tel" required class="form-control" name="phonenumber">
+                            <input type="tel" required class="form-control" name="phonenumber" required>
                           </div>
                           <div class="mb-3">
                             <label for="exampleInputMessage1" class="form-label">{{ __('trans.Your Message') }}</label>

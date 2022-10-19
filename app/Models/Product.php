@@ -14,6 +14,10 @@ class Product extends Model
         'linked_categories' => 'json',
     ];
 
+    public function scopeActive($query) {
+        $query->where('status', 2)->whereHas('brand', fn($q) => $q->where('status', 2));
+    }
+
     public function getRewardPointsAttribute() {
         $qarInPoints = Setting::where('name', 'qar_in_points')->value('value') ?? 2;
         $price = $this->discount ?: $this->unit_price;

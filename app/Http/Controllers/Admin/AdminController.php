@@ -76,9 +76,11 @@ class AdminController extends Controller
     public function homepagebannerssubmit(Request $request)
     {
         $banner = new homepagebanners();
-        $banner->image=Cmf::sendimagetodirectory($request->image);
+        if ($request->hasFile('image')) {
+            $banner->image=Cmf::sendimagetodirectory($request->image);
+        }
         $banner->position = $request->position;
-        $banner->url = $request->url;
+        $banner->url = $request->url ?? '';
         $banner->status = 1;
         $banner->save();
         return back()->with('success','Banner Added SuccessFull!');
@@ -86,12 +88,11 @@ class AdminController extends Controller
     public function homepagebannersedit(Request $request)
     {
         $banner = homepagebanners::find($request->id);
-        if($request->image)
-        {
+        if ($request->hasFile('image')) {
             $banner->image=Cmf::sendimagetodirectory($request->image);
         }
         $banner->position = $request->position;
-        $banner->url = $request->url;
+        $banner->url = $request->url ?? '';
         $banner->save();
         return back()->with('success','Banner Added SuccessFull!');
     }
@@ -484,8 +485,7 @@ public function BrandProcess(Request $request){
     }else{            
          $category = new Brand;
          $category->brand_name=$request->brandname;
-         if($request->brandIcon)
-         {
+         if ($request->hasFile('brandIcon')) {
             $category->logo=Cmf::sendimagetodirectory($request->brandIcon);
          }
          $category->status=2;
@@ -503,8 +503,7 @@ public function updatebrand(Request $request)
 {
     $category = Brand::find($request->id);
     $category->brand_name=$request->brandname;
-    if($request->brandIcon)
-    {
+    if ($request->hasFile('brandIcon')) {
         $category->logo=Cmf::sendimagetodirectory($request->brandIcon);
     }
     $category->save();

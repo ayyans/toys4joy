@@ -36,8 +36,12 @@ class LoginController extends Controller
         $user = User::firstWhere('email', $request->email);
 
         // password not matching
-        if ( !Hash::check($request->password, $user->password) ) {
+        if (! Hash::check($request->password, $user->password)) {
             return $this->loginFailed();
+        }
+
+        if ($user->status == 3) {
+            return redirect()->route('website.login')->with('error', 'Your account is deactivated, please contact the admin!');
         }
 
         // phone not verified
