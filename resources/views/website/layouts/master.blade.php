@@ -55,6 +55,33 @@ src="https://www.facebook.com/tr?id=1199770164191927&ev=PageView&noscript=1"
 <meta name="facebook-domain-verification" content="8365pig04unbnybla9i6f5r5z0189u" />
 </head>
 <body>
+<?php 
+//for slider dir
+$dir_false="<script> var rtl=false</script>";
+$dir_true="<script> var rtl=true</script>";
+echo app()->isLocale('en') ? $dir_true : $dir_false;
+
+?>
+<?php 
+if (app()->isLocale('ar')){
+?>
+
+    <style>
+    .account .form-group label {
+        text-align: right !important;
+        display: block;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 10px 0 -5px;
+    }
+    .megadrop{
+        left: -100%!important;
+    right: 0!important;
+    }
+    </style>
+<?php 
+}
+?>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-58BNJ88"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
