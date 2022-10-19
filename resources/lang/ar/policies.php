@@ -16,13 +16,13 @@ return [
 'Copy of the original proof of purchase shall be provided. Any product under coverage and purchased within the Manufacturer’s warranty period if assembly is required, product must have been properly set up according to instruction manual.  Improper set up or improper use or abusive use of the product will not be eligible for replacement no modification or repair of the product has been made all parts of the product must be kept until the claim is resolved. Please note if the exact part is not available for replacement, manufacturer will offer an alternate part.'=>'يجب تقديم نسخة من أصل إثبات الشراء. أي منتج خاضع للتغطية وتم شراؤه خلال فترة ضمان الشركة المصنعة إذا كان التجميع مطلوبًا ، يجب إعداد المنتج بشكل صحيح وفقًا لدليل التعليمات. لن يكون الإعداد غير الصحيح أو الاستخدام غير السليم أو الاستخدام المسيء للمنتج مؤهلاً للاستبدال ، ولا يجب الاحتفاظ بأي تعديل أو إصلاح للمنتج ، حتى يتم حل المطالبة. يرجى ملاحظة أنه إذا لم يكن الجزء المحدد متاحًا للاستبدال ، فستقدم الشركة المصنعة جزءًا بديلًا.',
 'Products excludes warranty – books, edible items, cosmetics, jewelry, video games, DVDs, CDs, beddings, and foam mats.'=>'لا تشمل المنتجات الضمان - الكتب والمواد الصالحة للأكل ومستحضرات التجميل والمجوهرات وألعاب الفيديو وأقراص DVD والأقراص المدمجة وأغطية الأسرة والحصائر الرغوية.',
 //delivery
-"Toys 4 Joy is the only company that make free delivery without any limit amount of purchasing, we're committed to making our delivery process as quick and pleasant as possible, because we know how important it is that your goods arrive on time and in perfect condition."=>"Toys 4 Joy هي الشركة الوحيدة التي تقدم التوصيل المجاني دون أي حد للشراء ، فنحن ملتزمون بجعل عملية التسليم لدينا سريعة وممتعة قدر الإمكان ، لأننا نعلم مدى أهمية وصول البضائع الخاصة بك في الوقت المحدد وبصورة مثالية حالة.",
-"To provide the utmost satisfaction, majority of deliveries are carried by our own fleet and Toys 4 Joy personnel."=>"لتوفير أقصى درجات الرضا ، يتم تسليم غالبية عمليات التسليم بواسطة أسطولنا وموظفي Toys 4 Joy.",
+"Toys 4 Joy is the only company that make free delivery without any limit amount of purchasing, we're committed to making our delivery process as quick and pleasant as possible, because we know how important it is that your goods arrive on time and in perfect condition."=>"Toys 4 Joy هي الشركة الوحيدة التي تقدم التوصيل المجاني دون أي حد للشراء ، فنحن ملتزمون بجعل عملية التسليم لدينا سريعة وممتعة قدر الإمكان ، لأننا نعلم مدى أهمية وصول البضائع الخاصة بك في الوقت المحدد وبصورة مثالية",
+"To provide the utmost satisfaction, majority of deliveries are carried by our own fleet and Toys 4 Joy personnel."=>"لتوفير أقصى درجات الرضا ، يتم تسليم غالبية عمليات التسليم بواسطة سيارات و موظفين من Toys 4 Joy.",
 "Free delivery for each order"=>"توصيل مجاني لكل طلب",
 "Free delivery for all orders above 99 QR within 3 hours."=>"توصيل مجاني لجميع الطلبات التي تزيد عن 99 ريال قطري خلال 3 ساعات.",
 "Free delivery for all orders below 99 QR within 24 hours."=>"توصيل مجاني لجميع الطلبات التي تقل قيمتها عن 99 ريال قطري خلال 24 ساعة.",
 "Free delivery and assembling on products that includes assembly requirement within 24 to 48 hours."=>"توصيل مجاني وتجميع المنتجات التي تتضمن متطلبات التجميع في غضون 24 إلى 48 ساعة.",
-"Note: All operation in Toys 4 Joy closed before, during, and after one hour of Friday Pray."=>"ملاحظة: تم إغلاق جميع العمليات في Toys 4 Joy قبل وأثناء وبعد ساعة واحدة من صلاة الجمعة.",
+"Note: All operation in Toys 4 Joy closed before, during, and after one hour of Friday Pray."=>"ملاحظة: يتم إغلاق جميع العمليات في Toys 4 Joy قبل وأثناء وبعد ساعة واحدة من صلاة الجمعة.",
 //privacy
 "Toys 4 Joy is always making sure that all customers’ data and personal information is secured and protection.  We use the best commercial efforts to ensure your Personal Information is kept confidential and secure. We have SSL certificate to make sure all data transactions are secured and protect in highest level of security systems. Also we Sadad Service for online payment which is considered very secured and authorized party for this payment services and they are provide many different option of payment such as:"=>"تحرص شركة تويز فور جوي دائمًا على تأمين وحماية جميع بيانات العملاء والمعلومات الشخصية. نحن نبذل قصارى جهدنا لضمان الحفاظ على سرية وأمان معلوماتك الشخصية. لدينا شهادة SSL للتأكد من أن جميع معاملات البيانات مؤمنة وحمايتها في أعلى مستوى من أنظمة الأمان. نحن أيضًا خدمة سداد للدفع عبر الإنترنت والتي تعتبر طرفًا مؤمنًا ومصرحًا به للغاية لخدمات الدفع هذه وهي توفر العديد من خيارات الدفع المختلفة مثل:",
 "Credit Car Visa – Mastered Card – American Express"=>"بطاقة الائتمان Visa - Mastercard - American Express",
@@ -41,7 +41,7 @@ return [
 //points
 "Rewards Points"=>"نقاط المكافآت",
 "Toys 4 Joy offer unique Reward points in a great way to treat yourself!"=>"تقدم تويز فور جوي نقاط مكافآت فريدة بطريقة رائعة لتدليل نفسك!",
-"Our point system is easy!"=>"نظام النقاط لدينا سهل!",
+"Our point system is easy!"=>"نظام النقاط لدينا كالاتي:",
 "1 QR = 2 Points."=>"1 ريال قطري = 2 نقطة.",
 "2500 QR = 5000 Points."=>"2500 ريال قطري = 5000 نقطة.",
 "When you reach 5000 Points you gain E Gift card in amount of 100 QR"=>"عندما تصل إلى 5000 نقطة تحصل على بطاقة هدايا إلكترونية بقيمة 100 ريال قطري",
@@ -49,8 +49,8 @@ return [
 //vision
 "Vision"=>"الرؤية",
 "Mission"=>"المهمة",
-"Number one Toys E-Commerce by providing best smooth shopping experience with easy checkout, free and fastest delivery, and unique online shopping features such as Loyalty Program, Wish List, and E-Gift Cards"=>"رقم واحد في التجارة الإلكترونية في Toys من خلال توفير أفضل تجربة تسوق سلسة مع تسجيل خروج سهل ، وتسليم مجاني وأسرع ، وميزات تسوق فريدة عبر الإنترنت مثل برنامج الولاء ، وقائمة الرغبات ، وبطاقات الهدايا الإلكترونية",
-"To create the happiness in the heart of our lovely children and the smile on the face of their parents by providing branded high quality safe and innovative toys, with fastest &amp; free delivery service, with always best price"=>"لخلق السعادة في قلب أطفالنا المحبوبين والابتسامة على وجه والديهم من خلال توفير ألعاب آمنة ومبتكرة عالية الجودة ذات علامة تجارية ، بأسرع وأمبير. خدمة التوصيل المجاني ، بأفضل الأسعار دائمًا",
+"Number one Toys E-Commerce by providing best smooth shopping experience with easy checkout, free and fastest delivery, and unique online shopping features such as Loyalty Program, Wish List, and E-Gift Cards"=>"رقم واحد في التجارة الإلكترونية في Toys 4 Joy من خلال توفير أفضل تجربة تسوق سلسة مع تسجيل خروج سهل ، وتسليم مجاني وأسرع ، وميزات تسوق فريدة عبر الإنترنت مثل برنامج الولاء ، وقائمة الرغبات ، وبطاقات الهدايا الإلكترونية",
+"To create the happiness in the heart of our lovely children and the smile on the face of their parents by providing branded high quality safe and innovative toys, with fastest &amp; free delivery service, with always best price"=>"خلق السعادة في قلب أطفالنا المحبوبين والابتسامة على وجه والديهم من خلال توفير ألعاب آمنة ومبتكرة عالية الجودة ذات علامة تجارية ، بأسرع وأمبير. خدمة التوصيل المجاني ، بأفضل الأسعار دائمًا",
 "Values"=>"القيم",
 "Providing very special price for the kids who has Cancer, Autism, and all any other critical disease"=>"توفير سعر خاص جدًا للأطفال المصابين بالسرطان والتوحد وجميع الأمراض الخطيرة الأخرى",
 "Always provide the safe branding products for our lovely children"=>"قم دائمًا بتوفير منتجات العلامات التجارية الآمنة لأطفالنا المحبوبين",

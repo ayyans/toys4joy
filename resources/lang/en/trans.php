@@ -45,7 +45,7 @@ return [
 	'privacy Policy'=>'privacy Policy',
 	'Number one Toys E-Commerce by providing best smooth shopping experience with easy checkout, free and fastest delivery, and unique online shopping features such as Loyalty Program, Wish List, and E-Gift Cards.'=>'Number one Toys E-Commerce by providing best smooth shopping experience with easy checkout, free and fastest delivery, and unique online shopping features such as Loyalty Program, Wish List, and E-Gift Cards.',
 	'BE THE FIRST TO KNOW'=>'BE THE FIRST TO KNOW',
-	'Get all the latest information on Triedge Services, Events, Jobs and Fairs. Sign up for our newsletter today.'=>'Get all the latest information on Triedge Services, Events, Jobs and Fairs. Sign up for our newsletter today.',
+	'Get all the latest information on Toys4joy, Events, Jobs and Fairs. Sign up for our newsletter today.'=>'Get all the latest information on Toys4joy, Events, Jobs and Fairs. Sign up for our newsletter today.',
 	'STAY CONNECTED'=>'STAY CONNECTED',
 	'More Info'=>'More Info',
 	'Customer Service'=>'Customer Service',
@@ -112,6 +112,7 @@ return [
 "Change Password"=>"Change Password",
 "Change Mobile Number"=>"Change Mobile Number",
 "My Points"=>"My Points",
+"Reward Points"=>"Reward Points",
 "My Profile"=>"My Profile",
 "My Siblings"=>"My Siblings",
 "My Order's History"=>"My Order's History",
@@ -164,6 +165,7 @@ return [
 "Tell Us More"=>"Tell Us More",
 "Attach copy of your receipt"=>"Attach copy of your receipt",
 //wishlist
+"product name"=>"product name",
 "Prices"=>"Prices",
 "Images"=>"Images",
 "Total Price"=>"Total Price",
@@ -242,7 +244,7 @@ return [
 "Reset Password"=>"Reset Password",
 "Please enter your new password."=>"Please enter your new password.",
 "You have redeemed"=>"You have redeemed",
-""=>"",
+"Please Fill out the Form Below"=>"Please Fill out the Form Below",
 ""=>"",
 ""=>"",
 

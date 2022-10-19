@@ -18,7 +18,7 @@
                         
                         <div class="ac-button"><a href="{{route('website.changepassword')}}">{{__('trans.Change Password')}}</a></div>
                         <div class="ac-button"><a href="{{ route('website.changemobilenumber') }}">{{__('trans.Change Mobile Number')}}</a></div>
-                        <div class="ac-button"><a href="{{ route('website.yourpoints') }}">{{__('trans.My Points')}}</a></div>
+                        <div class="ac-button"><a href="{{ route('website.yourpoints') }}">{{__('trans.Reward Points')}}</a></div>
                     </div>
                     <div class="col-4">
                         <div class="mid-btn my-profile"><a href="{{route('website.myprofile')}}">{{__('trans.My Profile')}}</a></div>
