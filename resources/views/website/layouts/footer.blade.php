@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-md-4 col-sm-6">
           <h3>{{__('trans.BE THE FIRST TO KNOW')}}</h3>
-          <p>{{__('trans.Get all the latest information on Triedge Services, Events, Jobs and Fairs. Sign up for our newsletter today.')}}</p>
+          <p>{{__('trans.Get all the latest information on Toys4joy, Events, Jobs and Fairs. Sign up for our newsletter today.')}}</p>
         </div>
         <div class="col-md-4 col-sm-6">
         <form class="newsletter">
