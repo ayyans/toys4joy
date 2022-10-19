@@ -112,6 +112,7 @@ return [
 "Change Password"=>"Change Password",
 "Change Mobile Number"=>"Change Mobile Number",
 "My Points"=>"My Points",
+"Reward Points"=>"Reward Points",
 "My Profile"=>"My Profile",
 "My Siblings"=>"My Siblings",
 "My Order's History"=>"My Order's History",
@@ -164,6 +165,7 @@ return [
 "Tell Us More"=>"Tell Us More",
 "Attach copy of your receipt"=>"Attach copy of your receipt",
 //wishlist
+"product name"=>"product name",
 "Prices"=>"Prices",
 "Images"=>"Images",
 "Total Price"=>"Total Price",
@@ -242,7 +244,7 @@ return [
 "Reset Password"=>"Reset Password",
 "Please enter your new password."=>"Please enter your new password.",
 "You have redeemed"=>"You have redeemed",
-""=>"",
+"Please Fill out the Form Below"=>"Please Fill out the Form Below",
 ""=>"",
 ""=>"",
 
