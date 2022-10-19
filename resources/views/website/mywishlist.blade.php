@@ -14,7 +14,7 @@
               <thead>
                 <tr>
                   <th class="first"></th>
-                  <th>{{__('trans.Name')}}</th>
+                  <th>{{__('trans.product name')}}</th>
                   <th>{{__('trans.Images')}}</th>
                   <th>{{__('trans.Prices')}}</th>
                   <th class="last"></th>
