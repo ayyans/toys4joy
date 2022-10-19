@@ -91,6 +91,10 @@ if (app()->isLocale('ar')){
         font-weight: 700;
         margin: 10px 0 -5px;
     }
+    .megadrop{
+        left: -100%!important;
+    right: 0!important;
+    }
     </style>
 <?php 
 }
