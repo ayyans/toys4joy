@@ -2,9 +2,9 @@
 @section('content')
 <div class="container-fluid">
     <div class="row mb-2">
-        <div class="col-md-12">
-            <a href="{{route('admin.addproducts')}}"><button type="btn" class="btn btn-round btn-success"
-                    style="float:right">Add Product</button></a>
+        <div class="col-md-12 d-flex justify-content-end">
+            <a href="{{route('admin.bulk-upload-products')}}" class="btn btn-round btn-primary mr-2">Bulk Upload Product</a>
+            <a href="{{route('admin.addproducts')}}" class="btn btn-round btn-success">Add Product</a>
         </div>
     </div>
     <div class="card shadow mb-4">

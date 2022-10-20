@@ -14,6 +14,7 @@ use App\Exports\SalesReportExport;
 use App\Exports\UsedGiftCardsReportExport;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
+use App\Imports\ProductsImport;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -715,6 +716,15 @@ public function deleteBrands(Request $request){
     public function products(){
         $products = Product::with('brand')->latest()->get();
         return view('admin.products',compact('products'));
+    }
+
+    public function bulkUploadProducts() {
+        return view('admin.bulk-upload-products');
+    }
+
+    public function storeBulkUploadProducts(Request $request) {
+        Excel::import(new ProductsImport, $request->file);
+        return back()->with('success', 'Products Imported Successfully');
     }
 
     public function listBrands(){
