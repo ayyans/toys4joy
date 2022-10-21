@@ -25,6 +25,7 @@
           <p class="text-center prompt">{{__('trans.Please verify the OTP code you received by SMS')}}<span>*</span></p>
           <form method="POST" action="{{ url('confermotp') }}" id="confermotpform" class="d-flex digit-group"
             data-group-name="digits" data-autosubmit="false" autocomplete="off">
+            <input type="hidden" name="mobile" value="{{ session('mobile') }}">
             <input type="text" autofocus id="digit-1" name="otp" data-next="digit-2" />
           </form>
           <button onclick="submitform()" class="vertical-shake">{{__('trans.Submit')}}</button>
