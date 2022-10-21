@@ -11,8 +11,9 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class ProductsImport implements ToModel, WithUpserts, WithHeadingRow, WithChunkReading
+class ProductsImport implements ToModel, WithUpserts, WithHeadingRow, WithChunkReading, WithValidation
 {
     /**
      * @param  array  $row
@@ -52,5 +53,22 @@ class ProductsImport implements ToModel, WithUpserts, WithHeadingRow, WithChunkR
     public function chunkSize(): int
     {
         return 1000;
+    }
+
+    /**
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [
+            'product_name' => ['required'],
+            'category' => ['required', 'exists:categories,category_name'],
+            'sub_category' => ['required', 'exists:sub_categories,subcat_name'],
+            'brand' => ['required', 'exists:brands,brand_name'],
+            'barcode' => ['required'],
+            'unit_price' => ['required'],
+            'quantity' => ['required'],
+            'sku' => ['required']
+        ];
     }
 }

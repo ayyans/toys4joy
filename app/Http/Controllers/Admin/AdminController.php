@@ -39,6 +39,8 @@ use Bavix\Wallet\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\ValidationException;
+use PhpParser\Node\Stmt\TryCatch;
 
 class AdminController extends Controller
 {
@@ -723,8 +725,13 @@ public function deleteBrands(Request $request){
     }
 
     public function storeBulkUploadProducts(Request $request) {
-        Excel::import(new ProductsImport, $request->file);
-        return back()->with('success', 'Products Imported Successfully');
+        $failures = [];
+        try {
+            Excel::import(new ProductsImport, $request->file);
+        } catch (ValidationException  $e) {
+            $failures = $e->failures();
+        }
+        return back()->with('success', 'Products Imported Successfully')->with('failures', $failures);
     }
 
     public function listBrands(){
