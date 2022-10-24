@@ -713,6 +713,10 @@ public function deleteBrands(Request $request){
 //     }
 // }
 
+    public function pointOfSale() {
+        return view('admin.point-of-sale');
+    }
+
     // products
 
     public function products(){

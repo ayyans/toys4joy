@@ -22,6 +22,23 @@
 <!-- Divider -->
 <hr class="sidebar-divider">
 
+<li class="nav-item">
+    <a class="nav-link" href="{{route('admin.point-of-sale')}}">
+        <i class="fas fa-fw fa-desktop"></i>
+        <span>Point of Sale</span></a>
+</li>
+<!-- Divider -->
+<hr class="sidebar-divider">
+
+
+<li class="nav-item">
+    <a class="nav-link" href="{{route('admin.bulkupload')}}">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Bulk Upload</span></a>
+</li>
+<!-- Divider -->
+<hr class="sidebar-divider">
+
 
 <!-- Nav Item - Pages Collapse Menu -->
 
@@ -100,14 +117,6 @@
 
 <hr class="sidebar-divider my-0">
 
-<!-- Nav Item - Dashboard -->
-<li class="nav-item">
-    <a class="nav-link" href="{{route('admin.bulkupload')}}">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Bulk Upload</span></a>
-</li>
-<!-- Divider -->
-<hr class="sidebar-divider">
 @php
     $order = DB::table('orders')->whereNotNull('user_id')->where('is_wishlist', false)->where('additional_details->is_new', true)->count();
     $guestorder = DB::table('orders')->whereNull('user_id')->where('additional_details->is_new', true)->count();
