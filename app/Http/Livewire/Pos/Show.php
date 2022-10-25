@@ -9,12 +9,13 @@ class Show extends Component
 {
     public $products = [];
     public $total = 0;
+    public $quantity = 0;
     public $selected = null;
     public $screen = 'main'; // main, edit, type, cash, card
     public $updatedQuantity = null;
     public $paymentType = null;
     public $cash = 0;
-    public $card = null;
+    public $card = ['name' => null, 'type' => null, 'number' => null];
 
     protected $listeners = ['addProduct', 'selectProduct'];
 
@@ -83,6 +84,7 @@ class Show extends Component
 
     private function updateTotal() {
         $this->total = array_reduce($this->products, fn($a, $p) => $a + ($p['price'] * $p['quantity']), 0);
+        $this->quantity = array_reduce($this->products, fn($a, $p) => $a + $p['quantity'], 0);
     }
 
     public function render()

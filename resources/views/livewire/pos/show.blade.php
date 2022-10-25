@@ -178,7 +178,7 @@
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="printReceipt('cash')">Print</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm print">Print</button>
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2" wire:click="discard">Cancel</button>
     </div>
     @elseif ($screen === 'card')
@@ -219,10 +219,320 @@
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="printReceipt('card')">Print</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm print">Print</button>
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2" wire:click="discard">Cancel</button>
     </div>
     @endif
+    {{-- =================================== --}}
+{{-- ============= RECEIPT ============= --}}
+{{-- =================================== --}}
+<div id="divToPrint" class="d-none">
+    <style>
+        #invoice-POS {
+            /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
+            padding: 2mm;
+            /* margin: 0 auto; */
+            width: 80mm;
+            background: #FFF;
+        }
+        #invoice-POS ::selection {
+            background: #f31544;
+            color: #FFF;
+        }
+        #invoice-POS ::moz-selection {
+                background: #f31544;
+                color: #FFF;
+            }
+
+        #invoice-POS h1 {
+                font-size: 1.5em;
+                color: #222;
+            }
+
+        #invoice-POS h2 {
+                font-size: .9em;
+                font-weight: bold;
+            }
+
+        #invoice-POS h3 {
+                font-size: 1.2em;
+                font-weight: 300;
+                line-height: 2em;
+            }
+
+        #invoice-POS p {
+                font-size: .7em;
+                color: #666;
+                line-height: 1.2em;
+            }
+
+        #invoice-POS #bot {
+                min-height: 50px;
+            }
+
+        #invoice-POS .title {
+                float: right;
+            }
+
+        #invoice-POS .title p {
+                text-align: right;
+            }
+
+        #invoice-POS table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+        #invoice-POS td {
+                //padding: 5px 0 5px 15px;
+                //border: 1px solid #EEE
+            }
+
+        #invoice-POS .tabletitle {
+                //padding: 5px;
+                font-size: .5em;
+                /* background: #EEE; */
+            }
+
+        #invoice-POS .service {
+                border-top: 1px solid #EEE;
+            }
+
+        #invoice-POS .item {
+            width: 24mm;
+        }
+
+        #invoice-POS .headtext {
+            font-size: .8em;
+        }
+
+        #invoice-POS .midtext {
+            font-size: .6em;
+        }
+
+        #invoice-POS .itemtext {
+            font-size: .5em;
+        }
+
+        #invoice-POS .fw-bold {
+            font-weight: bold;
+        }
+
+        #invoice-POS .mb-0 {
+            margin-bottom: none;
+        }
+
+        #invoice-POS .mb-1 {
+            margin-bottom: 5px;
+        }
+
+        #invoice-POS .my-0 {
+            margin-top: none;
+            margin-bottom: none;
+        }
+
+        #invoice-POS .py-1 {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        #invoice-POS .mt-2 {
+            margin-top: 10px;
+        }
+
+        #invoice-POS .text-center {
+            text-align: center
+        }
+    </style>
+    <div id="invoice-POS">
+        <center id="top">
+            <p class="headtext fw-bold mb-1">Toys4Joy</p>
+            <p class="itemtext mb-1">Building 25, Zone 39, Street 343<br>
+            4th Floor, Office No. 31, P.O BOX 13920<br>
+            Phone No: +974 6000 5970</p>
+        </center>
+        <!--End InvoiceTop-->
+        <div id="mid">
+            <table>
+                <tr>
+                    <td>
+                        <p class="itemtext mb-1">Date</p>
+                    </td>
+                    <td class="title">
+                        <p class="itemtext mb-1">24/10/22</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="itemtext mb-1">Time</p>
+                    </td>
+                    <td class="title">
+                        <p class="itemtext mb-1">09:11</p>
+                    </td>
+                </tr>
+            </table>
+            <div class="text-center">
+                <p class="fw-bold midtext mb-1">INVOICE</p>
+            </div>
+        </div>
+        <!--End Invoice Mid-->
+
+        <div id="bot">
+
+            <div id="table">
+                <table>
+                    <tr class="tabletitle">
+                        <td class="Code">
+                            <h2>Code</h2>
+                        </td>
+                        <td class="item">
+                            <h2>Name</h2>
+                        </td>
+                        <td class="Qty text-center">
+                            <h2>Qty</h2>
+                        </td>
+                        <td class="Price text-center">
+                            <h2>Price</h2>
+                        </td>
+                        <td class="Total text-center">
+                            <h2>Total</h2>
+                        </td>
+                    </tr>
+
+                    @foreach ($products as $product)
+                    <tr class="service">
+                        <td class="tableitem">
+                            <p class="itemtext mb-0 py-1">{{ $product['code'] }}</p>
+                        </td>
+                        <td class="tableitem">
+                            <p class="itemtext mb-0 py-1">{{ $product['name'] }}</p>
+                        </td>
+                        <td class="tableitem">
+                            <p class="itemtext mb-0 py-1 text-center">{{ $product['quantity'] }}</p>
+                        </td>
+                        <td class="tableitem">
+                            <p class="itemtext mb-0 py-1 text-center">{{ $product['price'] }}</p>
+                        </td>
+                        <td class="tableitem">
+                            <p class="itemtext mb-0 py-1 text-center">{{ $product['price'] * $product['quantity'] }}</p>
+                        </td>
+                    </tr>
+                    @endforeach
+
+                    <tr>
+                        <td>ㅤ</td>
+                        <td>ㅤ</td>
+                    </tr>
+
+                    <tr class="tabletitle">
+                        <td class="Rate">
+                            <h2>Total Quantity</h2>
+                        </td>
+                        <td class="payment">
+                            <h2>{{ $quantity }}</h2>
+                        </td>
+                    </tr>
+
+                    <tr class="tabletitle">
+                        <td class="Rate">
+                            <h2>Total</h2>
+                        </td>
+                        <td class="payment">
+                            <h2>{{ $total }}</h2>
+                        </td>
+                    </tr>
+                </table>
+
+                <hr class="my-1">
+                <div class="text-center">
+                    <p class="fw-bold midtext mb-0">PAYMENT</p>
+                </div>
+                <hr class="my-1">
+
+                @if ($paymentType === 'cash')
+                <table>
+                    <tr class="midtext">
+                        <td>
+                            <h2 class="my-0">Cash</h2>
+                        </td>
+                        <td>
+                            <h2 class="my-0">{{ $cash }}</h2>
+                        </td>
+                        <td>ㅤ</td>
+                        <td>ㅤ</td>
+                    </tr>
+                    <tr class="midtext">
+                        <td>
+                            <h2 class="my-0">Total</h2>
+                        </td>
+                        <td>
+                            <h2 class="my-0">{{ $total }}</h2>
+                        </td>
+                        <td>ㅤ</td>
+                        <td>ㅤ</td>
+                    </tr>
+                    <tr class="midtext">
+                        <td>
+                            <h2 class="my-0">Change</h2>
+                        </td>
+                        <td>
+                            <h2 class="my-0">{{ $this->change }}</h2>
+                        </td>
+                        <td>ㅤ</td>
+                        <td>ㅤ</td>
+                    </tr>
+                </table>
+                @elseif ($paymentType === 'card')
+                <table>
+                    <tr class="midtext">
+                        <td>
+                            <h2 class="my-0">Name</h2>
+                        </td>
+                        <td>
+                            <h2 class="my-0">{{ $card['name'] }}</h2>
+                        </td>
+                        <td>ㅤ</td>
+                        <td>ㅤ</td>
+                    </tr>
+                    <tr class="midtext">
+                        <td>
+                            <h2 class="my-0">Card Type</h2>
+                        </td>
+                        <td>
+                            <h2 class="my-0">{{ strtoupper($card['type']) }}</h2>
+                        </td>
+                        <td>ㅤ</td>
+                        <td>ㅤ</td>
+                    </tr>
+                    <tr class="midtext">
+                        <td>
+                            <h2 class="my-0">Card No</h2>
+                        </td>
+                        <td>
+                            <h2 class="my-0">{{ $card['number'] }}</h2>
+                        </td>
+                        <td>ㅤ</td>
+                        <td>ㅤ</td>
+                    </tr>
+                </table>
+                @endif
+
+                <hr class="my-1">
+            </div>
+            <!--End Table-->
+
+            <center class="mt-2">
+                <p class="itemtext mb-1 fw-bold">All products purchased from Toys 4 Joy can be returned and exchanged within 7 days from the date of purchase</p>
+            </center>
+
+        </div>
+        <!--End InvoiceBot-->
+    </div>
+<!--End Invoice-->
+</div>
+{{-- =================================== --}}
+{{-- ============= RECEIPT ============= --}}
+{{-- =================================== --}}
 </div>
 @push('otherscript')
 <script>
@@ -231,6 +541,17 @@
         Livewire.emit('selectProduct', id);
         $('.pos-view-table tbody .tr-view').removeClass('bg-row-hover');
         $(this).addClass('bg-row-hover');
+    });
+    // print cash
+    $(document).on('click', '.print', function() {
+        var divToPrint = document.getElementById('divToPrint');
+        var newWin = window.open('', 'Print-Window');
+        newWin.document.open();
+        newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+        newWin.document.close();
+        setTimeout(function() {
+            newWin.close();
+        }, 1000);
     });
 </script>
 @endpush
