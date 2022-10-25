@@ -76,9 +76,12 @@
     .w-250 {
         width: 250px;
     }
+    .h-600 {
+        height: 600px;
+    }
 </style>
 @endpush
-<div class="pos-view-container p-5">
+<div class="pos-view-container p-5 h-600 d-flex flex-column justify-content-between">
     @if ($screen === 'main')
     <table class="pos-view-table w-100">
         <thead>
@@ -104,15 +107,17 @@
             @endforelse
         </tbody>
     </table>
-    <hr class="bg-white h-2 opacity-50">
-    <div class="d-flex justify-content-between">
-        <h5 class="text-dark px-2 fw-bolder">TOTAL</h5>
-        <h5 class="text-dark px-2 fw-bolder">{{ number_format($this->total, 2) }}</h5>
-    </div>
-    <div class="action-buttons d-flex justify-content-between mt-3">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="editProduct">EDIT</button>
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm mx-2" wire:click="deleteProduct">VOID</button>
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="sale">SALE</button>
+    <div>
+        <hr class="bg-white h-2 opacity-50">
+        <div class="d-flex justify-content-between">
+            <h5 class="text-dark px-2 fw-bolder">TOTAL</h5>
+            <h5 class="text-dark px-2 fw-bolder">{{ number_format($this->total, 2) }}</h5>
+        </div>
+        <div class="action-buttons d-flex justify-content-between mt-3">
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="editProduct">EDIT</button>
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm mx-2" wire:click="deleteProduct">VOID</button>
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="sale">SALE</button>
+        </div>
     </div>
     @elseif ($screen === 'edit')
     <table class="pos-view-table w-100">
