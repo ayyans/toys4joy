@@ -14,6 +14,7 @@ use App\Exports\SalesReportExport;
 use App\Exports\UsedGiftCardsReportExport;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
+use App\Imports\ProductsImport;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -38,6 +39,8 @@ use Bavix\Wallet\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\ValidationException;
+use PhpParser\Node\Stmt\TryCatch;
 
 class AdminController extends Controller
 {
@@ -710,11 +713,29 @@ public function deleteBrands(Request $request){
 //     }
 // }
 
+    public function pointOfSale() {
+        return view('admin.point-of-sale');
+    }
+
     // products
 
     public function products(){
         $products = Product::with('brand')->latest()->get();
         return view('admin.products',compact('products'));
+    }
+
+    public function bulkUploadProducts() {
+        return view('admin.bulk-upload-products');
+    }
+
+    public function storeBulkUploadProducts(Request $request) {
+        $failures = [];
+        try {
+            Excel::import(new ProductsImport, $request->file);
+        } catch (ValidationException  $e) {
+            $failures = $e->failures();
+        }
+        return back()->with('success', 'Products Imported Successfully')->with('failures', $failures);
     }
 
     public function listBrands(){

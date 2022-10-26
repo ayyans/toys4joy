@@ -43,7 +43,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Admin !</h1>
                                     </div>
-                                    <form class="user"  action="{{route('admin.login_process')}}" method="POST">
+                                    <form class="user" action="{{ route('admin.login_process') }}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user seller_register @error('email') is-invalid @enderror" value="{{ old('email') }}"

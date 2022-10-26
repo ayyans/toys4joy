@@ -22,7 +22,7 @@ return [
 'Select Age Range'=>'Select Age Range',
 'Select Price'=>'Select Price',
 //titles
-'New Arrival'=>'Select Price',
+'New Arrival'=>'New Arrival',
 'Best Seller'=>'Best Seller',
 'Our Brands'=>'Our Brands',
 //header
