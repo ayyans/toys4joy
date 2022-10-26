@@ -114,9 +114,12 @@
             <h5 class="text-dark px-2 fw-bolder">{{ number_format($this->total, 2) }}</h5>
         </div>
         <div class="action-buttons d-flex justify-content-between mt-3">
-            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="editProduct">EDIT</button>
-            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm mx-2" wire:click="deleteProduct">VOID</button>
-            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="sale">SALE</button>
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100" wire:click="editProduct">EDIT</button>
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 ml-2" wire:click="deleteProduct">VOID</button>
+        </div>
+        <div class="action-buttons d-flex justify-content-between mt-3">
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100" wire:click="sale">SALE</button>
+            <button class="btn btn-danger flex-grow-1 text-white fw-bolder shadow-sm w-100 ml-2" wire:click="refund">REFUND</button>
         </div>
     </div>
     @elseif ($screen === 'edit')
@@ -364,7 +367,7 @@
                         <p class="itemtext mb-1">Date</p>
                     </td>
                     <td class="title">
-                        <p class="itemtext mb-1">24/10/22</p>
+                        <p class="itemtext mb-1">{{ now()->format('d/m/y') }}</p>
                     </td>
                 </tr>
                 <tr>
@@ -372,7 +375,7 @@
                         <p class="itemtext mb-1">Time</p>
                     </td>
                     <td class="title">
-                        <p class="itemtext mb-1">09:11</p>
+                        <p class="itemtext mb-1">{{ now()->format('H:i') }}</p>
                     </td>
                 </tr>
             </table>
@@ -527,7 +530,7 @@
             <!--End Table-->
 
             <center class="mt-2">
-                <p class="itemtext mb-1 fw-bold">All products purchased from Toys 4 Joy can be returned and exchanged within 7 days from the date of purchase</p>
+                <p class="itemtext mb-1 fw-bold">All products purchased from Toys 4 Joy can be returned or exchanged within 7 days from the date of the purchase along with the original receipt</p>
             </center>
 
         </div>

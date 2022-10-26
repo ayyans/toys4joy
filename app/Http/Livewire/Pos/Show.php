@@ -28,11 +28,12 @@ class Show extends Component
     }
 
     public function addProduct($product) {
+        $quantity = $this->products[$product['code']]['quantity'] ?? 0;
         $this->products[$product['code']] = [
             'id' => $product['code'],
             'name' => $product['name'],
             'code' => $product['code'],
-            'quantity' => 1,
+            'quantity' => ++$quantity,
             'price' => $product['price']
         ];
         $this->updateTotal();
@@ -58,6 +59,10 @@ class Show extends Component
     public function sale() {
         if ( count($this->products) === 0 ) return;
         $this->screen = 'type';
+    }
+
+    public function refund() {
+        dd('make changes in reciept related to refund');
     }
 
     public function saveEdit() {
