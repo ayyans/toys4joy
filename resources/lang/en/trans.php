@@ -22,8 +22,8 @@ return [
 'Select Age Range'=>'Select Age Range',
 'Select Price'=>'Select Price',
 //titles
-'New Arrival'=>'Select Price',
-'Best Seller'=>'Best Seller',
+'New Arrival'=>'Best Seller',
+'Best Seller'=>'New Arrival',
 'Our Brands'=>'Our Brands',
 //header
 'login_home_button'=>'Login | Signup',
