@@ -243,6 +243,7 @@
             /* width: 80mm; */
             background: #FFF;
             color: #000;
+            font-family: Arial, Helvetica, sans-serif;
         }
         #invoice-POS ::selection {
             background: #f31544;
@@ -254,25 +255,25 @@
             }
 
         #invoice-POS h1 {
-                font-size: 1.5em;
+                font-size: 1.7em;
                 /* color: #000; */
             }
 
         #invoice-POS h2 {
-                font-size: .9em;
+                font-size: 1.1em;
                 font-weight: bold;
                 /* color: #000; */
             }
 
         #invoice-POS h3 {
-                font-size: 1.2em;
+                font-size: 1.4em;
                 font-weight: 300;
                 line-height: 2em;
                 /* color: #000; */
             }
 
         #invoice-POS p {
-                font-size: .7em;
+                font-size: .9em;
                 /* color: #000; */
                 line-height: 1.2em;
             }
@@ -301,7 +302,7 @@
 
         #invoice-POS .tabletitle {
                 //padding: 5px;
-                font-size: .5em;
+                font-size: .7em;
                 /* background: #EEE; */
             }
 
@@ -314,15 +315,15 @@
         }
 
         #invoice-POS .headtext {
-            font-size: .8em;
+            font-size: 1em;
         }
 
         #invoice-POS .midtext {
-            font-size: .6em;
+            font-size: .8em;
         }
 
         #invoice-POS .itemtext {
-            font-size: .5em;
+            font-size: .7em;
         }
 
         #invoice-POS .fw-bold {
