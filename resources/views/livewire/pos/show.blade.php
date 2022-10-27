@@ -234,14 +234,15 @@
     {{-- =================================== --}}
 {{-- ============= RECEIPT ============= --}}
 {{-- =================================== --}}
-<div id="divToPrint" class="d-none">
+<div id="divToPrint" class="d-none-">
     <style>
         #invoice-POS {
             /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
             padding: 2mm;
             /* margin: 0 auto; */
-            width: 80mm;
+            /* width: 80mm; */
             background: #FFF;
+            color: #000;
         }
         #invoice-POS ::selection {
             background: #f31544;
@@ -254,23 +255,25 @@
 
         #invoice-POS h1 {
                 font-size: 1.5em;
-                color: #222;
+                /* color: #000; */
             }
 
         #invoice-POS h2 {
                 font-size: .9em;
                 font-weight: bold;
+                /* color: #000; */
             }
 
         #invoice-POS h3 {
                 font-size: 1.2em;
                 font-weight: 300;
                 line-height: 2em;
+                /* color: #000; */
             }
 
         #invoice-POS p {
                 font-size: .7em;
-                color: #666;
+                /* color: #000; */
                 line-height: 1.2em;
             }
 
