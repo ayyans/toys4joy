@@ -77,7 +77,7 @@
         width: 250px;
     }
     .h-600 {
-        height: 600px;
+        min-height: 600px;
     }
 </style>
 @endpush
@@ -120,6 +120,10 @@
         <div class="action-buttons d-flex justify-content-between mt-3">
             <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 py-3" wire:click="sale">SALE</button>
             <button class="btn btn-danger flex-grow-1 text-white fw-bolder shadow-sm w-100 ml-2 py-3" wire:click="auth('refund')">REFUND</button>
+        </div>
+        <div class="action-buttons d-flex justify-content-between mt-3">
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 py-3" wire:click="x-report">REPORT</button>
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 ml-2 py-3" wire:click="auth('z-report')">ADMIN</button>
         </div>
     </div>
     @elseif ($screen === 'edit')
