@@ -94,7 +94,7 @@
         </thead>
         <tbody>
             @forelse ($products as $product)
-                <tr class="tr-view shadow-sm {{ $product['code'] == $selected ? 'bg-row-hover' : '' }}" data-id="{{ $product['code'] }}" wire:key="{{ $product['code'] }}">
+                <tr class="tr-view shadow-sm {{ $product['id'] == $selected ? 'bg-row-hover' : '' }}" data-id="{{ $product['id'] }}" wire:key="{{ $product['id'] }}">
                     <td class="px-2 py-1 text-dark rounded-left">{{ $product['name'] }}</td>
                     <td class="px-2 py-1 text-dark">{{ $product['code'] }}</td>
                     <td class="px-2 py-1 text-dark">{{ $product['quantity'] }}</td>
@@ -205,7 +205,7 @@
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print">Print</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print" wire:click="saveInvoice">Print</button>
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 ml-2" wire:click="discard">Cancel</button>
     </div>
     @elseif ($screen === 'card')
@@ -246,14 +246,14 @@
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print">Print</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print"wire:click="saveInvoice">Print</button>
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 ml-2" wire:click="discard">Cancel</button>
     </div>
     @endif
     {{-- =================================== --}}
     {{-- ============= RECEIPT ============= --}}
     {{-- =================================== --}}
-<div id="divToPrint" class="d-none">
+<div id="divToPrint" class="d-none-">
     <style>
         #invoice-POS {
             /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
@@ -374,6 +374,14 @@
         <!--End InvoiceTop-->
         <div id="mid">
             <table>
+                <tr>
+                    <td>
+                        <p class="itemtext mb-1">Invoice No</p>
+                    </td>
+                    <td class="title">
+                        <p class="itemtext mb-1">{{ $invoiceNumber }}</p>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <p class="itemtext mb-1">Date</p>

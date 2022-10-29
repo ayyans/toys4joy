@@ -2,22 +2,24 @@
 
 namespace App\Http\Livewire\Pos;
 
+use App\Models\POSInvoice;
 use Livewire\Component;
 
 class Show extends Component
 {
     public $products = [];
+    public $adminPassword = '12345678';
     public $selected = null;
-    public $screen = 'main'; // main, edit, type, cash, card
+    public $screen = 'main';
     public $updatedQuantity = null;
     public $paymentType = null;
     public $cash = 0;
     public $card = ['name' => null, 'type' => null, 'number' => null];
     public $isRefund = false;
-    public $adminPassword = '12345678';
     public $password = null;
     public $authRedirect = null;
     public $isPasswordError = false;
+    public $invoiceNumber = null;
 
     protected $listeners = ['addProduct', 'selectProduct'];
 
@@ -37,15 +39,14 @@ class Show extends Component
         $this->selected = $id;
     }
 
+    public function mount() {
+        $this->invoiceNumber = $this->generateInvoiceNumber();
+    }
+
     public function addProduct($product) {
-        $quantity = $this->products[$product['code']]['quantity'] ?? 0;
-        $this->products[$product['code']] = [
-            'id' => $product['code'],
-            'name' => $product['name'],
-            'code' => $product['code'],
-            'quantity' => ++$quantity,
-            'price' => $product['price']
-        ];
+        $quantity = $this->products[$product['id']]['quantity'] ?? 0;
+        $this->products[$product['id']] = $product;
+        $this->products[$product['id']]['quantity'] = ++$quantity;
     }
 
     public function editProduct() {
@@ -87,8 +88,6 @@ class Show extends Component
         if ($this->authRedirect === 'refund') {
             $this->refund();
         }
-
-        $this->reset('password', 'authRedirect', 'isPasswordError');
     }
 
     public function saveEdit() {
@@ -99,8 +98,7 @@ class Show extends Component
 
     public function discard() {
         if ($this->isRefund) $this->inversePriceAndQuantity();
-        $this->reset('updatedQuantity', 'selected', 'cash', 'paymentType', 'card', 'password', 'authRedirect', 'isPasswordError', 'isRefund');
-        $this->screen = 'main';
+        $this->resetExcept('products', 'adminPassword');
     }
 
     public function paymentType($type) {
@@ -108,9 +106,11 @@ class Show extends Component
         $this->screen = $type;
     }
 
-    public function printReceipt($type) {
-        dd('printing ' . $type . ' receipt.');
-        // card details to upper case
+    public function saveInvoice() {
+        // save invoice
+        $this->reset('products');
+        $this->discard();
+        $this->mount();
     }
 
     private function refund() {
@@ -125,6 +125,12 @@ class Show extends Component
             return $p;
         }, $this->products);
         $this->quantity *= -1;
+    }
+
+    private function generateInvoiceNumber(){
+        $invoiceNumber = str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
+        $exists = POSInvoice::where('invoice_number', $invoiceNumber)->exists();
+        return $exists ? $this->generateInvoiceNumber() : $invoiceNumber;
     }
 
     public function render()
