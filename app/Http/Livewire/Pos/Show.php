@@ -2,25 +2,35 @@
 
 namespace App\Http\Livewire\Pos;
 
-use App\Models\Product;
 use Livewire\Component;
 
 class Show extends Component
 {
     public $products = [];
-    public $total = 0;
-    public $quantity = 0;
     public $selected = null;
     public $screen = 'main'; // main, edit, type, cash, card
     public $updatedQuantity = null;
     public $paymentType = null;
     public $cash = 0;
     public $card = ['name' => null, 'type' => null, 'number' => null];
+    public $isRefund = false;
+    public $adminPassword = '12345678';
+    public $password = null;
+    public $authRedirect = null;
+    public $isPasswordError = false;
 
     protected $listeners = ['addProduct', 'selectProduct'];
 
     public function getChangeProperty() {
         return $this->cash - $this->total;
+    }
+
+    public function getTotalProperty() {
+        return array_reduce($this->products, fn($a, $p) => $a + ($p['price'] * $p['quantity']), 0);
+    }
+
+    public function getQuantityProperty() {
+        return array_reduce($this->products, fn($a, $p) => $a + $p['quantity'], 0);
     }
 
     public function selectProduct($id) {
@@ -36,7 +46,6 @@ class Show extends Component
             'quantity' => ++$quantity,
             'price' => $product['price']
         ];
-        $this->updateTotal();
     }
 
     public function editProduct() {
@@ -52,28 +61,45 @@ class Show extends Component
             fn($k) => $k !== $this->selected,
             ARRAY_FILTER_USE_KEY
         );
-        $this->updateTotal();
         $this->reset('selected');
     }
 
     public function sale() {
         if ( count($this->products) === 0 ) return;
+        $this->isRefund = false;
         $this->screen = 'type';
     }
 
-    public function refund() {
-        dd('make changes in reciept related to refund');
+    public function auth($type) {
+        if ($type === 'refund') {
+            if ( count($this->products) === 0 ) return;
+        }
+        $this->authRedirect = $type;
+        $this->screen = 'auth';
+    }
+
+    public function proceed() {
+        if ( $this->password !== $this->adminPassword ) {
+            $this->isPasswordError = true;
+            return;
+        }
+
+        if ($this->authRedirect === 'refund') {
+            $this->refund();
+        }
+
+        $this->reset('password', 'authRedirect', 'isPasswordError');
     }
 
     public function saveEdit() {
         $this->products[$this->selected]['quantity'] = $this->updatedQuantity;
-        $this->updateTotal();
         $this->reset('updatedQuantity', 'selected');
         $this->screen = 'main';
     }
 
     public function discard() {
-        $this->reset('updatedQuantity', 'selected', 'cash', 'paymentType', 'card');
+        if ($this->isRefund) $this->inversePriceAndQuantity();
+        $this->reset('updatedQuantity', 'selected', 'cash', 'paymentType', 'card', 'password', 'authRedirect', 'isPasswordError', 'isRefund');
         $this->screen = 'main';
     }
 
@@ -87,9 +113,18 @@ class Show extends Component
         // card details to upper case
     }
 
-    private function updateTotal() {
-        $this->total = array_reduce($this->products, fn($a, $p) => $a + ($p['price'] * $p['quantity']), 0);
-        $this->quantity = array_reduce($this->products, fn($a, $p) => $a + $p['quantity'], 0);
+    private function refund() {
+        $this->isRefund = true;
+        $this->inversePriceAndQuantity();
+        $this->screen = 'type';
+    }
+
+    private function inversePriceAndQuantity() {
+        $this->products = array_map(function($p) {
+            $p['price'] *= -1;
+            return $p;
+        }, $this->products);
+        $this->quantity *= -1;
     }
 
     public function render()

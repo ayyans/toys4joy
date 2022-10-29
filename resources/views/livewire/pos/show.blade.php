@@ -119,7 +119,7 @@
         </div>
         <div class="action-buttons d-flex justify-content-between mt-3">
             <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100" wire:click="sale">SALE</button>
-            <button class="btn btn-danger flex-grow-1 text-white fw-bolder shadow-sm w-100 ml-2" wire:click="refund">REFUND</button>
+            <button class="btn btn-danger flex-grow-1 text-white fw-bolder shadow-sm w-100 ml-2" wire:click="auth('refund')">REFUND</button>
         </div>
     </div>
     @elseif ($screen === 'edit')
@@ -156,9 +156,21 @@
     <div class="action-buttons text-center mt-5">
         <button class="btn btn-gold text-dark fw-bolder shadow-sm w-50" wire:click="discard">Cancel</button>
     </div>
+    @elseif ($screen === 'auth')
+    <div class="action-buttons fs-15 d-flex flex-column align-items-center mt-4">
+        <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3" placeholder="PASSWORD" wire:model.lazy="password">
+        @if ($isPasswordError)
+        <p class="text-danger">You have entered a wrong password</p>
+        @endif
+    </div>
+    <div class="action-buttons d-flex justify-content-between mt-4">
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="proceed">Proceed</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2" wire:click="discard">Cancel</button>
+    </div>
     @elseif ($screen === 'cash')
     <div class="checkout-container p-4 shadow-sm text-dark">
         <table>
+            @if ($isRefund === false)
             <tr>
                 <td>
                     <h2 class="fw-bolder w-250">Cash:</h2>
@@ -167,14 +179,16 @@
                     <input type="number" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-70" wire:model="cash">
                 </td>
             </tr>
+            @endif
             <tr>
                 <td>
                     <h2 class="fw-bolder w-250">Total:</h2>
                 </td>
                 <td>
-                    <h2 class="fw-bolder">{{ $total }}</h2>
+                    <h2 class="fw-bolder">{{ $this->total }}</h2>
                 </td>
             </tr>
+            @if ($isRefund === false)
             <tr>
                 <td>
                     <h2 class="fw-bolder w-250">Change:</h2>
@@ -183,6 +197,7 @@
                     <h2 class="fw-bolder">{{ $cash > 0 ? $this->change : 0 }}</h2>
                 </td>
             </tr>
+            @endif
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
@@ -221,7 +236,7 @@
                     <h2 class="fw-bolder w-250">Total:</h2>
                 </td>
                 <td>
-                    <h2 class="fw-bolder">{{ $total }}</h2>
+                    <h2 class="fw-bolder">{{ $this->total }}</h2>
                 </td>
             </tr>
         </table>
@@ -232,9 +247,9 @@
     </div>
     @endif
     {{-- =================================== --}}
-{{-- ============= RECEIPT ============= --}}
-{{-- =================================== --}}
-<div id="divToPrint" class="d-none">
+    {{-- ============= RECEIPT ============= --}}
+    {{-- =================================== --}}
+<div id="divToPrint" class="d-none-">
     <style>
         #invoice-POS {
             /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
@@ -250,65 +265,54 @@
             color: #FFF;
         }
         #invoice-POS ::moz-selection {
-                background: #f31544;
-                color: #FFF;
-            }
+            background: #f31544;
+            color: #FFF;
+        }
 
         #invoice-POS h1 {
-                font-size: 1.7em;
-                /* color: #000; */
-            }
+            font-size: 1.7em;
+        }
 
         #invoice-POS h2 {
-                font-size: 1.1em;
-                font-weight: bold;
-                /* color: #000; */
-            }
+            font-size: 1.1em;
+            font-weight: bold;
+        }
 
         #invoice-POS h3 {
-                font-size: 1.4em;
-                font-weight: 300;
-                line-height: 2em;
-                /* color: #000; */
-            }
+            font-size: 1.4em;
+            font-weight: 300;
+            line-height: 2em;
+        }
 
         #invoice-POS p {
-                font-size: .9em;
-                /* color: #000; */
-                line-height: 1.2em;
-            }
+            font-size: .9em;
+            line-height: 1.2em;
+        }
 
         #invoice-POS #bot {
-                min-height: 50px;
-            }
+            min-height: 50px;
+        }
 
         #invoice-POS .title {
-                float: right;
-            }
+            float: right;
+        }
 
         #invoice-POS .title p {
-                text-align: right;
-            }
+            text-align: right;
+        }
 
         #invoice-POS table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-        #invoice-POS td {
-                //padding: 5px 0 5px 15px;
-                //border: 1px solid #EEE
-            }
+            width: 100%;
+            border-collapse: collapse;
+        }
 
         #invoice-POS .tabletitle {
-                //padding: 5px;
-                font-size: .7em;
-                /* background: #EEE; */
-            }
+            font-size: .7em;
+        }
 
         #invoice-POS .service {
-                border-top: 1px solid #EEE;
-            }
+            border-top: 1px solid #EEE;
+        }
 
         #invoice-POS .item {
             width: 24mm;
@@ -384,7 +388,7 @@
                 </tr>
             </table>
             <div class="text-center">
-                <p class="fw-bold midtext mb-1">INVOICE</p>
+                <p class="fw-bold midtext mb-1">{{ $this->isRefund ? 'REFUND' : '' }} INVOICE</p>
             </div>
         </div>
         <!--End Invoice Mid-->
@@ -441,7 +445,7 @@
                             <h2>Total Quantity</h2>
                         </td>
                         <td class="payment">
-                            <h2>{{ $quantity }}</h2>
+                            <h2>{{ $this->quantity }}</h2>
                         </td>
                     </tr>
 
@@ -450,7 +454,7 @@
                             <h2>Total</h2>
                         </td>
                         <td class="payment">
-                            <h2>{{ $total }}</h2>
+                            <h2>{{ $this->total }}</h2>
                         </td>
                     </tr>
                 </table>
@@ -467,9 +471,12 @@
                         <td>
                             <h2 class="my-0">Cash</h2>
                         </td>
+                        @if ($isRefund === false)
                         <td>
                             <h2 class="my-0">{{ $cash }}</h2>
                         </td>
+                        @endif
+                        <td>ㅤ</td>
                         <td>ㅤ</td>
                         <td>ㅤ</td>
                     </tr>
@@ -478,8 +485,9 @@
                             <h2 class="my-0">Total</h2>
                         </td>
                         <td>
-                            <h2 class="my-0">{{ $total }}</h2>
+                            <h2 class="my-0">{{ $this->total }}</h2>
                         </td>
+                        <td>ㅤ</td>
                         <td>ㅤ</td>
                         <td>ㅤ</td>
                     </tr>
@@ -487,9 +495,12 @@
                         <td>
                             <h2 class="my-0">Change</h2>
                         </td>
+                        @if ($isRefund === false)
                         <td>
                             <h2 class="my-0">{{ $this->change }}</h2>
                         </td>
+                        @endif
+                        <td>ㅤ</td>
                         <td>ㅤ</td>
                         <td>ㅤ</td>
                     </tr>
@@ -505,6 +516,7 @@
                         </td>
                         <td>ㅤ</td>
                         <td>ㅤ</td>
+                        <td>ㅤ</td>
                     </tr>
                     <tr class="midtext">
                         <td>
@@ -515,6 +527,7 @@
                         </td>
                         <td>ㅤ</td>
                         <td>ㅤ</td>
+                        <td>ㅤ</td>
                     </tr>
                     <tr class="midtext">
                         <td>
@@ -523,6 +536,7 @@
                         <td>
                             <h2 class="my-0">{{ $card['number'] }}</h2>
                         </td>
+                        <td>ㅤ</td>
                         <td>ㅤ</td>
                         <td>ㅤ</td>
                     </tr>
