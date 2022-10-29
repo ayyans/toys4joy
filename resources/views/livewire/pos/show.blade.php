@@ -114,12 +114,12 @@
             <h5 class="text-dark px-2 fw-bolder">{{ number_format($this->total, 2) }}</h5>
         </div>
         <div class="action-buttons d-flex justify-content-between mt-3">
-            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100" wire:click="editProduct">EDIT</button>
-            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 ml-2" wire:click="deleteProduct">VOID</button>
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 py-3" wire:click="editProduct">EDIT</button>
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 ml-2 py-3" wire:click="deleteProduct">VOID</button>
         </div>
         <div class="action-buttons d-flex justify-content-between mt-3">
-            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100" wire:click="sale">SALE</button>
-            <button class="btn btn-danger flex-grow-1 text-white fw-bolder shadow-sm w-100 ml-2" wire:click="auth('refund')">REFUND</button>
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 py-3" wire:click="sale">SALE</button>
+            <button class="btn btn-danger flex-grow-1 text-white fw-bolder shadow-sm w-100 ml-2 py-3" wire:click="auth('refund')">REFUND</button>
         </div>
     </div>
     @elseif ($screen === 'edit')
@@ -142,11 +142,11 @@
         </tbody>
     </table>
     <div class="text-center mt-4">
-        <input type="number" class="border-0 py-3 text-center fw-bolder rounded-lg shadow-sm btn-gold" wire:model.lazy="updatedQuantity">
+        <input type="number" class="border-0 py-3 text-center fw-bolder rounded-lg shadow-sm btn-gold fs-15" wire:model.lazy="updatedQuantity">
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="saveEdit">OK</button>
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2" wire:click="discard">Cancel</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3" wire:click="saveEdit">OK</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2 py-3" wire:click="discard">Cancel</button>
     </div>
     @elseif ($screen === 'type')
     <div class="action-buttons fs-15 d-flex justify-content-between mt-4">
@@ -154,18 +154,18 @@
         <button class="btn btn-gold py-3 flex-grow-1 text-dark fw-bolder shadow-sm ml-2" wire:click="paymentType('card')">Card</button>
     </div>
     <div class="action-buttons text-center mt-5">
-        <button class="btn btn-gold text-dark fw-bolder shadow-sm w-50" wire:click="discard">Cancel</button>
+        <button class="btn btn-gold py-3 text-dark fw-bolder shadow-sm w-50" wire:click="discard">Cancel</button>
     </div>
     @elseif ($screen === 'auth')
     <div class="action-buttons fs-15 d-flex flex-column align-items-center mt-4">
-        <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3" placeholder="PASSWORD" wire:model.lazy="password">
+        <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 py-3" placeholder="PASSWORD" wire:model.lazy="password">
         @if ($isPasswordError)
         <p class="text-danger">You have entered a wrong password</p>
         @endif
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="proceed">Proceed</button>
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2" wire:click="discard">Cancel</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3" wire:click="proceed">Proceed</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2 py-3" wire:click="discard">Cancel</button>
     </div>
     @elseif ($screen === 'cash')
     <div class="checkout-container p-4 shadow-sm text-dark">
@@ -201,8 +201,8 @@
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm print">Print</button>
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2" wire:click="discard">Cancel</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print">Print</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 ml-2" wire:click="discard">Cancel</button>
     </div>
     @elseif ($screen === 'card')
     <div class="checkout-container p-4 shadow-sm text-dark">
@@ -242,14 +242,14 @@
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm print">Print</button>
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2" wire:click="discard">Cancel</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print">Print</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 ml-2" wire:click="discard">Cancel</button>
     </div>
     @endif
     {{-- =================================== --}}
     {{-- ============= RECEIPT ============= --}}
     {{-- =================================== --}}
-<div id="divToPrint" class="d-none-">
+<div id="divToPrint" class="d-none">
     <style>
         #invoice-POS {
             /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
