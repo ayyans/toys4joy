@@ -137,7 +137,7 @@
               <div class="member"><a href="javascript:void(0)" id="addtocart"><span>{{__('trans.Add to Cart')}}</span></a></div>
             </div>
             @else
-            <p style="color:red"><strong>{{__('trans.Out of stock')}}</strong></p>
+            <p style="color:red"><strong>{{__('trans.Out of Stock')}}</strong></p>
             @endif
           </div>
         </div>
