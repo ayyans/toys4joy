@@ -47,6 +47,10 @@
         
         border-radius: 30px;
     }
+
+    h1 {
+        font-size: 3rem;
+    }
     /* utility classes */
     .h-2 {
         height: 2px;
@@ -73,6 +77,9 @@
     .fs-20 {
         font-size: 2.0em;
     }
+    .fs-25 {
+        font-size: 2.5em;
+    }
     .w-70 {
         width: 70px;
     }
@@ -98,14 +105,14 @@
         <tbody>
             @forelse ($products as $product)
                 <tr class="tr-view shadow-sm {{ $product['id'] == $selected ? 'bg-row-hover' : '' }}" data-id="{{ $product['id'] }}" wire:key="{{ $product['id'] }}">
-                    <td class="px-2 py-2 text-dark rounded-left">{{ $product['name'] }}</td>
-                    <td class="px-2 py-2 text-dark">{{ $product['code'] }}</td>
-                    <td class="px-2 py-2 text-dark">{{ $product['quantity'] }}</td>
-                    <td class="px-2 py-2 text-dark rounded-right">{{ number_format($product['price'], 2) }}</td>
+                    <td class="px-2 py-4 text-dark rounded-left">{{ $product['name'] }}</td>
+                    <td class="px-2 py-4 text-dark">{{ $product['code'] }}</td>
+                    <td class="px-2 py-4 text-dark">{{ $product['quantity'] }}</td>
+                    <td class="px-2 py-4 text-dark rounded-right">{{ number_format($product['price'], 2) }}</td>
                 </tr>
             @empty
                 <tr class="shadow-sm">
-                    <td class="px-2 py-2 text-dark rounded text-center opacity-50" colspan="4">No Products</td>
+                    <td class="px-2 py-4 text-dark rounded text-center opacity-50" colspan="4">No Products</td>
                 </tr>
             @endforelse
         </tbody>
@@ -141,10 +148,10 @@
         </thead>
         <tbody>
             <tr class="shadow-sm">
-                <td class="px-2 py-2 text-dark rounded-left">{{ $products[$selected]['name'] }}</td>
-                <td class="px-2 py-2 text-dark">{{ $products[$selected]['code'] }}</td>
-                <td class="px-2 py-2 text-dark">{{ $products[$selected]['quantity'] }}</td>
-                <td class="px-2 py-2 text-dark rounded-right">{{ number_format($products[$selected]['price'], 2) }}</td>
+                <td class="px-2 py-4 text-dark rounded-left">{{ $products[$selected]['name'] }}</td>
+                <td class="px-2 py-4 text-dark">{{ $products[$selected]['code'] }}</td>
+                <td class="px-2 py-4 text-dark">{{ $products[$selected]['quantity'] }}</td>
+                <td class="px-2 py-4 text-dark rounded-right">{{ number_format($products[$selected]['price'], 2) }}</td>
             </tr>
         </tbody>
     </table>
@@ -183,7 +190,7 @@
                     <h1 class="fw-bolder w-250">Cash:</h1>
                 </td>
                 <td>
-                    <input type="number" class="border-0 fs-20 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-70" wire:model="cash">
+                    <input type="number" class="border-0 fs-25 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="cash">
                 </td>
             </tr>
             @endif
@@ -219,7 +226,7 @@
                     <h1 class="fw-bolder w-250">Name:</h1>
                 </td>
                 <td>
-                    <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3" wire:model="card.name">
+                    <input type="text" class="border-0 fs-20 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.name">
                 </td>
             </tr>
             <tr>
@@ -227,7 +234,7 @@
                     <h1 class="fw-bolder w-250">Card Type:</h1>
                 </td>
                 <td>
-                    <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3" wire:model="card.type">
+                    <input type="text" class="border-0 fs-20 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.type">
                 </td>
             </tr>
             <tr>
@@ -235,7 +242,7 @@
                     <h1 class="fw-bolder w-250">Card No:</h1>
                 </td>
                 <td>
-                    <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3" wire:model="card.number">
+                    <input type="text" class="border-0 fs-20 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.number">
                 </td>
             </tr>
             <tr>
