@@ -11,7 +11,7 @@ class POSInvoice extends Model
 
     protected $table = 'pos_invoices';
 
-    protected $fillable = ['invoice_number', 'type', 'method', 'quantity', 'total'];
+    protected $fillable = ['invoice_number', 'type', 'method', 'quantity', 'total', 'cash', 'change'];
 
     public function products() {
         return $this->hasMany(POSInvoiceProduct::class, 'invoice_id');

@@ -118,7 +118,9 @@ class Show extends Component
             'type' => $this->isRefund ? 'refund' : 'sale',
             'method' => $this->paymentType === 'cash' ? 'cash' : strtolower($this->card['type']),
             'quantity' => $this->quantity,
-            'total' => $this->total
+            'total' => $this->total,
+            'cash' => $this->cash,
+            'change' => $this->change
         ]);
         // creating invoice products
         foreach($this->products as $product) {

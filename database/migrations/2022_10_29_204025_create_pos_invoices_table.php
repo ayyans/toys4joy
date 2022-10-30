@@ -20,6 +20,8 @@ class CreatePOSInvoicesTable extends Migration
             $table->string('method');
             $table->integer('quantity');
             $table->float('total');
+            $table->float('cash')->default(0);
+            $table->float('change')->default(0);
             $table->timestamps();
         });
     }
