@@ -14,7 +14,7 @@ class Show extends Component
     public $updatedQuantity = null;
     public $paymentType = null;
     public $cash = 0;
-    public $card = ['name' => null, 'type' => null, 'number' => null];
+    public $card = ['name' => '', 'type' => '', 'number' => ''];
     public $isRefund = false;
     public $password = null;
     public $authRedirect = null;
@@ -107,10 +107,29 @@ class Show extends Component
         $this->screen = $type;
     }
 
+    public function printConfirmation() {
+        $this->screen = 'print';
+    }
+
     public function saveInvoice() {
-        // save invoice
-        // type is for sale/refund
-        // method is for cash/card type
+        // creating invoice
+        $invoice = POSInvoice::create([
+            'invoice_number' => $this->invoiceNumber,
+            'type' => $this->isRefund ? 'refund' : 'sale',
+            'method' => $this->paymentType === 'cash' ? 'cash' : strtolower($this->card['type']),
+            'quantity' => $this->quantity,
+            'total' => $this->total
+        ]);
+        // creating invoice products
+        foreach($this->products as $product) {
+            $invoice->products()->create([
+                'product_id' => $product['id'],
+                'price' => $product['price'],
+                'quantity' => $product['quantity'],
+                'total' => $product['price'] * $product['quantity']
+            ]);
+        }
+        // reseting everything
         $this->reset('products');
         $this->discard();
         $this->mount();

@@ -215,7 +215,7 @@
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print" wire:click="saveInvoice">Print</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print" wire:click="printConfirmation">Print</button>
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 ml-2" wire:click="discard">Cancel</button>
     </div>
     @elseif ($screen === 'card')
@@ -256,9 +256,19 @@
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print"wire:click="saveInvoice">Print</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print"wire:click="printConfirmation">Print</button>
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 ml-2" wire:click="discard">Cancel</button>
     </div>
+    @elseif ($screen === 'print')
+    <div></div>
+    <div></div>
+    <h2 class="text-dark fw-bolder text-center">Did it print successfully ?</h2>
+    <div class="action-buttons d-flex justify-content-between">
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3" wire:click="saveInvoice">Yes</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2 py-3" wire:click="$set('screen', '{{ $paymentType }}')">No</button>
+    </div>
+    <div></div>
+    <div></div>
     @endif
     {{-- =================================== --}}
     {{-- ============= RECEIPT ============= --}}
