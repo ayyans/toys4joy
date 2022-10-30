@@ -24,7 +24,7 @@ class Show extends Component
     protected $listeners = ['addProduct', 'selectProduct'];
 
     public function getChangeProperty() {
-        return $this->cash - $this->total;
+        return ($this->cash ?: 0) - $this->total;
     }
 
     public function getTotalProperty() {
@@ -91,7 +91,8 @@ class Show extends Component
     }
 
     public function saveEdit() {
-        $this->products[$this->selected]['quantity'] = $this->updatedQuantity;
+        $updatedQuantity = $this->updatedQuantity > 0 ? $this->updatedQuantity : 1;
+        $this->products[$this->selected]['quantity'] = $updatedQuantity;
         $this->reset('updatedQuantity', 'selected');
         $this->screen = 'main';
     }
@@ -108,6 +109,8 @@ class Show extends Component
 
     public function saveInvoice() {
         // save invoice
+        // type is for sale/refund
+        // method is for cash/card type
         $this->reset('products');
         $this->discard();
         $this->mount();

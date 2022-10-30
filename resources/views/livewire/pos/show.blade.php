@@ -70,6 +70,9 @@
     .fs-15 {
         font-size: 1.5em;
     }
+    .fs-20 {
+        font-size: 2.0em;
+    }
     .w-70 {
         width: 70px;
     }
@@ -95,14 +98,14 @@
         <tbody>
             @forelse ($products as $product)
                 <tr class="tr-view shadow-sm {{ $product['id'] == $selected ? 'bg-row-hover' : '' }}" data-id="{{ $product['id'] }}" wire:key="{{ $product['id'] }}">
-                    <td class="px-2 py-1 text-dark rounded-left">{{ $product['name'] }}</td>
-                    <td class="px-2 py-1 text-dark">{{ $product['code'] }}</td>
-                    <td class="px-2 py-1 text-dark">{{ $product['quantity'] }}</td>
-                    <td class="px-2 py-1 text-dark rounded-right">{{ number_format($product['price'], 2) }}</td>
+                    <td class="px-2 py-2 text-dark rounded-left">{{ $product['name'] }}</td>
+                    <td class="px-2 py-2 text-dark">{{ $product['code'] }}</td>
+                    <td class="px-2 py-2 text-dark">{{ $product['quantity'] }}</td>
+                    <td class="px-2 py-2 text-dark rounded-right">{{ number_format($product['price'], 2) }}</td>
                 </tr>
             @empty
                 <tr class="shadow-sm">
-                    <td class="px-2 py-1 text-dark rounded text-center opacity-50" colspan="4">No Products</td>
+                    <td class="px-2 py-2 text-dark rounded text-center opacity-50" colspan="4">No Products</td>
                 </tr>
             @endforelse
         </tbody>
@@ -138,15 +141,15 @@
         </thead>
         <tbody>
             <tr class="shadow-sm">
-                <td class="px-2 py-1 text-dark rounded-left">{{ $products[$selected]['name'] }}</td>
-                <td class="px-2 py-1 text-dark">{{ $products[$selected]['code'] }}</td>
-                <td class="px-2 py-1 text-dark">{{ $products[$selected]['quantity'] }}</td>
-                <td class="px-2 py-1 text-dark rounded-right">{{ number_format($products[$selected]['price'], 2) }}</td>
+                <td class="px-2 py-2 text-dark rounded-left">{{ $products[$selected]['name'] }}</td>
+                <td class="px-2 py-2 text-dark">{{ $products[$selected]['code'] }}</td>
+                <td class="px-2 py-2 text-dark">{{ $products[$selected]['quantity'] }}</td>
+                <td class="px-2 py-2 text-dark rounded-right">{{ number_format($products[$selected]['price'], 2) }}</td>
             </tr>
         </tbody>
     </table>
     <div class="text-center mt-4">
-        <input type="number" class="border-0 py-3 text-center fw-bolder rounded-lg shadow-sm btn-gold fs-15" wire:model.lazy="updatedQuantity">
+        <input type="number" class="border-0 py-3 text-center fw-bolder rounded-lg shadow-sm btn-gold fs-20" wire:model.lazy="updatedQuantity">
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3" wire:click="saveEdit">OK</button>
@@ -162,7 +165,7 @@
     </div>
     @elseif ($screen === 'auth')
     <div class="action-buttons fs-15 d-flex flex-column align-items-center mt-4">
-        <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 py-3" placeholder="PASSWORD" wire:model.lazy="password">
+        <input type="password" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 py-3" placeholder="PASSWORD" wire:model.lazy="password">
         @if ($isPasswordError)
         <p class="text-danger">You have entered a wrong password</p>
         @endif
@@ -177,28 +180,28 @@
             @if ($isRefund === false)
             <tr>
                 <td>
-                    <h2 class="fw-bolder w-250">Cash:</h2>
+                    <h1 class="fw-bolder w-250">Cash:</h1>
                 </td>
                 <td>
-                    <input type="number" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-70" wire:model="cash">
+                    <input type="number" class="border-0 fs-20 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-70" wire:model="cash">
                 </td>
             </tr>
             @endif
             <tr>
                 <td>
-                    <h2 class="fw-bolder w-250">Total:</h2>
+                    <h1 class="fw-bolder w-250">Total:</h1>
                 </td>
                 <td>
-                    <h2 class="fw-bolder">{{ $this->total }}</h2>
+                    <h1 class="fw-bolder">{{ $this->total }}</h1>
                 </td>
             </tr>
             @if ($isRefund === false)
             <tr>
                 <td>
-                    <h2 class="fw-bolder w-250">Change:</h2>
+                    <h1 class="fw-bolder w-250">Change:</h1>
                 </td>
                 <td>
-                    <h2 class="fw-bolder">{{ $cash > 0 ? $this->change : 0 }}</h2>
+                    <h1 class="fw-bolder">{{ $cash > 0 ? $this->change : 0 }}</h1>
                 </td>
             </tr>
             @endif
@@ -213,7 +216,7 @@
         <table>
             <tr>
                 <td>
-                    <h2 class="fw-bolder w-250">Name:</h2>
+                    <h1 class="fw-bolder w-250">Name:</h1>
                 </td>
                 <td>
                     <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3" wire:model="card.name">
@@ -221,7 +224,7 @@
             </tr>
             <tr>
                 <td>
-                    <h2 class="fw-bolder w-250">Card Type:</h2>
+                    <h1 class="fw-bolder w-250">Card Type:</h1>
                 </td>
                 <td>
                     <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3" wire:model="card.type">
@@ -229,7 +232,7 @@
             </tr>
             <tr>
                 <td>
-                    <h2 class="fw-bolder w-250">Card No:</h2>
+                    <h1 class="fw-bolder w-250">Card No:</h1>
                 </td>
                 <td>
                     <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3" wire:model="card.number">
@@ -237,10 +240,10 @@
             </tr>
             <tr>
                 <td>
-                    <h2 class="fw-bolder w-250">Total:</h2>
+                    <h1 class="fw-bolder w-250">Total:</h1>
                 </td>
                 <td>
-                    <h2 class="fw-bolder">{{ $this->total }}</h2>
+                    <h1 class="fw-bolder">{{ $this->total }}</h1>
                 </td>
             </tr>
         </table>
@@ -253,7 +256,7 @@
     {{-- =================================== --}}
     {{-- ============= RECEIPT ============= --}}
     {{-- =================================== --}}
-<div id="divToPrint" class="d-none-">
+<div id="divToPrint" class="d-none">
     <style>
         #invoice-POS {
             /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
