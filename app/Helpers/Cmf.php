@@ -41,11 +41,12 @@ class Cmf
 
         foreach ($adminNumbers as $adminNumber) {
             $message = "Hi! $name Placed New Order. Order ID $order_number";
-            $account_sid = getenv("TWILIO_SID");
-            $auth_token = getenv("TWILIO_AUTH_TOKEN");
-            $twilio_number = getenv("TWILIO_NUMBER");
-            $client = new Client($account_sid, $auth_token);
-            $client->messages->create($adminNumber->number, ['from' => $twilio_number, 'body' => $message]);
+            self::sendMessage($message, $adminNumber->number);
+            // $account_sid = getenv("TWILIO_SID");
+            // $auth_token = getenv("TWILIO_AUTH_TOKEN");
+            // $twilio_number = getenv("TWILIO_NUMBER");
+            // $client = new Client($account_sid, $auth_token);
+            // $client->messages->create($adminNumber->number, ['from' => $twilio_number, 'body' => $message]);
         }
     }
     public static function ipaddress()
