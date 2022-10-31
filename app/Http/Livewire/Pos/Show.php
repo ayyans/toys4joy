@@ -107,10 +107,6 @@ class Show extends Component
         $this->screen = $type;
     }
 
-    public function printConfirmation() {
-        $this->screen = 'print';
-    }
-
     public function saveInvoice() {
         // creating invoice
         $invoice = POSInvoice::create([
