@@ -132,7 +132,7 @@
             <button class="btn btn-danger flex-grow-1 text-white fw-bolder shadow-sm w-100 ml-2 py-3" wire:click="auth('refund')">REFUND</button>
         </div>
         <div class="action-buttons d-flex justify-content-between mt-3">
-            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 py-3" wire:click="x-report">REPORT</button>
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 py-3" wire:click="xReport">REPORT</button>
             <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 ml-2 py-3" wire:click="auth('z-report')">ADMIN</button>
         </div>
     </div>
@@ -259,6 +259,52 @@
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print"wire:click="saveInvoice">Print</button>
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 ml-2" wire:click="discard">Cancel</button>
     </div>
+    @elseif ($screen === 'x-report' || $screen === 'z-report')
+    <table class="pos-view-table w-100">
+        <thead>
+            <tr class="shadow-sm">
+                <th class="p-2 text-dark rounded-left text-left">Method</th>
+                <th class="p-2 text-dark rounded-right text-center">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($this->saleStats as $sales)
+            <tr class="shadow-sm">
+                <td class="px-2 py-4 text-dark rounded-left text-left fw-bolder">{{ strtoupper($sales->method) }}</td>
+                <td class="px-2 py-4 text-dark rounded-right text-center fw-bolder">{{ $sales->total }}</td>
+            </tr>
+            @empty
+            <tr class="shadow-sm">
+                <td class="px-2 py-4 text-dark rounded-left font-italic text-center" colspan="2">No sales</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+    <div>
+        <hr class="bg-white h-2 opacity-50">
+        <div class="d-flex justify-content-between">
+            <h5 class="text-dark px-2 fw-bolder">CASH</h5>
+            <h5 class="text-dark px-2 fw-bolder">{{ number_format($salesCash, 2) }}</h5>
+        </div>
+        <div class="d-flex justify-content-between">
+            <h5 class="text-dark px-2 fw-bolder">CARD</h5>
+            <h5 class="text-dark px-2 fw-bolder">{{ number_format($salesCard, 2) }}</h5>
+        </div>
+        @if ($screen === 'z-report')
+        <div class="d-flex justify-content-between">
+            <h5 class="text-dark px-2 fw-bolder">REFUND</h5>
+            <h5 class="text-dark px-2 fw-bolder">{{ number_format($refundTotal, 2) }}</h5>
+        </div>
+        @endif
+        <div class="d-flex justify-content-between">
+            <h5 class="text-dark px-2 fw-bolder">TOTAL</h5>
+            <h5 class="text-dark px-2 fw-bolder">{{ number_format($salesTotal - $refundTotal, 2) }}</h5>
+        </div>
+    </div>
+    <div class="action-buttons d-flex justify-content-between mt-4">
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print" wire:click="discard">Print</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2 py-3" wire:click="discard">Cancel</button>
+    </div>
     @endif
     {{-- =================================== --}}
     {{-- ============= RECEIPT ============= --}}
@@ -384,6 +430,7 @@
         <!--End InvoiceTop-->
         <div id="mid">
             <table>
+                @if (!$isReport)
                 <tr>
                     <td>
                         <p class="itemtext mb-1">Invoice No</p>
@@ -392,6 +439,7 @@
                         <p class="itemtext mb-1">{{ $invoiceNumber }}</p>
                     </td>
                 </tr>
+                @endif
                 <tr>
                     <td>
                         <p class="itemtext mb-1">Date</p>
@@ -410,7 +458,11 @@
                 </tr>
             </table>
             <div class="text-center">
+                @if ($isReport)
+                <p class="fw-bold midtext mb-1">{{ strtoupper($screen) }}</p>
+                @else
                 <p class="fw-bold midtext mb-1">{{ $this->isRefund ? 'REFUND' : '' }} INVOICE</p>
+                @endif
             </div>
         </div>
         <!--End Invoice Mid-->
@@ -437,26 +489,46 @@
                         </td>
                     </tr>
 
-                    @foreach ($products as $product)
-                    <tr class="service">
-                        <td class="tableitem">
-                            <p class="itemtext mb-0 py-1">{{ $product['code'] }}</p>
-                        </td>
-                        <td class="tableitem">
-                            <p class="itemtext mb-0 py-1">{{ $product['name'] }}</p>
-                        </td>
-                        <td class="tableitem">
-                            <p class="itemtext mb-0 py-1 text-center">{{ $product['quantity'] }}</p>
-                        </td>
-                        <td class="tableitem">
-                            <p class="itemtext mb-0 py-1 text-center">{{ $product['price'] }}</p>
-                        </td>
-                        <td class="tableitem">
-                            <p class="itemtext mb-0 py-1 text-center">{{ $product['price'] * $product['quantity'] }}</p>
-                        </td>
-                    </tr>
-                    @endforeach
+                    @if ($isReport)
+                        @foreach ($this->saleStats as $sales)
+                        <tr class="service">
+                            <td class="tableitem">
+                                <p class="itemtext mb-0 py-1">{{ strtoupper($sales->method) }}</p>
+                            </td>
+                            <td class="tableitem">
+                            </td>
+                            <td class="tableitem">
+                            </td>
+                            <td class="tableitem">
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext mb-0 py-1 text-center">{{ $sales->total }}</p>
+                            </td>
+                        </tr>
+                        @endforeach
+                    @else
+                        @foreach ($products as $product)
+                        <tr class="service">
+                            <td class="tableitem">
+                                <p class="itemtext mb-0 py-1">{{ $product['code'] }}</p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext mb-0 py-1">{{ $product['name'] }}</p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext mb-0 py-1 text-center">{{ $product['quantity'] }}</p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext mb-0 py-1 text-center">{{ $product['price'] }}</p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext mb-0 py-1 text-center">{{ $product['price'] * $product['quantity'] }}</p>
+                            </td>
+                        </tr>
+                        @endforeach
+                    @endif
 
+                    @if (!$isReport)
                     <tr>
                         <td>ㅤ</td>
                         <td>ㅤ</td>
@@ -479,6 +551,7 @@
                             <h2>{{ $this->total }}</h2>
                         </td>
                     </tr>
+                    @endif
                 </table>
 
                 <hr class="my-1">
@@ -487,82 +560,133 @@
                 </div>
                 <hr class="my-1">
 
-                @if ($paymentType === 'cash')
+                @if ($isReport)
                 <table>
                     <tr class="midtext">
                         <td>
                             <h2 class="my-0">Cash</h2>
                         </td>
-                        @if ($isRefund === false)
                         <td>
-                            <h2 class="my-0">{{ $cash }}</h2>
+                            <h2 class="my-0">{{ $salesCash }}</h2>
                         </td>
-                        @endif
                         <td>ㅤ</td>
                         <td>ㅤ</td>
                         <td>ㅤ</td>
                     </tr>
+                    <tr class="midtext">
+                        <td>
+                            <h2 class="my-0">Card</h2>
+                        </td>
+                        <td>
+                            <h2 class="my-0">{{ $salesCard }}</h2>
+                        </td>
+                        <td>ㅤ</td>
+                        <td>ㅤ</td>
+                        <td>ㅤ</td>
+                    </tr>
+                    @if ($screen === 'z-report')
+                    <tr class="midtext">
+                        <td>
+                            <h2 class="my-0">Refund</h2>
+                        </td>
+                        <td>
+                            <h2 class="my-0">{{ $refundTotal }}</h2>
+                        </td>
+                        <td>ㅤ</td>
+                        <td>ㅤ</td>
+                        <td>ㅤ</td>
+                    </tr>
+                    @endif
                     <tr class="midtext">
                         <td>
                             <h2 class="my-0">Total</h2>
                         </td>
                         <td>
-                            <h2 class="my-0">{{ $this->total }}</h2>
-                        </td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                    </tr>
-                    <tr class="midtext">
-                        <td>
-                            <h2 class="my-0">Change</h2>
-                        </td>
-                        @if ($isRefund === false)
-                        <td>
-                            <h2 class="my-0">{{ $this->change }}</h2>
-                        </td>
-                        @endif
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                    </tr>
-                </table>
-                @elseif ($paymentType === 'card')
-                <table>
-                    <tr class="midtext">
-                        <td>
-                            <h2 class="my-0">Name</h2>
-                        </td>
-                        <td>
-                            <h2 class="my-0">{{ $card['name'] }}</h2>
-                        </td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                    </tr>
-                    <tr class="midtext">
-                        <td>
-                            <h2 class="my-0">Card Type</h2>
-                        </td>
-                        <td>
-                            <h2 class="my-0">{{ strtoupper($card['type']) }}</h2>
-                        </td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                    </tr>
-                    <tr class="midtext">
-                        <td>
-                            <h2 class="my-0">Card No</h2>
-                        </td>
-                        <td>
-                            <h2 class="my-0">{{ $card['number'] }}</h2>
+                            <h2 class="my-0">{{ $salesTotal - $refundTotal }}</h2>
                         </td>
                         <td>ㅤ</td>
                         <td>ㅤ</td>
                         <td>ㅤ</td>
                     </tr>
                 </table>
+                @else
+                    @if ($paymentType === 'cash')
+                    <table>
+                        <tr class="midtext">
+                            <td>
+                                <h2 class="my-0">Cash</h2>
+                            </td>
+                            @if ($isRefund === false)
+                            <td>
+                                <h2 class="my-0">{{ $cash }}</h2>
+                            </td>
+                            @endif
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                        </tr>
+                        <tr class="midtext">
+                            <td>
+                                <h2 class="my-0">Total</h2>
+                            </td>
+                            <td>
+                                <h2 class="my-0">{{ $this->total }}</h2>
+                            </td>
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                        </tr>
+                        <tr class="midtext">
+                            <td>
+                                <h2 class="my-0">Change</h2>
+                            </td>
+                            @if ($isRefund === false)
+                            <td>
+                                <h2 class="my-0">{{ $this->change }}</h2>
+                            </td>
+                            @endif
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                        </tr>
+                    </table>
+                    @elseif ($paymentType === 'card')
+                    <table>
+                        <tr class="midtext">
+                            <td>
+                                <h2 class="my-0">Name</h2>
+                            </td>
+                            <td>
+                                <h2 class="my-0">{{ $card['name'] }}</h2>
+                            </td>
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                        </tr>
+                        <tr class="midtext">
+                            <td>
+                                <h2 class="my-0">Card Type</h2>
+                            </td>
+                            <td>
+                                <h2 class="my-0">{{ strtoupper($card['type']) }}</h2>
+                            </td>
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                        </tr>
+                        <tr class="midtext">
+                            <td>
+                                <h2 class="my-0">Card No</h2>
+                            </td>
+                            <td>
+                                <h2 class="my-0">{{ $card['number'] }}</h2>
+                            </td>
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                        </tr>
+                    </table>
+                    @endif
                 @endif
 
                 <hr class="my-1">

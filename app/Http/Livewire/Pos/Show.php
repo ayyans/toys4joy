@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Pos;
 
 use App\Models\POSInvoice;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Show extends Component
@@ -20,6 +21,15 @@ class Show extends Component
     public $authRedirect = null;
     public $isPasswordError = false;
     public $invoiceNumber = null;
+    public $isReport = false;
+    public $saleStats = [];
+    public $salesCash = 0;
+    public $salesCard = 0;
+    public $salesTotal = 0;
+    public $refundStats = [];
+    public $refundCash = 0;
+    public $refundCard = 0;
+    public $refundTotal = 0;
 
     protected $listeners = ['addProduct', 'selectProduct'];
 
@@ -87,6 +97,8 @@ class Show extends Component
 
         if ($this->authRedirect === 'refund') {
             $this->refund();
+        } else if ($this->authRedirect === 'z-report') {
+            $this->zReport();
         }
     }
 
@@ -99,7 +111,7 @@ class Show extends Component
 
     public function discard() {
         if ($this->isRefund) $this->inversePriceAndQuantity();
-        $this->resetExcept('products', 'adminPassword');
+        $this->resetExcept('products', 'adminPassword', 'invoiceNumber');
     }
 
     public function paymentType($type) {
@@ -131,6 +143,39 @@ class Show extends Component
         $this->reset('products');
         $this->discard();
         $this->mount();
+    }
+
+    public function xReport() {
+        $this->isReport = true;
+        $this->screen = 'x-report';
+        $this->generateSaleStats();
+    }
+
+    public function zReport() {
+        $this->isReport = true;
+        $this->screen = 'z-report';
+        $this->generateSaleStats();
+        $this->generateRefundStats();
+    }
+
+    private function generateSaleStats() {
+        $this->saleStats = POSInvoice::sale()->today()
+            ->select(DB::raw('method, sum(total) as total'))
+            ->groupBy('method')
+            ->get();
+        $this->salesCash = $this->saleStats->where('method', 'cash')->sum('total');
+        $this->salesCard = $this->saleStats->where('method', '!=', 'cash')->sum('total');
+        $this->salesTotal = $this->saleStats->sum('total');
+    }
+
+    private function generateRefundStats() {
+        $this->refundStats = POSInvoice::refund()->today()
+            ->select(DB::raw('method, sum(abs(total)) as total'))
+            ->groupBy('method')
+            ->get();
+        $this->refundCash = $this->refundStats->where('method', 'cash')->sum('total');
+        $this->refundCard = $this->refundStats->where('method', '!=', 'cash')->sum('total');
+        $this->refundTotal = $this->refundStats->sum('total');
     }
 
     private function refund() {
