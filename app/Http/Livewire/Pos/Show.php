@@ -149,6 +149,7 @@ class Show extends Component
         $this->isReport = true;
         $this->screen = 'x-report';
         $this->generateSaleStats();
+        $this->generateRefundStats();
     }
 
     public function zReport() {

@@ -260,6 +260,7 @@
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 ml-2" wire:click="discard">Cancel</button>
     </div>
     @elseif ($screen === 'x-report' || $screen === 'z-report')
+    @if ($screen === 'z-report')
     <table class="pos-view-table w-100">
         <thead>
             <tr class="shadow-sm">
@@ -280,11 +281,14 @@
             @endforelse
         </tbody>
     </table>
+    @endif
     <div>
+        @if ($screen === 'z-report')
         <hr class="bg-white h-2 opacity-50">
+        @endif
         <div class="d-flex justify-content-between">
             <h5 class="text-dark px-2 fw-bolder">CASH</h5>
-            <h5 class="text-dark px-2 fw-bolder">{{ number_format($salesCash, 2) }}</h5>
+            <h5 class="text-dark px-2 fw-bolder">{{ number_format($salesCash - ($screen === 'x-report' ? $refundCash : 0), 2) }}</h5>
         </div>
         <div class="d-flex justify-content-between">
             <h5 class="text-dark px-2 fw-bolder">CARD</h5>
@@ -295,11 +299,11 @@
             <h5 class="text-dark px-2 fw-bolder">REFUND</h5>
             <h5 class="text-dark px-2 fw-bolder">{{ number_format($refundTotal, 2) }}</h5>
         </div>
-        @endif
         <div class="d-flex justify-content-between">
             <h5 class="text-dark px-2 fw-bolder">TOTAL</h5>
             <h5 class="text-dark px-2 fw-bolder">{{ number_format($salesTotal - $refundTotal, 2) }}</h5>
         </div>
+        @endif
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print" wire:click="discard">Print</button>
@@ -309,7 +313,7 @@
     {{-- =================================== --}}
     {{-- ============= RECEIPT ============= --}}
     {{-- =================================== --}}
-<div id="divToPrint" class="d-none">
+<div id="divToPrint" class="d-none-">
     <style>
         #invoice-POS {
             /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
@@ -471,6 +475,7 @@
 
             <div id="table">
                 <table>
+                    @if ($screen === 'z-report')
                     <tr class="tabletitle">
                         <td class="Code">
                             <h2>Code</h2>
@@ -488,24 +493,27 @@
                             <h2>Total</h2>
                         </td>
                     </tr>
+                    @endif
 
                     @if ($isReport)
-                        @foreach ($this->saleStats as $sales)
-                        <tr class="service">
-                            <td class="tableitem">
-                                <p class="itemtext mb-0 py-1">{{ strtoupper($sales->method) }}</p>
-                            </td>
-                            <td class="tableitem">
-                            </td>
-                            <td class="tableitem">
-                            </td>
-                            <td class="tableitem">
-                            </td>
-                            <td class="tableitem">
-                                <p class="itemtext mb-0 py-1 text-center">{{ $sales->total }}</p>
-                            </td>
-                        </tr>
-                        @endforeach
+                        @if ($screen === 'z-report')
+                            @foreach ($this->saleStats as $sales)
+                            <tr class="service">
+                                <td class="tableitem">
+                                    <p class="itemtext mb-0 py-1">{{ strtoupper($sales->method) }}</p>
+                                </td>
+                                <td class="tableitem">
+                                </td>
+                                <td class="tableitem">
+                                </td>
+                                <td class="tableitem">
+                                </td>
+                                <td class="tableitem">
+                                    <p class="itemtext mb-0 py-1 text-center">{{ $sales->total }}</p>
+                                </td>
+                            </tr>
+                            @endforeach
+                        @endif
                     @else
                         @foreach ($products as $product)
                         <tr class="service">
@@ -567,7 +575,7 @@
                             <h2 class="my-0">Cash</h2>
                         </td>
                         <td>
-                            <h2 class="my-0">{{ $salesCash }}</h2>
+                            <h2 class="my-0">{{ $salesCash - ($screen === 'x-report' ? $refundCash : 0) }}</h2>
                         </td>
                         <td>ㅤ</td>
                         <td>ㅤ</td>
@@ -596,7 +604,6 @@
                         <td>ㅤ</td>
                         <td>ㅤ</td>
                     </tr>
-                    @endif
                     <tr class="midtext">
                         <td>
                             <h2 class="my-0">Total</h2>
@@ -608,6 +615,7 @@
                         <td>ㅤ</td>
                         <td>ㅤ</td>
                     </tr>
+                    @endif
                 </table>
                 @else
                     @if ($paymentType === 'cash')
