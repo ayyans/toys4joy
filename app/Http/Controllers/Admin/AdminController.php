@@ -717,6 +717,18 @@ public function deleteBrands(Request $request){
         return view('admin.point-of-sale');
     }
 
+    public function POSSalesReport() {
+        //
+    }
+
+    public function POSRefundReport() {
+        //
+    }
+
+    public function POSItemsSoldReport() {
+        //
+    }
+
     // products
 
     public function products(){

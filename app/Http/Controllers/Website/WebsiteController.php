@@ -1272,7 +1272,7 @@ public function giftcard() {
             $products->where('title', 'LIKE', "%{$request->search}%");
         }
 
-        $products = $products->paginate(12);
+        $products = $products->paginate(12)->withQueryString();
 
         return view('website.product-list',compact('products'));
     }

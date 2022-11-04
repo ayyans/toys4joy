@@ -91,10 +91,14 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     // products
     Route::get('/products','AdminController@products')->name('products');
     Route::get('/add-products','AdminController@addproducts')->name('addproducts');
-    Route::get('/point-of-sale','AdminController@pointOfSale')->name('point-of-sale');
     Route::get('/bulk-upload-products','AdminController@bulkUploadProducts')->name('bulk-upload-products');
     Route::post('/bulk-upload-products','AdminController@storeBulkUploadProducts')->name('store-bulk-upload-products');
     Route::post('/change-product-featured-type/{product}/{type}', 'AdminController@changeProductFeaturedType')->name('changeProductFeaturedType');
+
+    Route::get('/point-of-sale','AdminController@pointOfSale')->name('pos.point-of-sale');
+    Route::get('/point-of-sale/sales-report','AdminController@POSSalesReport')->name('pos.sales-report');
+    Route::get('/point-of-sale/refund-report','AdminController@POSRefundReport')->name('pos.refund-report');
+    Route::get('/point-of-sale/items-sold-report','AdminController@POSItemsSoldReport')->name('pos.items-sold-report');
 
     Route::post('/prodattribut','AdminController@prodAttrVal')->name('prodAttrVal');
 

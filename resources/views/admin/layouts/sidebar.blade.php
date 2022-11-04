@@ -22,23 +22,35 @@
 <!-- Divider -->
 <hr class="sidebar-divider">
 
-<li class="nav-item">
-    <a class="nav-link" href="{{route('admin.point-of-sale')}}">
-        <i class="fas fa-fw fa-desktop"></i>
-        <span>Point of Sale</span></a>
-</li>
-<!-- Divider -->
-<hr class="sidebar-divider">
-
 
 <li class="nav-item">
     <a class="nav-link" href="{{route('admin.bulkupload')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Bulk Upload</span></a>
 </li>
+
 <!-- Divider -->
 <hr class="sidebar-divider">
 
+<!-- Nav Item - Utilities Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pointOfSale"
+        aria-expanded="true" aria-controls="pointOfSale">
+        <i class="fas fa-fw fa-desktop"></i>
+        <span>POS</span>
+    </a>
+    <div id="pointOfSale" class="collapse" aria-labelledby="headingUtilities"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('admin.pos.point-of-sale') }}">Point of Sale</a>
+            <a class="collapse-item" href="{{ route('admin.pos.sales-report') }}">Sales Report</a>
+            <a class="collapse-item" href="{{ route('admin.pos.refund-report') }}">Refund Report</a>
+            <a class="collapse-item" href="{{ route('admin.pos.items-sold-report') }}">Items Sold Report</a>
+        </div>
+    </div>
+</li>
+<!-- Divider -->
+<hr class="sidebar-divider">
 
 <!-- Nav Item - Pages Collapse Menu -->
 
