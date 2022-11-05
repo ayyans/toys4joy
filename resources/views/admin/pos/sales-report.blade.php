@@ -87,13 +87,13 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($products as $product)
+      @foreach ($invoices as $invoice)
         <tr>
-          <td>{{ $product['date'] }}</td>
-          <td>{{ $product['invoice_number'] }}</td>
-          <td>{{ $product['total'] }}</td>
-          <td>{{ $product['type'] }}</td>
-          <td>{{ $product['quantity'] }}</td>
+          <td>{{ $invoice['date'] }}</td>
+          <td>{{ $invoice['invoice_number'] }}</td>
+          <td>{{ $invoice['total'] }}</td>
+          <td>{{ $invoice['type'] }}</td>
+          <td>{{ $invoice['quantity'] }}</td>
         </tr>
       @endforeach
     </tbody>

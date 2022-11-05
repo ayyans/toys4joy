@@ -10,11 +10,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class POSRefundsReportExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
-    private $products, $numberOfRefunds, $refundsTotal;
+    private $invoices, $numberOfRefunds, $refundsTotal;
 
-    public function __construct($products, $numberOfRefunds, $refundsTotal)
+    public function __construct($invoices, $numberOfRefunds, $refundsTotal)
     {
-        $this->products = $products;
+        $this->invoices = $invoices;
         $this->numberOfRefunds = $numberOfRefunds;
         $this->refundsTotal = $refundsTotal;
     }
@@ -24,11 +24,11 @@ class POSRefundsReportExport implements FromCollection, WithHeadings, ShouldAuto
      */
     public function collection()
     {
-        $this->products->push(['', '']);
-        $this->products->push(['Number of Refunds', $this->numberOfRefunds]);
-        $this->products->push(['Refunds Total', $this->refundsTotal]);
+        $this->invoices->push(['', '']);
+        $this->invoices->push(['Number of Refunds', $this->numberOfRefunds]);
+        $this->invoices->push(['Refunds Total', $this->refundsTotal]);
 
-        return $this->products;
+        return $this->invoices;
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Exports\CustomersReportExport;
 use App\Exports\GeneratedGiftCardsReportExport;
 use App\Exports\GuestsReportExport;
 use App\Exports\InventoryReportExport;
+use App\Exports\POSItemsSoldReportExport;
 use App\Exports\POSRefundsReportExport;
 use App\Exports\POSSalesReportExport;
 use App\Exports\ReturnedOrderItemsReportExport;
@@ -724,7 +725,7 @@ public function deleteBrands(Request $request){
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
-        $products = POSInvoice::where('type', 'sale')
+        $invoices = POSInvoice::where('type', 'sale')
             ->when($applyFilter, function($query) use ($start_date, $end_date) {
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             })
@@ -741,18 +742,18 @@ public function deleteBrands(Request $request){
             ->sortByDesc('date');
 
         // delivered orders count
-        $numberOfSales = $products->count();
+        $numberOfSales = $invoices->count();
 
         // Total revenue
-        $salesTotal = $products->reduce(function($total, $current) {
+        $salesTotal = $invoices->reduce(function($total, $current) {
             return $total + $current['total'];
         }, 0);
 
         // Export
         if ($request->filled('export') && $request->export === 'true') {
-            return Excel::download(new POSSalesReportExport($products, $numberOfSales, $salesTotal), 'pos-sales-report.xlsx');
+            return Excel::download(new POSSalesReportExport($invoices, $numberOfSales, $salesTotal), 'pos-sales-report.xlsx');
         }
-        return view('admin.pos.sales-report', compact('products', 'numberOfSales', 'salesTotal'));
+        return view('admin.pos.sales-report', compact('invoices', 'numberOfSales', 'salesTotal'));
     }
 
     public function POSRefundReport(Request $request) {
@@ -760,7 +761,7 @@ public function deleteBrands(Request $request){
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
-        $products = POSInvoice::where('type', 'refund')
+        $invoices = POSInvoice::where('type', 'refund')
             ->when($applyFilter, function($query) use ($start_date, $end_date) {
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             })
@@ -777,22 +778,45 @@ public function deleteBrands(Request $request){
             ->sortByDesc('date');
 
         // delivered orders count
-        $numberOfRefunds = $products->count();
+        $numberOfRefunds = $invoices->count();
 
         // Total revenue
-        $refundsTotal = $products->reduce(function($total, $current) {
+        $refundsTotal = $invoices->reduce(function($total, $current) {
             return $total + $current['total'];
         }, 0);
 
         // Export
         if ($request->filled('export') && $request->export === 'true') {
-            return Excel::download(new POSRefundsReportExport($products, $numberOfRefunds, $refundsTotal), 'pos-refunds-report.xlsx');
+            return Excel::download(new POSRefundsReportExport($invoices, $numberOfRefunds, $refundsTotal), 'pos-refunds-report.xlsx');
         }
-        return view('admin.pos.refund-report', compact('products', 'numberOfRefunds', 'refundsTotal'));
+        return view('admin.pos.refund-report', compact('invoices', 'numberOfRefunds', 'refundsTotal'));
     }
 
-    public function POSItemsSoldReport() {
-        //
+    public function POSItemsSoldReport(Request $request) {
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $invoices = POSInvoice::with('products.product')->where('type', 'sale')
+            ->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('created_at', [$start_date, $end_date]);
+            })
+            ->get()
+            ->map(function($invoice) {
+                return [
+                    'date' => $invoice->created_at->toDateString(),
+                    'invoice_number' => $invoice->invoice_number,
+                    'quantity' => $invoice->quantity,
+                    'items' => $invoice->products->pluck('product.code')->join(', ')
+                ];
+            })
+            ->sortByDesc('date');
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new POSItemsSoldReportExport($invoices), 'items-sold-report.xlsx');
+        }
+        return view('admin.pos.items-sold-report', compact('invoices'));
     }
 
     // products

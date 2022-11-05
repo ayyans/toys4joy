@@ -8,15 +8,13 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class POSSalesReportExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class POSItemsSoldReportExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
-    private $invoices, $numberOfSales, $salesTotal;
+    private $invoices;
 
-    public function __construct($invoices, $numberOfSales, $salesTotal)
+    public function __construct($invoices)
     {
         $this->invoices = $invoices;
-        $this->numberOfSales = $numberOfSales;
-        $this->salesTotal = $salesTotal;
     }
 
     /**
@@ -24,10 +22,6 @@ class POSSalesReportExport implements FromCollection, WithHeadings, ShouldAutoSi
      */
     public function collection()
     {
-        $this->invoices->push(['', '']);
-        $this->invoices->push(['Number of Sales', $this->numberOfSales]);
-        $this->invoices->push(['Sales Total', $this->salesTotal]);
-
         return $this->invoices;
     }
 
@@ -39,9 +33,8 @@ class POSSalesReportExport implements FromCollection, WithHeadings, ShouldAutoSi
         return [
             'Date',
             'Invoice Number',
-            'Amount',
-            'Mode of Payment',
             'Quantity',
+            'Items'
         ];
     }
 

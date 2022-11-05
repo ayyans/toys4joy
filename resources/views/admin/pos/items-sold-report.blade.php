@@ -4,7 +4,7 @@
 
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">POS Sales Report</h1>
+    <h1 class="h3 mb-0 text-gray-800">POS Items Sold Report</h1>
     <div class="d-flex">
       <a id="filter-button" href="javascript:;" class="d-inline-block btn btn-sm btn-success shadow-sm mr-2" style="width: 120px">
         <i class="fas fa-filter fa-sm text-white-50"></i> Filter</a>
@@ -14,7 +14,7 @@
   </div>
 
   <div id="filter-container" class="mb-3 border p-3 rounded">
-    <form action="{{ route('admin.pos.refund-report') }}" method="get">
+    <form action="{{ route('admin.pos.items-sold-report') }}" method="get">
       <div class="row">
         <div class="col-6 col-md-5">
           <div class="form-group mb-0">
@@ -38,52 +38,13 @@
     </form>
   </div>
 
-  <div class="row">
-
-    <div class="col-md-6 mb-4">
-      <div class="card border-left-primary shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                Number of Refunds</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $numberOfRefunds }}</div>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-calendar fa-2x text-gray-300"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-6 mb-4">
-      <div class="card border-left-success shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                Refunds Total</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $refundsTotal }}</div>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
   <table class="datatable table table-striped table-bordered" style="width:100%">
     <thead>
       <tr>
         <th>Date</th>
         <th>Invoice Number</th>
-        <th>Amount</th>
-        <th>Mode of Payment</th>
         <th>Quantity</th>
+        <th>Items</th>
       </tr>
     </thead>
     <tbody>
@@ -91,9 +52,8 @@
         <tr>
           <td>{{ $invoice['date'] }}</td>
           <td>{{ $invoice['invoice_number'] }}</td>
-          <td>{{ $invoice['total'] }}</td>
-          <td>{{ $invoice['type'] }}</td>
           <td>{{ $invoice['quantity'] }}</td>
+          <td>{{ $invoice['items'] }}</td>
         </tr>
       @endforeach
     </tbody>
