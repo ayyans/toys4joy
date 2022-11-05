@@ -8,6 +8,8 @@ use App\Exports\CustomersReportExport;
 use App\Exports\GeneratedGiftCardsReportExport;
 use App\Exports\GuestsReportExport;
 use App\Exports\InventoryReportExport;
+use App\Exports\POSRefundsReportExport;
+use App\Exports\POSSalesReportExport;
 use App\Exports\ReturnedOrderItemsReportExport;
 use App\Exports\ReturnedOrdersReportExport;
 use App\Exports\SalesReportExport;
@@ -30,6 +32,7 @@ use App\Models\giftcards;
 use App\Models\homepagebanners;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\POSInvoice;
 use App\Models\ReturnRequest;
 use App\Models\User;
 use App\Models\requiredproducts;
@@ -40,7 +43,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\ValidationException;
-use PhpParser\Node\Stmt\TryCatch;
 
 class AdminController extends Controller
 {
@@ -717,12 +719,76 @@ public function deleteBrands(Request $request){
         return view('admin.point-of-sale');
     }
 
-    public function POSSalesReport() {
-        //
+    public function POSSalesReport(Request $request) {
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $products = POSInvoice::where('type', 'sale')
+            ->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('created_at', [$start_date, $end_date]);
+            })
+            ->get()
+            ->map(function($product) {
+                return [
+                    'date' => $product->created_at->toDateString(),
+                    'invoice_number' => $product->invoice_number,
+                    'total' => $product->total,
+                    'type' => strtoupper($product->method),
+                    'quantity' => $product->quantity,
+                ];
+            })
+            ->sortByDesc('date');
+
+        // delivered orders count
+        $numberOfSales = $products->count();
+
+        // Total revenue
+        $salesTotal = $products->reduce(function($total, $current) {
+            return $total + $current['total'];
+        }, 0);
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new POSSalesReportExport($products, $numberOfSales, $salesTotal), 'pos-sales-report.xlsx');
+        }
+        return view('admin.pos.sales-report', compact('products', 'numberOfSales', 'salesTotal'));
     }
 
-    public function POSRefundReport() {
-        //
+    public function POSRefundReport(Request $request) {
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $products = POSInvoice::where('type', 'refund')
+            ->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('created_at', [$start_date, $end_date]);
+            })
+            ->get()
+            ->map(function($product) {
+                return [
+                    'date' => $product->created_at->toDateString(),
+                    'invoice_number' => $product->invoice_number,
+                    'total' => abs($product->total),
+                    'type' => strtoupper($product->method),
+                    'quantity' => abs($product->quantity),
+                ];
+            })
+            ->sortByDesc('date');
+
+        // delivered orders count
+        $numberOfRefunds = $products->count();
+
+        // Total revenue
+        $refundsTotal = $products->reduce(function($total, $current) {
+            return $total + $current['total'];
+        }, 0);
+
+        // Export
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new POSRefundsReportExport($products, $numberOfRefunds, $refundsTotal), 'pos-refunds-report.xlsx');
+        }
+        return view('admin.pos.refund-report', compact('products', 'numberOfRefunds', 'refundsTotal'));
     }
 
     public function POSItemsSoldReport() {

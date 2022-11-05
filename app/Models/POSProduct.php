@@ -12,4 +12,14 @@ class POSProduct extends Model
     protected $table = 'pos_products';
 
     protected $fillable = ['name', 'price', 'code'];
+
+    public function sales() {
+        return $this->hasMany(POSInvoiceProduct::class, 'product_id')
+            ->whereHas('invoice', fn ($q) => $q->where('type', 'sale'));
+    }
+
+    public function refunds() {
+        return $this->hasMany(POSInvoiceProduct::class, 'product_id')
+            ->whereHas('invoice', fn ($q) => $q->where('type', 'refund'));
+    }
 }

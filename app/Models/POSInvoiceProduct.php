@@ -12,4 +12,8 @@ class POSInvoiceProduct extends Model
     protected $table = 'pos_invoice_products';
 
     protected $fillable = ['invoice_id', 'product_id', 'price', 'quantity', 'total'];
+
+    public function invoice() {
+        return $this->belongsTo(POSInvoice::class, 'invoice_id');
+    }
 }
