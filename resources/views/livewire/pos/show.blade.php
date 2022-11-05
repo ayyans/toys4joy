@@ -75,7 +75,7 @@
         font-size: 1.5em;
     }
     .fs-20 {
-        font-size: 2.0em;
+        font-size: 2.0em !important;
     }
     .fs-25 {
         font-size: 2.5em;
@@ -164,8 +164,8 @@
     </div>
     @elseif ($screen === 'type')
     <div class="action-buttons fs-15 d-flex justify-content-between mt-4">
-        <button class="btn btn-gold py-3 flex-grow-1 text-dark fw-bolder shadow-sm" wire:click="paymentType('cash')">Cash</button>
-        <button class="btn btn-gold py-3 flex-grow-1 text-dark fw-bolder shadow-sm ml-2" wire:click="paymentType('card')">Card</button>
+        <button class="btn btn-success text-dark fs-20 py-3 flex-grow-1 fw-bolder shadow-sm" wire:click="paymentType('cash')">Cash</button>
+        <button class="btn btn-primary text-dark fs-20 py-3 flex-grow-1 fw-bolder shadow-sm ml-2" wire:click="paymentType('card')">Card</button>
     </div>
     <div class="action-buttons text-center mt-5">
         <button class="btn btn-gold py-3 text-dark fw-bolder shadow-sm w-50" wire:click="discard">Cancel</button>
