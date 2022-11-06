@@ -135,6 +135,9 @@
             <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 py-3" wire:click="xReport">REPORT</button>
             <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 ml-2 py-3" wire:click="auth('z-report')">ADMIN</button>
         </div>
+        <div class="action-buttons d-flex justify-content-between mt-3">
+            <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm w-100 py-3" wire:click="rePrint">REPRINT THE INVOICE</button>
+        </div>
     </div>
     @elseif ($screen === 'edit')
     <table class="pos-view-table w-100">
@@ -309,11 +312,19 @@
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print" wire:click="discard">Print</button>
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2 py-3" wire:click="discard">Cancel</button>
     </div>
+    @elseif ($screen === 'reprint')
+    <div class="action-buttons fs-15 d-flex flex-column align-items-center mt-4">
+        <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 py-3" placeholder="INVOICE NUMBER" wire:model.lazy="invoiceNumber">
+    </div>
+    <div class="action-buttons d-flex justify-content-between mt-4">
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3" wire:click="getInvoiceData">Get Invoice</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2 py-3" wire:click="discard">Cancel</button>
+    </div>
     @endif
     {{-- =================================== --}}
     {{-- ============= RECEIPT ============= --}}
     {{-- =================================== --}}
-<div id="divToPrint" class="d-none">
+<div id="divToPrint" class="d-none-">
     <style>
         #invoice-POS {
             /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
@@ -465,7 +476,7 @@
                 @if ($isReport)
                 <p class="fw-bold midtext mb-1">{{ strtoupper($screen) }}</p>
                 @else
-                <p class="fw-bold midtext mb-1">{{ $this->isRefund ? 'REFUND' : '' }} INVOICE</p>
+                <p class="fw-bold midtext mb-1">{{ $this->isReprint ? 'REPRINT ' : '' }}{{ $this->isRefund ? 'REFUND ' : '' }}INVOICE</p>
                 @endif
             </div>
         </div>
@@ -475,7 +486,7 @@
 
             <div id="table">
                 <table>
-                    @if ($screen === 'z-report')
+                    @if ($screen !== 'x-report')
                     <tr class="tabletitle">
                         <td class="Code">
                             <h2>Code</h2>

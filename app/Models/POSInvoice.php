@@ -11,7 +11,7 @@ class POSInvoice extends Model
 
     protected $table = 'pos_invoices';
 
-    protected $fillable = ['invoice_number', 'type', 'method', 'quantity', 'total', 'cash', 'change'];
+    protected $fillable = ['invoice_number', 'type', 'method', 'quantity', 'total', 'cash', 'change', 'name', 'card'];
 
     public function scopeSale($query) {
         return $query->where('type', 'sale');

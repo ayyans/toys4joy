@@ -30,6 +30,7 @@ class Show extends Component
     public $refundCash = 0;
     public $refundCard = 0;
     public $refundTotal = 0;
+    public $isReprint = false;
 
     protected $listeners = ['addProduct', 'selectProduct'];
 
@@ -54,7 +55,11 @@ class Show extends Component
     }
 
     public function addProduct($product) {
-        $quantity = $this->products[$product['id']]['quantity'] ?? 0;
+        if ( isset( $product['quantity'] ) ) {
+            $quantity = --$product['quantity'];
+        } else {
+            $quantity = $this->products[$product['id']]['quantity'] ?? 0;
+        }
         $this->products[$product['id']] = $product;
         $this->products[$product['id']]['quantity'] = ++$quantity;
     }
@@ -128,7 +133,9 @@ class Show extends Component
             'quantity' => $this->quantity,
             'total' => $this->total,
             'cash' => $this->cash,
-            'change' => $this->change
+            'change' => $this->change,
+            'name' => $this->paymentType === 'card' ? strtolower($this->card['name']) : null,
+            'card' => $this->paymentType === 'card' ? strtolower($this->card['number']) : null,
         ]);
         // creating invoice products
         foreach($this->products as $product) {
@@ -197,6 +204,32 @@ class Show extends Component
         $invoiceNumber = str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
         $exists = POSInvoice::where('invoice_number', $invoiceNumber)->exists();
         return $exists ? $this->generateInvoiceNumber() : $invoiceNumber;
+    }
+
+    public function rePrint() {
+        $this->reset('products');
+        $this->invoiceNumber = null;
+        $this->screen = 'reprint';
+    }
+
+    public function getInvoiceData() {
+        $invoice = POSInvoice::with('products.product')->firstWhere('invoice_number', $this->invoiceNumber);
+        if (! $invoice) return;
+        $this->quantity = abs($invoice->quantity);
+        $invoice->products->each(function($invoiceProduct) {
+            $this->addProduct($invoiceProduct->product->toArray() + ['quantity' => $invoiceProduct->quantity]);
+        });
+        $this->isRefund = $invoice->type === 'refund';
+        if ($this->isRefund) $this->inversePriceAndQuantity();
+        $this->paymentType = $invoice->method === 'cash' ? 'cash' : 'card';
+        $this->cash = $invoice->cash;
+        $this->card = [
+            'name' => $invoice->name,
+            'type' => $invoice->method,
+            'number' => $invoice->card
+        ];
+        $this->isReprint = true;
+        $this->screen = $this->paymentType;
     }
 
     public function render()
