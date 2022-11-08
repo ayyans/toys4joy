@@ -324,7 +324,7 @@
     {{-- =================================== --}}
     {{-- ============= RECEIPT ============= --}}
     {{-- =================================== --}}
-<div id="divToPrint" class="d-none">
+<div id="divToPrint" class="d-none-">
     <style>
         #invoice-POS {
             /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
@@ -448,7 +448,7 @@
                 @if (!$isReport)
                 <tr>
                     <td>
-                        <p class="itemtext mb-1">Invoice No</p>
+                        <p class="itemtext mb-1">Invoice No / رقم الفاتورة</p>
                     </td>
                     <td class="title">
                         <p class="itemtext mb-1">{{ $invoiceNumber }}</p>
@@ -457,7 +457,7 @@
                 @endif
                 <tr>
                     <td>
-                        <p class="itemtext mb-1">Date</p>
+                        <p class="itemtext mb-1">Date / تاريخ</p>
                     </td>
                     <td class="title">
                         <p class="itemtext mb-1">{{ now()->format('d/m/y') }}</p>
@@ -465,7 +465,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <p class="itemtext mb-1">Time</p>
+                        <p class="itemtext mb-1">Time / زمن</p>
                     </td>
                     <td class="title">
                         <p class="itemtext mb-1">{{ now()->format('H:i') }}</p>
@@ -555,7 +555,7 @@
 
                     <tr class="tabletitle">
                         <td class="Rate">
-                            <h2>Total Quantity</h2>
+                            <h2>Total Quantity / الكمية الإجمالية</h2>
                         </td>
                         <td class="payment">
                             <h2>{{ $this->quantity }}</h2>
@@ -564,7 +564,7 @@
 
                     <tr class="tabletitle">
                         <td class="Rate">
-                            <h2>Total</h2>
+                            <h2>Total Amount / المبلغ الإجمالي</h2>
                         </td>
                         <td class="payment">
                             <h2>{{ $this->total }}</h2>
@@ -583,7 +583,7 @@
                 <table>
                     <tr class="midtext">
                         <td>
-                            <h2 class="my-0">Cash</h2>
+                            <h2 class="my-0">Cash / نقدي</h2>
                         </td>
                         <td>
                             <h2 class="my-0">{{ $salesCash - ($screen === 'x-report' ? $refundCash : 0) }}</h2>
@@ -594,7 +594,7 @@
                     </tr>
                     <tr class="midtext">
                         <td>
-                            <h2 class="my-0">Card</h2>
+                            <h2 class="my-0">Card / بطاقة</h2>
                         </td>
                         <td>
                             <h2 class="my-0">{{ $salesCard }}</h2>
@@ -606,7 +606,7 @@
                     @if ($screen === 'z-report')
                     <tr class="midtext">
                         <td>
-                            <h2 class="my-0">Refund</h2>
+                            <h2 class="my-0">Refund / إعادة مال</h2>
                         </td>
                         <td>
                             <h2 class="my-0">{{ $refundTotal }}</h2>
@@ -617,7 +617,7 @@
                     </tr>
                     <tr class="midtext">
                         <td>
-                            <h2 class="my-0">Total</h2>
+                            <h2 class="my-0">Total / المجموع</h2>
                         </td>
                         <td>
                             <h2 class="my-0">{{ $salesTotal - $refundTotal }}</h2>
@@ -633,7 +633,7 @@
                     <table>
                         <tr class="midtext">
                             <td>
-                                <h2 class="my-0">Cash</h2>
+                                <h2 class="my-0">Cash / نقدي</h2>
                             </td>
                             @if ($isRefund === false)
                             <td>
@@ -646,7 +646,7 @@
                         </tr>
                         <tr class="midtext">
                             <td>
-                                <h2 class="my-0">Total</h2>
+                                <h2 class="my-0">Total / المجموع</h2>
                             </td>
                             <td>
                                 <h2 class="my-0">{{ $this->total }}</h2>
@@ -657,7 +657,7 @@
                         </tr>
                         <tr class="midtext">
                             <td>
-                                <h2 class="my-0">Change</h2>
+                                <h2 class="my-0">Change / تغيير</h2>
                             </td>
                             @if ($isRefund === false)
                             <td>
@@ -673,7 +673,7 @@
                     <table>
                         <tr class="midtext">
                             <td>
-                                <h2 class="my-0">Name</h2>
+                                <h2 class="my-0">Card Name / اسم البطاقة</h2>
                             </td>
                             <td>
                                 <h2 class="my-0">{{ $card['name'] }}</h2>
@@ -684,7 +684,7 @@
                         </tr>
                         <tr class="midtext">
                             <td>
-                                <h2 class="my-0">Card Type</h2>
+                                <h2 class="my-0">Card Type / نوع البطاقة</h2>
                             </td>
                             <td>
                                 <h2 class="my-0">{{ strtoupper($card['type']) }}</h2>
@@ -695,7 +695,7 @@
                         </tr>
                         <tr class="midtext">
                             <td>
-                                <h2 class="my-0">Card No</h2>
+                                <h2 class="my-0">Card No / رقم البطاقة</h2>
                             </td>
                             <td>
                                 <h2 class="my-0">{{ $card['number'] }}</h2>
@@ -714,6 +714,7 @@
 
             <center class="mt-2">
                 <p class="itemtext mb-1 fw-bold">All products purchased from Toys 4 Joy can be returned or exchanged within 7 days from the date of the purchase along with the original receipt</p>
+                <p class="itemtext mb-1 fw-bold">يمكن إرجاع أو استبدال جميع المنتجات التي تم شراؤها من Toys 4 Joy في غضون 7 أيام من تاريخ الشراء مع الإيصال الأصلي.</p>
             </center>
 
         </div>

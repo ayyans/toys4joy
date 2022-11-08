@@ -11,7 +11,7 @@ class POSProduct extends Model
 
     protected $table = 'pos_products';
 
-    protected $fillable = ['name', 'price', 'code'];
+    protected $fillable = ['name', 'arabic_name', 'price', 'code'];
 
     public function sales() {
         return $this->hasMany(POSInvoiceProduct::class, 'product_id')
