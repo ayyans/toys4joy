@@ -333,8 +333,7 @@
             /* width: 80mm; */
             background: #FFF;
             color: #000;
-            /* font-family: Arial, Helvetica, sans-serif; */
-            font-family: 'Courier New', Courier, monospace;
+            font-family: Arial, Helvetica, sans-serif;
         }
         #invoice-POS ::selection {
             background: #f31544;
