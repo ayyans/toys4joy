@@ -116,6 +116,10 @@ class Show extends Component
 
     public function discard() {
         if ($this->isRefund) $this->inversePriceAndQuantity();
+        if ($this->isReprint) {
+            $this->reset('products', 'invoiceNumber');
+            $this->mount();
+        }
         $this->resetExcept('products', 'adminPassword', 'invoiceNumber');
     }
 
@@ -125,26 +129,28 @@ class Show extends Component
     }
 
     public function saveInvoice() {
-        // creating invoice
-        $invoice = POSInvoice::create([
-            'invoice_number' => $this->invoiceNumber,
-            'type' => $this->isRefund ? 'refund' : 'sale',
-            'method' => $this->paymentType === 'cash' ? 'cash' : strtolower($this->card['type']),
-            'quantity' => $this->quantity,
-            'total' => $this->total,
-            'cash' => $this->cash,
-            'change' => $this->change,
-            'name' => $this->paymentType === 'card' ? strtolower($this->card['name']) : null,
-            'card' => $this->paymentType === 'card' ? strtolower($this->card['number']) : null,
-        ]);
-        // creating invoice products
-        foreach($this->products as $product) {
-            $invoice->products()->create([
-                'product_id' => $product['id'],
-                'price' => $product['price'],
-                'quantity' => $product['quantity'],
-                'total' => $product['price'] * $product['quantity']
+        if (! $this->isReprint) {
+            // creating invoice
+            $invoice = POSInvoice::create([
+                'invoice_number' => $this->invoiceNumber,
+                'type' => $this->isRefund ? 'refund' : 'sale',
+                'method' => $this->paymentType === 'cash' ? 'cash' : strtolower($this->card['type']),
+                'quantity' => $this->quantity,
+                'total' => $this->total,
+                'cash' => $this->cash,
+                'change' => $this->change,
+                'name' => $this->paymentType === 'card' ? strtolower($this->card['name']) : null,
+                'card' => $this->paymentType === 'card' ? strtolower($this->card['number']) : null,
             ]);
+            // creating invoice products
+            foreach($this->products as $product) {
+                $invoice->products()->create([
+                    'product_id' => $product['id'],
+                    'price' => $product['price'],
+                    'quantity' => $product['quantity'],
+                    'total' => $product['price'] * $product['quantity']
+                ]);
+            }
         }
         // reseting everything
         $this->reset('products');
