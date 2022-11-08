@@ -324,7 +324,7 @@
     {{-- =================================== --}}
     {{-- ============= RECEIPT ============= --}}
     {{-- =================================== --}}
-<div id="divToPrint" class="d-none-">
+<div id="divToPrint" class="d-none">
     <style>
         #invoice-POS {
             /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
@@ -333,7 +333,8 @@
             /* width: 80mm; */
             background: #FFF;
             color: #000;
-            font-family: Arial, Helvetica, sans-serif;
+            /* font-family: Arial, Helvetica, sans-serif; */
+            font-family: 'Courier New', Courier, monospace;
         }
         #invoice-POS ::selection {
             background: #f31544;
@@ -532,7 +533,7 @@
                                 <p class="itemtext mb-0 py-1">{{ $product['code'] }}</p>
                             </td>
                             <td class="tableitem">
-                                <p class="itemtext mb-0 py-1">{{ $product['name'] }}</p>
+                                <p class="itemtext mb-0 py-1">{{ $product['name'] }} / {{ $product['arabic_name'] }}</p>
                             </td>
                             <td class="tableitem">
                                 <p class="itemtext mb-0 py-1 text-center">{{ $product['quantity'] }}</p>
