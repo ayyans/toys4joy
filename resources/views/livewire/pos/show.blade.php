@@ -291,16 +291,20 @@
         @endif
         <div class="d-flex justify-content-between">
             <h5 class="text-dark px-2 fw-bolder">CASH</h5>
-            <h5 class="text-dark px-2 fw-bolder">{{ number_format($salesCash - ($screen === 'x-report' ? $refundCash : 0), 2) }}</h5>
+            <h5 class="text-dark px-2 fw-bolder">{{ number_format($salesCash - $refundCash, 2) }}</h5>
         </div>
         <div class="d-flex justify-content-between">
             <h5 class="text-dark px-2 fw-bolder">CARD</h5>
-            <h5 class="text-dark px-2 fw-bolder">{{ number_format($salesCard, 2) }}</h5>
+            <h5 class="text-dark px-2 fw-bolder">{{ number_format($salesCard - ($screen === 'z-report' ? $refundCard : 0), 2) }}</h5>
         </div>
         @if ($screen === 'z-report')
         <div class="d-flex justify-content-between">
-            <h5 class="text-dark px-2 fw-bolder">REFUND</h5>
-            <h5 class="text-dark px-2 fw-bolder">{{ number_format($refundTotal, 2) }}</h5>
+            <h5 class="text-dark px-2 fw-bolder">CASH REFUND</h5>
+            <h5 class="text-dark px-2 fw-bolder">{{ number_format($refundCash, 2) }}</h5>
+        </div>
+        <div class="d-flex justify-content-between">
+            <h5 class="text-dark px-2 fw-bolder">CARD REFUND</h5>
+            <h5 class="text-dark px-2 fw-bolder">{{ number_format($refundCard, 2) }}</h5>
         </div>
         <div class="d-flex justify-content-between">
             <h5 class="text-dark px-2 fw-bolder">TOTAL</h5>
