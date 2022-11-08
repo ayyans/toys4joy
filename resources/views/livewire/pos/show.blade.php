@@ -324,7 +324,7 @@
     {{-- =================================== --}}
     {{-- ============= RECEIPT ============= --}}
     {{-- =================================== --}}
-<div id="divToPrint" class="d-none">
+<div id="divToPrint" class="d-none-">
     <style>
         #invoice-POS {
             /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
@@ -437,6 +437,7 @@
     </style>
     <div id="invoice-POS">
         <center id="top">
+            <img class="mb-1" src="{{ asset('website/img/logo-t4j.jpg') }}" alt="Toys4Joy" width="80">
             <p class="headtext fw-bold mb-1">Toys4Joy</p>
             <p class="itemtext mb-1">Building 25, Zone 39, Street 343<br>
             4th Floor, Office No. 31, P.O BOX 13920<br>
