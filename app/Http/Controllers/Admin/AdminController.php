@@ -1687,6 +1687,19 @@ public function editProcess(Request $request){
     ]);
 
 }
+    $lastid = $prod_id;
+    $galler_size = count($request->photos ?? []);
+    if ($galler_size > 0) {
+        ProductImage::where('prod_id', $lastid)->delete();
+        for($j=0;$j<$galler_size;$j++){
+            $gallery = time().'.'.$request->file('photos')[$j]->getClientOriginalName();   
+            $request->photos[$j]->move(public_path('products'), $gallery);
+            $addProductImage = new ProductImage;
+            $addProductImage->gallery_img=$gallery;
+            $addProductImage->prod_id=$lastid;
+            $addProductImage->save();
+        }
+    }
     if($update_product==true){
         return back()->with('success','product successfully updated');
         exit();
