@@ -437,7 +437,7 @@
     </style>
     <div id="invoice-POS">
         <center id="top">
-            <img class="mb-1" src="{{ asset('website/img/logo-t4j.jpg') }}" alt="Toys4Joy" width="80">
+            <img class="mb-1" src="{{ asset('website/img/t4j-black-logo.jpeg') }}" alt="Toys4Joy" width="80">
             <p class="headtext fw-bold mb-1">Toys4Joy</p>
             <p class="itemtext mb-1">Building 25, Zone 39, Street 343<br>
             4th Floor, Office No. 31, P.O BOX 13920<br>
