@@ -131,6 +131,7 @@ class Show extends Component
     public function saveInvoice() {
         if (! $this->isReprint) {
             // creating invoice
+            $this->invoiceNumber = $this->invoiceNumber ?? $this->generateInvoiceNumber();
             $invoice = POSInvoice::create([
                 'invoice_number' => $this->invoiceNumber,
                 'type' => $this->isRefund ? 'refund' : 'sale',
