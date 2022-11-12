@@ -126,12 +126,12 @@ class Show extends Component
     public function paymentType($type) {
         $this->paymentType = $type;
         $this->screen = $type;
+        $this->invoiceNumber = $this->invoiceNumber ?? $this->generateInvoiceNumber();
     }
 
     public function saveInvoice() {
         if (! $this->isReprint) {
             // creating invoice
-            $this->invoiceNumber = $this->invoiceNumber ?? $this->generateInvoiceNumber();
             $invoice = POSInvoice::create([
                 'invoice_number' => $this->invoiceNumber,
                 'type' => $this->isRefund ? 'refund' : 'sale',
