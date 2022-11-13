@@ -95,6 +95,8 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::post('/bulk-upload-products','AdminController@storeBulkUploadProducts')->name('store-bulk-upload-products');
     Route::post('/change-product-featured-type/{product}/{type}', 'AdminController@changeProductFeaturedType')->name('changeProductFeaturedType');
 
+    Route::get('local/point-of-sale','AdminController@localPointOfSale')->name('local.pos.point-of-sale');
+
     Route::get('/point-of-sale','AdminController@pointOfSale')->name('pos.point-of-sale');
     Route::get('/point-of-sale/sales-report','AdminController@POSSalesReport')->name('pos.sales-report');
     Route::get('/point-of-sale/refund-report','AdminController@POSRefundReport')->name('pos.refund-report');
