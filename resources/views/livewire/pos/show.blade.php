@@ -196,6 +196,15 @@
                     <input type="number" class="border-0 fs-25 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="cash">
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <h1 class="fw-bolder w-250">Discount:</h1>
+                </td>
+                <td>
+                    <input type="number" class="border-0 fs-25 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-75" wire:model="discount">
+                    <h1 class="d-inline-block fw-bolder">%</h1>
+                </td>
+            </tr>
             @endif
             <tr>
                 <td>
@@ -248,6 +257,17 @@
                     <input type="text" class="border-0 fs-20 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.number">
                 </td>
             </tr>
+            @if ($isRefund === false)
+            <tr>
+                <td>
+                    <h1 class="fw-bolder w-250">Discount:</h1>
+                </td>
+                <td>
+                    <input type="number" class="border-0 fs-25 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-75" wire:model="discount">
+                    <h1 class="d-inline-block fw-bolder">%</h1>
+                </td>
+            </tr>
+            @endif
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Total:</h1>

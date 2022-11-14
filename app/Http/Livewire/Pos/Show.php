@@ -15,6 +15,7 @@ class Show extends Component
     public $updatedQuantity = null;
     public $paymentType = null;
     public $cash = 0;
+    public $discount = 0;
     public $card = ['name' => '', 'type' => '', 'number' => ''];
     public $isRefund = false;
     public $password = null;
@@ -39,7 +40,7 @@ class Show extends Component
     }
 
     public function getTotalProperty() {
-        return array_reduce($this->products, fn($a, $p) => $a + ($p['price'] * $p['quantity']), 0);
+        return array_reduce($this->products, fn($a, $p) => $a + ($p['price'] * $p['quantity']), 0) * (1 - (($this->discount ?: 0) / 100));
     }
 
     public function getQuantityProperty() {
@@ -138,6 +139,7 @@ class Show extends Component
                 'method' => $this->paymentType === 'cash' ? 'cash' : strtolower($this->card['type']),
                 'quantity' => $this->quantity,
                 'total' => $this->total,
+                'discount' => $this->discount,
                 'cash' => $this->cash,
                 'change' => $this->change,
                 'name' => $this->paymentType === 'card' ? strtolower($this->card['name']) : null,
@@ -226,6 +228,7 @@ class Show extends Component
         $invoice->products->each(function($invoiceProduct) {
             $this->addProduct($invoiceProduct->product->toArray() + ['quantity' => $invoiceProduct->quantity]);
         });
+        $this->discount = $invoice->discount;
         $this->isRefund = $invoice->type === 'refund';
         if ($this->isRefund) $this->inversePriceAndQuantity();
         $this->paymentType = $invoice->method === 'cash' ? 'cash' : 'card';
