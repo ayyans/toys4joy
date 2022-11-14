@@ -89,6 +89,9 @@
     .h-600 {
         min-height: 600px;
     }
+    .focus-outline-none:focus-visible {
+        outline: none;
+    }
 </style>
 @endpush
 <div class="pos-view-container p-5 h-600 d-flex flex-column justify-content-between">
@@ -151,15 +154,15 @@
         </thead>
         <tbody>
             <tr class="shadow-sm">
-                <td class="px-2 py-4 text-light rounded-left">{{ $products[$selected]['name'] }}</td>
-                <td class="px-2 py-4 text-light">{{ $products[$selected]['code'] }}</td>
-                <td class="px-2 py-4 text-light">{{ $products[$selected]['quantity'] }}</td>
-                <td class="px-2 py-4 text-light rounded-right">{{ number_format($products[$selected]['price'], 2) }}</td>
+                <td class="px-2 py-4 text-dark rounded-left">{{ $products[$selected]['name'] }}</td>
+                <td class="px-2 py-4 text-dark">{{ $products[$selected]['code'] }}</td>
+                <td class="px-2 py-4 text-dark">{{ $products[$selected]['quantity'] }}</td>
+                <td class="px-2 py-4 text-dark rounded-right">{{ number_format($products[$selected]['price'], 2) }}</td>
             </tr>
         </tbody>
     </table>
     <div class="text-center mt-4">
-        <input type="number" class="border-0 py-3 text-center fw-bolder rounded-lg shadow-sm btn-gold fs-20" wire:model.lazy="updatedQuantity">
+        <input type="number" class="border-0 py-3 text-center text-white fw-bolder rounded-lg shadow-sm btn-gold fs-20" wire:model.lazy="updatedQuantity">
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
         <button class="btn btn-gold flex-grow-1 text-light fw-bolder shadow-sm py-3" wire:click="saveEdit">OK</button>
@@ -193,7 +196,7 @@
                     <h1 class="fw-bolder w-250">Cash:</h1>
                 </td>
                 <td>
-                    <input type="number" class="border-0 fs-25 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="cash">
+                    <input type="number" class="border-0 fs-25 text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="cash">
                 </td>
             </tr>
             @endif
@@ -229,7 +232,7 @@
                     <h1 class="fw-bolder w-250">Name:</h1>
                 </td>
                 <td>
-                    <input type="text" class="border-0 fs-20 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.name">
+                    <input type="text" class="focus-outline-none border-0 fs-20 outline-none text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.name">
                 </td>
             </tr>
             <tr>
@@ -237,7 +240,7 @@
                     <h1 class="fw-bolder w-250">Card Type:</h1>
                 </td>
                 <td>
-                    <input type="text" class="border-0 fs-20 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.type">
+                    <input type="text" class="focus-outline-none border-0 fs-20 outline-none text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.type">
                 </td>
             </tr>
             <tr>
@@ -245,7 +248,7 @@
                     <h1 class="fw-bolder w-250">Card No:</h1>
                 </td>
                 <td>
-                    <input type="text" class="border-0 fs-20 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.number">
+                    <input type="text" class="focus-outline-none border-0 fs-20 outline-none text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.number">
                 </td>
             </tr>
             <tr>
