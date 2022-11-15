@@ -13,10 +13,18 @@
     .h-60 {
         height: 60px;
     }
+
+    .h-500 {
+        max-height: 500px;
+    }
+
+    .overflow-y-scroll {
+        overflow-y: scroll;
+    }
 </style>
 @endpush
 <div>
-    <div class="row row-cols-1 align-items-stretch h-500">
+    <div class="row row-cols-1 align-items-stretch">
         <div class="pos-product-container p-1" wire:key="local.pos.product.search">
             <div class="form-group">
                 <label for="search">Search</label>
@@ -24,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="row row-cols-2 align-items-stretch h-500">
+    <div class="row row-cols-2 align-items-stretch h-500 overflow-y-scroll">
         @foreach ($this->products as $product)
         <div class="pos-product-container p-1" wire:key="{{ $product->id }}">
             <div class="pos-product px-2 py-4 rounded-lg" wire:click="$emit('addProduct', {{ $product }})">

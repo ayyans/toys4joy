@@ -15,7 +15,7 @@ class Products extends Component
             ->where('title', 'LIKE', "%$this->search%")
             ->orWhere('barcode', 'LIKE', "%$this->search%")
             ->orWhere('sku', 'LIKE', "%$this->search%")
-            ->limit(8)
+            ->limit(16)
             ->get();
     }
 
