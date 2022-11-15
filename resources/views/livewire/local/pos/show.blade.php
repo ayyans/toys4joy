@@ -369,7 +369,7 @@
     {{-- =================================== --}}
     {{-- ============= RECEIPT ============= --}}
     {{-- =================================== --}}
-<div id="divToPrint" class="d-none-">
+<div id="divToPrint" class="d-none">
     <style>
         #invoice-POS {
             /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
@@ -617,6 +617,7 @@
                         </td>
                     </tr>
 
+                    @if ($isRefund === false)
                     <tr class="tabletitle">
                         <td class="Rate">
                             <h2>Total Discount / إجمالي الخصم</h2>
@@ -634,6 +635,7 @@
                             <h2>{{ $this->final }}</h2>
                         </td>
                     </tr>
+                    @endif
                     @endif
                 </table>
 
@@ -695,15 +697,14 @@
                 @else
                     @if ($paymentType === 'cash')
                     <table>
+                        @if ($isRefund === false)
                         <tr class="midtext">
                             <td>
                                 <h2 class="my-0">Cash / نقدي</h2>
                             </td>
-                            @if ($isRefund === false)
                             <td>
                                 <h2 class="my-0">{{ $cash }}</h2>
                             </td>
-                            @endif
                             <td>ㅤ</td>
                             <td>ㅤ</td>
                             <td>ㅤ</td>
@@ -719,6 +720,7 @@
                             <td>ㅤ</td>
                             <td>ㅤ</td>
                         </tr>
+                        @endif
                         <tr class="midtext">
                             <td>
                                 <h2 class="my-0">Total / المجموع</h2>
@@ -730,19 +732,19 @@
                             <td>ㅤ</td>
                             <td>ㅤ</td>
                         </tr>
+                        @if ($isRefund === false)
                         <tr class="midtext">
                             <td>
                                 <h2 class="my-0">Change / تغيير</h2>
                             </td>
-                            @if ($isRefund === false)
                             <td>
                                 <h2 class="my-0">{{ $this->change }}</h2>
                             </td>
-                            @endif
                             <td>ㅤ</td>
                             <td>ㅤ</td>
                             <td>ㅤ</td>
                         </tr>
+                        @endif
                     </table>
                     @elseif ($paymentType === 'card')
                     <table>
