@@ -205,6 +205,14 @@
                     <h1 class="d-inline-block fw-bolder">%</h1>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <h1 class="fw-bolder w-250">Change:</h1>
+                </td>
+                <td>
+                    <h1 class="fw-bolder">{{ $cash > 0 ? $this->change : 0 }}</h1>
+                </td>
+            </tr>
             @endif
             <tr>
                 <td>
@@ -217,10 +225,10 @@
             @if ($isRefund === false)
             <tr>
                 <td>
-                    <h1 class="fw-bolder w-250">Change:</h1>
+                    <h1 class="fw-bolder w-250">Final:</h1>
                 </td>
                 <td>
-                    <h1 class="fw-bolder">{{ $cash > 0 ? $this->change : 0 }}</h1>
+                    <h1 class="fw-bolder">{{ $this->final }}</h1>
                 </td>
             </tr>
             @endif
@@ -276,6 +284,16 @@
                     <h1 class="fw-bolder">{{ $this->total }}</h1>
                 </td>
             </tr>
+            @if ($isRefund === false)
+            <tr>
+                <td>
+                    <h1 class="fw-bolder w-250">Final:</h1>
+                </td>
+                <td>
+                    <h1 class="fw-bolder">{{ $this->final }}</h1>
+                </td>
+            </tr>
+            @endif
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
@@ -589,6 +607,15 @@
 
                     <tr class="tabletitle">
                         <td class="Rate">
+                            <h2>Total Amount / المبلغ الإجمالي</h2>
+                        </td>
+                        <td class="payment">
+                            <h2>{{ $this->total }}</h2>
+                        </td>
+                    </tr>
+
+                    <tr class="tabletitle">
+                        <td class="Rate">
                             <h2>Total Discount / إجمالي الخصم</h2>
                         </td>
                         <td class="payment">
@@ -598,10 +625,10 @@
 
                     <tr class="tabletitle">
                         <td class="Rate">
-                            <h2>Total Amount / المبلغ الإجمالي</h2>
+                            <h2>Total Final / مجموع النهائي</h2>
                         </td>
                         <td class="payment">
-                            <h2>{{ $this->total }}</h2>
+                            <h2>{{ $this->final }}</h2>
                         </td>
                     </tr>
                     @endif
@@ -694,7 +721,7 @@
                                 <h2 class="my-0">Total / المجموع</h2>
                             </td>
                             <td>
-                                <h2 class="my-0">{{ $this->total }}</h2>
+                                <h2 class="my-0">{{ $this->final }}</h2>
                             </td>
                             <td>ㅤ</td>
                             <td>ㅤ</td>

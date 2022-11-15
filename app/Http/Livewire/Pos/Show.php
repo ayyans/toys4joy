@@ -36,19 +36,23 @@ class Show extends Component
     protected $listeners = ['addProduct', 'selectProduct'];
 
     public function getChangeProperty() {
-        return ($this->cash ?: 0) - $this->total;
-    }
-
-    public function getTotalDiscountProperty() {
-        return array_reduce($this->products, fn($a, $p) => $a + ($p['price'] * $p['quantity']), 0) * (($this->discount ?: 0) / 100);
+        return ($this->cash ?: 0) - $this->final;
     }
 
     public function getTotalProperty() {
-        return array_reduce($this->products, fn($a, $p) => $a + ($p['price'] * $p['quantity']), 0) * (1 - (($this->discount ?: 0) / 100));
+        return array_reduce($this->products, fn($a, $p) => $a + ($p['price'] * $p['quantity']), 0);
+    }
+
+    public function getTotalDiscountProperty() {
+        return $this->getTotalProperty() * (($this->discount ?: 0) / 100);
     }
 
     public function getQuantityProperty() {
         return array_reduce($this->products, fn($a, $p) => $a + $p['quantity'], 0);
+    }
+
+    public function getFinalProperty() {
+        return $this->getTotalProperty() - $this->getTotalDiscountProperty();
     }
 
     public function selectProduct($id) {
@@ -144,6 +148,7 @@ class Show extends Component
                 'quantity' => $this->quantity,
                 'total' => $this->total,
                 'discount' => $this->discount,
+                'final' => $this->final,
                 'cash' => $this->cash,
                 'change' => $this->change,
                 'name' => $this->paymentType === 'card' ? strtolower($this->card['name']) : null,
@@ -181,7 +186,7 @@ class Show extends Component
 
     private function generateSaleStats() {
         $this->saleStats = POSInvoice::sale()->today()
-            ->select(DB::raw('method, sum(total) as total'))
+            ->select(DB::raw('method, sum(final) as total'))
             ->groupBy('method')
             ->get();
         $this->salesCash = $this->saleStats->where('method', 'cash')->sum('total');
@@ -191,7 +196,7 @@ class Show extends Component
 
     private function generateRefundStats() {
         $this->refundStats = POSInvoice::refund()->today()
-            ->select(DB::raw('method, sum(abs(total)) as total'))
+            ->select(DB::raw('method, sum(abs(final)) as total'))
             ->groupBy('method')
             ->get();
         $this->refundCash = $this->refundStats->where('method', 'cash')->sum('total');
