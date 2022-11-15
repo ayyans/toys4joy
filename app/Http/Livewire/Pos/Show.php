@@ -39,6 +39,10 @@ class Show extends Component
         return ($this->cash ?: 0) - $this->total;
     }
 
+    public function getTotalDiscountProperty() {
+        return array_reduce($this->products, fn($a, $p) => $a + ($p['price'] * $p['quantity']), 0) * (($this->discount ?: 0) / 100);
+    }
+
     public function getTotalProperty() {
         return array_reduce($this->products, fn($a, $p) => $a + ($p['price'] * $p['quantity']), 0) * (1 - (($this->discount ?: 0) / 100));
     }

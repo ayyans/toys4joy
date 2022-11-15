@@ -589,6 +589,15 @@
 
                     <tr class="tabletitle">
                         <td class="Rate">
+                            <h2>Total Discount / إجمالي الخصم</h2>
+                        </td>
+                        <td class="payment">
+                            <h2>{{ $this->totalDiscount }}</h2>
+                        </td>
+                    </tr>
+
+                    <tr class="tabletitle">
+                        <td class="Rate">
                             <h2>Total Amount / المبلغ الإجمالي</h2>
                         </td>
                         <td class="payment">
@@ -665,6 +674,17 @@
                                 <h2 class="my-0">{{ $cash }}</h2>
                             </td>
                             @endif
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                            <td>ㅤ</td>
+                        </tr>
+                        <tr class="midtext">
+                            <td>
+                                <h2 class="my-0">Discount / تخفيض</h2>
+                            </td>
+                            <td>
+                                <h2 class="my-0">{{ $this->discount }}%</h2>
+                            </td>
                             <td>ㅤ</td>
                             <td>ㅤ</td>
                             <td>ㅤ</td>
