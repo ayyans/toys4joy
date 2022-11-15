@@ -178,7 +178,7 @@
     </div>
     @elseif ($screen === 'auth')
     <div class="action-buttons fs-15 d-flex flex-column align-items-center mt-4">
-        <input type="password" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 py-3" placeholder="PASSWORD" wire:model.lazy="password">
+        <input type="password" class="focus-outline-none border-0 fs-15 text-center text-white fw-bolder rounded-lg shadow-sm btn-gold mb-3 py-3" placeholder="PASSWORD" wire:model.lazy="password">
         @if ($isPasswordError)
         <p class="text-danger">You have entered a wrong password</p>
         @endif
@@ -197,6 +197,15 @@
                 </td>
                 <td>
                     <input type="number" class="border-0 fs-25 text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="cash">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h1 class="fw-bolder w-250">Discount:</h1>
+                </td>
+                <td>
+                    <input type="number" class="border-0 fs-25 text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-75" wire:model="discount">
+                    <h1 class="d-inline-block fw-bolder">%</h1>
                 </td>
             </tr>
             @endif
@@ -251,6 +260,17 @@
                     <input type="text" class="focus-outline-none border-0 fs-20 outline-none text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.number">
                 </td>
             </tr>
+            @if ($isRefund === false)
+            <tr>
+                <td>
+                    <h1 class="fw-bolder w-250">Discount:</h1>
+                </td>
+                <td>
+                    <input type="number" class="focus-outline-none border-0 fs-25 outline-none text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-75" wire:model="discount">
+                    <h1 class="d-inline-block fw-bolder">%</h1>
+                </td>
+            </tr>
+            @endif
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Total:</h1>
