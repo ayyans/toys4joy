@@ -193,6 +193,22 @@
             @if ($isRefund === false)
             <tr>
                 <td>
+                    <h1 class="fw-bolder w-250">Name:</h1>
+                </td>
+                <td>
+                    <input type="number" class="border-0 fs-25 text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h1 class="fw-bolder w-250">Phone:</h1>
+                </td>
+                <td>
+                    <input type="number" class="border-0 fs-25 text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="phone">
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <h1 class="fw-bolder w-250">Cash:</h1>
                 </td>
                 <td>
@@ -249,7 +265,15 @@
                     <h1 class="fw-bolder w-250">Name:</h1>
                 </td>
                 <td>
-                    <input type="text" class="focus-outline-none border-0 fs-20 outline-none text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.name">
+                    <input type="text" class="focus-outline-none border-0 fs-20 outline-none text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h1 class="fw-bolder w-250">Phone:</h1>
+                </td>
+                <td>
+                    <input type="text" class="focus-outline-none border-0 fs-20 outline-none text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="phone">
                 </td>
             </tr>
             <tr>
@@ -513,6 +537,22 @@
                 @endif
                 <tr>
                     <td>
+                        <p class="itemtext mb-1">Name / اسم</p>
+                    </td>
+                    <td class="title">
+                        <p class="itemtext mb-1">{{ $name }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="itemtext mb-1">Phone / هاتف</p>
+                    </td>
+                    <td class="title">
+                        <p class="itemtext mb-1">{{ $phone }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <p class="itemtext mb-1">Date / تاريخ</p>
                     </td>
                     <td class="title">
@@ -758,17 +798,6 @@
                     </table>
                     @elseif ($paymentType === 'card')
                     <table>
-                        <tr class="midtext">
-                            <td>
-                                <h2 class="my-0">Card Name / اسم البطاقة</h2>
-                            </td>
-                            <td>
-                                <h2 class="my-0">{{ $card['name'] }}</h2>
-                            </td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
-                        </tr>
                         <tr class="midtext">
                             <td>
                                 <h2 class="my-0">Card Type / نوع البطاقة</h2>

@@ -16,7 +16,9 @@ class Show extends Component
     public $paymentType = null;
     public $cash = 0;
     public $discount = 0;
-    public $card = ['name' => '', 'type' => '', 'number' => ''];
+    public $name = null;
+    public $phone = null;
+    public $card = ['type' => '', 'number' => ''];
     public $isRefund = false;
     public $password = null;
     public $authRedirect = null;
@@ -151,7 +153,8 @@ class Show extends Component
                 'final' => $this->final,
                 'cash' => $this->cash,
                 'change' => $this->change,
-                'name' => $this->paymentType === 'card' ? strtolower($this->card['name']) : null,
+                'name' => $this->name,
+                'phone' => $this->phone,
                 'card' => $this->paymentType === 'card' ? strtolower($this->card['number']) : null,
             ]);
             // creating invoice products
@@ -242,8 +245,9 @@ class Show extends Component
         if ($this->isRefund) $this->inversePriceAndQuantity();
         $this->paymentType = $invoice->method === 'cash' ? 'cash' : 'card';
         $this->cash = $invoice->cash;
+        $this->name = $invoice->name;
+        $this->phone = $invoice->phone;
         $this->card = [
-            'name' => $invoice->name,
             'type' => $invoice->method,
             'number' => $invoice->card
         ];
