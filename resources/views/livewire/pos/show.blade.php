@@ -235,7 +235,7 @@
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print" wire:click="saveInvoice">Print</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print" wire:click="$set('screen', 'print')">Print</button>
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 ml-2" wire:click="discard">Cancel</button>
     </div>
     @elseif ($screen === 'card')
@@ -297,7 +297,7 @@
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
-        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print"wire:click="saveInvoice">Print</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print"wire:click="$set('screen', 'print')">Print</button>
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 ml-2" wire:click="discard">Cancel</button>
     </div>
     @elseif ($screen === 'x-report' || $screen === 'z-report')
@@ -354,6 +354,16 @@
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3 print" wire:click="discard">Print</button>
         <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2 py-3" wire:click="discard">Cancel</button>
     </div>
+    @elseif ($screen === 'print')
+    <div></div>
+    <div></div>
+    <h2 class="fw-bolder text-center text-dark">Did it print successfully ?</h1>
+    <div class="action-buttons d-flex justify-content-between mt-4">
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm py-3" wire:click="saveInvoice">Yes</button>
+        <button class="btn btn-gold flex-grow-1 text-dark fw-bolder shadow-sm ml-2 py-3" wire:click="discard">No</button>
+    </div>
+    <div></div>
+    <div></div>
     @elseif ($screen === 'reprint')
     <div class="action-buttons fs-15 d-flex flex-column align-items-center mt-4">
         <input type="text" class="border-0 fs-15 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 py-3" placeholder="INVOICE NUMBER" wire:model.lazy="invoiceNumber">
