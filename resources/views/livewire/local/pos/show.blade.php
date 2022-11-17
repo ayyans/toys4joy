@@ -196,7 +196,7 @@
                     <h1 class="fw-bolder w-250">Name:</h1>
                 </td>
                 <td>
-                    <input type="number" class="border-0 fs-25 text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="name">
+                    <input type="text" class="border-0 fs-25 text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="name">
                 </td>
             </tr>
             <tr>
@@ -204,7 +204,7 @@
                     <h1 class="fw-bolder w-250">Phone:</h1>
                 </td>
                 <td>
-                    <input type="number" class="border-0 fs-25 text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="phone">
+                    <input type="text" class="border-0 fs-25 text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="phone">
                 </td>
             </tr>
             <tr>
