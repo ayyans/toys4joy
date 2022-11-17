@@ -414,6 +414,10 @@
             color: #000;
             font-family: Arial, Helvetica, sans-serif;
         }
+        #invoice-POS * {
+            font-size: 14px;
+            font-weight: bold;
+        }
         #invoice-POS ::selection {
             background: #f31544;
             color: #FFF;
@@ -424,22 +428,22 @@
         }
 
         #invoice-POS h1 {
-            font-size: 1.7em;
+            /* font-size: 1.7em; */
         }
 
         #invoice-POS h2 {
-            font-size: 1.1em;
+            /* font-size: 1.1em; */
             font-weight: bold;
         }
 
         #invoice-POS h3 {
-            font-size: 1.4em;
+            /* font-size: 1.4em; */
             font-weight: 300;
             line-height: 2em;
         }
 
         #invoice-POS p {
-            font-size: .9em;
+            /* font-size: .9em; */
             line-height: 1.2em;
         }
 
@@ -461,7 +465,7 @@
         }
 
         #invoice-POS .tabletitle {
-            font-size: .7em;
+            /* font-size: .7em; */
         }
 
         #invoice-POS .service {
@@ -473,16 +477,17 @@
         }
 
         #invoice-POS .headtext {
-            font-size: 1em;
+            /* font-size: 1em; */
+            font-size: 18px;
         }
 
         #invoice-POS .midtext {
             /* font-size: .8em; */
-            font-size: .8em;
+            font-size: 16px;
         }
 
         #invoice-POS .itemtext {
-            font-size: .7em;
+            /* font-size: .7em; */
         }
 
         #invoice-POS .fw-bold {
@@ -529,43 +534,43 @@
                 @if (!$isReport)
                 <tr>
                     <td>
-                        <p class="itemtext mb-1">Invoice No / رقم الفاتورة</p>
+                        <h2 class="itemtext mb-1">Invoice No / رقم الفاتورة</h2>
                     </td>
                     <td class="title">
-                        <p class="itemtext mb-1">{{ $invoiceNumber }}</p>
+                        <h2 class="itemtext mb-1">{{ $invoiceNumber }}</h2>
                     </td>
                 </tr>
                 @endif
                 <tr>
                     <td>
-                        <p class="itemtext mb-1">Name / اسم</p>
+                        <h2 class="itemtext mb-1">Name / اسم</h2>
                     </td>
                     <td class="title">
-                        <p class="itemtext mb-1">{{ $name }}</p>
+                        <h2 class="itemtext mb-1">{{ $name }}</h2>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <p class="itemtext mb-1">Phone / هاتف</p>
+                        <h2 class="itemtext mb-1">Phone / هاتف</h2>
                     </td>
                     <td class="title">
-                        <p class="itemtext mb-1">{{ $phone }}</p>
+                        <h2 class="itemtext mb-1">{{ $phone }}</>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <p class="itemtext mb-1">Date / تاريخ</p>
+                        <h2 class="itemtext mb-1">Date / تاريخ</h2>
                     </td>
                     <td class="title">
-                        <p class="itemtext mb-1">{{ now()->format('d/m/y') }}</p>
+                        <h2 class="itemtext mb-1">{{ now()->format('d/m/y') }}</h2>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <p class="itemtext mb-1">Time / زمن</p>
+                        <h2 class="itemtext mb-1">Time / زمن</h2>
                     </td>
                     <td class="title">
-                        <p class="itemtext mb-1">{{ now()->format('H:i') }}</p>
+                        <h2 class="itemtext mb-1">{{ now()->format('H:i') }}</h2>
                     </td>
                 </tr>
             </table>
