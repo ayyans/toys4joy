@@ -50,7 +50,8 @@ class Show extends Component
     }
 
     public function getQuantityProperty() {
-        return array_reduce($this->products, fn($a, $p) => $a + $p['quantity'], 0);
+        return array_reduce($this->products, fn($a, $p) => $a + $p['quantity'], 0) *
+            ($this->isRefund ? -1 : 1);
     }
 
     public function getFinalProperty() {
@@ -218,7 +219,6 @@ class Show extends Component
             $p['price'] *= -1;
             return $p;
         }, $this->products);
-        $this->quantity *= -1;
     }
 
     private function generateInvoiceNumber(){
