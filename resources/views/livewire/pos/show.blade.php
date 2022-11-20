@@ -690,16 +690,16 @@
                     </tr>
                     @endif
                     @endif
-                </table>
 
-                <hr class="my-1">
-                <div class="text-center">
-                    <p class="fw-bold midtext mb-0">PAYMENT</p>
-                </div>
-                <hr class="my-1">
+                    <tr class="text-center">
+                        <td colspan="5">
+                            <hr class="my-1">
+                            <p class="fw-bold midtext mb-0">PAYMENT</p>
+                            <hr class="my-1">
+                        </td>
+                    </tr>
 
                 @if ($isReport)
-                <table>
                     <tr class="midtext">
                         <td>
                             <h2 class="my-0">Cash / نقدي</h2>
@@ -707,9 +707,6 @@
                         <td>
                             <h2 class="my-0">{{ $salesCash - ($screen === 'x-report' ? $refundCash : 0) }}</h2>
                         </td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
                     </tr>
                     <tr class="midtext">
                         <td>
@@ -718,9 +715,6 @@
                         <td>
                             <h2 class="my-0">{{ $salesCard }}</h2>
                         </td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
                     </tr>
                     @if ($screen === 'z-report')
                     <tr class="midtext">
@@ -730,9 +724,6 @@
                         <td>
                             <h2 class="my-0">{{ $refundTotal }}</h2>
                         </td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
                     </tr>
                     <tr class="midtext">
                         <td>
@@ -741,15 +732,10 @@
                         <td>
                             <h2 class="my-0">{{ $salesTotal - $refundTotal }}</h2>
                         </td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
-                        <td>ㅤ</td>
                     </tr>
                     @endif
-                </table>
                 @else
                     @if ($paymentType === 'cash')
-                    <table>
                         @if ($isRefund === false)
                         <tr class="midtext">
                             <td>
@@ -758,9 +744,6 @@
                             <td>
                                 <h2 class="my-0">{{ $cash }}</h2>
                             </td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
                         </tr>
                         <tr class="midtext">
                             <td>
@@ -769,9 +752,6 @@
                             <td>
                                 <h2 class="my-0">{{ $this->discount }}%</h2>
                             </td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
                         </tr>
                         @endif
                         <tr class="midtext">
@@ -781,9 +761,6 @@
                             <td>
                                 <h2 class="my-0">{{ $this->final }}</h2>
                             </td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
                         </tr>
                         @if ($isRefund === false)
                         <tr class="midtext">
@@ -793,14 +770,9 @@
                             <td>
                                 <h2 class="my-0">{{ $this->change }}</h2>
                             </td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
                         </tr>
                         @endif
-                    </table>
                     @elseif ($paymentType === 'card')
-                    <table>
                         <tr class="midtext">
                             <td>
                                 <h2 class="my-0">Card Type / نوع البطاقة</h2>
@@ -808,9 +780,6 @@
                             <td>
                                 <h2 class="my-0">{{ strtoupper($card['type']) }}</h2>
                             </td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
                         </tr>
                         <tr class="midtext">
                             <td>
@@ -819,13 +788,11 @@
                             <td>
                                 <h2 class="my-0">{{ $card['number'] }}</h2>
                             </td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
-                            <td>ㅤ</td>
                         </tr>
-                    </table>
                     @endif
                 @endif
+
+                </table>
 
                 <hr class="my-1">
             </div>
