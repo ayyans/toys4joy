@@ -35,7 +35,11 @@ class Show extends Component
     public $refundTotal = 0;
     public $isReprint = false;
 
-    protected $listeners = ['addProduct', 'selectProduct'];
+    protected $listeners = [
+        'refreshComponent' => '$refresh',
+        'addProduct',
+        'selectProduct'
+    ];
 
     public function getChangeProperty() {
         return ($this->cash ?: 0) - $this->final;
@@ -169,9 +173,10 @@ class Show extends Component
             // }
         }
         // reseting everything
-        $this->reset('products');
-        $this->discard();
-        $this->mount();
+        // $this->reset('products');
+        // $this->discard();
+        // $this->mount();
+        return redirect()->route('admin.local.pos.point-of-sale')->with('refresh', true);
     }
 
     public function xReport() {

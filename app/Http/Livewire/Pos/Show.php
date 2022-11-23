@@ -169,9 +169,10 @@ class Show extends Component
             }
         }
         // reseting everything
-        $this->reset('products');
-        $this->discard();
-        $this->mount();
+        // $this->reset('products');
+        // $this->discard();
+        // $this->mount();
+        return redirect()->route('admin.pos.point-of-sale');
     }
 
     public function xReport() {
