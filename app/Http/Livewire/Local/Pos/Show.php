@@ -152,7 +152,7 @@ class Show extends Component
             //     'invoice_number' => $this->invoiceNumber,
             //     'type' => $this->isRefund ? 'refund' : 'sale',
             //     'method' => $this->paymentType === 'cash' ? 'cash' : strtolower($this->card['type']),
-            //     'quantity' => $this->quantity,
+            //     'quantity' => $this->quantity ?: array_reduce($this->products, fn($a, $p) => $a + $p['quantity'], 0) * ($this->isRefund ? -1 : 1),
             //     'total' => $this->total,
             //     'discount' => $this->discount,
             //     'final' => $this->final,
