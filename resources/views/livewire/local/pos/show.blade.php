@@ -217,6 +217,7 @@
                     <input type="number" class="border-0 fs-25 text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="cash">
                 </td>
             </tr>
+            @endif
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Discount:</h1>
@@ -226,6 +227,7 @@
                     <h1 class="d-inline-block fw-bolder">%</h1>
                 </td>
             </tr>
+            @if ($isRefund === false)
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Change:</h1>
@@ -243,7 +245,6 @@
                     <h1 class="fw-bolder">{{ $this->total }}</h1>
                 </td>
             </tr>
-            @if ($isRefund === false)
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Final:</h1>
@@ -252,7 +253,6 @@
                     <h1 class="fw-bolder">{{ $this->final }}</h1>
                 </td>
             </tr>
-            @endif
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
@@ -294,7 +294,6 @@
                     <input type="text" class="focus-outline-none border-0 fs-20 outline-none text-center text-light fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.number">
                 </td>
             </tr>
-            @if ($isRefund === false)
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Discount:</h1>
@@ -304,7 +303,6 @@
                     <h1 class="d-inline-block fw-bolder">%</h1>
                 </td>
             </tr>
-            @endif
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Total:</h1>
@@ -313,7 +311,6 @@
                     <h1 class="fw-bolder">{{ $this->total }}</h1>
                 </td>
             </tr>
-            @if ($isRefund === false)
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Final:</h1>
@@ -322,7 +319,6 @@
                     <h1 class="fw-bolder">{{ $this->final }}</h1>
                 </td>
             </tr>
-            @endif
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
@@ -683,7 +679,6 @@
                         </td>
                     </tr>
 
-                    @if ($isRefund === false)
                     <tr class="tabletitle">
                         <td class="Rate">
                             <h2>Total Discount / إجمالي الخصم</h2>
@@ -701,7 +696,6 @@
                             <h2>{{ $this->final }}</h2>
                         </td>
                     </tr>
-                    @endif
                     @endif
 
                     <tr class="text-center">
@@ -757,10 +751,8 @@
                             <td>
                                 <h2 class="my-0">{{ $cash }}</h2>
                             </td>
-
-
-
                         </tr>
+                        @endif
                         <tr class="midtext">
                             <td>
                                 <h2 class="my-0">Discount / تخفيض</h2>
@@ -772,7 +764,6 @@
 
 
                         </tr>
-                        @endif
                         <tr class="midtext">
                             <td>
                                 <h2 class="my-0">Total / المجموع</h2>
