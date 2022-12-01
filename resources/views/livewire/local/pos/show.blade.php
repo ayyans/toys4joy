@@ -44,7 +44,6 @@
 
     .checkout-container {
         background-color: var(--secondary-background);
-        
         border-radius: 30px;
     }
 
@@ -519,6 +518,14 @@
         #invoice-POS .text-center {
             text-align: center
         }
+
+        #invoice-POS .w-50 {
+            width: 50px;
+        }
+
+        #invoice-POS .w-80 {
+            width: 80px;
+        }
     </style>
     <div id="invoice-POS">
         <center id="top">
@@ -590,19 +597,19 @@
                 <table>
                     @if ($screen !== 'x-report')
                     <tr class="tabletitle">
-                        <td class="Code">
+                        <td class="Code w-80">
                             <h2>Code</h2>
                         </td>
                         <td class="item">
                             <h2>Name</h2>
                         </td>
-                        <td class="Qty text-center">
+                        <td class="Qty text-center w-50">
                             <h2>Qty</h2>
                         </td>
-                        <td class="Price text-center">
+                        <td class="Price text-center w-50">
                             <h2>Price</h2>
                         </td>
-                        <td class="Total text-center">
+                        <td class="Total text-center w-50">
                             <h2>Total</h2>
                         </td>
                     </tr>
@@ -630,19 +637,19 @@
                     @else
                         @foreach ($products as $product)
                         <tr class="service">
-                            <td class="tableitem">
+                            <td class="tableitem w-80">
                                 <p class="itemtext mb-0 py-1">{{ $product['code'] }}</p>
                             </td>
                             <td class="tableitem">
                                 <p class="itemtext mb-0 py-1">{{ $product['name'] }}</p>
                             </td>
-                            <td class="tableitem">
+                            <td class="tableitem w-50">
                                 <p class="itemtext mb-0 py-1 text-center">{{ $product['quantity'] }}</p>
                             </td>
-                            <td class="tableitem">
+                            <td class="tableitem w-50">
                                 <p class="itemtext mb-0 py-1 text-center">{{ $product['price'] }}</p>
                             </td>
-                            <td class="tableitem">
+                            <td class="tableitem w-50">
                                 <p class="itemtext mb-0 py-1 text-center">{{ $product['price'] * $product['quantity'] }}</p>
                             </td>
                         </tr>

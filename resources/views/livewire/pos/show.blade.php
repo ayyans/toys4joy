@@ -212,6 +212,7 @@
                     <input type="number" class="border-0 fs-25 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="cash">
                 </td>
             </tr>
+            @endif
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Discount:</h1>
@@ -221,6 +222,7 @@
                     <h1 class="d-inline-block fw-bolder">%</h1>
                 </td>
             </tr>
+            @if ($isRefund === false)
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Change:</h1>
@@ -238,7 +240,6 @@
                     <h1 class="fw-bolder">{{ $this->total }}</h1>
                 </td>
             </tr>
-            @if ($isRefund === false)
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Final:</h1>
@@ -247,7 +248,6 @@
                     <h1 class="fw-bolder">{{ $this->final }}</h1>
                 </td>
             </tr>
-            @endif
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
@@ -289,7 +289,6 @@
                     <input type="text" class="border-0 fs-20 text-center fw-bolder rounded-lg shadow-sm btn-gold mb-3 w-100" wire:model="card.number">
                 </td>
             </tr>
-            @if ($isRefund === false)
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Discount:</h1>
@@ -299,7 +298,6 @@
                     <h1 class="d-inline-block fw-bolder">%</h1>
                 </td>
             </tr>
-            @endif
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Total:</h1>
@@ -308,7 +306,6 @@
                     <h1 class="fw-bolder">{{ $this->total }}</h1>
                 </td>
             </tr>
-            @if ($isRefund === false)
             <tr>
                 <td>
                     <h1 class="fw-bolder w-250">Final:</h1>
@@ -317,7 +314,6 @@
                     <h1 class="fw-bolder">{{ $this->final }}</h1>
                 </td>
             </tr>
-            @endif
         </table>
     </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
@@ -516,6 +512,14 @@
         #invoice-POS .text-center {
             text-align: center
         }
+
+        #invoice-POS .w-50 {
+            width: 50px;
+        }
+
+        #invoice-POS .w-80 {
+            width: 80px;
+        }
     </style>
     <div id="invoice-POS">
         <center id="top">
@@ -587,19 +591,19 @@
                 <table>
                     @if ($screen !== 'x-report')
                     <tr class="tabletitle">
-                        <td class="Code">
+                        <td class="Code w-80">
                             <h2>Code</h2>
                         </td>
                         <td class="item">
                             <h2>Name</h2>
                         </td>
-                        <td class="Qty text-center">
+                        <td class="Qty text-center w-50">
                             <h2>Qty</h2>
                         </td>
-                        <td class="Price text-center">
+                        <td class="Price text-center w-50">
                             <h2>Price</h2>
                         </td>
-                        <td class="Total text-center">
+                        <td class="Total text-center w-50">
                             <h2>Total</h2>
                         </td>
                     </tr>
@@ -627,19 +631,19 @@
                     @else
                         @foreach ($products as $product)
                         <tr class="service">
-                            <td class="tableitem">
+                            <td class="tableitem w-80">
                                 <p class="itemtext mb-0 py-1">{{ $product['code'] }}</p>
                             </td>
                             <td class="tableitem">
                                 <p class="itemtext mb-0 py-1">{{ $product['name'] }} / {{ $product['arabic_name'] }}</p>
                             </td>
-                            <td class="tableitem">
+                            <td class="tableitem w-50">
                                 <p class="itemtext mb-0 py-1 text-center">{{ $product['quantity'] }}</p>
                             </td>
-                            <td class="tableitem">
+                            <td class="tableitem w-50">
                                 <p class="itemtext mb-0 py-1 text-center">{{ $product['price'] }}</p>
                             </td>
-                            <td class="tableitem">
+                            <td class="tableitem w-50">
                                 <p class="itemtext mb-0 py-1 text-center">{{ $product['price'] * $product['quantity'] }}</p>
                             </td>
                         </tr>
@@ -670,7 +674,6 @@
                         </td>
                     </tr>
 
-                    @if ($isRefund === false)
                     <tr class="tabletitle">
                         <td class="Rate">
                             <h2>Total Discount / إجمالي الخصم</h2>
@@ -688,7 +691,6 @@
                             <h2>{{ $this->final }}</h2>
                         </td>
                     </tr>
-                    @endif
                     @endif
 
                     <tr class="text-center">
@@ -745,6 +747,7 @@
                                 <h2 class="my-0">{{ $cash }}</h2>
                             </td>
                         </tr>
+                        @endif
                         <tr class="midtext">
                             <td>
                                 <h2 class="my-0">Discount / تخفيض</h2>
@@ -753,7 +756,6 @@
                                 <h2 class="my-0">{{ $this->discount }}%</h2>
                             </td>
                         </tr>
-                        @endif
                         <tr class="midtext">
                             <td>
                                 <h2 class="my-0">Total / المجموع</h2>
