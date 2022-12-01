@@ -163,6 +163,9 @@
     <div class="text-center mt-4">
         <input type="number" class="border-0 py-3 text-center text-white fw-bolder rounded-lg shadow-sm btn-gold fs-20" wire:model.lazy="updatedQuantity">
     </div>
+    <div class="text-center mt-4">
+        <input type="number" class="border-0 py-3 text-center text-white fw-bolder rounded-lg shadow-sm btn-gold fs-20" wire:model.lazy="updatedPrice">
+    </div>
     <div class="action-buttons d-flex justify-content-between mt-4">
         <button class="btn btn-gold flex-grow-1 text-light fw-bolder shadow-sm py-3" wire:click="saveEdit">OK</button>
         <button class="btn btn-gold flex-grow-1 text-light fw-bolder shadow-sm ml-2 py-3" wire:click="discard">Cancel</button>
