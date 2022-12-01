@@ -738,7 +738,7 @@ public function deleteBrands(Request $request){
                 return [
                     'date' => $product->created_at->toDateString(),
                     'invoice_number' => $product->invoice_number,
-                    'total' => $product->total,
+                    'total' => $product->final,
                     'type' => strtoupper($product->method),
                     'quantity' => $product->quantity,
                 ];
@@ -774,7 +774,7 @@ public function deleteBrands(Request $request){
                 return [
                     'date' => $product->created_at->toDateString(),
                     'invoice_number' => $product->invoice_number,
-                    'total' => abs($product->total),
+                    'total' => abs($product->final),
                     'type' => strtoupper($product->method),
                     'quantity' => abs($product->quantity),
                 ];
