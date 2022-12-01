@@ -84,7 +84,7 @@
                                                 class="dropdown-item">Edit</a></li>
 
                                         <li><a href="{{route('admin.deleteprod',[encrypt($product->id)])}}"
-                                                class="dropdown-item">Delete</a></li>
+                                                class="dropdown-item" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a></li>
                                     </ul>
                                 </div>
                             </td>
