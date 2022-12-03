@@ -84,8 +84,8 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">Unit</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control addprodfrm" name="unit"
-                                    placeholder="Unit (e.g. KG, Pc etc)" required="" />
+                                <input type="text" class="form-control" name="unit"
+                                    placeholder="Unit (e.g. KG, Pc etc)" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -232,7 +232,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">Short Description</label>
                             <div class="col-md-8">
-                                <textarea class="form-control addprodfrm" name="shortdescription" rows="5"></textarea>
+                                <textarea class="form-control" name="shortdescription" rows="5"></textarea>
 
                             </div>
                         </div>
