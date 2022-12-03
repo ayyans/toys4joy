@@ -48,22 +48,22 @@
                             <label>{{__('trans.Email Address')}} (optional)</label>
                             <input type="email" name="email">
                         </div>
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label>{{__('trans.Unit Number')}} (optional)</label>
                             <input type="number" name="unit_no">
-                        </div>
-                        <div class="mb-3">
+                        </div> --}}
+                        {{-- <div class="mb-3">
                             <label>{{__('trans.Building Number')}} (optional)</label>
                             <input type="number" name="building_no">
-                        </div>
-                        <div class="mb-3">
+                        </div> --}}
+                        {{-- <div class="mb-3">
                             <label>{{__('trans.Zone')}} (optional)</label>
                             <input type="number" name="zone">
-                        </div>
-                        <div class="mb-3">
+                        </div> --}}
+                        {{-- <div class="mb-3">
                             <label>{{__('trans.Street')}} (optional)</label>
                             <input type="number" name="street">
-                        </div>
+                        </div> --}}
                         <p>{{__('trans.Note: One of our team member will contact you shortly to get your location & necessary information.')}}</p>
                     </div>
                 </form>
