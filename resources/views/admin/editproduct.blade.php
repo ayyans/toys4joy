@@ -90,7 +90,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">Unit</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control addprodfrm" name="unit" placeholder="Unit (e.g. KG, Pc etc)" required="" value="{{$products->unit}}"/>
+                                <input type="text" class="form-control" name="unit" placeholder="Unit (e.g. KG, Pc etc)" required="" value="{{$products->unit}}"/>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -228,7 +228,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">Short Description</label>
                             <div class="col-md-8">
-                                <textarea class="form-control addprodfrm" name="shortdescription" rows="5">{{$products->short_desc}}</textarea>
+                                <textarea class="form-control" name="shortdescription" rows="5">{{$products->short_desc}}</textarea>
                                
                             </div>
                         </div>
