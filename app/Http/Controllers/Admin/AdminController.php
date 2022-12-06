@@ -826,8 +826,55 @@ public function deleteBrands(Request $request){
     // products
 
     public function products(){
-        $products = Product::with('brand')->latest()->get();
-        return view('admin.products',compact('products'));
+        // $products = Product::with('brand')->latest()->get();
+        // return view('admin.products',compact('products'));
+        return view('admin.products');
+    }
+
+    public function getProducts() {
+        $columns = request()->columns;
+        $order = request()->order;
+        $orderColumn = $columns[$order[0]['column']]['data'];
+        $orderDirection = $order[0]['dir'];
+
+        $products = Product::with('brand')
+            ->select('id', 'url', 'brand_id', 'sku', 'barcode', 'title', 'new_arrival', 'best_seller', 'best_offer', 'unit_price', 'discount', 'qty', 'status')
+            ->orderBy($orderColumn, $orderDirection)
+            ->latest();
+
+        return datatables()->eloquent($products)
+            ->addColumn('brand', fn ($p) => $p->brand->brand_name)
+            ->addColumn('new_arrival', function($product) {
+                return sprintf(
+                    '<input type="checkbox" data-url="%s" data-id="%d" class="featured_type_checkbox" %s>',
+                    route('admin.changeProductFeaturedType', ['product' => $product->id, 'type' => 'new_arrival']),
+                    $product->id, $product->new_arrival ? 'checked' : ''
+                );
+            })
+            ->addColumn('best_seller', function($product) {
+                return sprintf(
+                    '<input type="checkbox" data-url="%s" data-id="%d" class="featured_type_checkbox" %s>',
+                    route('admin.changeProductFeaturedType', ['product' => $product->id, 'type' => 'best_seller']),
+                    $product->id, $product->best_seller ? 'checked' : ''
+                );
+            })
+            ->addColumn('best_offer', function($product) {
+                return sprintf(
+                    '<input type="checkbox" data-url="%s" data-id="%d" class="featured_type_checkbox" %s>',
+                    route('admin.changeProductFeaturedType', ['product' => $product->id, 'type' => 'best_offer']),
+                    $product->id, $product->best_offer ? 'checked' : ''
+                );
+            })
+            ->addColumn('status', function($product) {
+                return sprintf(
+                    '<div class="badge %s">%s</div>',
+                    $product->status == 1 ? 'badge-danger' : 'badge-success',
+                    $product->status == 1 ? 'Inactive' : 'Active'
+                );
+            })
+            ->addColumn('actions', 'admin.datatables.products_index_actions')
+            ->rawColumns(['new_arrival', 'best_seller', 'best_offer', 'status', 'actions'])
+            ->toJson();
     }
 
     public function bulkUploadProducts() {

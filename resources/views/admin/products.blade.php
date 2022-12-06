@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                {{-- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Product ID</th>
@@ -91,6 +91,28 @@
                         </tr>
                         @endforeach
                     </tbody>
+                </table> --}}
+
+                <table class="table table-bordered datatable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>SKU</th>
+                            <th>Barcode</th>
+                            <th>Name</th>
+                            <th>Brand</th>
+                            <th>New Arrival</th>
+                            <th>Best Seller</th>
+                            <th>Best Offer</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -101,8 +123,32 @@
 
 @push('otherscript')
     <script>
+        // datatables
+        $('.datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            order: [[ 0, 'desc' ]],
+            ajax: "{{ route('admin.getProducts') }}",
+            columns: [
+                {data: 'id', name: 'id'},
+                {data: 'sku', name: 'sku'},
+                {data: 'barcode', name: 'barcode'},
+                {data: 'title', name: 'title'},
+                {data: 'brand', name: 'brand'},
+                {data: 'new_arrival', name: 'new_arrival'},
+                {data: 'best_seller', name: 'best_seller'},
+                {data: 'best_offer', name: 'best_offer'},
+                {data: 'unit_price', name: 'unit_price'},
+                {data: 'discount', name: 'discount'},
+                {data: 'qty', name: 'qty'},
+                {data: 'status', name: 'status'},
+                {data: 'actions', name: 'actions'},
+            ]
+        });
+
+        // featured functionality
         $(function() {
-            $('#dataTable').on('click', '.featured_type_checkbox', function() {
+            $('.dataTable').on('click', '.featured_type_checkbox', function() {
                 const url = $(this).data('url');
                 const id = $(this).data('id');
                 const status = $(this).is(':checked');
