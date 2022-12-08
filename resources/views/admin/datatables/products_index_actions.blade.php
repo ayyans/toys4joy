@@ -7,14 +7,14 @@
   </button>
   <ul class="dropdown-menu" role="menu">
       <li><a href="{{ route('website.productDetails', $url) }}" class="dropdown-item" target="_blank">View</a></li>
-      @if($status==1)
+      {{-- @if($status==1)
 
       <li><a href="{{route('admin.activateProd',[encrypt($id)])}}"
               class="dropdown-item">Activate</a></li>
       @elseif($status==2)
       <li><a href="{{route('admin.deactivateprod',[encrypt($id)])}}"
               class="dropdown-item">Deactivate</a></li>
-      @endif
+      @endif --}}
       <li><a href="{{route('admin.editproducts',[encrypt($id)])}}"
               class="dropdown-item">Edit</a></li>
 

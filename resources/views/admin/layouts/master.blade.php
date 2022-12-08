@@ -21,6 +21,7 @@
     <link href="{{asset('dashboard/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link href="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
    
     @stack('otherstyle')
     
@@ -118,6 +119,7 @@
     <script src="{{asset('dashboard/js/demo/datatables-demo.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script>
         $(document).ready(function() {
             toastr.options.timeOut = 10000; 

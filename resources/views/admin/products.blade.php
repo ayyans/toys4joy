@@ -170,5 +170,31 @@
                 });
             });
         });
+
+        // toggle status functionality
+        $('.datatable').on('init.dt', function() {
+            $('.switch-toggle').bootstrapToggle()
+                .on('change', function() {
+                    const url = $(this).data('url');
+                    const id = $(this).data('id');
+                    const status = $(this).is(':checked') ? 2 : 1;
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ status })
+                    })
+                    .then(res => res.json())
+                    .then(res => {
+                        if (res.status) {
+                            toastr.success(`Product #${id} status changed!`);
+                        } else {
+                            toastr.error(`Error in changing Product #${id} status!`);
+                        }
+                    });
+                });
+        });
     </script>
 @endpush

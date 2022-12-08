@@ -866,10 +866,17 @@ public function deleteBrands(Request $request){
                 );
             })
             ->addColumn('status', function($product) {
+                // return sprintf(
+                //     '<div class="badge %s">%s</div>',
+                //     $product->status == 1 ? 'badge-danger' : 'badge-success',
+                //     $product->status == 1 ? 'Inactive' : 'Active'
+                // );
+
                 return sprintf(
-                    '<div class="badge %s">%s</div>',
-                    $product->status == 1 ? 'badge-danger' : 'badge-success',
-                    $product->status == 1 ? 'Inactive' : 'Active'
+                    '<div class="mt-1"><input type="checkbox" class="switch-toggle" %s data-url="%s" data-id="%d" data-size="sm" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger"></div>',
+                    $product->status == 2 ? 'checked' : '',
+                    route('admin.changeProductStatus', ['product' => $product->id]),
+                    $product->id
                 );
             })
             ->addColumn('actions', 'admin.datatables.products_index_actions')
@@ -2161,6 +2168,16 @@ public function editProcess(Request $request){
     public function changeProductFeaturedType(Request $request, Product $product, $type) {
         $status = $product->update([
             $type => $request->status
+        ]);
+
+        return response()->json([
+            'status' => $status
+        ]);
+    }
+
+    public function changeProductStatus(Request $request, Product $product) {
+        $status = $product->update([
+            'status' => $request->status
         ]);
 
         return response()->json([
