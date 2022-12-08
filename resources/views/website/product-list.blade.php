@@ -28,13 +28,13 @@
                     @if($product->qty == 0)
                     <div class="availbility"><span>{{__('trans.Out of Stock')}}</span></div>
                     @elseif($product->best_offer)
-                    {{-- @php
+                    @php
                       $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
-                    @endphp --}}
-                    {{-- <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div> --}}
-                    <div class="availbility"><span>Special Price</span></div>
+                    @endphp
+                    <div class="availbility"><span>SALE {{ round($percent, 2) }}% OFF</span></div>
+                    {{-- <div class="availbility"><span>Special Price</span></div> --}}
                     @endif
-                    <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img class="lazyload" data-src="{{asset('products/'.$product->featured_img)}}" src="{{asset('products/'.$product->featured_img)}}"/></a></div>
+                    <div class="img-block" style="margin-top: 20px;"><a href="{{ url('product') }}/{{ $product->url }}"><img class="lazyload" data-src="{{asset('products/'.$product->featured_img)}}" src="{{asset('products/'.$product->featured_img)}}"/></a></div>
                     <div class="text-center content-block">
                          @php
                         $name=$product->title;
