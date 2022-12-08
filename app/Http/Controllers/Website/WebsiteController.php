@@ -1242,7 +1242,7 @@ public function giftcard() {
     
 
     public function products(Request $request) {
-        $products = Product::query();
+        $products = Product::active();
 
         if ($request->has('24months')) {
             $products->where('recommended_age', '<=', 24);
@@ -1282,9 +1282,11 @@ public function giftcard() {
         $categories = Category::query();
         $subCategories = SubCategory::with(['parentCategory' => fn($q) => $q->select('id', 'url')]);
         $request->whenFilled('search', function($search) use ($products, $categories, $subCategories) {
-            $products->where('title', 'LIKE', "%$search%")
-                ->orWhere('barcode', 'LIKE', "%$search%")
-                ->orWhere('sku', 'LIKE', "%$search%");
+            $products->where(function($q) use ($search) {
+                $q->where('title', 'LIKE', "%$search%")
+                    ->orWhere('barcode', 'LIKE', "%$search%")
+                    ->orWhere('sku', 'LIKE', "%$search%");
+            });
             $categories = $categories->where('category_name', 'LIKE', "%{$search}%");
             $subCategories = $subCategories->where('subcat_name', 'LIKE', "%{$search}%");
         });
