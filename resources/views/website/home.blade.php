@@ -146,7 +146,7 @@
 </div>
 <div class="col-md-8 middle-col mt-3">
   <!--seection-->
-<div class="section-title"><h3>{{ __('trans.Best Seller') }}</h3></div>
+<div class="section-title"><h3>{{ __('trans.Sale up to 60%') }}</h3></div>
 <div class="row">
 <div class="owl-carousel-features owl-carousel owl-theme" style="direction:ltr;">
 @foreach($bestsellers as $product)
@@ -154,13 +154,13 @@
       @if($product->qty == 0)
       <div class="availbility"><span>Out of Stock</span></div>
       @elseif($product->best_offer)
-      {{-- @php
+      @php
         $percent = (($product->unit_price - $product->discount)*100) /$product->unit_price ;
-      @endphp --}}
-      {{-- <div class="availbility"><span>{{ number_format((float)$percent, 2, '.', '') }}% OFF </span></div> --}}
-      <div class="availbility"><span>Special Price</span></div>
+      @endphp
+      <div class="availbility"><span>SALE {{ round($percent, 2) }}% OFF</span></div>
+      {{-- <div class="availbility"><span>Special Price</span></div> --}}
       @endif
-      <div class="img-block"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}" class="lazyload" data-src="{{asset('products/'.$product->featured_img)}}"/></a></div>
+      <div class="img-block" style="margin-top: 20px;"><a href="{{ url('product') }}/{{ $product->url }}"><img src="{{asset('products/'.$product->featured_img)}}" class="lazyload" data-src="{{asset('products/'.$product->featured_img)}}"/></a></div>
       <div class="text-center content-block">
           <h3>{{$product->title}}</h3>
           <div class="d-flex price-cart">
