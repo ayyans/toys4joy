@@ -1397,7 +1397,7 @@ public function returnItemProceed(Order $order, OrderItem $item) {
 
 public function custOrders(){
     $orders = Order::with(['user', 'address'])
-        ->whereNotNull('user_id')
+        // ->whereNotNull('user_id')
         ->where('is_wishlist', false)
         ->where('additional_details->is_abandoned', false)
         ->get();

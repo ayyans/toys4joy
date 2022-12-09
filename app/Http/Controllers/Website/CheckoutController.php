@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\DB;
 class CheckoutController extends Controller
 {
     public function placeOrder(Request $request) {
+        if (cart()->getSubTotal() == 0) {
+            return redirect()->route('website.home');
+        }
+
         $items = cart()->getContent();
         $order_number = generateOrderNumber();
         $address_id = auth()->check() ? auth()->user()->address->id : null;
