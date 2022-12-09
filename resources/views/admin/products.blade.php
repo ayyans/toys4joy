@@ -172,7 +172,7 @@
         });
 
         // toggle status functionality
-        $('.datatable').on('init.dt', function() {
+        $('.datatable').on('draw.dt', function() {
             $('.switch-toggle').bootstrapToggle()
                 .on('change', function() {
                     const url = $(this).data('url');
