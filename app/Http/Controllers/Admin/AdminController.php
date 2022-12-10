@@ -1402,7 +1402,9 @@ public function custOrders(){
         ->where('additional_details->is_abandoned', false)
         ->get();
     // mark new orders is_new to false
-    Order::whereNotNull('user_id')->where('is_wishlist', false)->where('additional_details->is_new', true)->update([
+    Order::where('is_wishlist', false)
+        // ->whereNotNull('user_id')
+        ->where('additional_details->is_new', true)->update([
         'additional_details->is_new' => false
     ]);
     return view('admin.order', compact('orders'));

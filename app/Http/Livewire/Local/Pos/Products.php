@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Local\Pos;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Products extends Component
@@ -11,7 +12,7 @@ class Products extends Component
 
     public function getProductsProperty()
     {
-        return Product::select('id', 'title as name', 'unit_price as price', 'sku as code')
+        return Product::select('id', 'title as name', DB::raw('case when discount = 0 then unit_price else discount end as price'), 'sku as code')
             ->where('title', 'LIKE', "%$this->search%")
             ->orWhere('barcode', 'LIKE', "%$this->search%")
             ->orWhere('sku', 'LIKE', "%$this->search%")
