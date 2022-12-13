@@ -4748,3 +4748,7 @@ main#company-policy .col-5, main#company-policy .col-2 {width: 100%;}
         transform:scale(1.2);
     }
 }
+
+.wishlist-hover-background {
+    background-color: #d52a65 !important;
+}

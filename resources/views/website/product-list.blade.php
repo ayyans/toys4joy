@@ -55,7 +55,7 @@
                               <span class="card-action d-flex mr-1">
                           <i class="fa fa-shopping-cart" onclick="addtocart({{$product->id}},1,{{$product->unit_price}})"></i>
                           @if(Auth::check())
-                          <i class="fa @if(DB::table('wishlists')->where('cust_id' , Auth::user()->id)->where('prod_id' , $product->id)->count() > 0) fa-heart @else fa-heart-o @endif wishlist-list addtowishlist{{ $product->id }}" id="addwishlist" onclick="addtowishlist({{$product->id}})"></i>
+                          <i class="fa @if(DB::table('wishlists')->where('cust_id' , Auth::user()->id)->where('prod_id' , $product->id)->count() > 0) fa-heart wishlist-hover-background @else fa-heart-o @endif wishlist-list addtowishlist{{ $product->id }}" id="addwishlist" onclick="addtowishlist({{$product->id}})"></i>
                           @else
                           <a href="{{ url('login') }}">
                           <i class="fa fa-heart-o wishlist-list"></i>

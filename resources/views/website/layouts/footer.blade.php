@@ -163,8 +163,8 @@
                 var js_data = JSON.parse(JSON.stringify(res));
                 if(js_data.status==200){
                     toastr.success('Product added to wishlist');
-                    $('.addtowishlist'+id).removeClass('fa-heart-o');
-                    $('.addtowishlist'+id).addClass('fa-heart');
+                    $('.addtowishlist'+id).removeClass('fa-heart-o wishlist-hover-background');
+                    $('.addtowishlist'+id).addClass('fa-heart wishlist-hover-background');
                 }else if(js_data.msg=='3'){
                     toastr.error('product already added in wishlist');
                     return false; 
