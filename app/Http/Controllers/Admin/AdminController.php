@@ -298,7 +298,7 @@ class AdminController extends Controller
     }
 
     public function cateProcess(Request $request){
-        $exist_ct = Category::where('category_name','=',$request->catname)->count();
+        $exist_ct = Category::where('category_name','=',$request->catname['en'])->count();
         if($exist_ct>0){
             return back()->with('category already exist');
         }else{
@@ -311,7 +311,7 @@ class AdminController extends Controller
 
              $category = new Category;
              $category->category_name=$request->catname;
-             $category->url = $this->shorten_url($request->catname);
+             $category->url = $this->shorten_url($request->catname['en']);
              $category->category_type=$request->catType;
              $category->cat_banner=$catBanner;
              $category->cat_icon=$catIcon;
@@ -406,14 +406,14 @@ class AdminController extends Controller
     // add sub category
 
     public function SubcateProcess(Request $request){
-        $exist_ct = SubCategory::where('subcat_name','=',$request->catname)->count();
+        $exist_ct = SubCategory::where('subcat_name','=',$request->catname['en'])->count();
         if($exist_ct>0){
             return back()->with('Sub-category already exist');
         }else{            
              $category = new SubCategory;
              $category->subcat_name=$request->catname;
              $category->parent_cat=$request->parent_cat;
-             $category->url = $this->shorten_url($request->catname);       
+             $category->url = $this->shorten_url($request->catname['en']);       
              $category->save();
              if($category==true){
                  return back()->with('success','Sub-category added successfull');

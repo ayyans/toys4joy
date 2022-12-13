@@ -14,10 +14,18 @@
                         <input type="hidden" name="catid" value="{{$cat->id}}" />
                         <div class="row form-group">
                             <div class="col-lg-3">
-                                <label>Category Name</label>
+                                <label>Category Name (English)</label>
                             </div>
                             <div class="col-lg-9">
-                                <input type="text" class="form-control categoriesfrm" placeholder="write here category name" name="catname" value="{{$cat->category_name}}"/>
+                                <input type="text" class="form-control categoriesfrm" placeholder="write here category name" name="catname[en]" value="{{ $cat->getTranslation('category_name', 'en') }}"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-lg-3">
+                                <label>Category Name (Arabic)</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control categoriesfrm" placeholder="write here category name" name="catname[ar]" value="{{ $cat->getTranslation('category_name', 'ar') }}"/>
                             </div>
                         </div>
                         <div class="row form-group">
