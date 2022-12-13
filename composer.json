@@ -18,6 +18,7 @@
         "livewire/livewire": "^2.10",
         "maatwebsite/excel": "^3.1",
         "opcodesio/log-viewer": "^1.2",
+        "spatie/laravel-translatable": "5.2.0",
         "stripe/stripe-php": "^8.5",
         "twilio/sdk": "^6.37",
         "yajra/laravel-datatables-oracle": "9.*"

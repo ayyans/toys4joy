@@ -378,9 +378,10 @@ class AdminController extends Controller
     // subcategory 
 
     public function subcategories(){
-        $subcategories = SubCategory::leftJoin('categories','categories.id','=','sub_categories.parent_cat')
-        ->select('sub_categories.*','category_name')
-        ->orderBy('sub_categories.id','desc')->get();
+        // $subcategories = SubCategory::leftJoin('categories','categories.id','=','sub_categories.parent_cat')
+        // ->select('sub_categories.*','category_name')
+        // ->orderBy('sub_categories.id','desc')->get();
+        $subcategories = SubCategory::with('parentCategory')->latest()->get();
         $categories = Category::where('status','=','2')->orderBy('id','desc')->get();
         return view('admin.subcategories',compact('subcategories','categories'));
     }

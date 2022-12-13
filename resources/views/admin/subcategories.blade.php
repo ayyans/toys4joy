@@ -70,7 +70,7 @@
                     <tr>
                         <td>{{$subcategory->subcat_name}}</td>
                         <td>
-                            {{$subcategory->category_name}}
+                            {{$subcategory->parentCategory->category_name}}
 
                         </td>
                         

@@ -1,6 +1,6 @@
 @foreach($categoriestest as $cat)     
 @php
-    $subcategories = DB::table('sub_categories')->where('parent_cat' , $cat->id)->where('status' , 2)->get();
+    $subcategories = App\Models\SubCategory::where('parent_cat' , $cat->id)->where('status' , 2)->get();
 @endphp
 @if($subcategories->count() == 0)
 <li class="nav-item"> <a href="{{ url('category') }}/{{ $cat->url }}" class="nav-link " aria-current="page"> <img src="{{asset('uploads/'.$cat->cat_icon)}}"><span class="ms-2">{{$cat->category_name}}</span> </a> </li>
