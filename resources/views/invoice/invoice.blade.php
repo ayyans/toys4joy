@@ -142,7 +142,7 @@
               <td>
                 Order ID #: {{ $order->order_number }}<br />
                 Order Date: {{ $order->created_at->format('M d, Y') }}<br />
-                Invoice Status: <b class="{{ $order->payment_status == 'paid' ? 'text-green' : 'text-red' }}">{{ strtoupper($order->payment_status) }}</b>
+                Invoice Status: <b class="{{ ($order->payment_status == 'paid' || $order->order_type == 'cod') ? 'text-green' : 'text-red' }}">{{ $order->order_type == 'cod' ? 'COD' : strtoupper($order->payment_status) }}</b>
               </td>
             </tr>
           </table>
