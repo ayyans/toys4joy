@@ -29,7 +29,7 @@
 
                                     <label>Sub-Category Name (Arabic)</label>
 
-                                    <input type="text" class="form-control categoriesfrm"
+                                    <input type="text" class="form-control"
                                         placeholder="write here category name" name="catname[ar]" />
 
                                 </div>

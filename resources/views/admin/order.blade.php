@@ -20,7 +20,7 @@
                             <th>Name</th>
                             <th>Mobile</th>
                             <th>Address</th>
-                            <th>Payement Status</th>
+                            <th>Payment</th>
                             <th>Total Amount</th>
                             <th>Order Status</th>
                             <th>Remarks</th>
