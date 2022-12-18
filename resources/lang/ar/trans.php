@@ -186,7 +186,7 @@ return [
 "Quantity"=>"الكمية",
 "Your Final Price"=>"السعر النهائي الخاص بك",
 "Fast Pay"=>"الدفع السريع",
-"You need to create an account with us to be able to Enter Discount, Corporate Code, or Gift Card."=>"تحتاج إلى إنشاء حساب معنا لتتمكن من إدخال الخصم أو رمز الشركة أو بطاقة الهدايا.",
+"You need to create an account with us to be able to Enter Discount and Corporate Code."=>"تحتاج إلى إنشاء حساب معنا لتتمكن من إدخال الخصم ورمز الشركة.",
 "Mobile Number"=>"رقم الهاتف الجوال",
 //cart
 "My Basket"=>"سلة التسوق",

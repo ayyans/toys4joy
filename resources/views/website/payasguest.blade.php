@@ -93,7 +93,7 @@
                             {{__('trans.Fast Pay')}} ({{ cart()->getTotal()}})
                             </a>
                         </div>
-                        <p>{{__('trans.You need to create an account with us to be able to Enter Discount, Corporate Code, or Gift Card.')}}</p>
+                        <p>{{__('trans.You need to create an account with us to be able to Enter Discount and Corporate Code.')}}</p>
                     </div>
                     <div class="col-6">
                         <div class="yellowbg-img cash-on-delivery">

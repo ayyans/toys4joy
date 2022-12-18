@@ -193,7 +193,7 @@ return [
 "Quantity"=>"Quantity",
 "Your Final Price"=>"Your Final Price",
 "Fast Pay"=>"Fast Pay",
-"You need to create an account with us to be able to Enter Discount, Corporate Code, or Gift Card."=>"You need to create an account with us to be able to Enter Discount, Corporate Code, or Gift Card.",
+"You need to create an account with us to be able to Enter Discount and Corporate Code."=>"You need to create an account with us to be able to Enter Discount and Corporate Code.",
 "Mobile Number"=>"Mobile Number",
 //cart
 "My Basket"=>"My Basket",
