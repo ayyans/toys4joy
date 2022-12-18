@@ -259,6 +259,7 @@ if (! function_exists('formatRecommendedAge')) {
 
 if (! function_exists('removeAbandonedOrderIfExists')) {
   function removeAbandonedOrderIfExists($order_number) {
+    // also remove the order items
     Order::where([
       'order_number' => $order_number,
       'additional_details->is_abandoned' => true
