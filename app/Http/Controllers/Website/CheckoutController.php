@@ -24,6 +24,8 @@ class CheckoutController extends Controller
         $order_type = $request->order_type;
         $is_abandoned = $order_type === 'cc';
 
+        removeAbandonedOrderIfExists($order_number);
+
         DB::beginTransaction();
 
         // order details

@@ -2,6 +2,7 @@
 
 // sadad functions
 
+use App\Models\Order;
 use App\Models\OtpVerification;
 use App\Models\Product;
 use App\Models\Wishlist;
@@ -253,5 +254,14 @@ if (! function_exists('formatRecommendedAge')) {
     $result .= $years >= 1 && $months >= 1 ? ' ' : '';
     $result .= $months >= 1 ? $months . ($months == 1 ? ' month' : ' months') : '';
     return $result ?: '0 month';
+  }
+}
+
+if (! function_exists('removeAbandonedOrderIfExists')) {
+  function removeAbandonedOrderIfExists($order_number) {
+    Order::where([
+      'order_number' => $order_number,
+      'additional_details->is_abandoned' => true
+    ])->delete();
   }
 }
