@@ -17,7 +17,11 @@ class POSInvoiceProduct extends Model
         return $this->belongsTo(POSInvoice::class, 'invoice_id');
     }
 
-    public function product() {
+    public function pos_product() {
         return $this->belongsTo(POSProduct::class, 'product_id');
+    }
+
+    public function website_product() {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

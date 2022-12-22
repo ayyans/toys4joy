@@ -735,13 +735,13 @@ public function deleteBrands(Request $request){
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             })
             ->get()
-            ->map(function($product) {
+            ->map(function($invoice) {
                 return [
-                    'date' => $product->created_at->toDateString(),
-                    'invoice_number' => $product->invoice_number,
-                    'total' => $product->final,
-                    'type' => strtoupper($product->method),
-                    'quantity' => $product->quantity,
+                    'date' => $invoice->created_at->toDateString(),
+                    'invoice_number' => $invoice->invoice_number,
+                    'total' => $invoice->final,
+                    'type' => strtoupper($invoice->method),
+                    'quantity' => $invoice->quantity,
                 ];
             })
             ->sortByDesc('date');
@@ -771,13 +771,13 @@ public function deleteBrands(Request $request){
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             })
             ->get()
-            ->map(function($product) {
+            ->map(function($invoice) {
                 return [
-                    'date' => $product->created_at->toDateString(),
-                    'invoice_number' => $product->invoice_number,
-                    'total' => abs($product->final),
-                    'type' => strtoupper($product->method),
-                    'quantity' => abs($product->quantity),
+                    'date' => $invoice->created_at->toDateString(),
+                    'invoice_number' => $invoice->invoice_number,
+                    'total' => abs($invoice->final),
+                    'type' => strtoupper($invoice->method),
+                    'quantity' => abs($invoice->quantity),
                 ];
             })
             ->sortByDesc('date');
@@ -802,20 +802,51 @@ public function deleteBrands(Request $request){
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
-        $invoices = POSInvoice::with('products.product')->where('type', 'sale')
+        $instances = ['pos_product', 'website_product'];
+
+        $invoices = collect();
+
+        foreach ($instances as $instance) {
+            $instanceInvoices = POSInvoice::with('products.'.$instance)->where('type', 'sale')
             ->when($applyFilter, function($query) use ($start_date, $end_date) {
                 $query->whereBetween('created_at', [$start_date, $end_date]);
             })
             ->get()
             ->map(function($invoice) {
+                switch ( $invoice->instance ) {
+                    case 'pos_products':
+                        $productCode = 'pos_product.code';
+                        break;
+                    case 'website_products':
+                        $productCode = 'website_product.sku';
+                        break;
+                }
                 return [
                     'date' => $invoice->created_at->toDateString(),
                     'invoice_number' => $invoice->invoice_number,
                     'quantity' => $invoice->quantity,
-                    'items' => $invoice->products->pluck('product.code')->join(', ')
+                    'items' => $invoice->products->pluck($productCode)->join(', ')
                 ];
-            })
-            ->sortByDesc('date');
+            });
+            $invoices = $invoices->merge($instanceInvoices);
+        }
+
+        $invoices = $invoices->sortByDesc('date');
+
+        // $invoices = POSInvoice::with('products.product')->where('type', 'sale')
+        //     ->when($applyFilter, function($query) use ($start_date, $end_date) {
+        //         $query->whereBetween('created_at', [$start_date, $end_date]);
+        //     })
+        //     ->get()
+        //     ->map(function($invoice) {
+        //         return [
+        //             'date' => $invoice->created_at->toDateString(),
+        //             'invoice_number' => $invoice->invoice_number,
+        //             'quantity' => $invoice->quantity,
+        //             'items' => $invoice->products->pluck('product.code')->join(', ')
+        //         ];
+        //     })
+        //     ->sortByDesc('date');
 
         // Export
         if ($request->filled('export') && $request->export === 'true') {

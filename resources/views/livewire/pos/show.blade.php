@@ -635,7 +635,8 @@
                                 <p class="itemtext mb-0 py-1">{{ $product['code'] }}</p>
                             </td>
                             <td class="tableitem">
-                                <p class="itemtext mb-0 py-1">{{ $product['name'] }} / {{ $product['arabic_name'] }}</p>
+                                {{-- <p class="itemtext mb-0 py-1">{{ $product['name'] }} / {{ $product['arabic_name'] }}</p> --}}
+                                <p class="itemtext mb-0 py-1">{{ $product['name'] }}</p>
                             </td>
                             <td class="tableitem w-50">
                                 <p class="itemtext mb-0 py-1 text-center">{{ $product['quantity'] }}</p>
