@@ -9,6 +9,11 @@
 
         </div>
         <div class="card-body">
+            <div class="d-sm-flex align-items-center justify-content-end mb-4">
+                <a href="{{ route('admin.custOrders', ['export' => 'true']) }}"
+                    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>

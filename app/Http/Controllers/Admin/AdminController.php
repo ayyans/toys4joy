@@ -8,6 +8,7 @@ use App\Exports\CustomersReportExport;
 use App\Exports\GeneratedGiftCardsReportExport;
 use App\Exports\GuestsReportExport;
 use App\Exports\InventoryReportExport;
+use App\Exports\OrderExport;
 use App\Exports\POSItemsSoldReportExport;
 use App\Exports\POSRefundsReportExport;
 use App\Exports\POSSalesReportExport;
@@ -1433,6 +1434,24 @@ public function custOrders(){
         ->where('is_wishlist', false)
         ->where('additional_details->is_abandoned', false)
         ->get();
+
+    // Export
+    if (request()->filled('export') && request()->export === 'true') {
+        $orders = $orders->map(function ($order) {
+            return [
+                'date' => $order->created_at,
+                'order_number' => $order->order_number,
+                'customer' => $order->user_id ? $order->user->name : $order->additional_details['name'],
+                'mobile' => $order->user_id ? $order->user->mobile : $order->additional_details['mobile'],
+                'quantity' => $order->items->sum('quantity'),
+                'amount' => $order->total_amount,
+                'remarks' => $order->remarks,
+                'status' => $order->order_status
+            ];
+        });
+        return Excel::download(new OrderExport($orders), 'orders-report.xlsx');
+    }
+
     // mark new orders is_new to false
     Order::where('is_wishlist', false)
         // ->whereNotNull('user_id')
