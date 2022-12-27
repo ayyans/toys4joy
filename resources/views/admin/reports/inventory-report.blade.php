@@ -64,38 +64,42 @@
 
   </div>
 
-  <table class="datatable table table-striped table-bordered" style="width:100%">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>SKU</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Category</th>
-          <th>Subcategory</th>
-          <th>Brand</th>
-          <th>Recommended Age</th>
-          <th>Description</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($products as $product)
+  <div class="table-responsive">
+    <table class="datatable table table-striped table-bordered" style="width:100%">
+        <thead>
           <tr>
-            <td>{{ $product->title }}</td>
-            <td>{{ $product->sku }}</td>
-            <td>{{ $product->unit_price }}</td>
-            <td>{{ $product->qty }}</td>
-            <td>{{ $product->category_id }}</td>
-            <td>{{ $product->sub_cat }}</td>
-            <td>{{ $product->brand_id }}</td>
-            <td>{{ $product->recommended_age }}</td>
-            <td><a href="#" class="text-decoration-none" data-description="{{ $product->long_desc }}" data-toggle="modal" data-target="#descriptionModal">view</a></td>
-            <td>{{ $product->status }}</td>
+            <th>Name</th>
+            <th>SKU</th>
+            <th>Barcode</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th>Subcategory</th>
+            <th>Brand</th>
+            <th>Recommended Age</th>
+            <th>Description</th>
+            <th>Status</th>
           </tr>
-        @endforeach
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @foreach ($products as $product)
+            <tr>
+              <td>{{ $product->title }}</td>
+              <td>{{ $product->sku }}</td>
+              <td>{{ $product->barcode }}</td>
+              <td>{{ $product->unit_price }}</td>
+              <td>{{ $product->qty }}</td>
+              <td>{{ $product->category_id }}</td>
+              <td>{{ $product->sub_cat }}</td>
+              <td>{{ $product->brand_id }}</td>
+              <td>{{ $product->recommended_age }}</td>
+              <td><a href="#" class="text-decoration-none" data-description="{{ $product->long_desc }}" data-toggle="modal" data-target="#descriptionModal">view</a></td>
+              <td>{{ $product->status }}</td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+  </div>
 </div>
 
 <!-- Modal -->
