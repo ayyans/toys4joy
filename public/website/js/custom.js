@@ -53,12 +53,12 @@ $(function() {
       }
       for (const category of categories) {
         $('#categories-container').append(`
-          <a href="${category.url}" class="badge bg-light text-dark text-decoration-none fs-6 p-2 fw-light">${category.category_name}</a>
+          <a href="${category.url}" class="badge bg-light text-dark text-decoration-none fs-6 p-2 fw-light">${category.category_name.en}</a>
         `);
       }
       for (const subCategory of subCategories) {
         $('#categories-container').append(`
-          <a href="${subCategory.url}" class="badge bg-light text-dark text-decoration-none fs-6 p-2 fw-light">${subCategory.subcat_name}</a>
+          <a href="${subCategory.url}" class="badge bg-light text-dark text-decoration-none fs-6 p-2 fw-light">${subCategory.subcat_name.en}</a>
         `);
       }
     })
