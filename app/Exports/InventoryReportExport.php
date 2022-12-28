@@ -4,11 +4,13 @@ namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class InventoryReportExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class InventoryReportExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles, WithColumnFormatting
 {
     private $products, $productsCount, $categoriesCount, $subcategoriesCount;
 
@@ -41,6 +43,7 @@ class InventoryReportExport implements FromCollection, WithHeadings, ShouldAutoS
         return [
             'Name',
             'SKU',
+            'Barcode',
             'Price',
             'Stock',
             'Category',
@@ -56,6 +59,16 @@ class InventoryReportExport implements FromCollection, WithHeadings, ShouldAutoS
     {
         return [
             1 => ['font' => ['bold' => true]]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function columnFormats(): array
+    {
+        return [
+            'C' => NumberFormat::FORMAT_TEXT
         ];
     }
 }
