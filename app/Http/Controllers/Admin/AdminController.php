@@ -1876,7 +1876,6 @@ public function editProcess(Request $request){
 
     public function inventoryReport(Request $request) {
         $products = Product::with('category:id,category_name', 'subCategory:id,subcat_name', 'brand:id,brand_name')
-            ->where('status', 2)
             ->select('title', 'sku', 'barcode', 'unit_price', 'qty', 'category_id', 'sub_cat', 'brand_id', 'recommended_age', 'long_desc', 'status')
             ->get()
             ->map(function($product) {
