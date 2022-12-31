@@ -44,7 +44,7 @@
                             <div class="col-md-8">
                                 <select class="form-control addprodfrm" name="sub_cat" id="subcat_id">
                                     <option value="">Select Sub Category</option>
-                                    @foreach(DB::table('sub_categories')->where('parent_cat' , $products->category_id)->get() as $r)
+                                    @foreach(App\Models\SubCategory::where('parent_cat' , $products->category_id)->get() as $r)
                                     <option @if($products->sub_cat == $r->id) selected @endif value="{{ $r->id }}">{{ $r->subcat_name }}</option>
                                     @endforeach
                                 </select>
