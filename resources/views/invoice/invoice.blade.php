@@ -199,6 +199,10 @@
 
       <tr class="total">
         <td colspan="2"></td>
+        <td colspan="3">Total Quantity: {{ $order->items->sum('quantity') }}</td>
+      </tr>
+      <tr class="total">
+        <td colspan="2"></td>
         <td colspan="3">Sub Total: QAR {{ $order->subtotal }}</td>
       </tr>
       @php $giftcardTotal = $order->giftcards ? $order->giftcards->sum('price') : 0 @endphp
