@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Rules\TranslationExists;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
@@ -24,8 +25,6 @@ class ProductsImport implements ToModel, WithUpserts, WithHeadingRow, WithChunkR
         $category_id = Category::where('category_name->en', $row['category'])->value('id');
         $subcategory_id = SubCategory::where('subcat_name->en', $row['sub_category'])->value('id');
         $brand_id = Brand::where('brand_name', $row['brand'])->value('id');
-        dd($category_id, $subcategory_id, $brand_id);
-        if (! ($category_id && $subcategory_id)) return;
         return new Product([
             'title' => $row['product_name'],
             'url' => Str::slug( $row['product_name'] ),
@@ -64,8 +63,8 @@ class ProductsImport implements ToModel, WithUpserts, WithHeadingRow, WithChunkR
     {
         return [
             'product_name' => ['required'],
-            'category' => ['required'],
-            'sub_category' => ['required'],
+            'category' => ['required', new TranslationExists(Category::class, 'category_name')],
+            'sub_category' => ['required', new TranslationExists(SubCategory::class, 'subcat_name')],
             'brand' => ['required', 'exists:brands,brand_name'],
             'barcode' => ['required'],
             'unit_price' => ['required'],
