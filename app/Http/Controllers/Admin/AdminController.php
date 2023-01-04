@@ -2167,8 +2167,12 @@ public function editProcess(Request $request){
             }
         }
         // Order Products
-        foreach ($otherProducts as $product) {
-            $product->update(['qty' => 0]);
+        if ($selectedProducts->count()) {
+            foreach ($otherProducts as $product) {
+                $product->update(['qty' => 0]);
+            }
+        } else {
+            return back()->with('error','No Product Updated!');
         }
         return back()->with('success','Produts Updated Successfully');
     }
