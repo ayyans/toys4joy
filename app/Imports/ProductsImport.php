@@ -24,6 +24,7 @@ class ProductsImport implements ToModel, WithUpserts, WithHeadingRow, WithChunkR
         $category_id = Category::where('category_name', $row['category'])->value('id');
         $subcategory_id = SubCategory::where('subcat_name', $row['sub_category'])->value('id');
         $brand_id = Brand::where('brand_name', $row['brand'])->value('id');
+        if (! ($category_id && $subcategory_id)) return;
         return new Product([
             'title' => $row['product_name'],
             'url' => Str::slug( $row['product_name'] ),
@@ -62,8 +63,8 @@ class ProductsImport implements ToModel, WithUpserts, WithHeadingRow, WithChunkR
     {
         return [
             'product_name' => ['required'],
-            'category' => ['required', 'exists:categories,category_name'],
-            'sub_category' => ['required', 'exists:sub_categories,subcat_name'],
+            'category' => ['required'],
+            'sub_category' => ['required'],
             'brand' => ['required', 'exists:brands,brand_name'],
             'barcode' => ['required'],
             'unit_price' => ['required'],
