@@ -146,7 +146,7 @@
 </div>
 <div class="col-md-8 middle-col mt-3">
   <!--seection-->
-<div class="section-title"><h3>{{ __('trans.Sale up to 60%') }}</h3></div>
+<div class="section-title"><h3>{{ __('trans.Best Sellers') }}</h3></div>
 <div class="row">
 <div class="owl-carousel-features owl-carousel owl-theme" style="direction:ltr;">
 @foreach($bestsellers as $product)

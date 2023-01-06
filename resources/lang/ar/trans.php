@@ -23,6 +23,7 @@ return [
 'Select Price'=>'حدد السعر',
 //titles
 'New Arrival'=>'وصل حديثا',
+'Best Sellers'=>'أفضل البائعين',
 'Sale up to 60%'=>'خصومات تصل إلى 60٪',
 'Our Brands'=>'علاماتنا التجارية',
 //header

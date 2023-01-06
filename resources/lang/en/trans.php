@@ -65,6 +65,7 @@ return [
 //buttons
 'View more'=>'View more',
 	'Go'=>'Go',
+	'Best Sellers'=>'Best Sellers',
 	'Sale up to 60%'=>'Sale up to 60%',
     'Wish List'=>'Wish List',
     'E-Gift Cards'=>'E-Gift Cards',
