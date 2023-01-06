@@ -16,8 +16,11 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        abort_if(!auth()->check(), 401);
-        abort_if(auth()->user()->type !== 'admin', 401);
+        // abort_if(!auth()->check(), 401);
+        // abort_if(auth()->user()->type !== 'admin', 401);
+        if (! auth()->check() && auth()->user()?->type !== 'admin') {
+            return redirect()->route('admin.login')->with('error', 'Authentication required!');
+        }
         return $next($request);
     }
 }
