@@ -879,21 +879,21 @@ public function deleteBrands(Request $request){
             ->addColumn('brand', fn ($p) => $p->brand->brand_name)
             ->addColumn('new_arrival', function($product) {
                 return sprintf(
-                    '<input type="checkbox" data-url="%s" data-id="%d" class="featured_type_checkbox" %s>',
+                    '<input type="checkbox" data-url="%s" data-id="%d" class="featured_type_checkbox" style="width: 20px; height: 20px;" %s>',
                     route('admin.changeProductFeaturedType', ['product' => $product->id, 'type' => 'new_arrival']),
                     $product->id, $product->new_arrival ? 'checked' : ''
                 );
             })
             ->addColumn('best_seller', function($product) {
                 return sprintf(
-                    '<input type="checkbox" data-url="%s" data-id="%d" class="featured_type_checkbox" %s>',
+                    '<input type="checkbox" data-url="%s" data-id="%d" class="featured_type_checkbox" style="width: 20px; height: 20px;" %s>',
                     route('admin.changeProductFeaturedType', ['product' => $product->id, 'type' => 'best_seller']),
                     $product->id, $product->best_seller ? 'checked' : ''
                 );
             })
             ->addColumn('best_offer', function($product) {
                 return sprintf(
-                    '<input type="checkbox" data-url="%s" data-id="%d" class="featured_type_checkbox" %s>',
+                    '<input type="checkbox" data-url="%s" data-id="%d" class="featured_type_checkbox" style="width: 20px; height: 20px;" %s>',
                     route('admin.changeProductFeaturedType', ['product' => $product->id, 'type' => 'best_offer']),
                     $product->id, $product->best_offer ? 'checked' : ''
                 );

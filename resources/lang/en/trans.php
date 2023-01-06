@@ -80,7 +80,7 @@ return [
 	'Login'=>'Login',
 	"Update"=>"Update",
 	"Pay by Debit/Credit Card"=>"Pay by Debit/Credit Card",
-	
+
 //product details page
 'Brand'=>'Brand',
 'Description'=>'Description',
@@ -93,7 +93,7 @@ return [
 'Joy is yet to begin!'=>'Joy is yet to begin!',
 'Enter your username & password to enjoy the bunch of awesome benefits!'=>'Enter your username & password to enjoy the bunch of awesome benefits!',
 'Forgot Password?'=>'Forgot Password?',
-"Don't have an account? Register Now."=>"Don't have an account? Register Now.",
+"Don't have an account?"=>"Don't have an account?",
 "Register Now."=>"Register Now.",
 //register page
 'Register Now!'=>'Register Now!',
