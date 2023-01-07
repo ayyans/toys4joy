@@ -996,7 +996,7 @@ public function deleteBrands(Request $request){
             $addproduct->category_id=$request->category_id;
             $addproduct->linked_categories=$request->linked_categories;
             $addproduct->brand_id=$request->brand_id;
-            $addproduct->unit=$request->unit;
+            // $addproduct->unit=$request->unit;
             $addproduct->min_qty=$request->min_qty;
             $addproduct->sub_cat=$request->sub_cat;
             $addproduct->barcode=$request->barcode;
@@ -1010,7 +1010,7 @@ public function deleteBrands(Request $request){
             $addproduct->best_offer=$request->best_offer;
             $addproduct->qty=$request->current_qty;
             $addproduct->sku=$request->sku;
-            $addproduct->short_desc=$request->shortdescription;
+            // $addproduct->short_desc=$request->shortdescription;
             $addproduct->long_desc=$request->longdescription;
             $addproduct->featured_status=$featured;
             $addproduct->todays_deal=$todaysdeal;
@@ -1739,7 +1739,7 @@ public function editProcess(Request $request){
         'brand_id'=>$request->brand_id,
         'linked_categories'=>$request->linked_categories,
         'url'=>$this->shorten_url($request->prodname),
-        'unit'=>$request->unit,
+        // 'unit'=>$request->unit,
         'min_qty'=>$request->min_qty,
         'sub_cat'=>$request->sub_cat,
         'barcode'=>$request->barcode,
@@ -1753,7 +1753,7 @@ public function editProcess(Request $request){
         'best_offer'=>$request->best_offer,
         'qty'=>$request->current_qty,
         'sku'=>$request->sku,
-        'short_desc'=>$request->shortdescription,
+        // 'short_desc'=>$request->shortdescription,
         'long_desc'=>$request->longdescription,
         'featured_status'=>$featured,
         'todays_deal'=>$todaysdeal,
@@ -1770,7 +1770,7 @@ public function editProcess(Request $request){
         'category_id'=>$request->category_id,
         'brand_id'=>$request->brand_id,
         'linked_categories'=>$request->linked_categories,
-        'unit'=>$request->unit,
+        // 'unit'=>$request->unit,
         'min_qty'=>$request->min_qty,
         'sub_cat'=>$request->sub_cat,
         'barcode'=>$request->barcode,
@@ -1783,7 +1783,7 @@ public function editProcess(Request $request){
         'best_offer'=>$request->best_offer,
         'qty'=>$request->current_qty,
         'sku'=>$request->sku,
-        'short_desc'=>$request->shortdescription,
+        // 'short_desc'=>$request->shortdescription,
         'long_desc'=>$request->longdescription,
         'featured_status'=>$featured,
         'todays_deal'=>$todaysdeal,
