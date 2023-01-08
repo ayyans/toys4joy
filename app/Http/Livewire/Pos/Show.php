@@ -13,6 +13,7 @@ class Show extends Component
     public $selected = null;
     public $screen = 'main';
     public $updatedQuantity = null;
+    public $updatedPrice = null;
     public $paymentType = null;
     public $cash = 0;
     public $discount = 0;
@@ -79,6 +80,7 @@ class Show extends Component
     public function editProduct() {
         if (! $this->selected) return;
         $this->updatedQuantity = $this->products[$this->selected]['quantity'];
+        $this->updatedPrice = $this->products[$this->selected]['price'];
         $this->screen = 'edit';
     }
 
@@ -121,8 +123,10 @@ class Show extends Component
 
     public function saveEdit() {
         $updatedQuantity = $this->updatedQuantity > 0 ? $this->updatedQuantity : 1;
+        $updatedPrice = $this->updatedPrice >= 0 ? $this->updatedPrice : 0;
         $this->products[$this->selected]['quantity'] = $updatedQuantity;
-        $this->reset('updatedQuantity', 'selected');
+        $this->products[$this->selected]['price'] = $updatedPrice;
+        $this->reset('updatedQuantity', 'updatedPrice', 'selected');
         $this->screen = 'main';
     }
 
