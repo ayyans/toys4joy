@@ -191,6 +191,7 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     Route::get('returned-orders-report', 'AdminController@returnedOrdersReport')->name('report.returnedOrders');
     Route::get('returned-order-items-report', 'AdminController@returnOrderItemsReport')->name('report.returnedOrderItems');
     Route::get('abandoned-orders-report', 'AdminController@abandonedOrdersReport')->name('report.abandonedOrdersReport');
+    Route::get('coupons-report', 'AdminController@couponsReport')->name('report.coupons');
 
     // Points
     Route::get('points', 'AdminController@points')->name('points');

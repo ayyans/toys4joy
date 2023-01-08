@@ -16,4 +16,12 @@ class Coupon extends Model
         'offer',
         'desc'
     ];
+
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
+
+    public function deliveredOrders() {
+        return $this->hasMany(Order::class)->where('order_status', 'delivered');
+    }
 }

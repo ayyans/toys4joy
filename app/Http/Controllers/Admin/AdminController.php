@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Events\OrderStatusChanged;
 use App\Exports\AbandonedOrdersReportExport;
+use App\Exports\CouponsReportExport;
 use App\Exports\CustomersReportExport;
 use App\Exports\GeneratedGiftCardsReportExport;
 use App\Exports\GuestsReportExport;
@@ -2149,6 +2150,39 @@ public function editProcess(Request $request){
         }
 
         return view('admin.reports.abandoned-orders-report', compact('orders'));
+    }
+
+    public function couponsReport(Request $request) {
+        $applyFilter = $request->anyFilled('start_date', 'end_date');
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $coupons = Coupon::with(['deliveredOrders' => function($query) use ($applyFilter, $start_date, $end_date) {
+            $query->when($applyFilter, function($query) use ($start_date, $end_date) {
+                $query->whereBetween('created_at', [$start_date, $end_date]);
+            });
+        }, 'deliveredOrders.user'])
+            ->get()
+            ->map(function($coupon) {
+                return [
+                    'title' => $coupon->coupon_title,
+                    'type' => $coupon->coupontype == 1 ? 'Discount' : 'Corporate',
+                    'code' => $coupon->coupon_code,
+                    'discount' => $coupon->offer . '%',
+                    'expiry' => $coupon->exp_date,
+                    'usage' => $coupon->deliveredOrders->count(),
+                    'usage_by_users' => $coupon->deliveredOrders
+                        ->groupBy('user.mobile')->map(function($orders) {
+                            return $orders->count();
+                        })
+                ];
+            });
+
+        if ($request->filled('export') && $request->export === 'true') {
+            return Excel::download(new CouponsReportExport($coupons), 'coupons-report.xlsx');
+        }
+
+        return view('admin.reports.coupons-report', compact('coupons'));
     }
 
     public function bulkupload()
