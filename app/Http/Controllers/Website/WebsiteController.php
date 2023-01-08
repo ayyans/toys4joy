@@ -62,6 +62,10 @@ class WebsiteController extends Controller
 
     public function submitformlookingfor(Request $request)
     {
+        $validator = validator()->make(request()->all(), [ 'captcha' => 'required|captcha' ]);
+        if ( $validator->fails() ) {
+            return redirect()->back()->with('error', 'You have entered a wrong captcha, please try again!');
+        }
         $product  = new requiredproducts();
         $product->name = $request->name;
         $product->email = $request->email;

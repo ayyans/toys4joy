@@ -59,6 +59,7 @@ return [
 'Phone Number'=>'رقم الهاتف',
 'Your Message'=>'رسالتك',
 'Upload Image'=>'تحميل الصور',
+'Verification'=>'تَحَقّق',
 'Username'=>'اسم االمستخدم',
 'Password'=>'كلمه السر',
 

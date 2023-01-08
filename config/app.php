@@ -177,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class
 
     ],
 
@@ -237,6 +238,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
     ],
 

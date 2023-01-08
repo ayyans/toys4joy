@@ -58,6 +58,7 @@ return [
 'Phone Number'=>'Phone Number',
 'Your Message'=>'Your Message',
 'Upload Image'=>'Upload Image',
+'Verification'=>'Verification',
 'Username'=>'Username',
 'Password'=>'Password',
 

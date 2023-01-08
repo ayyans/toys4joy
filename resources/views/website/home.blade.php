@@ -331,6 +331,11 @@
                             <label for="exampleInputUpload1" class="form-label">{{ __('trans.Upload Image') }}</label>
                             <input required type="file" class="form-control" name="image">
                           </div>
+                          <div class="mb-3">
+                            <label for="exampleInputMessage1" class="form-label">{{ __('trans.Verification') }}</label>
+                            <div class="mb-2">{!! captcha_img('flat') !!}</div>
+                            <input type="text" name="captcha" class="form-control" required>
+                          </div>
                           <button type="submit" class="btn btn-primary guest">{{ __('trans.Submit') }}</button>
                         </form>
                       </div>
