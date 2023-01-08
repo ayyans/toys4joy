@@ -150,7 +150,7 @@ class Show extends Component
             // creating invoice
             $invoice = POSInvoice::create([
                 'invoice_number' => $this->invoiceNumber,
-                'instance' => 'website_products',
+                'instance' => 'website_product',
                 'type' => $this->isRefund ? 'refund' : 'sale',
                 'method' => $this->paymentType === 'cash' ? 'cash' : strtolower($this->card['type']),
                 'quantity' => $this->quantity ?: array_reduce($this->products, fn($a, $p) => $a + $p['quantity'], 0) * ($this->isRefund ? -1 : 1),

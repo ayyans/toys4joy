@@ -14,7 +14,8 @@ class PosInvoiceInstanceSeeder extends Seeder
      */
     public function run()
     {
-        $updatedCount = POSInvoice::whereNull('instance')->update(['instance' => 'pos_products']);
+        $updatedCount = POSInvoice::where('instance', 'pos_products')->update(['instance' => 'pos_product']);
+        $updatedCount = POSInvoice::where('instance', 'website_products')->update(['instance' => 'website_product']);
         $this->command->info( sprintf('%d products updated', $updatedCount) );
     }
 }
