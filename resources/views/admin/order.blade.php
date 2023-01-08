@@ -63,7 +63,9 @@
                             <th>Mobile</th>
                             <th>Address</th>
                             <th>Payment</th>
+                            <th>Method</th>
                             <th>Total Amount</th>
+                            <th>Coupon</th>
                             <th>Order Status</th>
                             <th>Remarks</th>
                             <th>Action</th>
@@ -83,7 +85,9 @@
                             <td>
                                 <div class="badge {{ $order->payment_status == 'paid' ? 'badge-success' : 'badge-danger' }}">{{ strtoupper($order->payment_status) }}</div>
                             </td>
+                            <td>{{ strtoupper($order->order_type) }}</td>
                             <td>QAR {{ $order->total_amount }}</td>
+                            <td>{{ $order->coupon?->coupon_code }}</td>
                             <td>
                                 <div class="badge {{ in_array($order->order_status, ['placed', 'cancelled']) ? 'badge-danger' : 'badge-success' }}">{{ strtoupper($order->order_status) }}</div>
                             </td>

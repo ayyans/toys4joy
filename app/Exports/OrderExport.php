@@ -38,8 +38,10 @@ class OrderExport implements FromCollection, WithHeadings, ShouldAutoSize, WithS
             'Order No.',
             'Customer Name',
             'Mobile No.',
+            'Method',
             'Qty',
             'Amount',
+            'Coupon',
             'Remarks',
             'Order Status'
         ];

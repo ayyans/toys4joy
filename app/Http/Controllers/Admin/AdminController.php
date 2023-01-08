@@ -1411,7 +1411,7 @@ public function custOrders(Request $request){
     $start_date = $request->start_date;
     $end_date = $request->end_date ?? now();
 
-    $orders = Order::with(['user', 'address'])
+    $orders = Order::with(['user', 'address', 'coupon'])
         ->when($applyFilter, function($query) use ($start_date, $end_date) {
             $query->whereBetween('created_at', [$start_date, $end_date]);
         })
@@ -1428,8 +1428,10 @@ public function custOrders(Request $request){
                 'order_number' => $order->order_number,
                 'customer' => $order->user_id ? $order->user->name : $order->additional_details['name'],
                 'mobile' => $order->user_id ? $order->user->mobile : $order->additional_details['mobile'],
+                'method' => strtoupper($order->order_type),
                 'quantity' => $order->items->sum('quantity'),
                 'amount' => $order->total_amount,
+                'coupon' => $order->coupon?->coupon_code,
                 'remarks' => $order->remarks,
                 'status' => $order->order_status
             ];
