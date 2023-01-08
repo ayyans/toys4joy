@@ -9,6 +9,48 @@
 
         </div>
         <div class="card-body">
+            <div class="d-sm-flex align-items-center justify-content-end mb-4">
+                <a id="filter-button" href="javascript:;" class="d-inline-block btn btn-sm btn-success shadow-sm mr-2" style="width: 120px">
+                    <i class="fas fa-filter fa-sm text-white-50"></i> Filter</a>
+                <a href="{{ route('admin.abandonedOrders', ['export' => 'true']) }}"
+                    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            </div>
+            <div id="filter-container" class="mb-3 border p-3 rounded">
+                <div>
+                    <a data-start-date="{{ today()->toDateString() }}" href="javascript:;" class="direct-filter d-inline-block btn btn-sm btn-success shadow-sm mr-2" style="width: 120px">
+                        Today</a>
+                    <a data-start-date="{{ today()->subDay()->toDateString() }}" data-end-date="{{ today()->toDateString() }}" href="javascript:;" class="direct-filter d-inline-block btn btn-sm btn-info shadow-sm mr-2" style="width: 120px">
+                        Yesterday</a>
+                    <a data-start-date="{{ today()->subWeek()->toDateString() }}" href="javascript:;" class="direct-filter d-inline-block btn btn-sm btn-warning shadow-sm mr-2" style="width: 120px">
+                        Last Week</a>
+                    <a data-start-date="{{ today()->subMonth()->toDateString() }}" href="javascript:;" class="direct-filter d-inline-block btn btn-sm btn-danger shadow-sm mr-2" style="width: 120px">
+                        Last Month</a>
+                </div>
+                <hr>
+                <form id="date-filter" action="{{ route('admin.abandonedOrders') }}" method="get">
+                    <div class="row">
+                    <div class="col-6 col-md-5">
+                        <div class="form-group mb-0">
+                        <label for="start_date">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request()->start_date }}" required>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-5">
+                        <div class="form-group mb-0">
+                        <label for="end_date">End Date</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request()->end_date }}">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <div class="form-group">
+                        <label for="end_date">ㅤ</label>
+                        <button type="submit" class="btn btn-dark btn-block">Apply</button>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -102,6 +144,21 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(function() {
+        // filters
+        $('#filter-button').on('click', function() {
+            $('#filter-container').slideToggle();
+        })
+        // filter by day
+        $('.direct-filter').on('click', function() {
+            const start_date = $(this).data('start-date');
+            const end_date = $(this).data('end-date');
+
+            $('#start_date').val(start_date);
+            $('#end_date').val(end_date);
+
+            $('#date-filter').submit();
+        });
+        // remarks
         $('.add-order-remarks').on('click', function(e) {
             e.preventDefault();
             const url = "{{ route('admin.addOrderRemarks') }}";

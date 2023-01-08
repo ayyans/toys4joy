@@ -12,7 +12,7 @@
             <div class="d-sm-flex align-items-center justify-content-end mb-4">
                 <a id="filter-button" href="javascript:;" class="d-inline-block btn btn-sm btn-success shadow-sm mr-2" style="width: 120px">
                     <i class="fas fa-filter fa-sm text-white-50"></i> Filter</a>
-                <a href="{{ route('admin.custOrders', ['export' => 'true']) }}"
+                <a href="{{ route($type ?? null == 'wishlist' ? 'admin.wishlistorders' : 'admin.custOrders', ['export' => 'true']) }}"
                     class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                         class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
             </div>
@@ -28,7 +28,7 @@
                         Last Month</a>
                 </div>
                 <hr>
-                <form id="date-filter" action="{{ route('admin.custOrders') }}" method="get">
+                <form id="date-filter" action="{{ route($type ?? null == 'wishlist' ? 'admin.wishlistorders' : 'admin.custOrders') }}" method="get">
                     <div class="row">
                     <div class="col-6 col-md-5">
                         <div class="form-group mb-0">

@@ -1448,36 +1448,16 @@ public function custOrders(Request $request){
     return view('admin.order', compact('orders'));
 }
 
-public function wishlistorders()
+public function wishlistorders(Request $request)
 {
-    // $orders = Order::select(
-    //         "orders.id",
-    //         "orders.orderid",
-    //         "orders.orderstatus",
-    //         "orders.cust_id",
-    //         "orders.cust_add_id",
-    //         "orders.payment_id",
-    //         "orders.mode",
-    //         "orders.amount",
-    //         "orders.status",
-    //         "orders.created_at",
-    //         "users.name",
-    //         "users.email",
-    //         "users.mobile",
-    //         "customer_addresses.unit_no",
-    //         "customer_addresses.building_no",
-    //         "customer_addresses.zone",
-    //         "customer_addresses.street",
-                  
-    //                     )
-    //         ->where('orders.orderstatus' , '!=' , 'payementpending')
-    //         ->leftJoin('users', 'orders.cust_id', '=', 'users.id')
-    //         ->leftJoin('customer_addresses', 'orders.cust_add_id', '=', 'customer_addresses.id')
-    //         ->groupBy('orders.orderid')
-    //         ->orderby('orders.id' , 'desc')
-    //         ->where('orders.ordertype' , 'wishlist')
-    //         ->get();
-    $orders = Order::with(['user', 'address'])
+    $applyFilter = $request->anyFilled('start_date', 'end_date');
+    $start_date = $request->start_date;
+    $end_date = $request->end_date ?? now();
+
+    $orders = Order::with(['user', 'address', 'coupon'])
+        ->when($applyFilter, function($query) use ($start_date, $end_date) {
+            $query->whereBetween('created_at', [$start_date, $end_date]);
+        })
         ->whereNotNull('user_id')->where('is_wishlist', true)
         ->where('additional_details->is_abandoned', false)->get();
     // mark new orders is_new to false
@@ -1488,8 +1468,15 @@ public function wishlistorders()
     return view('admin.order',compact('orders','type'));
 }
 
-public function abandonedOrders() {
+public function abandonedOrders(Request $request) {
+    $applyFilter = $request->anyFilled('start_date', 'end_date');
+    $start_date = $request->start_date;
+    $end_date = $request->end_date ?? now();
+
     $orders = Order::with(['user', 'address'])
+        ->when($applyFilter, function($query) use ($start_date, $end_date) {
+            $query->whereBetween('created_at', [$start_date, $end_date]);
+        })
         ->where('additional_details->is_abandoned', true)
         ->get();
     return view('admin.abandoned_orders', compact('orders'));
