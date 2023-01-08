@@ -1428,8 +1428,15 @@ public function returnItemProceed(Order $order, OrderItem $item) {
 
 // logged in user orders
 
-public function custOrders(){
+public function custOrders(Request $request){
+    $applyFilter = $request->anyFilled('start_date', 'end_date');
+    $start_date = $request->start_date;
+    $end_date = $request->end_date ?? now();
+
     $orders = Order::with(['user', 'address'])
+        ->when($applyFilter, function($query) use ($start_date, $end_date) {
+            $query->whereBetween('created_at', [$start_date, $end_date]);
+        })
         // ->whereNotNull('user_id')
         ->where('is_wishlist', false)
         ->where('additional_details->is_abandoned', false)
