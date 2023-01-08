@@ -2163,19 +2163,29 @@ public function editProcess(Request $request){
             });
         }, 'deliveredOrders.user'])
             ->get()
-            ->map(function($coupon) {
-                return [
+            ->map(function($coupon) use ($request) {
+                $result = [
                     'title' => $coupon->coupon_title,
                     'type' => $coupon->coupontype == 1 ? 'Discount' : 'Corporate',
                     'code' => $coupon->coupon_code,
                     'discount' => $coupon->offer . '%',
                     'expiry' => $coupon->exp_date,
-                    'usage' => $coupon->deliveredOrders->count(),
-                    'usage_by_users' => $coupon->deliveredOrders
-                        ->groupBy('user.mobile')->map(function($orders) {
-                            return $orders->count();
-                        })
+                    'usage' => $coupon->deliveredOrders->count()
                 ];
+                if ($request->filled('export') && $request->export === 'true') {
+                    $result += [
+                        'usage_by_users' => $coupon->deliveredOrders->pluck('user.mobile')->unique()->join(', ')
+                    ];
+                } else {
+                    $result += [
+                        'usage_by_users' => $coupon->deliveredOrders
+                            ->groupBy('user.mobile')->map(function($orders) {
+                                return $orders->count();
+                            })
+                    ];
+                }
+
+                return $result;
             });
 
         if ($request->filled('export') && $request->export === 'true') {
