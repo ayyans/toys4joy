@@ -176,6 +176,22 @@
 <hr class="sidebar-divider">
 
 <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#thirdPartyordersUtility"
+        aria-expanded="true" aria-controls="thirdPartyordersUtility">
+        <i class="fab fa-jedi-order"></i>
+        <span>Third Party Orders</span>
+    </a>
+    <div id="thirdPartyordersUtility" class="collapse" aria-labelledby="headingUtilities"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{route('admin.third-party-orders.index')}}">Third Party Orders</a>
+        </div>
+    </div>
+</li>
+
+<hr class="sidebar-divider">
+
+<li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#returnUtility"
         aria-expanded="true" aria-controls="returnUtility">
         <i class="fa fa-arrow-left"></i>

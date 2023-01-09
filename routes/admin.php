@@ -199,6 +199,9 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
     // Settings
     Route::get('settings', 'SettingsController@index')->name('settings.index');
     Route::post('settings', 'SettingsController@store')->name('settings.store');
+
+    // Third Party Orders
+    Route::resource('third-party-orders', ThirdPartyOrderController::class);
 });
 
 
