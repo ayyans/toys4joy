@@ -1217,7 +1217,10 @@ public function guestOrdersDetails(Request $request){
 
 public function coupon(){
     $coupons = Coupon::orderBy('id','desc')->get();
-    return view('admin.coupons',compact('coupons'));
+    $subCategories = SubCategory::select('id', 'subcat_name')
+        ->where('status', 2)
+        ->get();
+    return view('admin.coupons',compact('coupons', 'subCategories'));
 }
 
 // add coupon 
@@ -1230,6 +1233,7 @@ public function addcouponProcess(Request $request){
     $coupons->exp_date=$request->validupto;
     $coupons->offer=$request->offer;
     $coupons->desc=$request->desc;
+    $coupons->subcategory_id=$request->subcategory_id;
     $coupons->status=0;
     $coupons->save();
     if($coupons==true){

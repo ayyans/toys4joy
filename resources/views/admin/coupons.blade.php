@@ -77,6 +77,20 @@
 
                                 </div>
 
+                                <div class="row form-group">
+
+                                    <label>Limit to Subcategory</label>
+
+                                    <select type="text" class="form-control categoriesfrm" name="subcategory_id"
+                                        id="subcategory_id">
+                                        <option value="">All Categories</option>
+                                        @foreach ($subCategories as $subCategory)
+                                        <option value="{{ $subCategory->id }}">{{ $subCategory->subcat_name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+
 
                                 <button type="btn" class="btn btn-success coupnSubmit">Submit</button>
                             </form>

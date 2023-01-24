@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Events\OrderPlaced;
 use App\Helpers\Cmf;
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
 use App\Models\giftcards;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -16,6 +17,19 @@ class CheckoutController extends Controller
     public function placeOrder(Request $request) {
         if (cart()->getSubTotal() == 0) {
             return redirect()->route('website.home');
+        }
+
+        $coupon = cart()->getConditionsByType('coupon')->first();
+        if ( $coupon ) {
+            $coupon_id = $coupon->getAttributes()['id'];
+            $coupon = Coupon::find( $coupon_id );
+            if ( $coupon->subcategory_id ) {
+                $orderExists = Order::where('coupon_id', $coupon_id)->exists();
+                if ( $orderExists ) {
+                    return redirect()->route('website.payasmember')
+                        ->with('error', 'Coupon already used!');
+                }
+            }
         }
 
         $items = cart()->getContent();
