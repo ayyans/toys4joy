@@ -240,11 +240,18 @@ class Show extends Component
     }
 
     public function getInvoiceData() {
-        $invoice = POSInvoice::with('products.product')->firstWhere('invoice_number', $this->invoiceNumber);
+        $invoice = POSInvoice::firstWhere('invoice_number', $this->invoiceNumber);
         if (! $invoice) return;
+        $invoice->load('products.' . $invoice->instance);
         $this->quantity = abs($invoice->quantity);
-        $invoice->products->each(function($invoiceProduct) {
-            $this->addProduct($invoiceProduct->product->toArray() + ['quantity' => $invoiceProduct->quantity]);
+        $invoice->products->each(function($invoiceProduct) use ($invoice) {
+            $this->addProduct([
+                'id' => $invoiceProduct[$invoice->instance]->id,
+                'name' => $invoiceProduct[$invoice->instance]->title,
+                'price' => $invoiceProduct[$invoice->instance]->discount ?: $invoiceProduct[$invoice->instance]->unit_price,
+                'code' => $invoiceProduct[$invoice->instance]->sku,
+                'quantity' => $invoiceProduct->quantity
+            ]);
         });
         $this->discount = $invoice->discount;
         $this->isRefund = $invoice->type === 'refund';
