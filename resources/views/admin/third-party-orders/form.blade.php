@@ -1,3 +1,6 @@
+@push('otherstyle')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
 <div class="row form-group">
     <div class="col-lg-3">
         <label>Channel</label>
@@ -33,7 +36,14 @@
         <label>SKU</label>
     </div>
     <div class="col-lg-9">
-        <input type="text" class="form-control" name="sku" value="{{ old('sku', $thirdPartyOrder->sku ?? null) }}" required />
+        @php $selectedSKU = old('sku', $thirdPartyOrder->sku ?? null) @endphp
+
+        <select class="select2 form-control w-100" name="sku">
+            @if ( $selectedSKU )
+            @php $product = \App\Models\Product::where('sku', $selectedSKU)->first() @endphp
+            <option value="{{ $selectedSKU }}" selected>{{ $product?->title ?? $selectedSKU }}</option>
+            @endif
+        </select>
         @error('sku')
             <span class="text-danger">{{ $message }}</span>
         @enderror
@@ -50,3 +60,35 @@
         @enderror
     </div>
 </div>
+
+@push('otherscript')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+$(".select2").select2({
+  ajax: {
+    url: "{{ route('admin.select2.product.search') }}",
+    dataType: 'json',
+    delay: 500,
+    method: 'POST',
+    cache: true,
+    data: function (params) {
+      return {
+        search: params.term, // search term
+        page: params.page || 1
+      };
+    }
+  },
+  placeholder: 'Search Product SKU',
+  minimumInputLength: 1,
+  templateResult: formatResult,
+  templateSelection: formatResult
+});
+
+function formatResult (product) {
+  if (product.loading) {
+    return product.text;
+  }
+  return `${product.id} (${product.text})`;
+}
+</script>
+@endpush

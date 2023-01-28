@@ -113,6 +113,39 @@ class ThirdPartyOrderController extends Controller
     }
 
     /**
+     * Get the specified resource from request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function search2ProductSearch(Request $request)
+    {
+        $search = $request->search;
+        $page = $request->page;
+        $perPage = 10;
+
+        $products = Product::where(function($query) use ($search) {
+            $query->where('sku', 'LIKE', "%$search%")
+                ->orWhere('barcode', 'LIKE', "%$search%")
+                ->orWhere('title', 'LIKE', "%$search%");
+        })->get();
+
+        $result = $products->forPage($page, $perPage)->map(function($product) {
+            return [
+                'id' => $product->sku,
+                'text' => $product->title,
+            ];
+        })->values();
+
+        return response()->json([
+            'results' => $result,
+            'pagination' => [
+                'more' =>  $products->forPage($page+1, $perPage)->count() //($page * $perPage) < $products->count()
+            ]
+        ]);
+    }
+
+    /**
      * Validate the specified resource from request.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -1,6 +1,5 @@
 <?php
 
-
 Route::name('admin.')->namespace('App\Http\Controllers\Admin\Auth')->prefix('admin')->group(function(){
     Route::get('/login','LoginController@login')->name('login');
     Route::post('/login-process','LoginController@login_process')->name('login_process');
@@ -202,6 +201,8 @@ Route::name('admin.')->namespace('App\Http\Controllers\Admin')->prefix('admin')-
 
     // Third Party Orders
     Route::resource('third-party-orders', ThirdPartyOrderController::class);
+    Route::post('select2-product-search', 'ThirdPartyOrderController@search2ProductSearch')
+        ->name('select2.product.search');
 });
 
 
