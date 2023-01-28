@@ -78,12 +78,12 @@
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
-                                            <a href="{{ route('admin.third-party-orders.edit', $thirdPartyOrder->id) }}" class="dropdown-item">Edit</a>
+                                            <a href="{{ route('admin.third-party-orders.edit', $thirdPartyOrder->id) }}" class="dropdown-item" onclick="return validatePassword();">Edit</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('admin.third-party-orders.destroy', $thirdPartyOrder->id) }}"
                                                 class="dropdown-item text-danger" onclick="event.preventDefault();
-                                                    document.getElementById('delete-order-{{ $thirdPartyOrder->id }}').submit();">Delete</a>
+                                                    deleteThirdPartyOrder('delete-order-{{ $thirdPartyOrder->id }}')">Delete</a>
 
                                             <form id="delete-order-{{ $thirdPartyOrder->id }}"
                                                     action="{{ route('admin.third-party-orders.destroy', $thirdPartyOrder->id) }}"
@@ -113,52 +113,23 @@
         // filters
         $('#filter-button').on('click', function() {
             $('#filter-container').slideToggle();
-        })
-        // remarks
-        $('.add-order-remarks').on('click', function(e) {
-            e.preventDefault();
-            const url = "{{ route('admin.addOrderRemarks') }}";
-            const remarks = $(this).data('remarks');
-            const order_id = $(this).data('order-id');
-            Swal.fire({
-                title: 'Your Remarks',
-                inputValue: remarks,
-                input: 'textarea',
-                inputAttributes: {
-                    autocapitalize: 'off'
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Submit',
-                showLoaderOnConfirm: true,
-                preConfirm: (remarks) => {
-                    return fetch(url, {
-                        method: 'post',
-                        headers: {"Content-type": "application/json; charset=UTF-8"},
-                        body: JSON.stringify({ order_id, remarks })
-                    })
-                    .then(response => {
-                        if (!response.ok) throw new Error(response.statusText)
-                        return response.json()
-                    })
-                    .catch(error => {
-                        Swal.showValidationMessage(
-                        `Request failed: ${error}`
-                        )
-                    })
-                },
-                allowOutsideClick: () => !Swal.isLoading()
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: 'Remarks updated successfully',
-                        timer: 2000,
-                        timerProgressBar: true
-                    }).then((result) => {
-                        window.location.reload();
-                    })
-                }
-            })
         });
     });
+
+    function deleteThirdPartyOrder(id) {
+        if ( validatePassword() )
+        document.getElementById( id ).submit();
+    }
+
+    function validatePassword() {
+        const password = prompt("Please enter password to proceed ?");
+
+        if ( btoa(password) !== 'cGFzc3dvcmQ=' ) {
+            alert('The password you have entered is incorrect!');
+            return false;
+        }
+
+        return true;
+    }
 </script>
 @endpush
