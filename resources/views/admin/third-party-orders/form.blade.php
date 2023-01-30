@@ -8,7 +8,7 @@
     <div class="col-lg-9">
         @php
             $selected = old('channel', $thirdPartyOrder->channel ?? null);
-            $channels = ['talabat', 'snoonu', 'rafeeq', 'social media'];
+            $channels = ['talabat', 'snoonu', 'rafeeq', 'cado', 'social media'];
         @endphp
         <select class="form-control" name="channel" required>
             @foreach ($channels as $channel)
