@@ -1,4 +1,9 @@
 @extends('website.layouts.master')
+
+@push('otherstyle')
+<meta property="og:image" content="{{ asset('website/img/logo-t4j.png') }}" />
+@endpush
+
 @section('content')
 <main class="home">
 <div class="container-fluid">
