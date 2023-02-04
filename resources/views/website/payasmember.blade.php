@@ -11,7 +11,7 @@
                     </div>
                     <div class="product-detail">
                         <h2 class="title">{{$item->name}}</h2>
-                        <h4 class="price">QAR {{$item->price}}</h4>
+                        <h4 class="price">QAR {{$item->getPriceSumWithConditions()}}</h4>
                         <div class="qty">{{__('trans.Quantity')}} : {{$item->quantity}}</div>
                         <div class="d-flex rmv-or-edit">
                             <div class="remove icon">
@@ -26,7 +26,13 @@
             </div>
 
             <div class="col-6 member-col right text-center">
-                @php $coupon = cart()->getConditionsByType('coupon')->first() @endphp
+                @php
+                    $coupon = cart()->getConditionsByType('coupon')->first();
+                    $cartItemsWithCondition = cart()->getContent()->filter(fn ($cartItem) => $cartItem->conditions !== []);
+                    if ( $cartItemsWithCondition->isNotEmpty() ) {
+                        $cartItemCondition = $cartItemsWithCondition->first()->conditions[0];
+                    }
+                @endphp
                 <div style="margin-top: 0px;" class="discount-block">
                     <div class="mb-3">
                         <label>{{__('trans.Discount Code')}}</label>
@@ -35,6 +41,12 @@
                             value="Congratulations! You have redeemed {{ substr($coupon->getValue(), 1) }} discount coupon"
                             type="text">
                         <a href="{{ route('website.removeDiscountCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}"
+                            class="btn btn-primary discountBtn">{{__('trans.Remove')}}</a>
+                        @elseif ( $cartItemsWithCondition->isNotEmpty() && $cartItemCondition->getName() == 'Discount Coupon' )
+                        <input style="background-color: #ddd" readonly
+                            value="Congratulations! You have redeemed {{ substr($cartItemCondition->getValue(), 1) }} special coupon"
+                            type="text">
+                        <a href="{{ route('website.removeDiscountCoupon', ['id' => $cartItemCondition->getAttributes()['id'], 'name' => $cartItemCondition->getName()]) }}"
                             class="btn btn-primary discountBtn">{{__('trans.Remove')}}</a>
                         @else
                         <input type="text" id="discount_coupon" @if ($coupon) disabled @endif>
@@ -65,6 +77,12 @@
                             value="Congratulations! You have redeemed {{ substr($coupon->getValue(), 1) }} corporate coupon"
                             type="text">
                         <a href="{{ route('website.removeCorporateCoupon', ['id' => $coupon->getAttributes()['id'], 'name' => $coupon->getName()]) }}"
+                            class="btn btn-primary corporateBtn">{{__('trans.Remove')}}</a>
+                        @elseif ( $cartItemsWithCondition->isNotEmpty() && $cartItemCondition->getName() == 'Corporate Coupon' )
+                        <input style="background-color: #ddd" readonly
+                            value="Congratulations! You have redeemed {{ substr($cartItemCondition->getValue(), 1) }} special coupon"
+                            type="text">
+                        <a href="{{ route('website.removeCorporateCoupon', ['id' => $cartItemCondition->getAttributes()['id'], 'name' => $cartItemCondition->getName()]) }}"
                             class="btn btn-primary corporateBtn">{{__('trans.Remove')}}</a>
                         @else
                         <input type="text" id="corporate_code" @if ($coupon) disabled @endif>

@@ -386,12 +386,22 @@ class WebsiteController extends Controller
             $price = $product->unit_price;
         }
 
+        $cartItemsWithCondition = cart()->getContent()->filter(fn ($cartItem) => $cartItem->conditions !== []);
+        if ( $cartItemsWithCondition->isNotEmpty() ) {
+            $cartItemCondition = $cartItemsWithCondition->first()->conditions[0];
+            $couponCode = $cartItemCondition->getAttributes()['code'];
+            $coupon = Coupon::where('coupon_code', $couponCode)->first();
+        }
+
         cart()->add([
             'id' => $product->id,
             'name' => $product->title,
             'price' => $price,
             'quantity' => $request->quantity,
             'attributes' => [],
+            'conditions' => ($cartItemsWithCondition->isNotEmpty() &&
+                            $product->sub_cat == $coupon->subcategory_id)
+                                ? [$cartItemCondition] : [],
             'associatedModel' => $product
         ]);
 
@@ -858,7 +868,10 @@ class WebsiteController extends Controller
     public function discount_coupon(Request $request){
         // Check if any type of coupon already in use
         $coupon = cart()->getConditionsByType('coupon');
-        if ($coupon->count() > 0) {
+        $couponOnItems = cart()->getContent()
+            ->filter(fn ($cartItem) => $cartItem->conditions !== [])->isNotEmpty();
+
+        if ($coupon->count() > 0 || $couponOnItems) {
             return response()->json([
                 'status' => false,
                 'message' => 'You can\'t use more than 1 coupon at a time.'
@@ -893,7 +906,7 @@ class WebsiteController extends Controller
             ]);
         }
 
-        [$status, $message] = $this->checkCouponScope( $discountCoupon );
+        [$status, $applied, $message] = $this->checkCouponScope('Discount', $discountCoupon);
         if (! $status) {
             return response()->json([
                 'status' => false,
@@ -901,18 +914,22 @@ class WebsiteController extends Controller
             ]);
         }
 
-        $couponCondition = new CartCondition([
-            'name' => 'Discount Coupon',
-            'type' => 'coupon',
-            'target' => 'total',
-            'value' => -$discountCoupon->offer.'%',
-            'attributes' => [
-                'id' => $discountCoupon->id,
-                'code' => $discountCoupon->coupon_code
-            ]
-        ]);
+        if (! $applied) {
 
-        cart()->condition($couponCondition);
+            $couponCondition = new CartCondition([
+                'name' => 'Discount Coupon',
+                'type' => 'coupon',
+                'target' => 'total',
+                'value' => -$discountCoupon->offer.'%',
+                'attributes' => [
+                    'id' => $discountCoupon->id,
+                    'code' => $discountCoupon->coupon_code
+                ]
+            ]);
+
+            cart()->condition($couponCondition);
+
+        }
 
         return response()->json([
             'status' => true,
@@ -932,6 +949,9 @@ class WebsiteController extends Controller
     // remove discount coupon
     public function removeDiscountCoupon(Request $request) {
         cart()->removeCartCondition($request->name);
+        cart()->getContent()->keys()->each(function($product_id) use ($request) {
+            cart()->removeItemCondition($product_id, $request->name);
+        });
 		return back()->with('success','Discount coupon removed.');
     }
 
@@ -949,7 +969,10 @@ class WebsiteController extends Controller
 
         // Check if any type of coupon already in use
         $coupon = cart()->getConditionsByType('coupon');
-        if ($coupon->count() > 0) {
+        $couponOnItems = cart()->getContent()
+            ->filter(fn ($cartItem) => $cartItem->conditions !== [])->isNotEmpty();
+
+        if ($coupon->count() > 0 || $couponOnItems) {
             return response()->json([
                 'status' => false,
                 'message' => 'You can\'t use more than 1 coupon at a time.'
@@ -984,7 +1007,7 @@ class WebsiteController extends Controller
             ]);
         }
 
-        [$status, $message] = $this->checkCouponScope( $corporateCoupon );
+        [$status, $applied, $message] = $this->checkCouponScope('Corporate', $corporateCoupon);
         if (! $status) {
             return response()->json([
                 'status' => false,
@@ -992,18 +1015,22 @@ class WebsiteController extends Controller
             ]);
         }
 
-        $couponCondition = new CartCondition([
-            'name' => 'Corporate Coupon',
-            'type' => 'coupon',
-            'target' => 'total',
-            'value' => -$corporateCoupon->offer.'%',
-            'attributes' => [
-                'id' => $corporateCoupon->id,
-                'code' => $corporateCoupon->coupon_code
-            ]
-        ]);
+        if (! $applied) {
 
-        cart()->condition($couponCondition);
+            $couponCondition = new CartCondition([
+                'name' => 'Corporate Coupon',
+                'type' => 'coupon',
+                'target' => 'total',
+                'value' => -$corporateCoupon->offer.'%',
+                'attributes' => [
+                    'id' => $corporateCoupon->id,
+                    'code' => $corporateCoupon->coupon_code
+                ]
+            ]);
+
+            cart()->condition($couponCondition);
+
+        }
 
         return response()->json([
             'status' => true,
@@ -1014,27 +1041,47 @@ class WebsiteController extends Controller
     // remove discount coupon
     public function removeCorporateCoupon(Request $request) {
         cart()->removeCartCondition($request->name);
+        cart()->getContent()->keys()->each(function($product_id) use ($request) {
+            cart()->removeItemCondition($product_id, $request->name);
+        });
 		return back()->with('success','Corporate coupon removed.');
     }
 
     // check coupon scope
-    private function checkCouponScope($coupon)
+    private function checkCouponScope($type, $coupon)
     {
         if ( $coupon->subcategory_id ) {
-            if ( cart()->getTotalQuantity() > 1 ) return [false, 'Coupon only for single product'];
+            // if ( cart()->getTotalQuantity() > 1 ) return [false, false, 'Coupon only for single product'];
 
             $orderExists = Order::where('coupon_id', $coupon->id)->exists();
 
             if ( $orderExists ) return [false, 'Coupon already used!'];
 
-            $cartItem = cart()->getContent()->first();
+            $subCategoryCartItems = cart()->getContent()
+                ->where('associatedModel.sub_cat', $coupon->subcategory_id);
 
-            $product = Product::find( $cartItem->id );
+            if ( $subCategoryCartItems->isEmpty() ) return [false, false, 'Coupon invalid for the selected product'];
 
-            if ( $product->sub_cat !== $coupon->subcategory_id ) return [false, 'Coupon invalid for this product'];
+            $subCategoryCartItems->keys()->each(function($product_id) use ($type, $coupon) {
+                $couponCondition = new CartCondition([
+                    'name' => $type . ' Coupon',
+                    'type' => 'coupon',
+                    'target' => 'total',
+                    'value' => -$coupon->offer.'%',
+                    'attributes' => [
+                        'id' => $coupon->id,
+                        'code' => $coupon->coupon_code
+                    ]
+                ]);
+
+                cart()->addItemCondition($product_id, $couponCondition);
+
+            });
+
+            return [true, true, ''];
         }
 
-        return [true, ''];
+        return [true, false, ''];
     }
 
     // card info save
