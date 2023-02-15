@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/products-json-download', function() {
     return response()->streamDownload(function() {
         echo Product::with('brand', 'category', 'subCategory')->get();
-    }, 'products.txt');
+    }, 'products.json');
 });
 
 
