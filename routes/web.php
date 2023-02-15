@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+Route::get('/products-json-download', function() {
+    return response()->streamDownload(function() {
+        echo Product::with('brand', 'category', 'subCategory')->get();
+    }, 'products.txt');
+});
 
 
 Route::name('website.')->namespace('App\Http\Controllers\Website\Auth')->group(function(){
