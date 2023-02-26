@@ -197,7 +197,7 @@ class AdminController extends Controller
         }
     }
 
-    // deactivate giftcard 
+    // deactivate giftcard
 
     public function deactivategiftcards(giftcards $giftcard){
         $deactivate = $giftcard->update([
@@ -305,7 +305,7 @@ class AdminController extends Controller
             return back()->with('category already exist');
         }else{
 
-            $catBanner = time().'.'.$request->file('catBanner')->getClientOriginalName();   
+            $catBanner = time().'.'.$request->file('catBanner')->getClientOriginalName();
              $request->catBanner->move(public_path('uploads'), $catBanner);
 
              $catIcon = time().'.'.$request->file('catIcon')->getClientOriginalName();
@@ -362,7 +362,7 @@ class AdminController extends Controller
         }
     }
 
-    // delete category 
+    // delete category
 
     public function deleteCat(Request $request){
         $catid = decrypt($request->id);
@@ -377,7 +377,7 @@ class AdminController extends Controller
     }
 
 
-    // subcategory 
+    // subcategory
 
     public function subcategories(){
         // $subcategories = SubCategory::leftJoin('categories','categories.id','=','sub_categories.parent_cat')
@@ -401,7 +401,7 @@ class AdminController extends Controller
         foreach ($data as $r) {
             echo '<option value="'.$r->id.'"> '.$r->subcat_name.'</option>';
         }
-        
+
     }
 
 
@@ -411,11 +411,11 @@ class AdminController extends Controller
         $exist_ct = SubCategory::where('subcat_name','=',$request->catname['en'])->count();
         if($exist_ct>0){
             return back()->with('Sub-category already exist');
-        }else{            
+        }else{
              $category = new SubCategory;
              $category->subcat_name=$request->catname;
              $category->parent_cat=$request->parent_cat;
-             $category->url = $this->shorten_url($request->catname['en']);       
+             $category->url = $this->shorten_url($request->catname['en']);
              $category->save();
              if($category==true){
                  return back()->with('success','Sub-category added successfull');
@@ -461,7 +461,7 @@ class AdminController extends Controller
         }
     }
 
-    // delete subcategory 
+    // delete subcategory
 
     public function deleteSubCat(Request $request){
         $catid = decrypt($request->id);
@@ -491,7 +491,7 @@ public function BrandProcess(Request $request){
     $exist_ct = Brand::where('brand_name','=',$request->catname)->count();
     if($exist_ct>0){
         return back()->with('brand already exist');
-    }else{            
+    }else{
          $category = new Brand;
          $category->brand_name=$request->brandname;
          if ($request->hasFile('brandIcon')) {
@@ -551,7 +551,7 @@ public function deactivateBrand(Request $request){
     }
 }
 
-// delete brands 
+// delete brands
 
 public function deleteBrands(Request $request){
     $catid = decrypt($request->id);
@@ -599,7 +599,7 @@ public function deleteBrands(Request $request){
 
 // activate attribute
 
- 
+
 
 //   public function activateAttr(Request $request){
 //     $catid = decrypt($request->id);
@@ -631,7 +631,7 @@ public function deleteBrands(Request $request){
 //     }
 // }
 
-// // delete attribute 
+// // delete attribute
 
 // public function deleteAttr(Request $request){
 //     $catid = decrypt($request->id);
@@ -673,7 +673,7 @@ public function deleteBrands(Request $request){
 
 // activate attribute value
 
- 
+
 
 // public function activateAttrVal(Request $request){
 //     $catid = decrypt($request->id);
@@ -705,7 +705,7 @@ public function deleteBrands(Request $request){
 //     }
 // }
 
-// delete attribute value 
+// delete attribute value
 
 // public function deleteAttrVal(Request $request){
 //     $catid = decrypt($request->id);
@@ -854,7 +854,7 @@ public function deleteBrands(Request $request){
             ->latest();
 
         return datatables()->eloquent($products)
-            ->addColumn('brand', fn ($p) => $p->brand->brand_name)
+            ->addColumn('brand', fn ($p) => $p->brand?->brand_name)
             ->addColumn('new_arrival', function($product) {
                 return sprintf(
                     '<input type="checkbox" data-url="%s" data-id="%d" class="featured_type_checkbox" style="width: 20px; height: 20px;" %s>',
@@ -925,10 +925,10 @@ public function deleteBrands(Request $request){
         return view('admin.add-products',compact('categories','brands','attributes','product'));
     }
 
-    // list atribute value 
+    // list atribute value
 
     public function prodAttrVal(Request $request){
-        $attrval = AttrValue::leftJoin('attributes','attributes.id','=','attr_values.attr_id')                         
+        $attrval = AttrValue::leftJoin('attributes','attributes.id','=','attr_values.attr_id')
                     ->select('attr_values.*','attributes.id as attrID','attribute_name')
                     ->where('attr_values.attr_id','=',$request->attr)
                     ->where('attr_values.status','=','2')
@@ -952,11 +952,11 @@ public function deleteBrands(Request $request){
         if($existprod>0){
             return back()->with('error','product already exist');
             exit();
-        }else{ 
-                      
-            $thumbnail_img = time().'.'.$request->file('thumbnail_img')->getClientOriginalName();   
+        }else{
+
+            $thumbnail_img = time().'.'.$request->file('thumbnail_img')->getClientOriginalName();
             $request->thumbnail_img->move(public_path('products'), $thumbnail_img);
-            
+
                 if($request->featured==''){
                     $featured='0';
                 }else{
@@ -1002,7 +1002,7 @@ public function deleteBrands(Request $request){
             $lastid = $addproduct->id;
                 $galler_size = count($request->photos);
             for($j=0;$j<$galler_size;$j++){
-                $gallery = time().'.'.$request->file('photos')[$j]->getClientOriginalName();   
+                $gallery = time().'.'.$request->file('photos')[$j]->getClientOriginalName();
                 $request->photos[$j]->move(public_path('products'), $gallery);
                 $addProductImage = new ProductImage;
                 $addProductImage->gallery_img=$gallery;
@@ -1025,7 +1025,7 @@ public function deleteBrands(Request $request){
 
     // activate product
 
- 
+
 
 public function activateProd(Request $request){
     $catid = decrypt($request->id);
@@ -1057,7 +1057,7 @@ public function deactivateprod(Request $request){
     }
 }
 
-// delete product 
+// delete product
 
 public function deleteprod(Request $request){
     $catid = decrypt($request->id);
@@ -1072,11 +1072,11 @@ public function deleteprod(Request $request){
 }
 
 
-// guest orders 
+// guest orders
 
 public function guestOrders(){
     // $orders = GuestOrder::leftJoin('products','products.id','=','guest_orders.prod_id')
-    //           ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')  
+    //           ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')
     //           ->groupby('guest_orders.order_id')
     //           ->orderBy('guest_orders.id','desc')->get();
     $orders = Order::whereNull('user_id')->where('additional_details->is_abandoned', false)->get();
@@ -1199,20 +1199,20 @@ public function deliveredGuestOrders(Request $request){
 }
 
 
-// guest order details 
+// guest order details
 
 public function guestOrdersDetails(Request $request){
     $order_id = decrypt($request->id);
     // $orders = GuestOrder::leftJoin('products','products.id','=','guest_orders.prod_id')
     //           ->select('products.title as productName','featured_img','products.unit_price as prod_price','guest_orders.*')
-    //           ->where('guest_orders.id','=',$orderid)  
+    //           ->where('guest_orders.id','=',$orderid)
     //           ->first();
     $order = Order::with(['user', 'items.product'])->where('id', $order_id)->first();
     return view('admin.guestorderDetails', compact('order'));
 }
 
 
-// coupon management 
+// coupon management
 
 
 public function coupon(){
@@ -1223,7 +1223,7 @@ public function coupon(){
     return view('admin.coupons',compact('coupons', 'subCategories'));
 }
 
-// add coupon 
+// add coupon
 
 public function addcouponProcess(Request $request){
     $coupons = new Coupon;
@@ -1262,7 +1262,7 @@ public function activateCoupon(Request $request){
     }
 }
 
-// deactivate coupon 
+// deactivate coupon
 
 public function deactivateCoupon(Request $request){
     $id = decrypt($request->id);
@@ -1278,7 +1278,7 @@ public function deactivateCoupon(Request $request){
     }
 }
 
-// delete coupon 
+// delete coupon
 
 public function deleteCoupon(Request $request){
     $id = decrypt($request->id);
@@ -1306,11 +1306,11 @@ public function update_categories(Request $request){
 public function edit_category_process(Request $request){
 
             if($request->hasFile('catBanner') && $request->hasFile('catIcon')){
-            $catBanner = time().'.'.$request->file('catBanner')->getClientOriginalName();   
+            $catBanner = time().'.'.$request->file('catBanner')->getClientOriginalName();
              $request->catBanner->move(public_path('uploads'), $catBanner);
 
              $catIcon = time().'.'.$request->file('catIcon')->getClientOriginalName();
-             $request->catIcon->move(public_path('uploads'), $catIcon); 
+             $request->catIcon->move(public_path('uploads'), $catIcon);
 
              $update_cat = Category::where('id','=',$request->catid)->update([
                  'category_name'=>$request->catname,
@@ -1325,26 +1325,26 @@ public function edit_category_process(Request $request){
 
              $update_cat = Category::where('id','=',$request->catid)->update([
                 'category_name'=>$request->catname,
-                'category_type'=>$request->catType,                
+                'category_type'=>$request->catType,
                 'cat_icon'=>$catIcon
             ]);
 
             }else if($request->hasFile('catBanner')){
-                $catBanner = time().'.'.$request->file('catBanner')->getClientOriginalName();   
+                $catBanner = time().'.'.$request->file('catBanner')->getClientOriginalName();
              $request->catBanner->move(public_path('uploads'), $catBanner);
 
              $update_cat = Category::where('id','=',$request->catid)->update([
                  'category_name'=>$request->catname,
                  'category_type'=>$request->catType,
-                 'cat_banner'=>$catBanner                 
+                 'cat_banner'=>$catBanner
              ]);
             }else{
                 $update_cat = Category::where('id','=',$request->catid)->update([
                     'category_name'=>$request->catname,
-                    'category_type'=>$request->catType                                    
+                    'category_type'=>$request->catType
                 ]);
             }
-             
+
 
              if($update_cat==true){
                  return back()->with('success','category updated successfull');
@@ -1606,24 +1606,24 @@ public function custOrdersDetails(Request $request){
     $orders = Order::leftJoin('products','products.id','=','orders.prod_id')
                 ->leftJoin('users','users.id','=','orders.cust_id')
                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.cust_add_id')
-              ->select('products.id as product_id','products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')  
+              ->select('products.id as product_id','products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')
               ->where('orders.orderid','=',$orderid)->get();
     $orderdetail = Order::leftJoin('products','products.id','=','orders.prod_id')
                 ->leftJoin('users','users.id','=','orders.cust_id')
                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.cust_add_id')
-              ->select('products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')  
+              ->select('products.title as productName','featured_img','products.unit_price as prod_price','orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress')
               ->where('orders.orderid','=',$orderid)->first();
 */
 // $order = Order::leftJoin('users','users.id','=','orders.user_id')
 //                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
-//               ->select('orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress','order_status as status,orders.payment_type as mode')  
+//               ->select('orders.*','name','email','mobile','unit_no','building_no','zone','street','faddress','order_status as status,orders.payment_type as mode')
 //               ->where('orders.id','=',$orderid)->first();
 // //leftJoin('products','products.id','=','orders.prod_id')
 // $orderdetail = Order::leftJoin('order_items','order_items.order_id','=','orders.id')
 //                 ->leftJoin('products','products.id','=','order_items.product_id')
 //                 ->leftJoin('users','users.id','=','orders.user_id')
 //                 ->leftJoin('customer_addresses','customer_addresses.id','=','orders.address_id')
-//               ->select('products.id as prod_id,products.title as productName','featured_img','products.unit_price as prod_price','order_items.*')  
+//               ->select('products.id as prod_id,products.title as productName','featured_img','products.unit_price as prod_price','order_items.*')
 //               ->where('order_items.order_id','=',$orderid)->get();
     $order = Order::with(['user', 'address', 'items.product'])->where('id', $order_id)->first();
     return view('admin.orderdetails', compact('order'));
@@ -1705,7 +1705,7 @@ public function editProcess(Request $request){
         $todaysdeal=$request->todays_deal;
     }
 
-    
+
 
  if($request->hasFile('thumbnail_img')){
     $thumbnail_img = time().'.'.$request->file('thumbnail_img')->getClientOriginalName();
@@ -1781,7 +1781,7 @@ public function editProcess(Request $request){
     if ($galler_size > 0) {
         ProductImage::where('prod_id', $lastid)->delete();
         for($j=0;$j<$galler_size;$j++){
-            $gallery = time().'.'.$request->file('photos')[$j]->getClientOriginalName();   
+            $gallery = time().'.'.$request->file('photos')[$j]->getClientOriginalName();
             $request->photos[$j]->move(public_path('products'), $gallery);
             $addProductImage = new ProductImage;
             $addProductImage->gallery_img=$gallery;
@@ -1803,7 +1803,7 @@ public function editProcess(Request $request){
         $returnRequests = ReturnRequest::with('user')->get();
         return view('admin.return-requests', compact('returnRequests'));
     }
-    
+
     public function returnRequestStatus(ReturnRequest $returnRequest, $status) {
         $returnRequest->update(['status' => $status]);
         return redirect()->route('admin.return-requests.index')->with('success', 'Return request status changed!');
