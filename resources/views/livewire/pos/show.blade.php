@@ -44,7 +44,7 @@
 
     .checkout-container {
         background-color: var(--golden-secondary);
-        
+
         border-radius: 30px;
     }
 
@@ -566,7 +566,7 @@
                         <h2 class="itemtext mb-1">Date / تاريخ</h2>
                     </td>
                     <td class="title">
-                        <h2 class="itemtext mb-1">{{ now()->format('d/m/y') }}</h2>
+                        <h2 class="itemtext mb-1">{{ ( $isReprint ? $invoiceDateTime : now() )->format('d/m/y') }}</h2>
                     </td>
                 </tr>
                 <tr>
@@ -574,7 +574,7 @@
                         <h2 class="itemtext mb-1">Time / زمن</h2>
                     </td>
                     <td class="title">
-                        <h2 class="itemtext mb-1">{{ now()->format('H:i') }}</h2>
+                        <h2 class="itemtext mb-1">{{ ( $isReprint ? $invoiceDateTime : now() )->format('H:i') }}</h2>
                     </td>
                 </tr>
             </table>

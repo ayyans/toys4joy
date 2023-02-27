@@ -35,6 +35,7 @@ class Show extends Component
     public $refundCard = 0;
     public $refundTotal = 0;
     public $isReprint = false;
+    public $invoiceDateTime = null;
 
     protected $listeners = ['addProduct', 'selectProduct'];
 
@@ -264,6 +265,7 @@ class Show extends Component
             'type' => $invoice->method,
             'number' => $invoice->card
         ];
+        $this->invoiceDateTime = $invoice->created_at;
         $this->isReprint = true;
         $this->screen = $this->paymentType;
     }
