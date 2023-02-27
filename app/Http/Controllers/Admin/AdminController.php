@@ -1861,7 +1861,7 @@ public function editProcess(Request $request){
                 if ($product->subCategory) {
                     $product->sub_cat = $product->subCategory->subcat_name;
                 }
-                $product->brand_id = $product->brand->brand_name;
+                $product->brand_id = $product->brand?->brand_name;
                 $product->recommended_age = formatRecommendedAge($product->recommended_age);
                 $product->long_desc = preg_replace("/<\/?[^>]+(>|$)/", "", html_entity_decode($product->long_desc));
                 return $product;
