@@ -45,4 +45,8 @@ class Product extends Model
     public function brand() {
         return $this->belongsTo(Brand::class);
     }
+
+    public function images() {
+        return $this->hasMany(ProductImage::class, 'prod_id');
+    }
 }

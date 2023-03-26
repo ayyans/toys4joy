@@ -18,9 +18,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::post('sadad-logger', function() {
+    logger( request()->all() );
+});
+
 Route::get('/products-json-download', function() {
     return response()->streamDownload(function() {
-        echo Product::with('brand', 'category', 'subCategory')->get();
+        echo Product::with('images', 'brand', 'category', 'subCategory')->get();
     }, 'products.json');
 });
 
