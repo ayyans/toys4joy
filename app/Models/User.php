@@ -36,7 +36,7 @@ class User extends Authenticatable implements Wallet, Customer
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        // 'password',
         'remember_token',
     ];
 
