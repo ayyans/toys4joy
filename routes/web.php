@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,11 @@ Route::get('/products-json-download', function() {
     }, 'products.json');
 });
 
+Route::get('/users-json-download', function() {
+    return response()->streamDownload(function() {
+        echo User::with('wallet')->get();
+    }, 'users.json');
+});
 
 Route::name('website.')->namespace('App\Http\Controllers\Website\Auth')->group(function(){
     Route::get('/login','LoginController@login')->name('login');
