@@ -79,9 +79,9 @@
                             <td>{{ $order->created_at->format('d M Y') }}</td>
                             <td>{{ $order->created_at->format('h:i:s A') }}</td>
                             <td>{{ $order->order_number }}</td>
-                            <td>{{ $order->user_id ? $order->user->name : ($order->additional_details['name'] ?? null) }}</td>
-                            <td>{{ $order->user_id ? $order->user->mobile : ($order->additional_details['mobile'] ?? null) }}</td>
-                            <td>{{ $order->user_id ? $order->address->fullAddress : $order->fullAddress }}</td>
+                            <td>{{ ($order->user_id && $order->user) ? $order->user->name : ($order->additional_details['name'] ?? null) }}</td>
+                            <td>{{ ($order->user_id && $order->user) ? $order->user->mobile : ($order->additional_details['mobile'] ?? null) }}</td>
+                            <td>{{ ($order->user_id && $order->address) ? $order->address->fullAddress : $order->fullAddress }}</td>
                             <td>
                                 <div class="badge {{ $order->payment_status == 'paid' ? 'badge-success' : 'badge-danger' }}">{{ strtoupper($order->payment_status) }}</div>
                             </td>
